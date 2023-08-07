@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+<head>
+
+	<title>CMX</title>
+    <meta charset="utf-8">
+	<link rel="shortcut icon" href="images/favicon-02.png">
+   
+
+    <!-- JQUERY -->
+	
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/d3/3.5.5/d3.min.js"></script>
+
+    <!-- MAPAS -->
+    <script src="Build/Cesium/Cesium.js"></script>
+
+    <link rel="stylesheet" href="styles/main.css">
+
+    
+    <!-- FUENTES ICONOS -->
+   
+    <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Coda:400,800' rel='stylesheet' type='text/css'>
+
+    <!-- CONTROLS -->
+    <script src="js/autocomplete.js"></script>
+
+    <!-- EXPERTOS EN KPI -->
+    <script src="js/experts/drawKpiExpert_FR.js"></script>
+    <script src="js/experts/calculateKpiExpert_FR.js"></script>
+    <script src="js/experts/calculateKpiExpert_OOS.js"></script>
+    <script src="js/experts/drawKpiExpert_OOS.js"></script>
+    <script src="js/experts/calculateKpiExpert_Mas.js"></script>
+    <script src="js/experts/calculateKpiExpert_Ventas.js"></script>
+    <script src="js/experts/calculateKpiExpert_Pendientes.js"></script>
+    <script src="js/experts/calculateKpiExpert_Abasto.js"></script>
+    <script src="js/experts/calculateKpiExpert_Produccion.js"></script>
+    <script src="js/experts/drawKpiExpert_ABAS.js"></script>
+    <script src="js/experts/reportExpert.js"></script>
+    <script src="js/experts/drawKpiExpert_PROD.js"></script>
+    <script src="js/experts/drawKpiExpert_VENTAS.js"></script>
+    <script src="js/experts/drawKpiExpert_MAS.js"></script>
+    <script src="js/experts/drawKpiExpert_PEN.js"></script>
+
+    <!-- CUSTOM -->
+    <script src="js/loader.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utilerias.js"></script>
+    <script src="js/map.js"></script>    
+    <script src="js/store.js"></script>
+    <script src="js/controls.js"></script>
+    <script src="js/dataManager.js"></script>
+    <script src="js/radar.js"></script>
+    <script src="js/elementosContexo.js"></script>
+
+    <script src="js/regionesGeoJson.js"></script>
+
+    <link rel='stylesheet' href='./styles/style.css' />
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<style>
+
+
+.hr{
+
+border: 0;
+height: 1px;
+background: #333;
+background-image: linear-gradient(to right, #cccccc, #000000);
+width:100%;
+z-index:900;
+
+}
+
+
+</style>
+
+<body>
+    <svg>
+        <defs>
+        
+              <filter id='dropshadow' height='140%' width='140%'>
+                  <feGaussianBlur in='SourceAlpha' stdDeviation='4'/> <!-- stdDeviation is how much to blur -->
+                  <feOffset dx='3' dy='3' result='offsetblur'/> <!-- how much to offset -->
+                  <feMerge><feMergeNode/> <!-- this contains the offset blurred image -->
+                  <feMergeNode in='SourceGraphic'/> <!-- this contains the element that the filter is applied to --></feMerge>
+              </filter>
+
+              <filter id="glow" x="-130%" y="-130%" height="500%" width="500%">
+                <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                <feMerge>
+                <feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>    
+              
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+                <stop offset="80%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
+               </linearGradient>
+             
+              <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
+                <stop offset="80%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+               </linearGradient>
+        </defs>
+        </svg>
+
+        <div style="position:fixed;z-index:-10;float:left;top:0px;pointer-events:none;height:100%;width:100%;background:linear-gradient(#000000, #000000);"></div>
+
+        <div style="position:fixed;z-index:-10;float:left;top:0px;pointer-events:none;height:100%;width:100%;background:linear-gradient(#000000, #000000);"></div>
+
+        <div id="cesiumContainer" style="position:fixed;top:0px;z-index:1;background-color: black"></div>
+ 
+        <div id="titulo" class="sombra" style="position:fixed;top:5px;left:5px;font-family:Cabin;pointer-events:none;font-size:10px;color:#666666;opacity:1;font-weight:normal;z-index:99999"/></div>
+
+      
+        <img id="cargando" src="images/preloader_7.gif" style="position:fixed;float:left;right:52%;bottom:50%;pointer-events: none;z-index:100;visibility:hidden;padding:30px;opacity:.7"></img>
+
+        <div id="toolTip" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
+        <div id="toolTip2" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
+        <div id="toolTip3" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
+        <div id="toolTip4" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
+
+        <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
+
+        <ul class="fa-ul" style="position:absolute;right:180px;top:-12px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
+            
+            <img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:23px;float:left;margin:8px"></img>
+            <img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:23px;float:left;margin:8px"></img>
+            <img id="cargando" src="images/chemical.png" onclick="$('#Controls').toggle(1000);" style="width:23px;float:left;margin:8px"></img>
+
+        </ul>
+
+        <div class="item2 loginContainer login-page form " style="float:left;margin-top:100px;visibility:hidden;">
+
+            <div class="dateContainer " style="padding-top: 0px;">
+        
+                <input id="datepicker" width="100%" placeholder="From"/>
+                <input id="datepicker2" width="100%" placeholder="To"/>
+                </select>
+        
+                <br><br>
+                <button class="loginBtn" onclick="">Get Data</button>      
+            </div>    
+    
+        </div>
+
+        <ul id="Controls" class="fa-ul" style="width:150px;float:left;position:fixed;top:75px;font-family:Cabin;box-shadow: 5px 5px 20px #000000;right:10px;font-size:11px;z-index:9999999;opacity:1;line-height: 8px;margin:0px;text-transform:uppercase;border-style:solid;border-color:#254650;border-width:1px;background-color:rgba(0,0,0,.9);padding:20px;border-radius:9px;">
+        </ul>
+        
+
+    </body> 
+
+    <script>
+
+        var windowWidth = window.innerWidth,
+        windowHeight = window.innerHeight;
+
+        var escalaTextos=1;
+
+        $(function() {
+
+            $('#datepicker').datepicker({format: 'mm-dd-yyyy'});
+            $('#datepicker2').datepicker({format: 'mm-dd-yyyy'});
+
+            $("#cargando").css("visibility","hidden");
+
+            window.document.addEventListener("mousemove", function(event){
+
+                mouse_x=event.pageX;
+        
+                mouse_y=event.pageY;
+        
+            });
+
+            $('#datepicker').val("05-01-2023");
+            $('#datepicker2').val("05-31-2023");
+
+            setTimeout(()=>{$(".loginBtn").click()}, 1000);
+            
+            $(".loginBtn").click(function(){
+               
+                if( $('#datepicker').val() && $('#datepicker2').val() ){
+
+                    dateInit=new Date($('#datepicker').val());
+                    dateEnd=new Date($('#datepicker2').val());
+
+                    dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){
+
+                        filterControls.createDataFiltersControls(store.catlogsForFilters);
+                        filterControls.createHardCodedControls();
+                        radar.radarInitStage();
+
+                        if(elementosContextoMapa)
+                            elementosContextoMapa.DibujaUNs();
+
+                        DibujaRegiones();
+
+                    })
+
+                    $('.loginContainer').css('visibility','hidden');
+
+                }else{
+                    alert('Seleccione fechas');
+                }
+        
+            });
+
+
+            new Promise(Stage.initStage).then(
+                $('.loginContainer').css('visibility','visible')
+            );
+
+        });
+
+    document.onkeydown = function(event) {
+        console.log(event.keyCode);
+    
+        switch (event.keyCode) {
+         
+            //MODIFICA TAMAÑO DE CILINDROS
+            case 37:   
+                escalado=escalado*(.7);
+                Stage.DrawMapObjects(currentEntities,store.mainDataset);
+            break;
+            case 39:   
+                escalado=escalado*(1.3);
+                Stage.DrawMapObjects(currentEntities,store.mainDataset);
+            break;
+            //MODIFICA TAMAÑO DE radar
+            case 38:   
+                radar.escalado=radar.escalado*(1.1);
+                radar.DrawEntities(radar.lastRadarEntities);
+            break;
+            case 40:   
+                radar.escalado=radar.escalado*(.9);
+                radar.DrawEntities(radar.lastRadarEntities);
+            break;
+            //MODIFICA TAMAÑO DE TEXTOS
+            case 50:   
+
+                escalaTextos=escalaTextos*(1.1);
+                if(kpiExpert_FR){
+                    kpiExpert_FR.DrawMainHeader();
+                    kpiExpert_FR.DrawFilteredHeader();
+                }                    
+
+            break;
+            case 49:   
+
+                escalaTextos=escalaTextos*(.9);
+                if(kpiExpert_FR){
+                    kpiExpert_FR.DrawMainHeader();
+                    kpiExpert_FR.DrawFilteredHeader();
+                }
+                   
+
+            break;
+    
+        }
+       
+    }
+    
+    document.onkeyup = function(event) {
+    
+        switch (event.keyCode) {    
+            case 49:
+
+
+            break;
+            case 50:
+    
+            break;
+            case 51:    
+    
+            break;
+    
+            case 27:
+
+            document.getElementById('svgLines').focus();
+
+            if(kpiExpert_OOS){
+                if(kpiExpert_OOS.DrawTooltipDetail){
+                    kpiExpert_OOS.eraseChart();
+                }
+            }
+
+            if(kpiExpert_ABAS){
+                if(kpiExpert_ABAS.DrawTooltipDetail){
+                    kpiExpert_ABAS.eraseChart();
+                }
+            }
+
+            if(kpiExpert_PROD){
+                if(kpiExpert_PROD.DrawTooltipDetail){
+                    kpiExpert_PROD.eraseChart();
+                }
+            }  
+            
+            if(kpiExpert_FR){
+                if(kpiExpert_FR.DrawTooltipDetail){
+                    kpiExpert_FR.eraseChart();
+                }
+            } 
+
+            if(kpiExpert_MAS){
+                if(kpiExpert_MAS.DrawTooltipDetail){
+                    kpiExpert_MAS.eraseChart();
+                }
+            } 
+
+            if(reportExpert){
+                
+                reportExpert.EraseReport();
+                
+            }
+           
+            if(drawKpiExpert_VENTAS){
+                if(drawKpiExpert_VENTAS.DrawTooltipDetail){
+                    drawKpiExpert_VENTAS.eraseChart();
+                }
+            }
+
+            if(kpiExpert_PENDIENTES){
+                if(kpiExpert_PENDIENTES.DrawTooltipDetail){
+                    kpiExpert_PENDIENTES.eraseChart();
+                }
+            }
+            
+            break;
+    
+        }
+    }
+          
+
+    </script>
