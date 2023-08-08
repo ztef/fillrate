@@ -79,7 +79,6 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 
                                 d3.json(URL, function (error, data) {
 
-
                                         $("#cargando").css("visibility","hidden");
                             
                                         if(error){

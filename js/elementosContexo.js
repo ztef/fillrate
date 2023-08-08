@@ -33,9 +33,9 @@ elementosContextoMapa.DibujaUNs=function(){
                                         
                                     });
                     
-                    var radio=3;
+                    var radio=2;
                     if(store[e][i].Nombre.indexOf("Pta")> -1)
-                        radio=6;
+                        radio=4;
 
                     uns[ store[e][i].ID ].circle=svgLines.append("circle")
                                     .attr("r",radio )
@@ -47,6 +47,7 @@ elementosContextoMapa.DibujaUNs=function(){
                                         return color;
                                     })
                                     .style("pointer-events","auto")
+                                    .style("opacity",.5)
                                     .on("mouseover",function(d){
                                         this.data.labelSVG.text("U.N. "+this.data.Nombre);
                                     })
