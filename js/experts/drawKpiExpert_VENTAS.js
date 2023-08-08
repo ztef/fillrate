@@ -112,8 +112,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
       "VolumenPlan": item.VolumenPlan,
       "VolumenReal": item.VolumenReal,
       "DifK": item.VolumenReal - item.VolumenPlan,
-      "DifP": 100 + ((item.VolumenReal - item.VolumenPlan) / item.VolumenPlan) * 100,
-      Peso: item.difPer
+      "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
+      Peso: item.VolumenReal
     };
     });
 
@@ -122,11 +122,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
   
   var columns = [
     { key: "key", header: "Producto", sortable: false, width: "300px" },
-    { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "150px" },
-    { key: "VolumenReal", header: "Vol Real", sortable: true, width: "150px" },
+    { key: "VolumenPlan", header: "Vol Plan (k)", sortable: true, width: "150px" },
+    { key: "VolumenReal", header: "Vol Real (k)", sortable: true, width: "150px" },
     { key: "DifK", header: "Dif (k)", sortable: true, width: "150px" },
     { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "1500px" },
-    { key: "Peso", header: "Peso", sortable: true,  width: "1500px" }
+    { key: "Peso", header: "Peso (k)", sortable: true,  width: "1500px" }
   ];
 
 
@@ -156,23 +156,16 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
         '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
         '<span class="bar-value">' + barValue + '</span>' +
         '</div>';
-
-
-
     },
     Peso: function(value){
   
-        var barWidth = value + '%';
-        var barValue = vix_tt_formatNumber(value)+'%';
+        var barWidth = (value/maximoVolumen)*100 + '%';
+        var barValue = vix_tt_formatNumber(value)+'k';
    
        return '<div class="bar-container">' +
        '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
-       '<span class="bar-value">' + barValue + '</span>' +
+       
        '</div>';
-
-
-
-
     }
   };
 
