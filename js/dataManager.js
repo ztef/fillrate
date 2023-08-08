@@ -10,7 +10,8 @@ dataManager.ClusterObjects=function(){
         radar.CleanWindows();
         svgRadar.selectAll(".radarElement").data([]).exit().remove();
        
-    }       
+    }      
+    
 
     var agrupador="";
 

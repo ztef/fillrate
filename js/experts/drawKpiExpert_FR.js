@@ -609,7 +609,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
     kpiExpert_FR.DrawMainHeader=function(){
 
                 kpiExpert_FR.ancho=windowWidth*.75;
-                kpiExpert_FR.offSetLeft=10;
+                kpiExpert_FR.offSetLeft=70;
                 kpiExpert_FR.offSetTop=10;              
 
                 kpiExpert_FR.altura=60;

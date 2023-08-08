@@ -428,7 +428,7 @@ radar.DrawEntityValues=function(entity){
                                     $("#toolTip").css("left",mouse_x+50);
 
                                     var dataCatlog="";
-                                    var nombre = this.data.key;
+                                    var nombre = this.data.key;                                    
                                     
                                     for(var i=0; i < store.niveles.length; i++){    
 
@@ -515,9 +515,29 @@ radar.DrawEntityValues=function(entity){
                                 })
                                 .on("click",function(d){
 
-                                    if(this.tootipDetail)
+                                    if(this.tootipDetail){
+
                                         this.tootipDetail.DrawTooltipDetail(this.data);    	
 
+                                        if(backInfoNav){
+
+                                            backInfoNav.entity=this.data.key;
+
+                                            for(var j=0; j < store.niveles.length; j++){
+                       
+                                                    if( String(store.niveles[j].id) ==  String($("#nivel_cb").val()) ){
+                            
+                                                        if(store.niveles[j].coordinatesSource){
+
+                                                            backInfoNav.catlog= store.niveles[j].coordinatesSource;            
+                            
+                                                        }
+                            
+                                                    }
+                                                }
+                                            }
+                                           
+                                    }                                      
 
                                 })
                                 .on("dblclick",function(d){

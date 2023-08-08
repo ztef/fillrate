@@ -61,8 +61,7 @@ var store={
         {id:3,label:"Gerencia",field:"GerenciaUN",coordinatesSource:"cat_gerencia",storeProcedureField:"Gerencia"},
         {id:4,label:"Unidad de Negocio",field:"vc50_UN_Tact",coordinatesSource:"cat_un",storeProcedureField:"UnidadNegocio"},
         {id:5,label:"Zona de transporte",field:"ZonaTransporte",coordinatesSource:"cat_zt",storeProcedureField:"ZT"},       
-        {id:6,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},
-       
+        {id:6,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},      
 
     ]
 

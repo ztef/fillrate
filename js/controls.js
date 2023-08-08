@@ -184,7 +184,7 @@ filterControls.showActiveFilters=function(){
                     .style("font-size",15)	
                     .style("text-anchor","end")
                     .style("pointer-events","auto")
-                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  (caso*25)+85  )+")  rotate("+(0)+") ")
+                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  (caso*25)+100  )+")  rotate("+(0)+") ")
                     .text(function(){
 
                         var nombre = e.replaceAll("_"," ");
@@ -213,7 +213,7 @@ filterControls.showActiveFilters=function(){
                     .style("font-size",15)	
                     .style("text-anchor","end")
                     .style("pointer-events","auto")
-                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  85  )+")  rotate("+(0)+") ")
+                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  100  )+")  rotate("+(0)+") ")
                     .text(nivel); 
 
     svgLines.append("text")						
@@ -224,7 +224,7 @@ filterControls.showActiveFilters=function(){
                     .style("font-size",15)	
                     .style("text-anchor","end")
                     .style("pointer-events","auto")
-                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  25+85  )+")  rotate("+(0)+") ")
+                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  25+100  )+")  rotate("+(0)+") ")
                     .text(function(){
 
                         if(caso == 2 ){
@@ -418,8 +418,23 @@ filterControls.createHardCodedControls=function(){
 }
 
 var waitingToFocus;
+var backInfoNav={};
 
-filterControls.lookForEntity=function(name){
+filterControls.back=function(){
+
+    if(backInfoNav.entity){
+        filterControls.lookForEntity(backInfoNav.entity,backInfoNav.catlog);
+    }
+
+    backInfoNav={};
+
+    setTimeout(()=>{
+        $("#back_btn").css("visibility","hidden");
+    }, 1000);
+        
+}
+
+filterControls.lookForEntity=function(name, catlog){
 
     name=String(name).toLocaleLowerCase();
 
@@ -429,9 +444,7 @@ filterControls.lookForEntity=function(name){
     
     for(var e in store){
 
-        if(e.indexOf("cat") > -1){
-
-            console.log("busca en ",e);
+        if(e.indexOf("cat") > -1 && filterControls.checkCatlogName(e,catlog) ){
 
             for(var i=0; i < store[e].length; i++){
 
@@ -450,7 +463,7 @@ filterControls.lookForEntity=function(name){
                                     $("#nivel_cb").change();
                                 }else{
                                     Stage.FocusMapElement(name);
-                                }                             
+                                }                 
    
                             }
 
@@ -466,7 +479,22 @@ filterControls.lookForEntity=function(name){
 
     }
 
+    alert("No encontró una entidad con ese nombre: ",name);
+
 }
+
+filterControls.checkCatlogName=function(cat1, cat2){
+
+    if(!cat2){
+        return true;
+    }else if( String(cat1).toLowerCase() == String(cat2).toLowerCase() ){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
 
 filterControls.CheckIfFocus=function(){
     if(waitingToFocus){
