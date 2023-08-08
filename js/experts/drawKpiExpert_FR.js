@@ -1,4 +1,5 @@
 var kpiExpert_FR={};
+var frInterval;
 
 kpiExpert_FR.DrawElement=function(entity,varName,i){      
       
@@ -86,10 +87,32 @@ kpiExpert_FR.DrawElement=function(entity,varName,i){
                         mapElements[geometry3.id]=entity;
                 }
 
-        }   
+        }  
+        
+        if(i < 100){
 
+                entity.frLabelSVG=svgLines.append("text")                            
+                        .attr("x",0 )
+                        .attr("y", 0   )
+                        .style("fill","#FFFFFF")
+                        .attr("filter","url(#dropshadowText)")
+                        .attr("class","frLabel")                                    
+                        .style("font-family","Cabin")
+                        .style("text-anchor","middle")
+                        .style("font-weight","normal")
+                        .style("font-size",12)                                
+                        .text( function(d){
+                            
+                        return entity[varName].por1+"%";
+                        
+                        });
+
+        }
+
+        if(frInterval)        
+                clearInterval(frInterval);
        
-   
+        frInterval = setInterval(function(){ kpiExpert_FR.DrawFRLabels(); }, 50);
 }
 
 kpiExpert_FR.eraseChart=function(){ 
@@ -1038,3 +1061,35 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 
 
 }
+
+kpiExpert_FR.DrawFRLabels=function(){
+      
+       svgLines.selectAll(".frLabel").style("opacity",0) ;
+
+        for(var i=0;  i < entities.length; i++){
+
+                var newPoint = new Point (Number( entities[i].lat ),Number( entities[i].lng ));
+
+                var nextPoint = new Point (Cesium.Math.toDegrees(viewer.camera.positionCartographic.latitude),Cesium.Math.toDegrees(viewer.camera.positionCartographic.longitude));
+
+                var distance = newPoint.distanceTo(nextPoint); 
+              
+                if( distance < 18 ){  
+                        
+                        var position = Cesium.Cartesian3.fromDegrees(Number( entities[i].lng ),Number( entities[i].lat ), 0 );
+                        
+                        var coord = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, position);  
+                 
+                        if(coord){
+                               
+                                if(coord.x > 400 && coord.x < $(document).width()-50 && coord.y > 40 && coord.y < ($(document).height())){
+                                       
+                                        entities[i].frLabelSVG.attr("x",coord.x+7 )
+                                                        .attr("y", coord.y+3  ).style("opacity",1); 
+                                                        
+                                }
+                        }
+
+                }
+        }
+}       

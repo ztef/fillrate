@@ -69,6 +69,11 @@ radar.CleanWindows=function(){
             kpiExpert_PENDIENTES.eraseChart();
         }
     }
+    if(reportExpert){
+                
+        reportExpert.EraseReport();
+        
+    }
 
 }
 
@@ -578,6 +583,7 @@ radar.DrawEntityValues=function(entity){
                                 .style("font-size",15*radar.escalado)		
                                 .style("pointer-events","none")						
                                 .style("text-anchor",anchor)
+                                .attr("filter","url(#dropshadowText)")
                                 .attr("transform"," translate("+String((centroMarcador.x+xOffset) )+","+String( centroMarcador.y  )+")  rotate("+(0)+") ")
                                 .text(function(){
                                     

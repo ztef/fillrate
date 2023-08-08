@@ -77,7 +77,9 @@ Stage.initStage=function(resolve, reject){
 
 		    }else
 		    {
-		    	$("#tool").css("visibility","hidden");		    	
+		    	$("#tool").css("visibility","hidden");
+				
+				radar.CleanWindows();
 
 		    }	  
 

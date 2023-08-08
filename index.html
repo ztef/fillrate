@@ -107,6 +107,13 @@ z-index:900;
                 <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
                 <stop offset="80%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
                </linearGradient>
+
+               <filter id='dropshadowText' height='140%' width='140%'>
+                <feGaussianBlur in='SourceAlpha' stdDeviation='3'/> <!-- stdDeviation is how much to blur -->
+                <feOffset dx='1' dy='1' result='offsetblur'/> <!-- how much to offset -->
+                <feMerge><feMergeNode/> <!-- this contains the offset blurred image -->
+                <feMergeNode in='SourceGraphic'/> <!-- this contains the element that the filter is applied to --></feMerge>
+                </filter>
         </defs>
         </svg>
 
@@ -163,6 +170,10 @@ z-index:900;
     </body> 
 
     <script>
+
+        // Versión: 1.0.0 
+        //Editor: Daniel Contreras Calderon
+        // Comentarios de version: ""
 
         var windowWidth = window.innerWidth,
         windowHeight = window.innerHeight;
@@ -290,53 +301,7 @@ z-index:900;
 
             document.getElementById('svgLines').focus();
 
-            if(kpiExpert_OOS){
-                if(kpiExpert_OOS.DrawTooltipDetail){
-                    kpiExpert_OOS.eraseChart();
-                }
-            }
-
-            if(kpiExpert_ABAS){
-                if(kpiExpert_ABAS.DrawTooltipDetail){
-                    kpiExpert_ABAS.eraseChart();
-                }
-            }
-
-            if(kpiExpert_PROD){
-                if(kpiExpert_PROD.DrawTooltipDetail){
-                    kpiExpert_PROD.eraseChart();
-                }
-            }  
-            
-            if(kpiExpert_FR){
-                if(kpiExpert_FR.DrawTooltipDetail){
-                    kpiExpert_FR.eraseChart();
-                }
-            } 
-
-            if(kpiExpert_MAS){
-                if(kpiExpert_MAS.DrawTooltipDetail){
-                    kpiExpert_MAS.eraseChart();
-                }
-            } 
-
-            if(reportExpert){
-                
-                reportExpert.EraseReport();
-                
-            }
-           
-            if(drawKpiExpert_VENTAS){
-                if(drawKpiExpert_VENTAS.DrawTooltipDetail){
-                    drawKpiExpert_VENTAS.eraseChart();
-                }
-            }
-
-            if(kpiExpert_PENDIENTES){
-                if(kpiExpert_PENDIENTES.DrawTooltipDetail){
-                    kpiExpert_PENDIENTES.eraseChart();
-                }
-            }
+            radar.CleanWindows();
             
             break;
     

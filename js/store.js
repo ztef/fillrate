@@ -5,7 +5,7 @@ var store={
    localDataSources:[
 
             //DATA LOCAL
-            {sourceName:"fillRateSource",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true},
+            //{sourceName:"fillRateSource",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true},
             //{sourceName:"oosSource",varName:"oos",dateField:"",onInitLoad:true},            
 
             //CATALOGOS
@@ -31,7 +31,7 @@ var store={
         {apiURL:"10.26.83.135",serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_OOS_FillRate",varName:"oos",onInitLoad:false,useDateFilters:true},
         {apiURL:"10.26.83.135",serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate",varName:"ventas",onInitLoad:false,useDateFilters:true},
         {apiURL:"10.26.83.135",serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_PedidosPendientes",varName:"pendientes",onInitLoad:false,useDateFilters:true},
-        //{apiURL:"10.26.83.135",serviceName:"getData",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true}
+        {apiURL:"10.26.83.135",serviceName:"getData",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true}
     ],
 
     catlogsForFilters:[
