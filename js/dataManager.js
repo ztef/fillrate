@@ -11,6 +11,10 @@ dataManager.ClusterObjects=function(){
         svgRadar.selectAll(".radarElement").data([]).exit().remove();
        
     }      
+
+    if(backInfoNav.entity){
+        $("#back_btn").css("visibility","visible");
+    }
     
 
     var agrupador="";

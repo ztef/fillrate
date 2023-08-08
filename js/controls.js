@@ -444,17 +444,19 @@ filterControls.lookForEntity=function(name, catlog){
     
     for(var e in store){
 
-        if(e.indexOf("cat") > -1 && filterControls.checkCatlogName(e,catlog) ){
-
+        if(e.indexOf("cat_") > -1 && filterControls.checkCatlogName(e,catlog) ){
+            
             for(var i=0; i < store[e].length; i++){
+               
+                if(e=="cat_estado")
+                console.log(String(store[e][i].Nombre),name);
 
-                if( String(store[e][i].ID).toLocaleLowerCase()== name || String(store[e][i].Nombre).toLocaleLowerCase() == name  ){
-                    console.log("encuentra nombre en catalogo ",e);
-
+                if( String(store[e][i].ID).toLocaleLowerCase()== name || String(store[e][i].Nombre).toLocaleLowerCase() == name  ){                   
+                   
                     for(var j=0; j < store.niveles.length; j++){
                        
                         if(store.niveles[j].coordinatesSource){
-
+                            console.log(store.niveles[j].coordinatesSource,e);
                             if(store.niveles[j].coordinatesSource==e){
 
                                 if( String($("#nivel_cb").val()) != String(store.niveles[j].id) ){

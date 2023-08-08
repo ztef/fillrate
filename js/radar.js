@@ -365,9 +365,9 @@ radar.DrawBaseRadar=function(entity){
 
     } 
 
-    for(var j=0; j < radar.config.length; j++){
+    //for(var j=0; j < radar.config.length; j++){
         radar.DrawEntityValues( entity );
-    }                
+    //}                
 
 }
 

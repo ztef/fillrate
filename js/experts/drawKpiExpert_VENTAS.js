@@ -135,7 +135,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   var columnVisitors = {
     key: function(value) {
-        return value;
+        return `<div class="bar-container" onclick="filterControls.lookForEntity('${value}')">${value}
+        </div>`;
       },
 
     VolumenPlan: function(value) {
@@ -174,7 +175,6 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",600);
 
-
   // CREA TABLA USANDO DATOS
 
   vix_tt_table(data, columns, columnVisitors, "toolTip3");
@@ -184,11 +184,6 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   vix_tt_transitionRectWidth("toolTip3");
   
-  
-  
-
-    
-
 
 }
 
@@ -296,7 +291,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     
       var columnVisitors = {
         key: function(value) {
-            return value;
+            return `<div class="bar-container" onclick="filterControls.lookForEntity('${value}')">${value}
+            </div>`;
           },
     
         VolumenPlan: function(value) {
