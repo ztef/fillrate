@@ -58,7 +58,7 @@ dataLoader.LoadData=function(def,cb){
         dia2="0"+String(dia2);
 
     
-        var URL="http://"+def.apiURL+":8080/"+def.serviceName+"?";
+        var URL=def.apiURL+"/"+def.serviceName+"?";
 
         if(def.tableName){
             URL+="table="+def.tableName;            
