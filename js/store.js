@@ -1,3 +1,5 @@
+const _bkserver = "http://localhost:8080";
+
 
 var store={
    dataToDraw:[],
@@ -10,28 +12,30 @@ var store={
 
             //CATALOGOS
             //{sourceName:"regionSource",varName:"cat_region",onInitLoad:true},
-            {apiURL:"10.26.83.135",serviceName:"getTable",tableName:"Vis_CatRegion" ,varName:"cat_region",onInitLoad:true,useDateFilters:false},
+            {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatRegion" ,varName:"cat_region",onInitLoad:true,useDateFilters:false},
             //{sourceName:"estadoSource",varName:"cat_estado",onInitLoad:true}, 
-            {apiURL:"10.26.83.135",serviceName:"getTable",tableName:"Vis_CatEstado" ,varName:"cat_estado",onInitLoad:true,useDateFilters:false},
+            {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatEstado" ,varName:"cat_estado",onInitLoad:true,useDateFilters:false},
             //{sourceName:"gerenciaSource",varName:"cat_gerencia",onInitLoad:true},         
-            {apiURL:"10.26.83.135",serviceName:"getTable",tableName:"Vis_CatGerenciaCS" ,varName:"cat_gerencia",onInitLoad:true,useDateFilters:false},
+            {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatGerenciaCS" ,varName:"cat_gerencia",onInitLoad:true,useDateFilters:false},
             //{sourceName:"unSource",varName:"cat_un",onInitLoad:true},
-            {apiURL:"10.26.83.135",serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_un",onInitLoad:true,useDateFilters:false},
+            {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_un",onInitLoad:true,useDateFilters:false},
             //{sourceName:"ztSource",varName:"cat_zt",onInitLoad:true},
-            {apiURL:"10.26.83.135",serviceName:"getTable",tableName:"Vis_CatZT" ,varName:"cat_zt",onInitLoad:true,useDateFilters:false},
+            {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatZT" ,varName:"cat_zt",onInitLoad:true,useDateFilters:false},
             //{sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true},
-            {apiURL:"10.26.83.135",serviceName:"getTable",tableName:"Vis_CatClientes",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",varName:"cat_cliente",onInitLoad:true,useDateFilters:false},
+            {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatClientes",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",varName:"cat_cliente",onInitLoad:true,useDateFilters:false},
             {sourceName:"frenteSource",varName:"cat_frente",onInitLoad:true}
   
     ],
 
     apiDataSources:[
-        {apiURL:"10.26.83.135",serviceName:"getSP/VIS_Calcular_KPI_Abasto_FillRate",varName:"abasto",onInitLoad:false,useDateFilters:true},
-        {apiURL:"10.26.83.135",serviceName:"getSP/VIS_Calcular_KPI_Produccion_FillRate",varName:"produccion",onInitLoad:false,useDateFilters:true},
-        {apiURL:"10.26.83.135",serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_OOS_FillRate",varName:"oos",onInitLoad:false,useDateFilters:true},
-        {apiURL:"10.26.83.135",serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate",varName:"ventas",onInitLoad:false,useDateFilters:true},
-        {apiURL:"10.26.83.135",serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_PedidosPendientes",varName:"pendientes",onInitLoad:false,useDateFilters:true},
-        {apiURL:"10.26.83.135",serviceName:"getData",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true}
+
+        {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_Abasto_FillRate",varName:"abasto",onInitLoad:false,useDateFilters:true},
+        {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_Produccion_FillRate",varName:"produccion",onInitLoad:false,useDateFilters:true},
+        {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_OOS_FillRate",varName:"oos",onInitLoad:false,useDateFilters:true},
+        {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate",varName:"ventas",onInitLoad:false,useDateFilters:true},
+        {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_PedidosPendientes",varName:"pendientes",onInitLoad:false,useDateFilters:true},
+        //{apiURL:"10.26.83.135",serviceName:"getData",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true}
+
     ],
 
     catlogsForFilters:[

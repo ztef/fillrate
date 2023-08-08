@@ -74,7 +74,7 @@ calculateKpiExpert_Produccion.calculateKPI=function(entities){
 
             //**** */
 
-            var URL="http://"+apiURL+":8080/"+serviceName+"?fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
+            var URL=apiURL+"/"+serviceName+"?fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
             console.log(URL);
             if(URL.indexOf("undefined" < 0)){
                 d3.json(URL, function (error, data) {
