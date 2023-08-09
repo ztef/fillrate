@@ -19,7 +19,7 @@ radar.radarInitStage=function(){
 
     var elemDiv = document.createElement('div');
     elemDiv.setAttribute("id", "radarDiv");
-    elemDiv.style.cssText = 'width:'+widthInit+'%;position:fixed;bottom:0px;top:80px;z-index:99999;pointer-events:auto;overflow-y: scroll;'+'height:'+(windowHeight-80)+"px"+';';
+    elemDiv.style.cssText = 'width:'+widthInit+'%;position:fixed;bottom:0px;top:90px;z-index:99999;pointer-events:auto;overflow-y: scroll;'+'height:'+(windowHeight-80)+"px"+';';
    
     document.body.appendChild(elemDiv);
 
@@ -231,7 +231,7 @@ radar.DrawBaseRadar=function(entity){
             svgRadar.append("rect")		    		
                         .attr("width",anchoBarra )
                         .attr("class","radarElement")
-                        .attr("x",radio*.25  )
+                        .attr("x",radio*.26  )
                         .attr("y", entity.radarData.posY-(tamanioTexto*.7)-((tamanioTexto*radar.escalado)*.4)   )
                         .style("height",(tamanioTexto*radar.escalado)*.3 )
                         .attr("fill","#ffffff")
@@ -308,25 +308,15 @@ radar.DrawBaseRadar=function(entity){
         .attr("fill", "black")
         .style("opacity", .4)
         ; 
+
         
     for(var j=0; j < radar.config.length; j++){    
 
             var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  0 , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );
             var posicion2 = CreaCoordenada( rebanadasAngulos*j  , (radio/2)*.97  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );
         
-            entity.radarData.kpis[radar.config[j].var]={angulo:rebanadasAngulos*j};
-    
-            svgRadar
-                    .append("line")
-                    .style("stroke",radar.config[j].color )
-                    .attr("class","radarElement")
-                    .style("stroke-width", 1 )
-                    .style("stroke-opacity", .3 )
-                    .attr("x1",posicion1.x)
-                    .attr("y1",posicion1.y)
-                    .attr("x2",posicion2.x)
-                    .attr("y2",posicion2.y)
-                    ;
+            entity.radarData.kpis[radar.config[j].var]={angulo:rebanadasAngulos*j};   
+           
 
             // ETIQUETA        
             var anchor="middle";
@@ -365,9 +355,26 @@ radar.DrawBaseRadar=function(entity){
 
     } 
 
-    //for(var j=0; j < radar.config.length; j++){
-        radar.DrawEntityValues( entity );
-    //}                
+    radar.DrawEntityValues( entity );
+    
+    for(var j=0; j < radar.config.length; j++){    
+
+        var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  0 , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );
+        var posicion2 = CreaCoordenada( rebanadasAngulos*j  , (radio/2)*.97  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );
+    
+        svgRadar
+                .append("line")
+                .style("stroke",radar.config[j].color )
+                .attr("class","radarElement")
+                .style("stroke-width", 1 )
+                .style("stroke-opacity", .3 )
+                .attr("x1",posicion1.x)
+                .attr("y1",posicion1.y)
+                .attr("x2",posicion2.x)
+                .attr("y2",posicion2.y)
+                ;        
+
+    }                  
 
 }
 
@@ -379,6 +386,66 @@ radar.DrawEntityValues=function(entity){
                     .x(function(d) { return d.x; })
                     .y(function(d) { return d.y; })
                     .interpolate("linear-closed");
+
+
+    for(var i=0; i < radar.config.length; i++){
+
+        if( entity[radar.config[i].var] ){  
+                
+            if( entity[radar.config[i].var][radar.config[i].var] ){ 
+
+                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+
+                var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
+
+                if(posicionMarcador < 0){ // Si se sale de radar mantiene en margenes
+                    posicionMarcador = 0;
+                }
+
+                if(posicionMarcador > (radio/2)*.97){ // Si se sale de radar mantiene en margenes
+                    posicionMarcador = (radio/2)*.97;
+                }
+
+                var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );
+
+
+                puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+
+            }else{ 
+
+                     var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+
+                    var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
+
+                    var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );					
+    
+                    puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+            }
+
+        }else{
+            var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+
+            var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
+
+            var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );	
+
+           
+
+            puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+        }
+    }
+
+    svgRadar	
+        .append("path")
+        .attr("d", lineFunction(puntosLinea))	
+        .attr("class","radarElement")	                
+        .style("stroke", "#FFFFFF")
+        .style("pointer-events", "none")
+        .attr("filter","url(#glow)")
+        .style("stroke-width", 2)                                       
+        .attr("fill", "black")
+        .style("opacity", 1)        	
+        ;
     
     for(var i=0; i < radar.config.length; i++){
            
@@ -402,8 +469,7 @@ radar.DrawEntityValues=function(entity){
 
                         var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );
 
-                        puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
-                
+
                         svgRadar				
                                 .append("circle")
                                 .attr("class","radarElement")
@@ -601,6 +667,8 @@ radar.DrawEntityValues=function(entity){
                                     return label;
 
                                 });
+
+                                
                 }else{ // Para dibujar circulo aun cuando no se tiene datos
 
                     var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
@@ -608,7 +676,6 @@ radar.DrawEntityValues=function(entity){
                     var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
                     var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );					
-                    puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
     
                     svgRadar				
                             .append("circle")
@@ -633,7 +700,7 @@ radar.DrawEntityValues=function(entity){
 
                 var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );	
 
-                puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+               
 
 				svgRadar				
 						.append("circle")
@@ -652,16 +719,6 @@ radar.DrawEntityValues=function(entity){
 
     }
 
-    svgRadar	
-    	.append("path")
-        .attr("d", lineFunction(puntosLinea))	
-        .attr("class","radarElement")	                
-        .style("stroke", "#FFFFFF")
-        .style("pointer-events", "none")
-        .style("stroke-width", 3)
-        .style("stroke-opacity", 1)	                               
-        .attr("fill", "black")
-        .style("opacity", .1)
-        ;
+   
 
 }

@@ -172,69 +172,77 @@ filterControls.showActiveFilters=function(){
 
     svgLines.selectAll(".filters").data([]).exit().remove();
 
-    var caso=2;             
+    var caso=1;  
+    var topOffset=120;           
    
     for(var e in filtrosAplicados){
+
+        if(e !="cat_producto" && e !="cat_presentacion"){
 
             svgLines.append("text")						
                     .attr("class","filters")
                     .style("fill","#ffffff")		
                     .style("font-family","Cabin")
                     .style("font-weight","bold")
-                    .style("font-size",15)	
+                    .style("font-size",14)	
                     .style("text-anchor","end")
                     .style("pointer-events","auto")
-                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  (caso*25)+100  )+")  rotate("+(0)+") ")
+                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  (caso*25)+topOffset  )+")  rotate("+(0)+") ")
                     .text(function(){
 
                         var nombre = e.replaceAll("_"," ");
-                        console.log(nombre);
+                       
                         return toTitleCase(nombre)+": "+filtrosAplicados[e].replaceAll("_"," ");
 
                     });
 
                     caso++;
 
+        }
+
     }
 
-    var nivel="Nivel de lectura: ";
-
+    var nivel="";
     for(var i=0; i < store.niveles.length; i++){    
         if( store.niveles[i].id == $("#nivel_cb").val() )
             nivel+=store.niveles[i].label;           
-     }
- 
+    }
+
+    var filtroProducto="Cemento Gris + Blanco";
+
+    if(filtrosAplicados["cat_producto"]){
+        filtroProducto="Cemento "+filtrosAplicados["cat_producto"];
+    }
+
+    var filtroPresentacion="Sacos + Granel";
+
+    if(filtrosAplicados["cat_presentacion"]){
+        filtroPresentacion=filtrosAplicados["cat_presentacion"];
+    }
+
+    $("#titulo").html("FILL RATE: "+filtroProducto+" – "+filtroPresentacion+" – Pedidos Entregados. Nivel: "+nivel );
+    
+    $("#titulo2").html("Muestra del "+dateInit.getDate()+" "+getMes(dateInit.getMonth())+" al "+dateEnd.getDate()+" "+getMes(dateInit.getMonth())+" "+String(dateInit.getFullYear()) );                                              
+                 
 
     svgLines.append("text")						
                     .attr("class","filters")
                     .style("fill","#ffffff")		
                     .style("font-family","Cabin")
                     .style("font-weight","bold")
-                    .style("font-size",15)	
+                    .style("font-size",14)	
                     .style("text-anchor","end")
                     .style("pointer-events","auto")
-                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  100  )+")  rotate("+(0)+") ")
-                    .text(nivel); 
-
-    svgLines.append("text")						
-                    .attr("class","filters")
-                    .style("fill","#ffffff")		
-                    .style("font-family","Cabin")
-                    .style("font-weight","bold")
-                    .style("font-size",15)	
-                    .style("text-anchor","end")
-                    .style("pointer-events","auto")
-                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  25+100  )+")  rotate("+(0)+") ")
+                    .attr("transform"," translate("+String( windowWidth-10  )+","+String(  topOffset  )+")  rotate("+(0)+") ")
                     .text(function(){
 
-                        if(caso == 2 ){
-                            return "Ningún filtro aplicado";
+                        if(caso == 1 ){
+                            return "Ningún otro filtro aplicado";
                         }else{
-                            return "Filtros activos:";
-                        }
-                        
+                            return "Otros Filtros activos:";
+                        }                       
 
-                    }); 
+                    });    
 
 }
 

@@ -77,6 +77,7 @@ dataManager.CalculateKPIs=function(entities_){
     
     console.log("entities",entities);
     
+    
     // 2
     if(calculateKpiExpert_Pendientes && $("#nivel_cb").val() ){
         
@@ -85,6 +86,8 @@ dataManager.CalculateKPIs=function(entities_){
                                                                 dataManager.checkAllLoads();
                                                                 });
     }
+
+    
     
     // 3
     if(calculateKpiExpert_Ventas){
@@ -129,7 +132,9 @@ dataManager.CalculateKPIs=function(entities_){
                                                                 loadsCount++;
                                                                 dataManager.checkAllLoads();
                                                              });
-    }      
+    }    
+    
+    
     
 
 }

@@ -631,11 +631,11 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
     kpiExpert_FR.DrawMainHeader=function(){
 
-                kpiExpert_FR.ancho=windowWidth*.75;
-                kpiExpert_FR.offSetLeft=70;
+                kpiExpert_FR.ancho=windowWidth*.5;
+                kpiExpert_FR.offSetLeft=windowWidth*.35;
                 kpiExpert_FR.offSetTop=10;              
 
-                kpiExpert_FR.altura=60;
+                kpiExpert_FR.altura=45;
 
                 var ancho=kpiExpert_FR.ancho;
                 var offSetLeft=kpiExpert_FR.offSetLeft;
@@ -656,35 +656,15 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .attr("class","encabezado")
 			.style("stroke-width",1)
 			.style("stroke-opacity",.7)
-			.style("opacity",.85 )
+			.style("opacity",.6 )
                         .attr("rx",10)
 			.attr("width",ancho )
-			.attr("height",altura-offSetTop )
+			.attr("height",altura )
 			.attr("x",offSetLeft)
 			.attr("y",offSetTop)
 			;
 
-             
-                svgLines.append("text")							
-			.style("fill","#AFAFAF")		
-                        .attr("class","encabezado")					
-			.style("opacity",0)
-			.style("font-family","Cabin")
-			.style("font-weight","normal")
-			.style("font-size",11*escalaTextos)						
-			.style("text-anchor","start")
-			.attr("x",offSetLeft)
-			.attr("y",altura-offSetTop+24)
-			.text(function(){
-
-				return "Muestra del "+dateInit.getDate()+" "+getMes(dateInit.getMonth())+" al "+dateEnd.getDate()+" "+getMes(dateInit.getMonth())+" "+String(dateInit.getFullYear());
-
-			})
-                        .transition().delay(0).duration(1000)
-                        .style("opacity",1 );
-
-                
-
+                /*
                 
                 // AZUL **********
                 
@@ -697,7 +677,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.style("opacity",1 )
                         .attr("rx",6)
 			.attr("width",1 )
-			.attr("height",(altura*.48)-offSetTop )
+			.attr("height",(altura*.4) )
 			.attr("x",offSetLeft+3)
 			.attr("y",offSetTop+3)
                         .transition().delay(0).duration(1000)
@@ -713,7 +693,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.style("font-size",15*escalaTextos)						
 			.style("text-anchor","middle")
 			.attr("x",offSetLeft+ancho2-(ancho2/2))
-			.attr("y",29)
+			.attr("y",offSetTop+18)
 			.text(function(){
 
 				return por1_ref +"%";
@@ -733,7 +713,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("opacity",1 )
                         .attr("rx",6)
                         .attr("width",1 )
-                        .attr("height",(altura*.48)-offSetTop )
+                        .attr("height",(altura*.4) )
                         .attr("x",offSetLeft+ancho2+3 )
                         .attr("y",offSetTop+3)
                         .transition().delay(1000).duration(1000)
@@ -749,7 +729,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.style("font-size",14*escalaTextos)						
 			.style("text-anchor","middle")
 			.attr("x",offSetLeft+ancho2+ancho3-(ancho3/2))
-			.attr("y",29)
+			.attr("y",offSetTop+18)
 			.text(function(){
 
 				return por2_ref +"%";
@@ -769,7 +749,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("opacity",1 )
                         .attr("rx",6)
                         .attr("width",1 )
-                        .attr("height",(altura*.48)-offSetTop )
+                        .attr("height",(altura*.4) )
                         .attr("x",offSetLeft+ancho2+ancho3+3 )
                         .attr("y",offSetTop+3)
                         .transition().delay(2000).duration(1000)
@@ -785,34 +765,21 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.style("font-size",15*escalaTextos)						
 			.style("text-anchor","middle")
 			.attr("x",offSetLeft+ancho2+ancho3+ancho4-(ancho4/2))
-			.attr("y",29)
+			.attr("y",offSetTop+18)
 			.text(function(){
 
 				return por3_ref +"%";
 
 			})
                         .transition().delay(1000).duration(1000)
-                        .style("opacity",1 );;
+                        .style("opacity",1 );
+
+                        
 
                 // ENTREGADO **********
 
-                svgLines				
-                        .append("circle")
-                        .attr("class","encabezado")
-                        .attr("fill","#ffffff")
-                        .attr("cx",offSetLeft+ancho2+ancho3+ancho4-5)
-                        .attr("cy",offSetTop+10)                   
-                        .attr("r",3);
-
-                svgLines.append("line")
-                        .style("stroke","#ffffff" )
-                        .attr("class","encabezado ")
-                        .style("stroke-width", 1 )
-                        .style("stroke-opacity", 1 )
-                        .attr("x1",offSetLeft+ancho2+ancho3+ancho4-5)
-                        .attr("y1",offSetTop+9)
-                        .attr("x2",offSetLeft+ancho2+ancho3+ancho4-5)
-                        .attr("y2",offSetTop+9+50);
+               
+                        */
 
                 svgLines.append("text")							
 			//.attr("x",20 )
@@ -824,35 +791,17 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.style("font-weight","normal")
 			.style("font-size",13*escalaTextos)						
 			.style("text-anchor","start")
-			.attr("x",offSetLeft+ancho2+ancho3+ancho4-7)
-			.attr("y", offSetTop+9+63 )
+			.attr("x",offSetLeft+10)
+			.attr("y", offSetTop+17 )
 			.text(function(){
 
-				return "-  Entregado: "+Math.round((totalCanEnt_ref/totalCanSol_ref)*100)+"% ";
+				return "Nacional Entregado: "+Math.round((totalCanEnt_ref/totalCanSol_ref)*100)+"%, "+formatNumber(Math.round(totalCanEnt_ref/1000) )+" k  ";;
 
 			})
                         .transition().delay(0).duration(1000)
                         .style("opacity",1 );
 
-                svgLines.append("text")							
-			//.attr("x",20 )
-			//.attr("y", (alturaPorPeriodo*i)+margenSuperior+30  )
-			.style("fill","white")		
-                        .attr("class","encabezado")					
-			.style("opacity",0)
-			.style("font-family","Cabin")
-			.style("font-weight","normal")
-			.style("font-size",9*escalaTextos)						
-			.style("text-anchor","start")
-			.attr("x",offSetLeft+ancho2+ancho3+ancho4+97)
-			.attr("y", offSetTop+9+63 )
-			.text(function(){
 
-				return "("+formatNumber(Math.round(totalCanEnt_ref/1000) )+") k Ton ";
-
-			})
-                        .transition().delay(0).duration(1000)
-                        .style("opacity",1 );
 
                 svgLines.append("text")							
 			.style("fill","white")		
@@ -862,11 +811,11 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.style("font-weight","normal")
 			.style("font-size",13*escalaTextos)						
 			.style("text-anchor","end")
-			.attr("x",offSetLeft+ancho2+ancho3+ancho4-9)
-			.attr("y", offSetTop+9+63)
+			.attr("x",offSetLeft+300)
+			.attr("y", offSetTop+17 )
 			.text(function(){
 
-				return "Solicitado: "+formatNumber(Math.round(totalCanSol_ref/1000) )+" k Ton";
+				return "Solicitado: "+formatNumber(Math.round(totalCanSol_ref/1000) )+" k ";
 
 			}).transition().delay(0).duration(1000)
                         .style("opacity",1 );
@@ -874,193 +823,232 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
     }
 
 
-    kpiExpert_FR.DrawFilteredHeader=function(){
+        kpiExpert_FR.DrawFilteredHeader=function(){
 
-        svgLines.selectAll(".encabezadoFiltered").data([]).exit().remove();
+                svgLines.selectAll(".encabezadoFiltered").data([]).exit().remove();
 
-        if( (store[store.mainDataset].length==store.dataToDraw.length) )
-        return;
+                if( (store[store.mainDataset].length==store.dataToDraw.length) )
+                return;
 
-        var altura=kpiExpert_FR.altura;
+                var altura=kpiExpert_FR.altura;
 
-        //Datos
-        totalCanEnt_filtered=0;
-        totalCanSol_filtered=0;
+                //Datos
+                totalCanEnt_filtered=0;
+                totalCanSol_filtered=0;
 
-        vol1_filtered=0;
-        vol2_filtered=0;
-        vol3_filtered=0;
+                vol1_filtered=0;
+                vol2_filtered=0;
+                vol3_filtered=0;
 
-        por1_filtered=0;
-        por2_filtered=0;
-        por3_filtered=0;
+                por1_filtered=0;
+                por2_filtered=0;
+                por3_filtered=0;
 
 
-        for(var k=0;  k < store.dataToDraw.length; k++){      
-                
-                totalCanSol_filtered+=Number(store.dataToDraw[k][campoTotalSolicitado]);
-                
-                totalCanEnt_filtered+=Number(store.dataToDraw[k][campoDeVolumenFR]);
-                
-                if(store.dataToDraw[k][campoDeATiempo] == "A Tiempo"){
-                        vol1_filtered+=Number(store.dataToDraw[k][campoDeVolumenFR]);
-                }else if(store.dataToDraw[k][campoDeATiempo] == "1 a 2 días Tarde"){
-                        vol2_filtered+=Number(store.dataToDraw[k][campoDeVolumenFR]);
-                }else if(store.dataToDraw[k][campoDeATiempo] == "3 o más días Tarde"){
-                        vol3_filtered+=Number(store.dataToDraw[k][campoDeVolumenFR]);
-                }                 
-        }
-        
-
-        por1_filtered=Math.round((vol1_filtered/totalCanSol_filtered)*100);
-        por2_filtered=Math.round((vol2_filtered/totalCanSol_filtered)*100);
-        por3_filtered=Math.round((vol3_filtered/totalCanSol_filtered)*100);          
-
-        // AZUL **********
-        
-        var ancho2 = GetValorRangos( vol1_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
-        
-        svgLines														
-                .append("rect")
-                .attr("fill","#00A8FF")			
-                .attr("filter","url(#glow)")
-                .attr("class","encabezadoFiltered")			
-                .style("opacity",1 )
-                .attr("rx",4)
-                .attr("width",1 )
-                .attr("height",(altura*.4)-kpiExpert_FR.offSetTop )
-                .attr("x",kpiExpert_FR.offSetLeft+3)
-                .attr("y",kpiExpert_FR.offSetTop+5+(altura*.4))
-                .transition().delay(0).duration(1000)
-                .style("width",ancho2-3 )
-                ;
-
-                
-        
-        // AMARILLO
-
-        var ancho3 = GetValorRangos( vol2_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
-        svgLines														
-                .append("rect")
-                .attr("fill","#FCFF00")                        
-                .attr("filter","url(#glow)")
-                .attr("class","encabezadoFiltered")                       
-                .style("opacity",1 )
-                .attr("rx",4)
-                .attr("width",1 )
-                .attr("height",(altura*.4)-kpiExpert_FR.offSetTop )
-                .attr("x",kpiExpert_FR.offSetLeft+ancho2+3 )
-                .attr("y",kpiExpert_FR.offSetTop+5+(altura*.4))
-                .transition().delay(1000).duration(1000)
-                .attr("width",ancho3-3 )
-                ;
-
-       
-
-        // ROJO
-
-        var ancho4 = GetValorRangos( vol3_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
-        svgLines														
-                .append("rect")
-                .attr("fill","#FF0000")                        
-                .attr("filter","url(#glow)")
-                .attr("class","encabezadoFiltered")                        
-                .style("opacity",1 )
-                .attr("rx",4)
-                .attr("width",1 )
-                .attr("height",(altura*.4)-kpiExpert_FR.offSetTop )
-                .attr("x",kpiExpert_FR.offSetLeft+ancho2+ancho3+3 )
-                .attr("y",kpiExpert_FR.offSetTop+5+(altura*.4))
-                .transition().delay(2000).duration(1000)
-                .attr("width",ancho4-3 )
-                ;
-        
-
-        // ENTREGADO **********
-       
-        svgLines.append("text")							
-                //.attr("x",20 )
-                //.attr("y", (alturaPorPeriodo*i)+margenSuperior+30  )
-                .style("fill","white")		
-                .attr("class","encabezadoFiltered")					
-                .style("opacity",0)
-                .style("font-family","Cabin")
-                .style("font-weight","normal")
-                .style("font-size",13*escalaTextos)						
-                .style("text-anchor","start")
-                .attr("x", offSetLeft+ancho2+ancho3+ancho4+10)
-                .attr("y", kpiExpert_FR.offSetTop+11+(altura*.5))  
-                .text(function(){
+                for(var k=0;  k < store.dataToDraw.length; k++){      
                         
-                        return "Solicitado: "+formatNumber(Math.round(totalCanSol_filtered/1000) )+" k Ton - Entregado: "+formatNumber(Math.round(totalCanEnt_filtered/1000) )+" k Ton ("+ Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100) +"%)";
-
-                })
-                .transition().delay(0).duration(1000)
-                .style("opacity",1 );
-
-        
-        // TEXTO AZUL
-
-        svgLines.append("text")							
-                .style("fill","#00A8FF")		
-                .attr("class","encabezadoFiltered")					
-                .style("opacity",0)
-                .style("font-family","Cabin")
-                .style("font-weight","normal")
-                .style("font-size",13*escalaTextos)						
-                .style("text-anchor","start")
-                .attr("x", offSetLeft+ancho2+ancho3+ancho4+(24*(escalaTextos*13) ) )
-                .attr("y", kpiExpert_FR.offSetTop+11+(altura*.5))  
-                .text(function(){
+                        totalCanSol_filtered+=Number(store.dataToDraw[k][campoTotalSolicitado]);
                         
-                        return por1_filtered+"%";
-
-                })
-                .transition().delay(0).duration(1000)
-                .style("opacity",1 );
-
-         // TEXTO AMARILLO
-
-         svgLines.append("text")							
-                .style("fill","#FCFF00")		
-                .attr("class","encabezadoFiltered")					
-                .style("opacity",0)
-                .style("font-family","Cabin")
-                .style("font-weight","normal")
-                .style("font-size",13*escalaTextos)						
-                .style("text-anchor","start")
-                .attr("x", offSetLeft+ancho2+ancho3+ancho4+(27*(escalaTextos*13) ))
-                .attr("y", kpiExpert_FR.offSetTop+11+(altura*.5))  
-                .text(function(){
+                        totalCanEnt_filtered+=Number(store.dataToDraw[k][campoDeVolumenFR]);
                         
-                        return por2_filtered+"%";
-
-                })
-                .transition().delay(0).duration(1000)
-                .style("opacity",1 );
-
-          // TEXTO ROJO
-
-        svgLines.append("text")							
-                .style("fill","#FF0000")		
-                .attr("class","encabezadoFiltered")					
-                .style("opacity",0)
-                .style("font-family","Cabin")
-                .style("font-weight","normal")
-                .style("font-size",13*escalaTextos)						
-                .style("text-anchor","start")
-                .attr("x", offSetLeft+ancho2+ancho3+ancho4+(30*(escalaTextos*13) ))
-                .attr("y", kpiExpert_FR.offSetTop+11+(altura*.5))  
-                .text(function(){
-                        
-                        return por3_filtered+"%";
-
-                })
-                .transition().delay(0).duration(1000)
-                .style("opacity",1 );
+                        if(store.dataToDraw[k][campoDeATiempo] == "A Tiempo"){
+                                vol1_filtered+=Number(store.dataToDraw[k][campoDeVolumenFR]);
+                        }else if(store.dataToDraw[k][campoDeATiempo] == "1 a 2 días Tarde"){
+                                vol2_filtered+=Number(store.dataToDraw[k][campoDeVolumenFR]);
+                        }else if(store.dataToDraw[k][campoDeATiempo] == "3 o más días Tarde"){
+                                vol3_filtered+=Number(store.dataToDraw[k][campoDeVolumenFR]);
+                        }                 
+                }
                 
 
-}
+                por1_filtered=Math.round((vol1_filtered/totalCanSol_filtered)*100);
+                por2_filtered=Math.round((vol2_filtered/totalCanSol_filtered)*100);
+                por3_filtered=Math.round((vol3_filtered/totalCanSol_filtered)*100);          
+
+                // AZUL **********
+                
+                var ancho2 = GetValorRangos( vol1_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
+
+                if(!ancho2)
+                ancho2=1;
+
+                if(ancho2 < 1)
+                ancho2=1;
+                
+                svgLines														
+                        .append("rect")
+                        .attr("fill","#00A8FF")			
+                        .attr("filter","url(#glow)")
+                        .attr("class","encabezadoFiltered")			
+                        .style("opacity",1 )
+                        .attr("rx",4)
+                        .attr("width",1 )
+                        .attr("height",(altura*.4) )
+                        .attr("x",kpiExpert_FR.offSetLeft+6)
+                        .attr("y",kpiExpert_FR.offSetTop+5+(altura*.4))
+                        .transition().delay(0).duration(1000)
+                        .style("width",ancho2-3 )
+                        ;
+
+                        
+                
+                // AMARILLO        
+
+                var ancho3 = GetValorRangos( vol2_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
+
+                if(!ancho3)
+                ancho3=1;
+
+                if(ancho3 < 1)
+                ancho3=1;
+
+                svgLines														
+                        .append("rect")
+                        .attr("fill","#FCFF00")                        
+                        .attr("filter","url(#glow)")
+                        .attr("class","encabezadoFiltered")                       
+                        .style("opacity",1 )
+                        .attr("rx",4)
+                        .attr("width",1 )
+                        .attr("height",(altura*.4) )
+                        .attr("x",kpiExpert_FR.offSetLeft+ancho2+6 )
+                        .attr("y",kpiExpert_FR.offSetTop+5+(altura*.4))
+                        .transition().delay(1000).duration(1000)
+                        .attr("width",ancho3-3 )
+                        ;        
+
+                // ROJO
+
+                var ancho4 = GetValorRangos( vol3_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
+
+                if(!ancho4)
+                ancho4=1;
+
+                if(ancho4 < 1)
+                ancho4=1;
+
+                svgLines														
+                        .append("rect")
+                        .attr("fill","#FF0000")                        
+                        .attr("filter","url(#glow)")
+                        .attr("class","encabezadoFiltered")                        
+                        .style("opacity",1 )
+                        .attr("rx",4)
+                        .attr("width",1 )
+                        .attr("height",(altura*.4) )
+                        .attr("x",kpiExpert_FR.offSetLeft+ancho2+ancho3+6)
+                        .attr("y",kpiExpert_FR.offSetTop+5+(altura*.4))
+                        .transition().delay(2000).duration(1000)
+                        .attr("width",ancho4-3 )
+                        ;
+                
+                //CIRCULO Y LIENA
+
+                svgLines				
+                        .append("circle")
+                        .attr("class","encabezadoFiltered")
+                        .attr("fill","#ffffff")
+                        .attr("cx",kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+6 )
+                        .attr("cy",kpiExpert_FR.offSetTop+15+(altura*.4))                   
+                        .attr("r",3);
+                /*
+                svgLines.append("line")
+                        .style("stroke","#ffffff" )
+                        .attr("class","encabezadoFiltered ")
+                        .style("stroke-width", 1 )
+                        .style("stroke-opacity", 1 )
+                        .attr("x1",kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+3 )
+                        .attr("y1",kpiExpert_FR.offSetTop+15+(altura*.4))
+                        .attr("x2",kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+3 )
+                        .attr("y2",kpiExpert_FR.offSetTop+45+(altura*.4));
+*/
+
+                // ENTREGADO **********
+        
+                svgLines.append("text")							
+                        //.attr("x",20 )
+                        //.attr("y", (alturaPorPeriodo*i)+margenSuperior+30  )
+                        .style("fill","white")		
+                        .attr("class","encabezadoFiltered")					
+                        .style("opacity",0)
+                        .style("font-family","Cabin")
+                        .style("font-weight","normal")
+                        .style("font-size",12*escalaTextos)						
+                        .style("text-anchor","start")
+                        .attr("x", kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+14)
+                        .attr("y", kpiExpert_FR.offSetTop+15+(altura*.5))  
+                        .text(function(){
+                                
+                                //return "Muestra Solicitado: "+formatNumber(Math.round(totalCanSol_filtered/1000) )+" k Ton - Entregado: "+formatNumber(Math.round(totalCanEnt_filtered/1000) )+" k Ton ("+ Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100) +"%)";
+                                return "Muestra Entregado: "+Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100)+"% , "+formatNumber(Math.round(totalCanEnt_filtered/1000) )+" k  - Solictidado: "+formatNumber(Math.round(totalCanSol_filtered/1000) )+" k  ";
+
+                        })
+                        .transition().delay(0).duration(1000)
+                        .style("opacity",1 );
+
+                
+                // TEXTO AZUL
+
+                svgLines.append("text")							
+                        .style("fill","#00A8FF")		
+                        .attr("class","encabezadoFiltered")					
+                        .style("opacity",0)
+                        .style("font-family","Cabin")
+                        .style("font-weight","normal")
+                        .style("font-size",13*escalaTextos)						
+                        .style("text-anchor","start")
+                        .attr("x", kpiExpert_FR.offSetLeft  )
+                        .attr("y", kpiExpert_FR.offSetTop+45+(altura*.5))  
+                        .text(function(){
+                                
+                                return "A tiempo: "+por1_filtered+"%";
+
+                        })
+                        .transition().delay(0).duration(1000)
+                        .style("opacity",1 );
+
+                // TEXTO AMARILLO
+
+                svgLines.append("text")							
+                        .style("fill","#FCFF00")		
+                        .attr("class","encabezadoFiltered")					
+                        .style("opacity",0)
+                        .style("font-family","Cabin")
+                        .style("font-weight","normal")
+                        .style("font-size",13*escalaTextos)						
+                        .style("text-anchor","start")
+                        .attr("x", kpiExpert_FR.offSetLeft +(7*(escalaTextos*13) ))
+                        .attr("y", kpiExpert_FR.offSetTop+45+(altura*.5))  
+                        .text(function(){
+                                
+                                return "1 a 2 días: "+por2_filtered+"%";
+
+                        })
+                        .transition().delay(0).duration(1000)
+                        .style("opacity",1 );
+
+                // TEXTO ROJO
+
+                svgLines.append("text")							
+                        .style("fill","#FF0000")		
+                        .attr("class","encabezadoFiltered")					
+                        .style("opacity",0)
+                        .style("font-family","Cabin")
+                        .style("font-weight","normal")
+                        .style("font-size",13*escalaTextos)						
+                        .style("text-anchor","start")
+                        .attr("x", kpiExpert_FR.offSetLeft +(14*(escalaTextos*13) ))
+                        .attr("y", kpiExpert_FR.offSetTop+45+(altura*.5))  
+                        .text(function(){
+                                
+                                return "3 Días o mas: "+por3_filtered+"%";
+
+                        })
+                        .transition().delay(0).duration(1000)
+                        .style("opacity",1 );
+                        
+
+ }
 
 kpiExpert_FR.DrawFRLabels=function(){
       

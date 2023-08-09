@@ -51,6 +51,10 @@ Stage.initStage=function(resolve, reject){
 			}
 		});
 		
+		viewer._cesiumWidget._creditContainer.parentNode.removeChild( viewer._cesiumWidget._creditContainer);
+		$(".cesium-viewer-toolbar").css("visibility","hidden");
+		//$(".cesium-viewer-toolbar").css("position","fixed");
+		//$(".cesium-viewer-toolbar").css("bottom","0px");
 
 		handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 		handler.setInputAction(function(click) {
@@ -80,6 +84,8 @@ Stage.initStage=function(resolve, reject){
 		    	$("#tool").css("visibility","hidden");
 				
 				radar.CleanWindows();
+
+				$('#Controls').hide();
 
 		    }	  
 
