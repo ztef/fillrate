@@ -183,8 +183,7 @@ calculateKpiExpert_Ventas.downloadCSV=function(entityId){
 
                     var csv = 'AgrupProducto,Agrupador,CantEntFinal,CantEntFinal_2,CantEntFinal_Suma,ContRows,Dif_FR,Dif_FR_NP,EstadoDem,PctPlan,PctPlan_FR,PctReal,PctReal_FR,Presentacion,VolPlan_Acum,VolPlan_FR,VolPlan_FR_NP,VolPlan_FR_Total,VolReal_Acum,VolReal_FR,VolReal_FR_NP,VolReal_FR_Total,VolumenPlan,VolumenPlan_Total,VolumenReal,VolumenReal_Total\n';
 
-                    var LLaves=["Agrupador","FechaActual","Libre_Pendiente_Hoy","Libre_Programado_CaminoRural","Libre_Programado_NoProg","Libre_Programado_Programable","Libre_Programado_Total","Libre_RecAutf","Libre_Retrasado","Libre_Retrasado_CaminoRural","Libre_Retrasado_NoProg_1D","Libre_Retrasado_NoProg_2D","Libre_Retrasado_NoProg_3D","Libre_Retrasado_NoProg_4D","Libre_Retrasado_NoProg_5D","Libre_Retrasado_NoProg_6D","Libre_Retrasado_NoProg_7oMas","Libre_Retrasado_NoProg_Total","Libre_Retrasado_Programable","Libre_Total","Libre_TotalPorEntregar","Retenido_Entregado","Retenido_RecAutf","Retenido_Total","Total","fecha"];
-
+                    var LLaves=["AgrupProducto","Agrupador","CantEntFinal","CantEntFinal_2","CantEntFinal_Suma","ContRows","Dif_FR","Dif_FR_NP","EstadoDem","PctPlan","PctPlan_FR","PctReal","PctReal_FR","Presentacion","VolPlan_Acum","VolPlan_FR","VolPlan_FR_NP","VolPlan_FR_Total","VolReal_Acum","VolReal_FR","VolReal_FR_NP","VolReal_FR_Total","VolumenPlan","VolumenPlan_Total","VolumenReal","VolumenReal_Total"];
                     //merge the data with CSV
 
                         for(var j=0;  j < entities[i].ventas.values.length; j++){

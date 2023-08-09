@@ -158,9 +158,10 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
     // Ajusta Estilo
     $(divElement).css({
       position: "absolute",
-      border: "1px solid #ccc",
-      borderRadius: "5px",
-      boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
+      border: "1px solid #6e647b",
+      borderRadius: "7px",
+      backgroundColor: "rgba(0, 0, 0, 0.85)",
+      boxShadow: "rgba(0, 0, 0, .5) 19px 15px 24px",
       width: width+"px", // You can adjust the width as needed
     });
 
@@ -172,9 +173,10 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       class: "top-bar",
       css: {
         padding: "5px",
-        backgroundColor: "#54585b",
-        borderTopLeftRadius: "5px",
-        borderTopRightRadius: "5px",
+        backgroundColor: "#1f2e39",
+        borderTopLeftRadius: "0px",
+
+        borderTopRightRadius: "0px",
         cursor: "move",
       },
     });

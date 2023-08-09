@@ -86,7 +86,7 @@ dataManager.CalculateKPIs=function(entities_){
                                                                 dataManager.checkAllLoads();
                                                                 });
     }
-
+    
     
     
     // 3
@@ -96,7 +96,9 @@ dataManager.CalculateKPIs=function(entities_){
                                                                 loadsCount++;
                                                                 dataManager.checkAllLoads();
                                                              });
-    }    
+    }  
+    
+    
 
     // 4
     if(calculateKpiExpert_Abasto && $("#nivel_cb").val() ){
@@ -133,7 +135,7 @@ dataManager.CalculateKPIs=function(entities_){
                                                                 dataManager.checkAllLoads();
                                                              });
     }    
-    
+
     
     
 
