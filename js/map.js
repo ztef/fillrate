@@ -192,21 +192,13 @@ Stage.initStage=function(resolve, reject){
 
 
 		 $("#svgLines")
-						.css("width",windowWidth)
+						.css("width","100%")
 						.css("height",windowHeight);
 
 
 		svgLines = d3.select("#svgLines")						
-						.append("svg")
-						.attr("id","containerSCG")
-						.attr("width", windowWidth )
-						.attr("height", windowHeight )
-						;
-
-
-		svgLines = d3.select("#svgLines")						
 							.append("svg")								
-							.attr("width", windowWidth )
+							.attr("width", "100%" )
 							.attr("height", windowHeight )
 							;
 
@@ -216,14 +208,14 @@ Stage.initStage=function(resolve, reject){
 							.attr("height",windowHeight)
 							.attr("fill","url(#grad1)")
 							;
-/*
+
 		svgLines.append("rect")		    		
-					.attr("width",windowWidth*.2 )
-					.attr("x", windowWidth-(windowWidth*.14)  )
-					.attr("y", 40  )
-					.attr("height",windowHeight)
-					.attr("fill","url(#grad2)")
-					;*/
+					.attr("width","100%" )
+					.attr("x",0  )
+					.attr("y", 0  )
+					.attr("height",85)
+					.attr("fill","black")
+					;
 
 		Stage.blockScreen=svgLines.append("rect")		    		
 					.attr("width",windowWidth )

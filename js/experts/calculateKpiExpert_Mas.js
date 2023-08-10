@@ -51,8 +51,8 @@ calculateKpiExpert_Mas.getTooltipDetail=function(entityId){
 
         if(MasivosEntities[i].key.toLowerCase()==entityId.toLowerCase()){
 
-            var text=`<br><hr class="hr"><span style='color:#ffffff;font-size:15px;'>MASIVOS: </span><br>
-            <span style='color:#fff600;font-size:15px;'>Volumen Entregado: <span style='color:#ffffff'>${MasivosEntities[i].masivos.masivos}% <span style='color:#ffffff;font-size:10px;'>(${formatNumber(MasivosEntities[i].masivos.cantidad)})<br>
+            var text=`<br><hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>MASIVOS: </span><br>
+            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Entregado: <span style='color:#ffffff'>${MasivosEntities[i].masivos.masivos}% <span style='color:#ffffff;font-size:${12*escalaTextos}px;'>(${formatNumber(MasivosEntities[i].masivos.cantidad)}K)<br>
             `
 
             return text;

@@ -173,7 +173,7 @@ filterControls.showActiveFilters=function(){
     svgLines.selectAll(".filters").data([]).exit().remove();
 
     var caso=1;  
-    var topOffset=120;           
+    var topOffset=100;           
    
     for(var e in filtrosAplicados){
 
@@ -184,7 +184,7 @@ filterControls.showActiveFilters=function(){
                     .style("fill","#ffffff")		
                     .style("font-family","Cabin")
                     .style("font-weight","bold")
-                    .style("font-size",14)	
+                    .style("font-size",14*escalaTextos)	
                     .style("text-anchor","end")
                     .style("pointer-events","auto")
                     .attr("transform"," translate("+String( windowWidth-10  )+","+String(  (caso*25)+topOffset  )+")  rotate("+(0)+") ")
@@ -208,29 +208,32 @@ filterControls.showActiveFilters=function(){
             nivel+=store.niveles[i].label;           
     }
 
-    var filtroProducto="Cemento Gris + Blanco";
+    var filtroProducto="Cemento Gris, Mortero, Blanco, Especiales";
 
     if(filtrosAplicados["cat_producto"]){
         filtroProducto="Cemento "+filtrosAplicados["cat_producto"];
     }
 
-    var filtroPresentacion="Sacos + Granel";
+    var filtroPresentacion="Sacos y Granel";
 
     if(filtrosAplicados["cat_presentacion"]){
         filtroPresentacion=filtrosAplicados["cat_presentacion"];
     }
 
-    $("#titulo").html("FILL RATE: "+filtroProducto+" – "+filtroPresentacion+" – Pedidos Entregados. Nivel: "+nivel );
-    
-    $("#titulo2").html("Muestra del "+dateInit.getDate()+" "+getMes(dateInit.getMonth())+" al "+dateEnd.getDate()+" "+getMes(dateInit.getMonth())+" "+String(dateInit.getFullYear()) );                                              
-                 
+    var titulo=`<div style="font-size:100%">FILL RATE: ${filtroProducto} | ${filtroPresentacion} | Pedidos Entregados. Nivel: ${nivel} <br>
+    <span style="font-size:12px">
+    Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
+    </span></div>`;
+
+    $("#titulo").html(titulo);
+       
 
     svgLines.append("text")						
                     .attr("class","filters")
                     .style("fill","#ffffff")		
                     .style("font-family","Cabin")
                     .style("font-weight","bold")
-                    .style("font-size",14)	
+                    .style("font-size",14*escalaTextos)	
                     .style("text-anchor","end")
                     .style("pointer-events","auto")
                     .attr("transform"," translate("+String( windowWidth-10  )+","+String(  topOffset  )+")  rotate("+(0)+") ")

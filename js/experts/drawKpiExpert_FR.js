@@ -664,122 +664,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.attr("y",offSetTop)
 			;
 
-                /*
-                
-                // AZUL **********
-                
-                var ancho2 = GetValorRangos( vol1_ref ,1, totalCanSol_ref , 1,ancho);
-                svgLines														
-			.append("rect")
-			.attr("fill","#00A8FF")			
-			.attr("filter","url(#glow)")
-                        .attr("class","encabezado")			
-			.style("opacity",1 )
-                        .attr("rx",6)
-			.attr("width",1 )
-			.attr("height",(altura*.4) )
-			.attr("x",offSetLeft+3)
-			.attr("y",offSetTop+3)
-                        .transition().delay(0).duration(1000)
-                        .style("width",ancho2-3 )
-			;
-
-                svgLines.append("text")							
-			.style("fill","#FFFFFF")		
-                        .attr("class","encabezado")					
-			.style("opacity",0)
-			.style("font-family","Cabin")
-			.style("font-weight","bold")
-			.style("font-size",15*escalaTextos)						
-			.style("text-anchor","middle")
-			.attr("x",offSetLeft+ancho2-(ancho2/2))
-			.attr("y",offSetTop+18)
-			.text(function(){
-
-				return por1_ref +"%";
-
-			})
-                        .transition().delay(0).duration(1000)
-                        .style("opacity",1 );
-                
-                // AMARILLO
-
-                var ancho3 = GetValorRangos( vol2_ref ,1, totalCanSol_ref , 1,ancho);
-                svgLines														
-                        .append("rect")
-                        .attr("fill","#FCFF00")                        
-                        .attr("filter","url(#glow)")
-                        .attr("class","encabezado")                       
-                        .style("opacity",1 )
-                        .attr("rx",6)
-                        .attr("width",1 )
-                        .attr("height",(altura*.4) )
-                        .attr("x",offSetLeft+ancho2+3 )
-                        .attr("y",offSetTop+3)
-                        .transition().delay(1000).duration(1000)
-                        .attr("width",ancho3-3 )
-                        ;
-
-                svgLines.append("text")							
-			.style("fill","#6C0000")		
-                        .attr("class","encabezado")					
-			.style("opacity",0)
-			.style("font-family","Cabin")
-			.style("font-weight","bold")
-			.style("font-size",14*escalaTextos)						
-			.style("text-anchor","middle")
-			.attr("x",offSetLeft+ancho2+ancho3-(ancho3/2))
-			.attr("y",offSetTop+18)
-			.text(function(){
-
-				return por2_ref +"%";
-
-			})
-                        .transition().delay(0).duration(1000)
-                        .style("opacity",1 );;
-
-                // ROJO
-
-                var ancho4 = GetValorRangos( vol3_ref ,1, totalCanSol_ref , 1,ancho);
-                svgLines														
-                        .append("rect")
-                        .attr("fill","#FF0000")                        
-                        .attr("filter","url(#glow)")
-                        .attr("class","encabezado")                        
-                        .style("opacity",1 )
-                        .attr("rx",6)
-                        .attr("width",1 )
-                        .attr("height",(altura*.4) )
-                        .attr("x",offSetLeft+ancho2+ancho3+3 )
-                        .attr("y",offSetTop+3)
-                        .transition().delay(2000).duration(1000)
-                        .attr("width",ancho4-3 )
-                        ;
-                
-                 svgLines.append("text")							
-			.style("fill","#EAFF00")		
-                        .attr("class","encabezado")					
-			.style("opacity",0)
-			.style("font-family","Cabin")
-			.style("font-weight","bold")
-			.style("font-size",15*escalaTextos)						
-			.style("text-anchor","middle")
-			.attr("x",offSetLeft+ancho2+ancho3+ancho4-(ancho4/2))
-			.attr("y",offSetTop+18)
-			.text(function(){
-
-				return por3_ref +"%";
-
-			})
-                        .transition().delay(1000).duration(1000)
-                        .style("opacity",1 );
-
-                        
-
-                // ENTREGADO **********
-
                
-                        */
 
                 svgLines.append("text")							
 			//.attr("x",20 )
@@ -795,7 +680,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.attr("y", offSetTop+17 )
 			.text(function(){
 
-				return "Nacional Entregado: "+Math.round((totalCanEnt_ref/totalCanSol_ref)*100)+"%, "+formatNumber(Math.round(totalCanEnt_ref/1000) )+" k  ";;
+				return "Nacional Entregado: "+Math.round((totalCanEnt_ref/totalCanSol_ref)*100)+"%, "+formatNumber(Math.round(totalCanEnt_ref/1000) )+" k  ";
 
 			})
                         .transition().delay(0).duration(1000)
@@ -809,9 +694,9 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.style("opacity",0)
 			.style("font-family","Cabin")
 			.style("font-weight","normal")
-			.style("font-size",13*escalaTextos)						
-			.style("text-anchor","end")
-			.attr("x",offSetLeft+300)
+			.style("font-size",12*escalaTextos)						
+			.style("text-anchor","start")
+			.attr("x",offSetLeft+(200*escalaTextos)+10 )
 			.attr("y", offSetTop+17 )
 			.text(function(){
 

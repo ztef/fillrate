@@ -148,11 +148,11 @@ calculateKpiExpert_FR.getTooltipDetail=function(entityId,varName){
 
             
             var text=`<hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>FillRate: </span><br>
-            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>A Tiempo: <span style='color:#00EAFF'>${fillRateEntities[i][varName].por1}% <span style='color:#00EAFF;font-size:${10*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol1)})<br>
-            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Más de 1 día: <span style='color:#FFCC00'>${fillRateEntities[i][varName].por2}% <span style='color:#FFCC00;font-size:${10*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol2)})<br>
-            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Más de 3 días: <span style='color:#FF0000'>${fillRateEntities[i][varName].por3}% <span style='color:#FF0000;font-size:${10*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol3)})<br><br>
+            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>A Tiempo: <span style='color:#00EAFF'>${fillRateEntities[i][varName].por1}% <span style='color:#00EAFF;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol1)})<br>
+            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>1 a 2 días: <span style='color:#FFCC00'>${fillRateEntities[i][varName].por2}% <span style='color:#FFCC00;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol2)})<br>
+            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Más de 3 días: <span style='color:#FF0000'>${fillRateEntities[i][varName].por3}% <span style='color:#FF0000;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol3)})<br><br>
 
-            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Entregado: <span style='color:#ffffff'>${Math.round((fillRateEntities[i][varName].totalVolumenEntregado/fillRateEntities[i][varName].totalSolicitado)*100)}% <span style='color:#ffffff;font-size:${10*escalaTextos}px;'>${formatNumber(fillRateEntities[i][varName].totalVolumenEntregado)}<br>
+            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Entregado: <span style='color:#ffffff'>${Math.round((fillRateEntities[i][varName].totalVolumenEntregado/fillRateEntities[i][varName].totalSolicitado)*100)}% <span style='color:#ffffff;font-size:${12*escalaTextos}px;'>${formatNumber(fillRateEntities[i][varName].totalVolumenEntregado)}k<br>
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Solicitado: <span style='color:#ffffff'>${formatNumber(fillRateEntities[i][varName].totalSolicitado)}<br>
 
            

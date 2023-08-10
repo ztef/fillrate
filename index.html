@@ -138,6 +138,12 @@ z-index:900;
                   <feMerge><feMergeNode/> <!-- this contains the offset blurred image -->
                   <feMergeNode in='SourceGraphic'/> <!-- this contains the element that the filter is applied to --></feMerge>
               </filter>
+              <filter id='dropshadowRadar' height='140%' width='140%'>
+                <feGaussianBlur in='SourceAlpha' stdDeviation='10'/> <!-- stdDeviation is how much to blur -->
+                <feOffset dx='0' dy='6' result='offsetblur'/> <!-- how much to offset -->
+                <feMerge><feMergeNode/> <!-- this contains the offset blurred image -->
+                <feMergeNode in='SourceGraphic'/> <!-- this contains the element that the filter is applied to --></feMerge>
+            </filter>
 
               <filter id="glow" x="-130%" y="-130%" height="500%" width="500%">
                 <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
@@ -181,22 +187,23 @@ z-index:900;
 
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
 
-        <ul class="fa-ul" style="position:absolute;right:2px;top:43px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
-            
-            <img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:23px;float:left;margin:8px"></img>
-            <img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:23px;float:left;margin:8px"></img>
-            <img id="cargando" src="images/chemical.png" onclick="$('#Controls').toggle(1000);" style="width:23px;float:left;margin:8px"></img>
+        <ul class="fa-ul" style="position:absolute;right:2px;top:31px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
+            <img id="cargando" src="images/fontSize1.png" onclick="escalaTextos=escalaTextos*(1.1);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:18px ;float:left;margin:8px"></img>
+            <img id="cargando" src="images/fontSize2.png" onclick="escalaTextos=escalaTextos*(.9);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:18px ;float:left;margin:8px"></img>
+            <img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:18px ;float:left;margin:8px"></img>
+            <img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:18px;float:left;margin:8px"></img>
+            <img id="cargando" src="images/chemical.png" onclick="$('#Controls').toggle(1000);" style="width:18px;float:left;margin:8px"></img>
 
         </ul>
 
-        <div id="titulo" class="sombra" align="left" style="position:fixed;top:8px;left:15px;font-family:Cabin;pointer-events:none;font-size:20px;color:#7DDFFF;opacity:1;font-weight:bold;z-index:9999"/> 
+        <div id="titulo" class="sombra" align="left" style="position:fixed;top:8px;left:15px;font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;z-index:9999"/> 
         
         </div>
         <div id="titulo2" class="sombra" align="right" style="position:fixed;top:60px;left:15px;font-family:Cabin;pointer-events:none;font-size:14px;color:#00C3FF;opacity:1;font-weight:bold;z-index:9999"/> 
       
         </div>
 
-        <ul class="fa-ul" style="position:absolute;left:-30px;top:23px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
+        <ul class="fa-ul" style="position:absolute;right:0px;top:-15px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
             
             <img id="back_btn" src="images/back_icon.png" onclick="filterControls.back()" style="width:43px;float:left;margin:8px;visibility:hidden"></img>
 
@@ -290,6 +297,7 @@ z-index:900;
 
         });
 
+
     document.onkeydown = function(event) {
         console.log(event.keyCode);
     
@@ -314,23 +322,38 @@ z-index:900;
                 radar.DrawEntities(radar.lastRadarEntities);
             break;
             //MODIFICA TAMAÑO DE TEXTOS
-            case 50:   
+           
+            case 87:   
 
-                escalaTextos=escalaTextos*(1.1);
-                if(kpiExpert_FR){
-                    kpiExpert_FR.DrawMainHeader();
-                    kpiExpert_FR.DrawFilteredHeader();
-                }                    
+                
+            break;
+            case 83:   
+                   
 
             break;
+
             case 49:   
 
-                escalaTextos=escalaTextos*(.9);
-                if(kpiExpert_FR){
-                    kpiExpert_FR.DrawMainHeader();
-                    kpiExpert_FR.DrawFilteredHeader();
-                }
-                   
+                columnasRadar=1;
+                radar.DrawEntities(entities);
+
+            break;
+            case 50: 
+
+                columnasRadar=2;
+                radar.DrawEntities(entities);                  
+
+            break;
+            case 51: 
+
+                columnasRadar=3;
+                radar.DrawEntities(entities);                  
+
+            break;
+            case 52: 
+
+                columnasRadar=4;
+                radar.DrawEntities(entities);                  
 
             break;
     

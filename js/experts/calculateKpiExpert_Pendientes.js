@@ -184,7 +184,6 @@ calculateKpiExpert_Pendientes.getTooltipDetail=function(entityId){
                 <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Con Compromiso Vencido: <span style='color:#ffffff'>${ prodPer }           
 
                 `
-
                 return text;
 
             }
