@@ -161,7 +161,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       border: "1px solid #ccc",
       borderRadius: "5px",
       boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.1)",
-      width: width+"px", // You can adjust the width as needed
+      width: width+"px",  
     });
 
     // Agrega capacidad de dragg al div
@@ -321,3 +321,160 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
     return table;
   }
   
+
+   /*
+
+    vix_tt_table  : Crea una tabla en un container (div)
+
+
+  */
+
+
+    function vix_tt_table_extended(data, columns, columnVisitors, containerID) {
+     
+
+
+
+        // CREA TABLA, Aplica estilos 
+    
+        var table = d3.select(`#${containerID}`).append("table")
+          .style("border-collapse", "collapse")
+          .style("border", "0px solid white"); // Set the table border color to white
+      
+        var thead = table.append("thead"); // Table header
+        var tbody = table.append("tbody"); // Table body
+      
+        // Agrega fila header con iconos en las columnas sorteables
+        thead.append("tr")
+          .selectAll("th")
+          .data(columns)
+          .enter()
+          .append("th")
+          .attr("class", "header-cell")
+          .style("width", function(column) {
+            return column.width;
+          })
+          .html(function(column, index) {
+            var sortable = column.sortable;
+            var sortOrder = sortable ? this.getAttribute("data-sort-order") : null;
+            var sortIcon = sortable ? (sortOrder === "ascending" ? '<i class="fas fa-sort-up"></i>' : '<i class="fas fa-sort-down"></i>') : '';
+            return column.header + ' ' + sortIcon;
+          })
+          .style("cursor", function(column, index) {        // Tipo de cursor
+            return column.sortable ? "pointer" : "default";
+          })
+          .on("click", function(column, index) {    // Aplica logica de ordenamiento :
+            if (column.sortable) {
+    
+                // Manejo de logica de orden ascendente/descendente
+    
+                var sortOrder = this.getAttribute("data-sort-order") || column.defaultSortOrder;
+                var newSortOrder = sortOrder === "ascending" ? "descending" : "ascending";
+        
+                // Borra todos los iconos
+                thead.selectAll("th")
+                  .attr("data-sort-order", null)
+                  .selectAll("i")
+                  .remove();
+        
+                // Actualiza el icono solo de la columna seleccionada
+                d3.select(this).attr("data-sort-order", newSortOrder)
+                  .selectAll("i")
+                  .remove()
+                  .data([newSortOrder])
+                  .enter()
+                  .append("i")
+                  .attr("class", function(d) {
+                    return d === "ascending" ? "fas fa-sort-up" : "fas fa-sort-down";
+                  });
+        
+                // Realiza el sort de todos los renglones en base a la columna seleccionada y el orden (asc o desc)
+                tbody.selectAll("tr")
+                  .sort(function(a, b) {
+                    return newSortOrder === "ascending" ? d3.ascending(a[column.key], b[column.key]) : d3.descending(a[column.key], b[column.key]);
+                  });
+        
+                // Guarda en data-sort-order el orden
+                this.setAttribute("data-sort-order", newSortOrder);
+       
+            }
+          });
+      
+        // Crea una fila (tr) para cada renglon de data
+        var rows = tbody.selectAll("tr")
+          .data(data)
+          .enter()
+          .append("tr");
+      
+        // Crea una celda (td) para cada columna en data
+        var cells = rows.selectAll("td")
+          .data(function(row, rowIndex) {
+            return columns.map(function(column) {
+              return { column: column, value: row[column.key],rowIndex: rowIndex  };
+            });
+          })
+          .enter()
+          .append("td")
+          .attr("class", "body-cell")
+          .style("width", function(d) {
+            return d.column.width;
+          })
+          .html(function(d) {
+            var visitor = columnVisitors[d.column.key];                          // Aplica visitors para cada celda
+            return visitor ? visitor(d.value, d.rowIndex) : d.value;    // si no hay visitor valor tal cual
+          });
+      
+        return table;
+      }
+
+
+
+      function createBarx(p1, p2, p3, svgWidth, svgHeight) {
+        
+        var totalPercentage = p1 + p2 + p3;
+        //if (totalPercentage !== 100) {
+        //    throw new Error("Error, debe sumar 100%");
+       // }
+    
+        // Calcula los widths de las 3 partes
+        var width1 = (p1 / 100) * svgWidth;
+        var width2 = (p2 / 100) * svgWidth;
+        var width3 = (p3 / 100) * svgWidth;
+    
+        // Crea el svg
+        var svgCode = '<svg width="' + svgWidth + '" height="' + svgHeight + '">' +
+            '<rect x="0" y="0" width="' + width1 + '" height="' + svgHeight + '" style="fill: blue;"></rect>' +
+            '<rect x="' + width1 + '" y="0" width="' + width2 + '" height="' + svgHeight + '" style="fill: green;"></rect>' +
+            '<rect x="' + (width1 + width2) + '" y="0" width="' + width3 + '" height="' + svgHeight + '" style="fill: orange;"></rect>' +
+            '</svg>';
+    
+        return svgCode;
+    }
+
+    function createBar(p1, p2, p3, svgWidth, svgHeight, labelText) {
+      
+      var totalPercentage = p1 + p2 + p3;
+      //if (totalPercentage !== 100) {
+      //    throw new Error("Total percentage must be 100%");
+      // }
+  
+      // Calcula los widths de las 3 partes
+      var width1 = (p1 / 100) * svgWidth;
+      var width2 = (p2 / 100) * svgWidth;
+      var width3 = (p3 / 100) * svgWidth;
+  
+      // Crea  el SVG (coloca un label solo en el primero)
+      var svgCode = '<svg width="' + svgWidth + '" height="' + svgHeight + '">' +
+          '<rect x="0" y="0" width="' + width1 + '" height="' + svgHeight + '" style="fill: blue;"></rect>' +
+          '<rect x="' + width1 + '" y="0" width="' + width2 + '" height="' + svgHeight + '" style="fill: green;"></rect>' +
+          '<rect x="' + (width1 + width2) + '" y="0" width="' + width3 + '" height="' + svgHeight + '" style="fill: orange;"></rect>' +
+          '<text x="5" y="' + (svgHeight / 2) + '" dominant-baseline="middle" fill="white">' + labelText + '</text>' +
+          '</svg>';
+  
+      return svgCode;
+  }
+  
+  
+  
+  
+    

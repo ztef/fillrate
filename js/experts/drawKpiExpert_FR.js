@@ -209,8 +209,119 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
 
         $("#toolTip3").css("visibility","visible");            
         $("#toolTip3").css("left",(mouse_x+950)+"px");
+
+
+
+
+        /* 
+
+        VIX_TT  : Prepara datos para el tool tip
+
+        */
+
+
+    // DATOS 
+
+    var data = arr.map(function(item) {
+        return {
+          key: item.key,
+          "por1": item.por1,      
+          "cant": item.CantEntfinal
+        };
+        });
     
+    
+        // DEFINE COLUMNAS
       
+      var columns = [
+        { key: "key", header: "Estado", sortable: true, width: "100px" },
+        { key: "por1", header: "Fill Rate", sortable: true, width: "150px" },    
+        { key: "cant", header: "Vol. Entregado", sortable: true, width: "150px" },
+        ];
+    
+    
+       // DEFINE VISITORS PARA CADA COLUMNA
+    
+    
+      var columnVisitors = {
+        key: function(value,i) {
+            return `<div class="bar-container" onclick="filterControls.lookForEntity('${value}')">${value}
+            </div>`;
+          },
+    
+        por1: function(value,i) {
+
+          var p1 = arr[i].por1;  
+          var p2 =  arr[i].por2;  
+          var p3 =  arr[i].por3;  
+          var svgWidth = 150;  
+          var svgHeight = 15;  
+          
+          var svgString = createBar(p1, p2, p3, svgWidth, svgHeight, p1+"%");
+          
+           
+          return '<div class="bar-container">' +svgString +'</div>';
+
+        },
+        
+        cant: function(value,i) {
+                var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.4);
+                var barValue = Math.round((arr[i].CantEntfinal/1000)*100)/100 +"k";
+               
+                /*
+                .append("text")						
+                .attr("class","abasDetail")
+                .style("fill","#ffffff")		
+                .style("font-family","Cabin")
+                .style("font-weight","bold")
+                .style("font-size",tamanioFuente)	
+                .style("text-anchor","start")
+                .attr("transform"," translate("+String( (svgTooltipWidth*.7)+ancho+3  )+","+String( (altura*caso)+tamanioFuente+marginTop    )+")  rotate("+(0)+") ")
+                .text(function(){
+                
+                    return  Math.round((arr[i].CantEntfinal/1000)*100)/100 +"k";
+
+                });
+                */
+
+
+                
+
+                return '<div class="bar-container">' +
+                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
+                '<span class="bar-value">' + barValue + '</span>' +
+                '</div>';
+
+
+
+                
+        }
+      };
+    
+    
+      // FORMATEA DIV :
+    
+      vix_tt_formatToolTip("#toolTip3","FillRate por Estado",600);
+    
+      // CREA TABLA USANDO DATOS
+    
+      vix_tt_table_extended(data, columns, columnVisitors, "toolTip3");
+      
+      
+      // APLICA TRANSICIONES 
+    
+      vix_tt_transitionRectWidth("toolTip3");
+      
+    
+
+
+
+
+
+
+
+    
+        /*
         var toolText =  
                 "<span style='color:#fff600'><span style='color:#ffffff'>FillRate por Estado</span></span> "+               
                 "<svg id='svgTooltip3'  style='pointer-events:none;'></svg> ";
@@ -224,6 +335,15 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
                         .style("width", svgTooltipWidth )
                         .style("height", (svgTooltipHeight)+50 )
                         ;
+
+                      
+
+
+
+          
+
+
+
 
         var posY=mouse_y-50;
 
@@ -386,6 +506,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
                     caso++; 
 
         }
+        */
 
 }
     
@@ -469,13 +590,24 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         $("#toolTip2").css("visibility","visible");            
         $("#toolTip2").css("left",(mouse_x+300)+"px");
            
-        var toolText =  
-                    "<span style='color:#fff600'><span style='color:#ffffff'>Detalle de Días de FR de "+entity.key+"</span></span> <br>"+               
-                    "<svg id='svgTooltip'  style='pointer-events:none;'></svg> ";
+      
+        // ADD ON PARA USAR EL FORMATEADOR DE TOOLTIPS ---------------------------------------------------
+
+
+        // FORMATEA TOOL TIP :
     
-        $("#toolTip2").html(toolText);
-        d3.select("#toolTip2")                                     
-                    .style("width", (svgTooltipWidth)+"px" );
+        vix_tt_formatToolTip("#toolTip2","Detalle de Días de FR de "+entity.key,svgTooltipWidth);
+
+        // Agrega un div con un elemento svg :
+
+        var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
+        d3.select("#toolTip2").append("div").html(svgElement);
+
+
+        // Continua con la Generacion de las graficas dentro del svgTooltip
+
+        // -------------------------------------------------------------------------------------------------
+
     
         d3.select("#svgTooltip")                     
                     .style("width", svgTooltipWidth )
@@ -489,15 +621,13 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
         var posY=mouse_y-50;
 
-        if( $("#toolTip2").height()+mouse_y+50 > windowHeight ){
-                posY=windowHeight-($("#toolTip2").height()+20);
-        }
+        
 
         if( posY < 0 ){
                 posY=50;
         }
 
-        $("#toolTip2").css("top",posY);
+      
        
         for(var i=0; i < arr.length; i++ ){        
                 
