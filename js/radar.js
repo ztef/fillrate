@@ -14,12 +14,13 @@ var radioInicialInidcador=8;
 var maximaCantidadRadaresDibujables=50;
 var minValueFR=0;
 var maxValueFR=0;
+var columnasRadar=1;
 
 radar.radarInitStage=function(){    
 
     var elemDiv = document.createElement('div');
     elemDiv.setAttribute("id", "radarDiv");
-    elemDiv.style.cssText = 'width:'+widthInit+'%;position:fixed;bottom:0px;top:80px;z-index:99999;pointer-events:auto;overflow-y: scroll;'+'height:'+(windowHeight-80)+"px"+';';
+    elemDiv.style.cssText = 'width:'+widthInit+'%;position:fixed;bottom:0px;top:90px;z-index:99999;pointer-events:auto;overflow-y:scroll;height:100%';
    
     document.body.appendChild(elemDiv);
 
@@ -27,7 +28,7 @@ radar.radarInitStage=function(){
                 .append("svg")
                 .attr("id","containerSCG")
                 .attr("width", "100%" )
-                .attr("height", heightInit )
+                .attr("height", "100%" )
                 ;   
 
 }
@@ -89,35 +90,18 @@ radar.config=[
     {label:"Cump Producción",color:"#FFFFFF",var:"produccion",minimoValor:60,valorEquilibrio:100 ,maximoValor:140, abreviacion:"PROD",unidad:"%",tooltipDetail:kpiExpert_PROD,calculateExpert:calculateKpiExpert_Produccion}
 
 ];
-radar.DrawEntities=function(entities){       
 
-    $("#radarDiv").css("width",(widthInit*radar.escalado)+"%");
+radar.DrawEntities=function(entities){    
+    
+    radar.rows=0;
+
+    var anchoRadarDiv=windowWidth*(widthInit/100);
+    
+    $("#radarDiv").css("width",((anchoRadarDiv*radar.escalado)*columnasRadar+(paddingTop*(columnasRadar-1))+100   )+"px");
     $("#radarDiv").animate({scrollTop: 0}, 1000);
+    $("#radarDiv").css("pointer-events","none");
 
-    if(kpiExpert_OOS){
-        if(kpiExpert_OOS.DrawTooltipDetail){
-            kpiExpert_OOS.eraseChart();
-        }
-    }
-
-    if(kpiExpert_ABAS){
-        if(kpiExpert_ABAS.DrawTooltipDetail){
-            kpiExpert_ABAS.eraseChart();
-        }
-    }
-
-    if(kpiExpert_PROD){
-        if(kpiExpert_PROD.DrawTooltipDetail){
-            kpiExpert_PROD.eraseChart();
-        }
-    }
-
-    if(drawKpiExpert_VENTAS){
-        if(drawKpiExpert_VENTAS.DrawTooltipDetail){
-            drawKpiExpert_VENTAS.eraseChart();
-        }
-    }
-
+    radar.CleanWindows();
 
     maxValueFR = 0;
 
@@ -128,28 +112,43 @@ radar.DrawEntities=function(entities){
     radio=((window.innerWidth*(widthInit/100))*radar.escalado) *.9;
 
     for(var i=0; i < entities.length; i++){
+
         if(maxValueFR < entities[i].fillRate.totalSolicitado)
             maxValueFR = entities[i].fillRate.totalSolicitado;
-    }
+
+    }   
+
+    var caso=0;
 
     for(var i=0; i < entities.length; i++){
 
                 //Evita dibujar demasiados radares
-                if(i > maximaCantidadRadaresDibujables){                    
+                if(i > maximaCantidadRadaresDibujables && !entities[i].radarData ){                    
                     continue;
                 }
+
+                if(caso%columnasRadar==0){
+                    radar.rows++;                   
+                    
+                }
                 
-                svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length) );
+                svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length)+100 );
 
                 entities[i].radarData={};
 
-                entities[i].radarData.posY=radio*radar.lastRadarEntities.length+offSetTop+(paddingTop*i);
+                var offSetLeft=50;
+
+                entities[i].radarData.posX=((caso%columnasRadar)*radio)+(offSetLeft*(caso%columnasRadar)); 
+                
+                entities[i].radarData.posY=(radio*(radar.rows-1) )+offSetTop+(paddingTop*(radar.rows-1));
 
                 entities[i].radarData.kpis={};
 
                 radar.DrawBaseRadar(entities[i]);                 
 
-                radar.lastRadarEntities.push(entities[i]);               
+                radar.lastRadarEntities.push(entities[i]);
+
+                caso++;
 
     }
 
@@ -161,7 +160,9 @@ radar.AddNewRadar=function(entity){
 
     entity.radarData={};
 
-    entity.radarData.posY=radio*radar.lastRadarEntities.length+offSetTop+(paddingTop*(radar.lastRadarEntities.length) );
+    entity.radarData.posX=0;
+
+    entity.radarData.posY=radio*(radar.rows) +offSetTop+(paddingTop*(radar.lastRadarEntities.length) );
 
     entity.radarData.kpis={};
 
@@ -181,9 +182,10 @@ radar.DrawBaseRadar=function(entity){
                 .style("fill","#ffffff")		
                 .style("font-family","Cabin")
                 .style("font-weight","bold")
+                .attr("filter","url(#dropshadowText)")
                 .style("font-size",tamanioTexto*radar.escalado)							
                 .style("text-anchor","start")
-                .attr("transform"," translate("+String(10)+","+String(entity.radarData.posY-(alturaBarra*2.5) )+")  rotate("+(0)+") ")
+                .attr("transform"," translate("+String(10+(entity.radarData.posX) )+","+String(entity.radarData.posY-(alturaBarra*2.5) )+")  rotate("+(0)+") ")
                 .text(function(){
                     
                         var nombre=entity.key;
@@ -231,7 +233,8 @@ radar.DrawBaseRadar=function(entity){
             svgRadar.append("rect")		    		
                         .attr("width",anchoBarra )
                         .attr("class","radarElement")
-                        .attr("x",radio*.25  )
+                        .attr("filter","url(#dropshadowText)")
+                        .attr("x",(10+(8*(tamanioTexto*radar.escalado)*.6))+entity.radarData.posX  )
                         .attr("y", entity.radarData.posY-(tamanioTexto*.7)-((tamanioTexto*radar.escalado)*.4)   )
                         .style("height",(tamanioTexto*radar.escalado)*.3 )
                         .attr("fill","#ffffff")
@@ -242,9 +245,10 @@ radar.DrawBaseRadar=function(entity){
                         .style("fill","#ffffff")		
                         .style("font-family","Cabin")
                         .style("font-weight","bold")
+                        .attr("filter","url(#dropshadowText)")
                         .style("font-size", (tamanioTexto*radar.escalado)*.6 )							
                         .style("text-anchor","start")
-                        .attr("transform"," translate("+String(10)+","+String(entity.radarData.posY-(tamanioTexto*.7) )+")  rotate("+(0)+") ")
+                        .attr("transform"," translate("+String(10+entity.radarData.posX)+","+String(entity.radarData.posY-(tamanioTexto*.7) )+")  rotate("+(0)+") ")
                         .text(function(){
 
                             if(entity.fillRate.totalVolumenEntregado < 1000)
@@ -255,6 +259,9 @@ radar.DrawBaseRadar=function(entity){
                         });               
 
         }
+
+    }else{
+        alert("Existe entidad sin FillRate: "+entity[i].key);
     }
 
     var rebanadasAngulos=360/radar.config.length;
@@ -268,7 +275,7 @@ radar.DrawBaseRadar=function(entity){
 
     for(var j=0; j < radar.config.length; j++){
 
-        var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  radio*.5  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );	
+        var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  radio*.5  , {x: entity.radarData.posX+( radio/2 ) , y:entity.radarData.posY+(radio/2) }  );	
         puntosLinea.push({x:posicion1.x,y:posicion1.y});
 
     }               
@@ -276,13 +283,28 @@ radar.DrawBaseRadar=function(entity){
     entity.radarData.svgBack = svgRadar	
             .append("path")
             .attr("d", lineFunction(puntosLinea))		                
-            .style("stroke", "#FFFFFF")
+            .style("stroke", function(){
+                this.data=entity;
+                return "#FFFFFF";
+            })
+            .attr("filter","url(#dropshadowRadar)")
             .attr("class","radarElement")
-            .style("pointer-events", "none")
+            .style("pointer-events", "auto")
             .style("stroke-width", 1)
             .style("stroke-opacity", .2)	                               
             .attr("fill", "#9A9C9C")
-            .style("opacity", 1);
+            .style("opacity", 1)
+            .on("mouseover",function(){
+                $("#radarDiv").css("pointer-events","auto");
+            })
+            .on("mouseout",function(){
+                
+                setTimeout(()=>{$("#radarDiv").css("pointer-events","none");}, 1000);
+            })
+            .on("click",function(){
+                radar.CleanWindows();
+                Stage.FocusMapElement(this.data.key);
+            });
 
     entity.radarData.svgBack.transition().delay(0).duration(getRandomInt(0,2000))
                 .attr("fill", "black")	
@@ -292,7 +314,7 @@ radar.DrawBaseRadar=function(entity){
 
     for(var j=0; j < radar.config.length; j++){
 
-        var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  radio*.4 , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );		
+        var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  radio*.4 , {x: entity.radarData.posX+( radio/2 )  , y:entity.radarData.posY+(radio/2) }  );		
         puntosLinea.push({x:posicion1.x,y:posicion1.y});
 
     }
@@ -301,6 +323,7 @@ radar.DrawBaseRadar=function(entity){
         .append("path")
         .attr("d", lineFunction(puntosLinea))		                
         .style("stroke", "#FFFFFF")
+        .attr("filter","url(#dropshadowRadar)")
         .attr("class","radarElement")
         .style("pointer-events", "none")
         .style("stroke-width", 1)
@@ -308,25 +331,14 @@ radar.DrawBaseRadar=function(entity){
         .attr("fill", "black")
         .style("opacity", .4)
         ; 
+
         
     for(var j=0; j < radar.config.length; j++){    
 
-            var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  0 , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );
-            var posicion2 = CreaCoordenada( rebanadasAngulos*j  , (radio/2)*.97  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );
+            var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  0 , {x:entity.radarData.posX+( radio/2 )  , y:entity.radarData.posY+(radio/2) }  );
+            var posicion2 = CreaCoordenada( rebanadasAngulos*j  , (radio/2)*.97  , {x:entity.radarData.posX+( radio/2 )  , y:entity.radarData.posY+(radio/2) }  );
         
-            entity.radarData.kpis[radar.config[j].var]={angulo:rebanadasAngulos*j};
-    
-            svgRadar
-                    .append("line")
-                    .style("stroke",radar.config[j].color )
-                    .attr("class","radarElement")
-                    .style("stroke-width", 1 )
-                    .style("stroke-opacity", .3 )
-                    .attr("x1",posicion1.x)
-                    .attr("y1",posicion1.y)
-                    .attr("x2",posicion2.x)
-                    .attr("y2",posicion2.y)
-                    ;
+            entity.radarData.kpis[radar.config[j].var]={angulo:rebanadasAngulos*j};              
 
             // ETIQUETA        
             var anchor="middle";
@@ -346,7 +358,7 @@ radar.DrawBaseRadar=function(entity){
                 anchor="start";
             }
 
-            var posLabel = CreaCoordenada( rebanadasAngulos*j  , radio/2  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );
+            var posLabel = CreaCoordenada( rebanadasAngulos*j  , radio/2  , {x:entity.radarData.posX+( radio/2 )  , y:entity.radarData.posY+(radio/2) }  );
 
             svgRadar
                 .append("text")						
@@ -365,11 +377,30 @@ radar.DrawBaseRadar=function(entity){
 
     } 
 
-    //for(var j=0; j < radar.config.length; j++){
-        radar.DrawEntityValues( entity );
-    //}                
+    radar.DrawEntityValues( entity );
+    
+    for(var j=0; j < radar.config.length; j++){    
+
+        var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  0 , {x:entity.radarData.posX+( radio/2 ) , y:entity.radarData.posY+(radio/2) }  );
+        var posicion2 = CreaCoordenada( rebanadasAngulos*j  , (radio/2)*.97  , {x:entity.radarData.posX+( radio/2 ) , y:entity.radarData.posY+(radio/2) }  );
+    
+        svgRadar
+                .append("line")
+                .style("stroke",radar.config[j].color )
+                .attr("class","radarElement")
+                .style("stroke-width", 1 )
+                .style("stroke-opacity", .3 )
+                .attr("x1",posicion1.x)
+                .attr("y1",posicion1.y)
+                .attr("x2",posicion2.x)
+                .attr("y2",posicion2.y)
+                ;        
+
+    }                  
 
 }
+
+// ************************************
 
 radar.DrawEntityValues=function(entity){
 
@@ -379,6 +410,66 @@ radar.DrawEntityValues=function(entity){
                     .x(function(d) { return d.x; })
                     .y(function(d) { return d.y; })
                     .interpolate("linear-closed");
+
+
+    for(var i=0; i < radar.config.length; i++){
+
+        if( entity[radar.config[i].var] ){  
+                
+            if( entity[radar.config[i].var][radar.config[i].var] ){ 
+
+                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+
+                var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
+
+                if(posicionMarcador < 0){ // Si se sale de radar mantiene en margenes
+                    posicionMarcador = 0;
+                }
+
+                if(posicionMarcador > (radio/2)*.97){ // Si se sale de radar mantiene en margenes
+                    posicionMarcador = (radio/2)*.97;
+                }
+
+                var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );
+
+
+                puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+
+            }else{ 
+
+                     var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+
+                    var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
+
+                    var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );					
+    
+                    puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+            }
+
+        }else{
+            var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+
+            var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
+
+            var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );	
+
+           
+
+            puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+        }
+    }
+
+    svgRadar	
+        .append("path")
+        .attr("d", lineFunction(puntosLinea))	
+        .attr("class","radarElement")	                
+        .style("stroke", "#FFFFFF")
+        .style("pointer-events", "none")
+        .attr("filter","url(#glow)")
+        .style("stroke-width", 2)                                       
+        .attr("fill", "black")
+        .style("opacity", 1)        	
+        ;
     
     for(var i=0; i < radar.config.length; i++){
            
@@ -400,10 +491,9 @@ radar.DrawEntityValues=function(entity){
                             posicionMarcador = (radio/2)*.97;
                         }
 
-                        var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );
+                        var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );
 
-                        puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
-                
+
                         svgRadar				
                                 .append("circle")
                                 .attr("class","radarElement")
@@ -422,8 +512,7 @@ radar.DrawEntityValues=function(entity){
                                 .style("stroke","none")
                                 .style("pointer-events","auto")
                                 .on("mouseover",function(d){
-
-                                    radar.CleanWindows();
+                                    
 
                                     d3.select(this).attr("fill","white");
                                     d3.select(this).attr("r",radioInicialInidcador*2);  
@@ -507,7 +596,7 @@ radar.DrawEntityValues=function(entity){
                                     }
                                     $("#toolTip").css("top",posY);
 
-                                    Stage.FocusMapElement(this.data.key);
+                                   
 
                                 })
                                 .on("mouseout",function(d){
@@ -519,6 +608,8 @@ radar.DrawEntityValues=function(entity){
 
                                 })
                                 .on("click",function(d){
+
+                                    radar.CleanWindows();
 
                                     if(this.tootipDetail){
 
@@ -601,14 +692,15 @@ radar.DrawEntityValues=function(entity){
                                     return label;
 
                                 });
+
+                                
                 }else{ // Para dibujar circulo aun cuando no se tiene datos
 
                     var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
 
                     var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
-                    var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );					
-                    puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+                    var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );					
     
                     svgRadar				
                             .append("circle")
@@ -631,9 +723,9 @@ radar.DrawEntityValues=function(entity){
 
                 var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
-                var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:radio/2 , y:entity.radarData.posY+(radio/2) }  );	
+                var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );	
 
-                puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+               
 
 				svgRadar				
 						.append("circle")
@@ -652,16 +744,6 @@ radar.DrawEntityValues=function(entity){
 
     }
 
-    svgRadar	
-    	.append("path")
-        .attr("d", lineFunction(puntosLinea))	
-        .attr("class","radarElement")	                
-        .style("stroke", "#FFFFFF")
-        .style("pointer-events", "none")
-        .style("stroke-width", 3)
-        .style("stroke-opacity", 1)	                               
-        .attr("fill", "black")
-        .style("opacity", .1)
-        ;
+   
 
 }

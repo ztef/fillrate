@@ -55,6 +55,8 @@ elementosContextoMapa.DibujaUNs=function(){
                                         this.data.labelSVG.text("");
                                     });
 
+                    /*
+
                     if(store[e][i].Nombre.indexOf("Pta")> -1){
 
                                     var colorBase = Cesium.Color.fromCssColorString("#52C8FF");	
@@ -74,6 +76,8 @@ elementosContextoMapa.DibujaUNs=function(){
                                             });
 
                     }
+
+                    */
 
                 }
 

@@ -94,7 +94,6 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
   d3.select("#toolTip3")                                     
     .style("width", (svgTooltipWidth)+"px" );
 
-   
 
     
     /* 
@@ -264,6 +263,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
 
     var data = arr.map(function(item) {
         return {
+
           key: item.key,
           "VolumenPlan": item.VolumenPlan,
           "VolumenReal": item.VolumenReal,
@@ -273,6 +273,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         };
         });
     
+
     
         // DEFINE COLUMNAS
       
@@ -282,7 +283,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         { key: "VolumenReal", header: "Vol Real", sortable: true, width: "150px" },
         { key: "DifK", header: "Dif (k)", sortable: true, width: "150px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "1500px" },
-        { key: "Peso", header: "Peso", sortable: true,  width: "1500px" }
+        { key: "Peso", header: "Peso (k)", sortable: true,  width: "1500px" }
       ];
     
     
@@ -314,12 +315,9 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
             '<span class="bar-value">' + barValue + '</span>' +
             '</div>';
     
-    
-    
         },
         Peso: function(value){
       
-         
 
            var barWidth = (value/maximoVolumen)*100 + '%';
            var barValue = vix_tt_formatNumber(value)+'k';
@@ -328,6 +326,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
           
           '</div>';
+
     
         }
       };
