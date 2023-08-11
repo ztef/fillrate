@@ -79,15 +79,18 @@ dataManager.CalculateKPIs=function(entities_){
     
     
     // 2
-    if(calculateKpiExpert_Pendientes && $("#nivel_cb").val() ){
+   
+    if(calculateKpiExpert_OOS){
         
-        calculateKpiExpert_Pendientes.calculateKPI(entities).then(()=>{
-                                                                loadsCount++;
-                                                                dataManager.checkAllLoads();
-                                                                });
-    }
+        calculateKpiExpert_OOS.calculateKPI(entities).then(()=>{
+            loadsCount++;
+            dataManager.checkAllLoads();
+         });
+
+    } 
     
     
+
     
     // 3
     if(calculateKpiExpert_Ventas){
@@ -99,7 +102,6 @@ dataManager.CalculateKPIs=function(entities_){
     }  
     
     
-
     // 4
     if(calculateKpiExpert_Abasto && $("#nivel_cb").val() ){
         
@@ -110,14 +112,14 @@ dataManager.CalculateKPIs=function(entities_){
     }     
    
     // 5
-    if(calculateKpiExpert_OOS){
-        
-        calculateKpiExpert_OOS.calculateKPI(entities).then(()=>{
-            loadsCount++;
-            dataManager.checkAllLoads();
-         });
 
-    }    
+     if(calculateKpiExpert_Pendientes && $("#nivel_cb").val() ){
+        
+        calculateKpiExpert_Pendientes.calculateKPI(entities).then(()=>{
+                                                                loadsCount++;
+                                                                dataManager.checkAllLoads();
+                                                                });
+    }   
    
  
     // 6  

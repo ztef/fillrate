@@ -57,7 +57,7 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
              
                          }
 
-                          //FILTRO DE MASIVO
+                        //FILTRO DE MASIVO
                         if($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""){
 
                                 params+="&Masivos=Todos";               
@@ -104,6 +104,25 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                         }  
 
                                         for(var j=0;  j < data.recordset.length; j++){
+
+                                                if(data.recordset[j].Fecha!=""){
+
+                                                        
+                                                        if( data.recordset[j].Fecha.indexOf("T") > -1){
+                
+                                                                var fechaSplit=data.recordset[j].Fecha.split("T");
+                                                                
+                                                                fechaSplit=fechaSplit[0].split("-");                   
+                                        
+                                                        }else{
+                                                                
+                                                                var fechaSplit=data.recordset[j].Fecha.split("-");
+                                          
+                                                        }                   
+                                        
+                                                        data.recordset[j].fecha= new Date(Number(fechaSplit[0]),Number(fechaSplit[1])-1 ,Number(fechaSplit[2])); 
+                        
+                                                }
 
                                                 var entidad=entities_coll[data.recordset[j].Agrupador];
 

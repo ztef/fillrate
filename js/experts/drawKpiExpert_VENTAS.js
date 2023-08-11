@@ -28,7 +28,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail=function(entity){
 drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){    
 
     var maximo=0; 
-    var maximoVolumen=0;  
+    var maximoVolumen=0;
 
     var arr=d3.nest()
             .key(function(d) { return d.AgrupProducto; })
@@ -91,6 +91,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     
     if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
         $("#toolTip3").css("top",(windowHeight-(arr.length*altura)-150)+"px");
+        
   d3.select("#toolTip3")                                     
     .style("width", (svgTooltipWidth)+"px" );
 

@@ -3,12 +3,24 @@ var kpiExpert_OOS={};
 kpiExpert_OOS.eraseChart=function(){ 
 
     d3.select("#svgTooltip").selectAll(".ossDetail").data([]).exit().remove();
+    d3.select("#svgTooltip3").selectAll(".ossDetail").data([]).exit().remove();
     
     $("#toolTip2").css("visibility","hidden");	
+    $("#toolTip3").css("visibility","hidden");
 
 }
 
 kpiExpert_OOS.DrawTooltipDetail=function(entity){    
+ 
+    d3.select("#svgTooltip").selectAll(".ossDetail").data([]).exit().remove();
+    d3.select("#svgTooltip3").selectAll(".ossDetail").data([]).exit().remove();
+    
+    kpiExpert_OOS.DrawTooltipDetail_UN(entity);
+    kpiExpert_OOS.DrawTooltipDetail_Dia(entity);
+
+}
+
+kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){    
 
     d3.select("#svgTooltip").selectAll(".ossDetail").data([]).exit().remove();
 
@@ -68,8 +80,7 @@ kpiExpert_OOS.DrawTooltipDetail=function(entity){
 
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",(mouse_x+300)+"px");
-    
+    $("#toolTip2").css("left",(300)+"px");   
   
 
     var toolText =  
@@ -81,27 +92,23 @@ kpiExpert_OOS.DrawTooltipDetail=function(entity){
     d3.select("#toolTip2")                                     
                 .style("width", (svgTooltipWidth)+"px" );
 
+    vix_tt_formatToolTip("#toolTip2","OOS por U.N. y Producto de "+entity.key,svgTooltipWidth);
+
+    $("#toolTip2").css("top",(500)+"px");
+
+    var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
+    d3.select("#toolTip2").append("div").html(svgElement);
+
     d3.select("#svgTooltip")                     
-                .style("width", svgTooltipWidth )
-                .style("height", svgTooltipHeight )
-                ;   
+        .style("width", svgTooltipWidth )
+        .style("height", (svgTooltipHeight)+50 )
+                    ;
 
-    var posY=mouse_y+50;
-
-    if( $("#toolTip2").height()+mouse_y+50 > windowHeight ){
-        posY=windowHeight-($("#toolTip2").height()+20);
-    }
-
-    if( posY < 0 ){
-        posY=20;
-
-    }
-    $("#toolTip2").css("top",posY);
 
 
     d3.select("#svgTooltip")
             .append("text")						
-            .attr("class","abasDetail")
+            .attr("class","ossDetail")
             .style("fill","#8EBBFF")		
             .style("font-family","Cabin")
             .style("font-weight","bold")
@@ -114,7 +121,7 @@ kpiExpert_OOS.DrawTooltipDetail=function(entity){
 
     d3.select("#svgTooltip")
             .append("text")						
-            .attr("class","abasDetail")
+            .attr("class","ossDetail")
             .style("fill","#8EBBFF")		
             .style("font-family","Cabin")
             .style("font-weight","bold")
@@ -127,7 +134,7 @@ kpiExpert_OOS.DrawTooltipDetail=function(entity){
     
     d3.select("#svgTooltip")
             .append("text")						
-            .attr("class","abasDetail")
+            .attr("class","ossDetail")
             .style("fill","#8EBBFF")		
             .style("font-family","Cabin")
             .style("font-weight","bold")
@@ -199,13 +206,12 @@ kpiExpert_OOS.DrawTooltipDetail=function(entity){
                     .attr("transform"," translate("+String( (svgTooltipWidth*.55)+anchoVol+10  )+","+String( altura*caso+(tamanioFuente)+marginTop -(tamanioFuente*.3)  )+")  rotate("+(0)+") ")
                     .text(function(){
     
-                            return  arr[i].OOS;
+                            return  arr[i].OOS+"%";
     
                         })
                         .transition().delay(0).duration(1000)
                         .style("opacity",1 )
-                      ;  
-       
+                      ;       
        
 
                     
@@ -265,5 +271,179 @@ kpiExpert_OOS.DrawTooltipDetail=function(entity){
                     caso++;
         
     }    
+
+}
+
+kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){ 
+
+    var maximo=0;
+    var maximo2=0;
+
+    var arr=d3.nest()
+            .key(function(d) { 
+
+                    if(d.fecha){
+                            return d.fecha.getTime(); 
+                    }else{                       
+                            return 0;
+                    }                        
+    
+            })
+            .entries(entity.oos.values);
+
+            for(var i=0; i < arr.length; i++ ){
+
+                arr[i].Numerador=0;
+                arr[i].Denominador=0;
+                arr[i].Fisico=0;
+                arr[i].fecha=arr[i].values[0].fecha.getTime();
+        
+                for(var j=0; j < arr[i].values.length; j++ ){
+        
+                    arr[i].Numerador+=Number(arr[i].values[j].Numerador);
+                    arr[i].Denominador+=Number(arr[i].values[j].Denominador);
+                    arr[i].Fisico+=Number(arr[i].values[j].Fisico);
+
+                }
+
+                if(maximo2 < arr[i].Fisico)
+                    maximo2 = arr[i].Fisico;
+        
+            }
+
+            for(var i=0; i < arr.length; i++ ){
+                arr[i].OOS=Math.round(  (arr[i].Numerador/arr[i].Denominador)*10000)/100;
+                
+                if(maximo < arr[i].OOS*1000){
+                    maximo=arr[i].OOS*1000;
+                }
+            }           
+
+            arr = arr.sort((a, b) => {                
+                return b.fecha - a.fecha;                                    
+        
+            }); 
+        
+            arr=arr.reverse();
+        
+            var ancho=20;
+
+            
+            var svgTooltipWidth=arr.length*ancho;
+
+            if(svgTooltipWidth < 80)
+            svgTooltipWidth=80;
+
+            var svgTooltipHeight=500;
+            var tamanioFuente=ancho*.8;   
+        
+            $("#toolTip3").css("visibility","visible");            
+            $("#toolTip3").css("right",(svgTooltipWidth)+"px");
+        
+        
+            $("#toolTip3").css("top","500px");
+        
+            var marginBottom=svgTooltipHeight*.04;
+
+            // FORMATEA TOOL TIP :
+            
+            vix_tt_formatToolTip("#toolTip3","OOS por Día de "+entity.key,svgTooltipWidth);
+        
+            // Agrega un div con un elemento svg :
+        
+            var svgElement = "<svg id='svgTooltip3' style='pointer-events:none;'></svg>";
+            d3.select("#toolTip3").append("div").html(svgElement);
+        
+            d3.select("#svgTooltip3")                     
+                .style("width", svgTooltipWidth )
+                .style("height", (svgTooltipHeight)+50 )
+                            ;
+
+            for(var i=0; i < arr.length; i++ ){   
+
+               
+                var altura1=GetValorRangos( arr[i].OOS*1000,1, maximo ,1,svgTooltipHeight*.3);
+                var altura2=GetValorRangos( arr[i].Fisico ,1, maximo2 ,1,svgTooltipHeight*.3);
+                
+                
+                var color="#1ADD00";
+
+                if(arr[i].OOS > 8){
+                    color="#ff0000";
+                }else if(arr[i].OOS > 5.9){
+                    color="#FCFF11";
+                }
+
+                d3.select("#svgTooltip3").append("rect")		    		
+                                .attr("width",ancho*.8 )
+                                .attr("class","ossDetail")
+                                .attr("x",(ancho*i)  )
+                                .attr("y", (svgTooltipHeight)-altura1-marginBottom  )
+                                .attr("height",altura1)
+                                .attr("fill",color)
+                                .style("pointer-events","auto")
+                                ;
+                               	
+        
+                d3.select("#svgTooltip3").append("rect")		    		
+                                .attr("width",ancho*.8 )
+                                .attr("class","ossDetail")
+                                .attr("x",(ancho*i)  )
+                                .attr("y", (svgTooltipHeight*.5)-altura2-marginBottom  )
+                                .attr("height",altura2)
+                                .attr("fill","#ffffff")
+                                .style("pointer-events","auto")
+                                ;
+
+
+                d3.select("#svgTooltip3")
+                                .append("text")						
+                                .attr("class","ossDetail")
+                                .style("fill","#ffffff")		
+                                .style("font-family","Cabin")
+                                .style("font-weight","bold")
+                                .style("font-size",tamanioFuente)	
+                                .style("text-anchor","start")
+                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight)-altura1-marginBottom-9   )+")  rotate("+(-90)+") ")
+                                .text(function(){
+                                
+                                    return  formatNumber(arr[i].OOS,true)+"%" ;
+                
+                                });
+                
+                d3.select("#svgTooltip3")
+                                .append("text")						
+                                .attr("class","ossDetail")
+                                .style("fill","#ffffff")		
+                                .style("font-family","Cabin")
+                                .style("font-weight","bold")
+                                .style("font-size",tamanioFuente)	
+                                .style("text-anchor","end")
+                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight)-marginBottom+10   )+")  rotate("+(-90)+") ")
+                                .text(function(){
+                                
+                                    var date=new Date( Number(arr[i].key) );
+                
+                                    return  date.getDate()+" "+getMes(date.getMonth());
+                
+                                });    
+
+                d3.select("#svgTooltip3")
+                                .append("text")						
+                                .attr("class","ossDetail")
+                                .style("fill","#ffffff")		
+                                .style("font-family","Cabin")
+                                .style("font-weight","bold")
+                                .style("font-size",tamanioFuente)	
+                                .style("text-anchor","start")
+                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight*.5)-altura2-marginBottom-3   )+")  rotate("+(-90)+") ")
+                                .text(function(){
+                                
+                                    return  formatNumber(arr[i].Fisico/1000)+"k" ;
+                
+                                });
+                
+
+            }
 
 }

@@ -469,10 +469,10 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
   
       // Crea  el SVG (coloca un label solo en el primero)
       var svgCode = '<svg width="' + svgWidth + '" height="' + svgHeight + '">' +
-          '<rect x="0" y="0" width="' + width1 + '" height="' + svgHeight + '" style="fill: blue;"></rect>' +
-          '<rect x="' + width1 + '" y="0" width="' + width2 + '" height="' + svgHeight + '" style="fill: green;"></rect>' +
-          '<rect x="' + (width1 + width2) + '" y="0" width="' + width3 + '" height="' + svgHeight + '" style="fill: orange;"></rect>' +
-          '<text x="5" y="' + (svgHeight / 2) + '" dominant-baseline="middle" fill="white">' + labelText + '</text>' +
+          '<rect x="0" y="0" width="' + width1 + '" height="' + svgHeight + '" style="fill: #4989FF;"></rect>' +
+          '<rect x="' + width1 + '" y="0" width="' + width2 + '" height="' + svgHeight + '" style="fill: #FFF117;"></rect>' +
+          '<rect x="' + (width1 + width2) + '" y="0" width="' + width3 + '" height="' + svgHeight + '" style="fill: #FF0018;"></rect>' +
+          '<text x="5" y="' + (svgHeight / 2) + '" dominant-baseline="middle" style="fill:#FFFFFF">' + labelText + '</text>' +
           '</svg>';
   
       return svgCode;

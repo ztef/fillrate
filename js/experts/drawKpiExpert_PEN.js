@@ -3,8 +3,9 @@ var kpiExpert_PENDIENTES={};
 kpiExpert_PENDIENTES.eraseChart=function(){ 
 
     d3.select("#svgTooltip").selectAll(".prodDetail").data([]).exit().remove();   
-    
+    d3.select("#svgTooltip3").selectAll(".penDetail").data([]).exit().remove();
     $("#toolTip2").css("visibility","hidden");
+    $("#toolTip3").css("visibility","hidden");
 
 }
 
@@ -12,6 +13,8 @@ kpiExpert_PENDIENTES.eraseChart=function(){
 kpiExpert_PENDIENTES.DrawTooltipDetail=function(entity){   
     
     d3.select("#svgTooltip").selectAll(".penDetail").data([]).exit().remove();
+    d3.select("#svgTooltip3").selectAll(".penDetail").data([]).exit().remove();
+
     kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo(entity);  
     kpiExpert_PENDIENTES.DrawTooltipDetail_Dia(entity);  
 
@@ -20,8 +23,6 @@ kpiExpert_PENDIENTES.DrawTooltipDetail=function(entity){
 kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){    
 
     var maximo=0;
-
-    console.log("arr",entity);
 
     var arr=d3.nest()
             .key(function(d) { 
@@ -39,17 +40,21 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
     for(var i=0; i < arr.length; i++ ){
 
-        arr[i].Pendientes=0;
+        arr[i].Libre_Pendiente_Hoy=0;
+        arr[i].Libre_Retrasado=0;
+        arr[i].Total=0;
         arr[i].fecha=arr[i].values[0].fecha.getTime();
 
         for(var j=0; j < arr[i].values.length; j++ ){
 
-            arr[i].Pendientes+=Number(arr[i].values[j].Libre_Retrasado);
+            arr[i].Libre_Retrasado+=Number(arr[i].values[j].Libre_Retrasado);
+            arr[i].Libre_Pendiente_Hoy+=Number(arr[i].values[j].Libre_Retrasado);
+            arr[i].Total+=arr[i].Libre_Retrasado+arr[i].Libre_Pendiente_Hoy;
 
         }
 
-        if(maximo < arr[i].Pendientes){
-            maximo=arr[i].Pendientes;
+        if(maximo < arr[i].Total){
+            maximo=arr[i].Total;
         }
 
     }
@@ -60,35 +65,24 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
     }); 
 
     arr=arr.reverse();
+
     var ancho=20;
 
-    var marginBottom=svgTooltipHeight*.11;
-
+    
     var svgTooltipWidth=arr.length*ancho;
+
     if(svgTooltipWidth < 80)
     svgTooltipWidth=80;
 
     var svgTooltipHeight=500;
-    var marginBottom=svgTooltipHeight*.11;
     var tamanioFuente=ancho*.8;   
 
+    var marginBottom=svgTooltipHeight*.11;
+
+
     $("#toolTip3").css("visibility","visible");            
-    $("#toolTip3").css("left",(mouse_x+950)+"px");
+    $("#toolTip3").css("right",(svgTooltipWidth+10)+"px");
 
-  
-    var toolText =  
-            "<span style='color:#fff600'><span style='color:#ffffff'>FillRate por Estado</span></span> "+               
-            "<svg id='svgTooltip3'  style='pointer-events:none;'></svg> ";
-
-    $("#toolTip3").html(toolText);
-
-    d3.select("#toolTip3")                                     
-                    .style("width", (svgTooltipWidth)+"px" );
-
-    d3.select("#svgTooltip3")                     
-                    .style("width", svgTooltipWidth )
-                    .style("height", (svgTooltipHeight)+50 )
-                    ;
 
     var posY=mouse_y-50;
 
@@ -102,37 +96,82 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
     $("#toolTip3").css("top",posY);
 
+
+    // FORMATEA TOOL TIP :
+    
+    vix_tt_formatToolTip("#toolTip3","Retrasados por Día de "+entity.key,svgTooltipWidth);
+
+    // Agrega un div con un elemento svg :
+
+    var svgElement = "<svg id='svgTooltip3' style='pointer-events:none;'></svg>";
+    d3.select("#toolTip3").append("div").html(svgElement);
+
+    d3.select("#svgTooltip3")                     
+        .style("width", svgTooltipWidth )
+        .style("height", (svgTooltipHeight)+50 )
+                    ;
+
     for(var i=0; i < arr.length; i++ ){   
 
-        var altura=GetValorRangos( arr[i].Pendientes,1, maximo ,1,svgTooltipHeight*.4);
-
-        console.log("altura",altura);
+        var altura=svgTooltipHeight*.7;
+        var altura1=GetValorRangos( arr[i].Libre_Pendiente_Hoy,1, maximo ,1,altura);
+        var altura2=GetValorRangos( arr[i].Libre_Retrasado,1, maximo ,1,altura);
+   
+        d3.select("#svgTooltip3").append("rect")		    		
+                                            .attr("width",ancho*.8 )
+                                            .attr("class","penDetail")
+                                            .attr("x",(ancho*i)  )
+                                            .attr("y", (svgTooltipHeight)-altura1-marginBottom  )
+                                            .attr("height",altura1)
+                                            .attr("fill","#00A8FF")
+                                            .style("pointer-events","auto")
+                                            .append('title')
+                                            .text("Libre Pendiente Hoy: "+formatNumber(arr[i].Libre_Pendiente_Hoy));	
 
         d3.select("#svgTooltip3").append("rect")		    		
-                .attr("height",altura)
-                .attr("class","frDetail")
-                .attr("x",svgTooltipWidth*.7  )
-                .attr("y", (altura*caso)+marginTop )
-                .attr("width",1)
-                .attr("fill","#FFFFFF")
-                .transition().delay(0).duration(i*50)
-                .style("width",ancho )	
-                ;
+                                    .attr("width",ancho*.8 )
+                                    .attr("class","penDetail")
+                                    .attr("x",(ancho*i)  )
+                                    .attr("y", (svgTooltipHeight)-altura1-altura2-marginBottom-2  )
+                                    .attr("height",altura2)
+                                    .attr("fill","#EAFF00")
+                                    .style("pointer-events","auto")
+                                    .append('title')
+                                    .text("Libre Retrasado: "+formatNumber(arr[i].Libre_Retrasado));	
+                                    ;
                 
         d3.select("#svgTooltip3")
                 .append("text")						
-                .attr("class","abasDetail")
+                .attr("class","penDetail")
                 .style("fill","#ffffff")		
                 .style("font-family","Cabin")
                 .style("font-weight","bold")
                 .style("font-size",tamanioFuente)	
                 .style("text-anchor","start")
-                .attr("transform"," translate("+String( (svgTooltipWidth*.7)+ancho+3  )+","+String( (altura*caso)+tamanioFuente+marginTop    )+")  rotate("+(0)+") ")
+                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight)-altura1-altura2-marginBottom-9   )+")  rotate("+(-90)+") ")
                 .text(function(){
                 
-                    return  Math.round((arr[i].CantEntfinal/1000)*100)/100 +"k";
+                    return  formatNumber(arr[i].Total) ;
 
                 });
+
+        d3.select("#svgTooltip3")
+                .append("text")						
+                .attr("class","penDetail")
+                .style("fill","#ffffff")		
+                .style("font-family","Cabin")
+                .style("font-weight","bold")
+                .style("font-size",tamanioFuente)	
+                .style("text-anchor","end")
+                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight)-marginBottom+10   )+")  rotate("+(-90)+") ")
+                .text(function(){
+                
+                    var date=new Date( Number(arr[i].key) );
+
+                    return  date.getDate()+" "+getMes(date.getMonth());
+
+                });
+                
     }
 
 }
@@ -163,23 +202,15 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
     var marginTop=svgTooltipHeight*.1;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",(mouse_x+350)+"px");
+    $("#toolTip2").css("left",(200)+"px");
    
 
     if( (mouse_y-100)+(campos.length*altura) > windowHeight  )
         $("#toolTip2").css("top",(windowHeight-(campos.length*altura)-150)+"px");
         
-    var toolText =  
-                "<span style='color:#fff600'><span style='color:#ffffff'>Pendientes por tipo</span></span>"+               
-                "<svg id='svgTooltip'  style='pointer-events:none;'></svg> ";
-
-    $("#toolTip2").html(toolText);
-
-    d3.select("#toolTip2")                                     
-                .style("width", (svgTooltipWidth)+"px" );
+  
 
     d3.select("#svgTooltip")                     
-                .style("width", svgTooltipWidth )
                 .style("height", svgTooltipHeight+50 )
                 ;
 
@@ -195,13 +226,25 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
     }
     $("#toolTip2").css("top",posY);
 
+    vix_tt_formatToolTip("#toolTip2","Retrasados por Tipo de "+entity.key,svgTooltipWidth);
+
+    var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
+    d3.select("#toolTip2").append("div").html(svgElement);
+
+    d3.select("#svgTooltip")                     
+        .style("width", svgTooltipWidth )
+        .style("height", (svgTooltipHeight)+50 )
+                    ;
+
+
+
     for(var i=0; i < campos.length; i++ ){
 
         var ancho=GetValorRangos(  Number(dataElement[campos[i]]) ,1, maximo ,1,svgTooltipWidth*.4);
      
         d3.select("#svgTooltip").append("rect")		    		
                     .attr("width",1 )
-                    .attr("class","abasDetail")
+                    .attr("class","penDetail")
                     .attr("x",marginLeft   )
                     .attr("y", (altura*caso)+marginTop )
                     .attr("height",altura*.4)
@@ -212,7 +255,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
 
         d3.select("#svgTooltip")
                     .append("text")						
-                    .attr("class","abasDetail")
+                    .attr("class","penDetail")
                     .style("fill","#ffffff")		
                     .style("font-family","Cabin")
                     .style("font-weight","bold")
@@ -230,7 +273,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
 
         d3.select("#svgTooltip")
                     .append("text")						
-                    .attr("class","abasDetail")
+                    .attr("class","penDetail")
                     .style("fill","#ffffff")		
                     .style("font-family","Cabin")
                     .style("font-weight","bold")
