@@ -120,7 +120,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     // DEFINE COLUMNAS
   
   var columns = [
-    { key: "key", header: "Producto", sortable: false, width: "300px" },
+    { key: "key", header: "Producto", sortable: true, width: "300px" },
     { key: "VolumenPlan", header: "Vol Plan (k)", sortable: true, width: "150px" },
     { key: "VolumenReal", header: "Vol Real (k)", sortable: true, width: "150px" },
     { key: "DifK", header: "Dif (k)", sortable: true, width: "150px" },
@@ -263,19 +263,22 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
 
     var data = arr.map(function(item) {
         return {
-            key: item.key,
-            "VolumenPlan": item.VolumenPlan,
-            "VolumenReal": item.VolumenReal,
-            "DifK": item.VolumenReal - item.VolumenPlan,
-            "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
-            Peso: item.VolumenReal
-          };
-          });
+
+          key: item.key,
+          "VolumenPlan": item.VolumenPlan,
+          "VolumenReal": item.VolumenReal,
+          "DifK": item.VolumenReal - item.VolumenPlan,
+          "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
+          Peso: item.VolumenReal
+        };
+        });
+    
+
     
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Estado", sortable: false, width: "500px" },
+        { key: "key", header: "Estado", sortable: true, width: "500px" },
         { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "150px" },
         { key: "VolumenReal", header: "Vol Real", sortable: true, width: "150px" },
         { key: "DifK", header: "Dif (k)", sortable: true, width: "150px" },
@@ -315,13 +318,15 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         },
         Peso: function(value){
       
-            var barWidth = (value/maximoVolumen)*100 + '%';
-            var barValue = vix_tt_formatNumber(value)+'k';
-       
-           return '<div class="bar-container">' +
-           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
-           
-           '</div>';
+
+           var barWidth = (value/maximoVolumen)*100 + '%';
+           var barValue = vix_tt_formatNumber(value)+'k';
+      
+          return '<div class="bar-container">' +
+          '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
+          
+          '</div>';
+
     
         }
       };

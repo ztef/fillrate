@@ -1,4 +1,4 @@
-const _bkserver = "http://10.26.83.135:8080";
+const _bkserver = "https://uscldv3dwad01.azurewebsites.net/";
 
 
 var store={
