@@ -132,7 +132,7 @@ radar.DrawEntities=function(entities){
                     
                 }
                 
-                svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length) );
+                svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length)+100 );
 
                 entities[i].radarData={};
 
@@ -298,7 +298,8 @@ radar.DrawBaseRadar=function(entity){
                 $("#radarDiv").css("pointer-events","auto");
             })
             .on("mouseout",function(){
-                $("#radarDiv").css("pointer-events","none");
+                
+                setTimeout(()=>{$("#radarDiv").css("pointer-events","none");}, 1000);
             })
             .on("click",function(){
                 radar.CleanWindows();
@@ -607,6 +608,8 @@ radar.DrawEntityValues=function(entity){
 
                                 })
                                 .on("click",function(d){
+
+                                    radar.CleanWindows();
 
                                     if(this.tootipDetail){
 

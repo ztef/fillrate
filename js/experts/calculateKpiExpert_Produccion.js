@@ -159,7 +159,7 @@ calculateKpiExpert_Produccion.getTooltipDetail=function(entityId){
                     prodPer=entities[i].produccion.produccion+"%";
                 
                 var text=`<br><hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento de Producción: </span><br>
-                <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Diferencia: <span style='color:#ffffff'>${prodPer} <span style='color:#ffffff;font-size:${10*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].produccion.VolVenta_Plan/1000)}k , Real:${formatNumber(entities[i].produccion.VolVenta_Real/1000)}k)<br>
+                <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Diferencia: <span style='color:#ffffff'>${prodPer} <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].produccion.VolVenta_Plan/1000)}k , Real:${formatNumber(entities[i].produccion.VolVenta_Real/1000)}k)<br>
                 `
 
                 return text;
