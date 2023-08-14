@@ -43,10 +43,10 @@ calculateKpiExpert_Pendientes.calculateKPI=function(entities){
             var dateInit_=dateInit.getFullYear()+"-"+String(Number(dateInit.getMonth())+1)+"-"+dateInit.getDate();
             var dateEnd_=dateEnd.getFullYear()+"-"+String(Number(dateEnd.getMonth())+1)+"-"+dateEnd.getDate();
            
-             // FILTROS****
-             var params="";
+             // FILTROS ****
+            var params="";
            
-             for(var j=0; j < store.catlogsForFilters.length; j++){ 
+            for(var j=0; j < store.catlogsForFilters.length; j++){ 
  
                  if($("#"+store.catlogsForFilters[j].id).val() != "" && $("#"+store.catlogsForFilters[j].id).val() != undefined ){
  
@@ -54,7 +54,7 @@ calculateKpiExpert_Pendientes.calculateKPI=function(entities){
  
                  }
  
-             }
+            }
 
               //FILTRO DE MASIVO
             if($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""){
@@ -96,7 +96,7 @@ calculateKpiExpert_Pendientes.calculateKPI=function(entities){
 
                             for(var i=0;  i < entities.length; i++){ 
 
-                                entities[i].pendientes={pendientes:0,volumen:0,values:[]};
+                                entities[i].pendientes={pendientes:0,volumen:0,values:[],allRecords:[]};
                                 entities_coll[entities[i].key]=entities[i];                                 
                             }    
                             
@@ -115,6 +115,7 @@ calculateKpiExpert_Pendientes.calculateKPI=function(entities){
                                         fechaSplit=fechaSplit[0].split("-");                   
                 
                                     }else{
+                                        
                                         var fechaSplit=data.recordset[j].FechaActual.split("-");
                   
                                     }                   
@@ -146,6 +147,8 @@ calculateKpiExpert_Pendientes.calculateKPI=function(entities){
                             
                                     }
 
+                                    entidad.pendientes.allRecords.push( data.recordset[j] );       
+
                                 }else{
                                     //console.log("no existe entidad mencionada en pendientes:",data.recordset[j].Agrupador);
                                 }
@@ -156,7 +159,6 @@ calculateKpiExpert_Pendientes.calculateKPI=function(entities){
 
                 });
             }
-
 
         }else{
             alert("Error al encontrar URL API Pendienetes");
@@ -184,7 +186,6 @@ calculateKpiExpert_Pendientes.getTooltipDetail=function(entityId){
                 <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Con Compromiso Vencido: <span style='color:#ffffff'>${ prodPer }           
 
                 `
-
                 return text;
 
             }

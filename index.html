@@ -3,7 +3,7 @@
     <meta charset="utf-8">
 <head>
 
-	<title>CMX</title>
+	<title>FR Map</title>
     <meta charset="utf-8">
 	<link rel="shortcut icon" href="images/favicon-02.png">
    
@@ -166,6 +166,12 @@ z-index:900;
                   <feMerge><feMergeNode/> <!-- this contains the offset blurred image -->
                   <feMergeNode in='SourceGraphic'/> <!-- this contains the element that the filter is applied to --></feMerge>
               </filter>
+              <filter id='dropshadowRadar' height='140%' width='140%'>
+                <feGaussianBlur in='SourceAlpha' stdDeviation='10'/> <!-- stdDeviation is how much to blur -->
+                <feOffset dx='0' dy='6' result='offsetblur'/> <!-- how much to offset -->
+                <feMerge><feMergeNode/> <!-- this contains the offset blurred image -->
+                <feMergeNode in='SourceGraphic'/> <!-- this contains the element that the filter is applied to --></feMerge>
+            </filter>
 
               <filter id="glow" x="-130%" y="-130%" height="500%" width="500%">
                 <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
@@ -199,8 +205,6 @@ z-index:900;
 
         <div id="cesiumContainer" style="position:fixed;top:0px;z-index:1;background-color: black"></div>
  
-        <div id="titulo" class="sombra" style="position:fixed;top:5px;left:5px;font-family:Cabin;pointer-events:none;font-size:10px;color:#666666;opacity:1;font-weight:normal;z-index:99999"/></div>
-
       
         <img id="cargando" src="images/preloader_7.gif" style="position:fixed;float:left;left:50%;bottom:50%;pointer-events: none;z-index:100;visibility:hidden;padding:30px;opacity:.7"></img>
 
@@ -211,15 +215,23 @@ z-index:900;
 
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
 
-        <ul class="fa-ul" style="position:absolute;right:2px;top:26px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
-            
-            <img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:23px;float:left;margin:8px"></img>
-            <img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:23px;float:left;margin:8px"></img>
-            <img id="cargando" src="images/chemical.png" onclick="$('#Controls').toggle(1000);" style="width:23px;float:left;margin:8px"></img>
+        <ul class="fa-ul" style="position:absolute;right:2px;top:31px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
+            <img id="cargando" src="images/fontSize1.png" onclick="escalaTextos=escalaTextos*(1.1);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:18px ;float:left;margin:8px"></img>
+            <img id="cargando" src="images/fontSize2.png" onclick="escalaTextos=escalaTextos*(.9);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:18px ;float:left;margin:8px"></img>
+            <img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:18px ;float:left;margin:8px"></img>
+            <img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:18px;float:left;margin:8px"></img>
+            <img id="cargando" src="images/chemical.png" onclick="$('#Controls').toggle(1000);" style="width:18px;float:left;margin:8px"></img>
 
         </ul>
 
-        <ul class="fa-ul" style="position:absolute;left:-30px;top:-6px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
+        <div id="titulo" class="sombra" align="left" style="position:fixed;top:8px;left:15px;font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;z-index:9999"/> 
+        
+        </div>
+        <div id="titulo2" class="sombra" align="right" style="position:fixed;top:60px;left:15px;font-family:Cabin;pointer-events:none;font-size:14px;color:#00C3FF;opacity:1;font-weight:bold;z-index:9999"/> 
+      
+        </div>
+
+        <ul class="fa-ul" style="position:absolute;right:0px;top:-15px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
             
             <img id="back_btn" src="images/back_icon.png" onclick="filterControls.back()" style="width:43px;float:left;margin:8px;visibility:hidden"></img>
 
@@ -239,7 +251,7 @@ z-index:900;
     
         </div>
 
-        <ul id="Controls" class="fa-ul" style="width:150px;float:left;position:fixed;top:80px;font-family:Cabin;box-shadow: 5px 5px 20px #000000;right:10px;font-size:11px;z-index:9999999;opacity:1;line-height: 8px;margin:0px;text-transform:uppercase;border-style:solid;border-color:#254650;border-width:1px;background-color:rgba(0,0,0,.9);padding:20px;border-radius:9px;">
+        <ul id="Controls" class="fa-ul" style="width:150px;float:left;position:fixed;top:10px;font-family:Cabin;box-shadow: 5px 5px 20px #000000;right:10px;font-size:11px;z-index:9999999;opacity:1;line-height: 8px;margin:0px;text-transform:uppercase;border-style:solid;border-color:#254650;border-width:1px;background-color:rgba(0,0,0,.9);padding:20px;border-radius:9px;">
         </ul>
         
 
@@ -260,6 +272,8 @@ z-index:900;
 
             $('#datepicker').datepicker({format: 'mm-dd-yyyy'});
             $('#datepicker2').datepicker({format: 'mm-dd-yyyy'});
+
+            $("#titulo").css("width",(windowWidth*.32)+"px")
 
             $("#cargando").css("visibility","hidden");
 
@@ -311,6 +325,7 @@ z-index:900;
 
         });
 
+
     document.onkeydown = function(event) {
         console.log(event.keyCode);
     
@@ -335,23 +350,38 @@ z-index:900;
                 radar.DrawEntities(radar.lastRadarEntities);
             break;
             //MODIFICA TAMAÑO DE TEXTOS
-            case 50:   
+           
+            case 87:   
 
-                escalaTextos=escalaTextos*(1.1);
-                if(kpiExpert_FR){
-                    kpiExpert_FR.DrawMainHeader();
-                    kpiExpert_FR.DrawFilteredHeader();
-                }                    
+                
+            break;
+            case 83:   
+                   
 
             break;
+
             case 49:   
 
-                escalaTextos=escalaTextos*(.9);
-                if(kpiExpert_FR){
-                    kpiExpert_FR.DrawMainHeader();
-                    kpiExpert_FR.DrawFilteredHeader();
-                }
-                   
+                columnasRadar=1;
+                radar.DrawEntities(entities);
+
+            break;
+            case 50: 
+
+                columnasRadar=2;
+                radar.DrawEntities(entities);                  
+
+            break;
+            case 51: 
+
+                columnasRadar=3;
+                radar.DrawEntities(entities);                  
+
+            break;
+            case 52: 
+
+                columnasRadar=4;
+                radar.DrawEntities(entities);                  
 
             break;
     

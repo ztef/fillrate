@@ -159,7 +159,7 @@ calculateKpiExpert_Produccion.getTooltipDetail=function(entityId){
                     prodPer=entities[i].produccion.produccion+"%";
                 
                 var text=`<br><hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento de Producción: </span><br>
-                <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Diferencia: <span style='color:#ffffff'>${prodPer} <span style='color:#ffffff;font-size:${10*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].produccion.VolVenta_Plan/1000)}k , Real:${formatNumber(entities[i].produccion.VolVenta_Real/1000)}k)<br>
+                <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Diferencia: <span style='color:#ffffff'>${prodPer} <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].produccion.VolVenta_Plan/1000)}k , Real:${formatNumber(entities[i].produccion.VolVenta_Real/1000)}k)<br>
                 `
 
                 return text;
@@ -179,8 +179,8 @@ calculateKpiExpert_Produccion.downloadCSV=function(entityId){
 
               var csv = 'Agrupador,DescrProducto,Destino,Pct_Radar,Peso,Planta,VolVenta_Plan,VolVenta_Real\n';
 
-              var LLaves=["Agrupador","FechaActual","Libre_Pendiente_Hoy","Libre_Programado_CaminoRural","Libre_Programado_NoProg","Libre_Programado_Programable","Libre_Programado_Total","Libre_RecAutf","Libre_Retrasado","Libre_Retrasado_CaminoRural","Libre_Retrasado_NoProg_1D","Libre_Retrasado_NoProg_2D","Libre_Retrasado_NoProg_3D","Libre_Retrasado_NoProg_4D","Libre_Retrasado_NoProg_5D","Libre_Retrasado_NoProg_6D","Libre_Retrasado_NoProg_7oMas","Libre_Retrasado_NoProg_Total","Libre_Retrasado_Programable","Libre_Total","Libre_TotalPorEntregar","Retenido_Entregado","Retenido_RecAutf","Retenido_Total","Total","Fecha"];
-
+              var LLaves=["Agrupador","DescrProducto","Destino","Pct_Radar","Peso","Planta","VolVenta_Plan","VolVenta_Real"];
+              
                     //merge the data with CSV
 
                         for(var j=0;  j < entities[i].produccion.values.length; j++){

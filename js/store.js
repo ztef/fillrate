@@ -22,6 +22,8 @@ var store={
             //{sourceName:"ztSource",varName:"cat_zt",onInitLoad:true},
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatZT" ,varName:"cat_zt",onInitLoad:true,useDateFilters:false},
             //{sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true},
+            //{apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_FillRate",tableName:"d",varName:"fillRate",onInitLoad:true,useDateFilters:true},
+            
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatClientes",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",varName:"cat_cliente",onInitLoad:true,useDateFilters:false},
             {sourceName:"frenteSource",varName:"cat_frente",onInitLoad:true}
   
@@ -34,12 +36,12 @@ var store={
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_OOS_FillRate",varName:"oos",onInitLoad:false,useDateFilters:true},
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate",varName:"ventas",onInitLoad:false,useDateFilters:true},
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_PedidosPendientes",varName:"pendientes",onInitLoad:false,useDateFilters:true},
+       
         {apiURL:_bkserver,serviceName:"getData",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true}
 
     ],
 
-    catlogsForFilters:[
-          
+    catlogsForFilters:[         
            
             {data:"cat_un",placeholder:"Unidad Negocio",fieldInCatlog:"Nombre",id:"cat_un",type:"autoComplete",nameOnFR:"vc50_UN_Tact",nameOnPendientes:"Unidad", color:"#3733E7",storeProcedureField:"vc50_UN_Tact"},
             {data:"cat_gerencia",placeholder:"Gerencia",fieldInCatlog:"Nombre",id:"cat_gerencia",type:"autoComplete",nameOnFR:"GerenciaUN",nameOnPendientes:"Gerencia", color:"#3733E7",storeProcedureField:"GerenciaUN"},
