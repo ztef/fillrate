@@ -1,9 +1,8 @@
 var kpiExpert_FR={};
-var frInterval;
 
-kpiExpert_FR.DrawElement=function(entity,varName,i){      
+kpiExpert_FR.DrawElement=function(entity,i){      
       
-        var altura1=GetValorRangos(entity[varName].por1,1 ,100 ,1 ,entity.altura );
+        var altura1=GetValorRangos(entity.fillRate.por1,1 ,100 ,1 ,entity.altura );
    
         var geometry1= viewer.entities.add({
                 name : '',
@@ -20,7 +19,7 @@ kpiExpert_FR.DrawElement=function(entity,varName,i){
 
         mapElementsArr.push(geometry1);						
 
-        var altura2=GetValorRangos(entity[varName].por2,1 ,100 ,1 ,entity.altura );
+        var altura2=GetValorRangos(entity.fillRate.por2,1 ,100 ,1 ,entity.altura );
 
         var geometry2= viewer.entities.add({
                 name : '',
@@ -37,7 +36,7 @@ kpiExpert_FR.DrawElement=function(entity,varName,i){
 
         mapElementsArr.push(geometry2);
 
-        var altura3=GetValorRangos(entity[varName].por3,1 ,100 ,1 ,entity.altura );
+        var altura3=GetValorRangos(entity.fillRate.por3,1 ,100 ,1 ,entity.altura );
 
         var geometry3= viewer.entities.add({
                 name : '',
@@ -91,28 +90,28 @@ kpiExpert_FR.DrawElement=function(entity,varName,i){
         
         if(i < 100){
 
-                entity.frLabelSVG=svgLines.append("text")                            
+                entity.labelSVG=svgLines.append("text")                            
                         .attr("x",0 )
                         .attr("y", 0   )
                         .style("fill","#FFFFFF")
                         .attr("filter","url(#dropshadowText)")
-                        .attr("class","frLabel")                                    
+                        .attr("class","entityLabel")                                    
                         .style("font-family","Cabin")
                         .style("text-anchor","middle")
                         .style("font-weight","normal")
                         .style("font-size",12)                                
                         .text( function(d){
                             
-                        return entity[varName].por1+"%";
+                        return entity.fillRate.por1+"%";
                         
                         });
 
         }
 
-        if(frInterval)        
-                clearInterval(frInterval);
+        if(Stage.labelsInterval)        
+                clearInterval(Stage.labelsInterval);
        
-        frInterval = setInterval(function(){ kpiExpert_FR.DrawFRLabels(); }, 50);
+        Stage.labelsInterval = setInterval(function(){ Stage.DrawFRLabels(); }, 50);
 }
 
 kpiExpert_FR.eraseChart=function(){ 
@@ -567,7 +566,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
     kpiExpert_FR.DrawMainHeader=function(){
 
-                kpiExpert_FR.ancho=windowWidth*.5;
+                kpiExpert_FR.ancho=windowWidth*.4;
                 kpiExpert_FR.offSetLeft=windowWidth*.35;
                 kpiExpert_FR.offSetTop=10;              
 
@@ -648,7 +647,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                 svgLines.selectAll(".encabezadoFiltered").data([]).exit().remove();
 
-                if( (store[store.mainDataset].length==store.dataToDraw.length) )
+                if( (store.fillRate.length==store.dataToDraw.length) )
                 return;
 
                 var altura=kpiExpert_FR.altura;
@@ -870,35 +869,4 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         
 
  }
-
-kpiExpert_FR.DrawFRLabels=function(){
-      
-       svgLines.selectAll(".frLabel").style("opacity",0) ;
-
-        for(var i=0;  i < entities.length; i++){
-
-                var newPoint = new Point (Number( entities[i].lat ),Number( entities[i].lng ));
-
-                var nextPoint = new Point (Cesium.Math.toDegrees(viewer.camera.positionCartographic.latitude),Cesium.Math.toDegrees(viewer.camera.positionCartographic.longitude));
-
-                var distance = newPoint.distanceTo(nextPoint); 
-              
-                if( distance < 18 ){  
-                        
-                        var position = Cesium.Cartesian3.fromDegrees(Number( entities[i].lng ),Number( entities[i].lat ), 0 );
-                        
-                        var coord = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, position);  
-                 
-                        if(coord){
-                               
-                                if(coord.x > 400 && coord.x < $(document).width()-50 && coord.y > 40 && coord.y < ($(document).height())){
-                                       
-                                        entities[i].frLabelSVG.attr("x",coord.x+7 )
-                                                        .attr("y", coord.y+3  ).style("opacity",1); 
-                                                        
-                                }
-                        }
-
-                }
-        }
-}       
+    

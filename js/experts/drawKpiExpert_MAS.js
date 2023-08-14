@@ -106,7 +106,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
         .style("text-anchor","start")
         .style("opacity",1 )
         .attr("transform"," translate("+String( svgTooltipWidth*.3  )+","+String( altura*.25+(tamanioFuente)   )+")  rotate("+(0)+") ")
-        .text("CantSolfinal (k)")
+        .text("Volumen Masivos (k)")
         .transition().delay(0).duration(i*50);
 
     d3.select("#svgTooltip")
@@ -119,7 +119,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
         .style("text-anchor","start")
         .style("opacity",1 )
         .attr("transform"," translate("+String( svgTooltipWidth*.7  )+","+String( altura*.25+(tamanioFuente)   )+")  rotate("+(0)+") ")
-        .text("VS total Solicitado (%)")
+        .text("Volumen Solicitado (%)")
         .transition().delay(0).duration(i*50);
 
     for(var i=0; i < arr.length; i++ ){

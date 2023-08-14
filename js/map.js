@@ -12,6 +12,7 @@ var svgLines;
 
 var Stage={};
 
+Stage.labelsInterval;
 
 Stage.initStage=function(resolve, reject){
 
@@ -106,66 +107,8 @@ Stage.initStage=function(resolve, reject){
 			    	
 			        $("#toolTip").css("left",mouse_x+50);
 
-					var dataCatlog="";
-					var nombre=mapElements[pickedObject.id._id].key;
-					
-					for(var i=0; i < store.niveles.length; i++){    
-						if( store.niveles[i].id == $("#nivel_cb").val() ){
-							dataCatlog=store[store.niveles[i].coordinatesSource]; 
-							
-							for(var j=0; j < dataCatlog.length; j++){    
-								//console.log(dataCatlog[j].ID);
-								if(dataCatlog[j].ID==mapElements[pickedObject.id._id].key){
-									if(dataCatlog[j].Nombre!=nombre)
-										nombre+=" "+dataCatlog[j].Nombre;
-								}
-									
-							}
-						}						
-					}					
+					var text=dataManager.getTooltipText(mapElements[pickedObject.id._id]);
 
-					nombre=nombre.replaceAll("_"," ");
-					nombre=nombre.replaceAll("undefined"," ");
-
-					var text=`
-								<span style='color:#00C6FF;font-size:15px;'><span style='color:#00C6FF'>${nombre} 
-							`
-
-							if(calculateKpiExpert_Ventas.getTooltipDetail){
-								if(calculateKpiExpert_Ventas.getTooltipDetail(mapElements[pickedObject.id._id].key,store.mainDataset)!=undefined)
-								text+=calculateKpiExpert_Ventas.getTooltipDetail(mapElements[pickedObject.id._id].key);
-							}
-		
-							if(calculateKpiExpert_FR.getTooltipDetail){
-								if(calculateKpiExpert_FR.getTooltipDetail(mapElements[pickedObject.id._id].key,store.mainDataset)!=undefined)
-								text+=calculateKpiExpert_FR.getTooltipDetail(mapElements[pickedObject.id._id].key,store.mainDataset);
-							}
-
-							if(calculateKpiExpert_Pendientes.getTooltipDetail){
-								if(calculateKpiExpert_Pendientes.getTooltipDetail(mapElements[pickedObject.id._id].key,store.mainDataset)!=undefined)
-								text+=calculateKpiExpert_Pendientes.getTooltipDetail(mapElements[pickedObject.id._id].key);
-							}
-		
-							
-							if(calculateKpiExpert_Mas.getTooltipDetail){
-								if(calculateKpiExpert_Mas.getTooltipDetail(mapElements[pickedObject.id._id].key,store.mainDataset)!=undefined)
-								text+=calculateKpiExpert_Mas.getTooltipDetail(mapElements[pickedObject.id._id].key);
-							}
-		
-							if(calculateKpiExpert_OOS.getTooltipDetail){
-								if(calculateKpiExpert_OOS.getTooltipDetail(mapElements[pickedObject.id._id].key,store.mainDataset)!=undefined)
-								text+=calculateKpiExpert_OOS.getTooltipDetail(mapElements[pickedObject.id._id].key);
-							}
-		
-							if(calculateKpiExpert_Abasto.getTooltipDetail){
-								if(calculateKpiExpert_Abasto.getTooltipDetail(mapElements[pickedObject.id._id].key,store.mainDataset)!=undefined)
-								text+=calculateKpiExpert_Abasto.getTooltipDetail(mapElements[pickedObject.id._id].key);
-							}
-							
-							if(calculateKpiExpert_Produccion.getTooltipDetail){
-								if(calculateKpiExpert_Produccion.getTooltipDetail(mapElements[pickedObject.id._id].key,store.mainDataset)!=undefined)
-								text+=calculateKpiExpert_Produccion.getTooltipDetail(mapElements[pickedObject.id._id].key);
-							}
 					
 
 					$("#toolTip").html(text );
@@ -238,14 +181,20 @@ var mapElementsArr=[];
 var escalado=1;
 var currentEntities;
 
-Stage.DrawMapObjects=function(entities,varName){
-	console.log(entities);
+Stage.EraseMapObjects=function(){
 
 	for(var i=0;i < mapElementsArr.length;i++){
 
 		viewer.entities.remove(mapElementsArr[i]);
 
 	}
+
+}
+
+Stage.DrawMapObjects=function(entities){
+	console.log(entities);
+
+	Stage.EraseMapObjects();
 
 	mapElementsArr=[];
 
@@ -282,27 +231,23 @@ Stage.DrawMapObjects=function(entities,varName){
 						//.range([config.radiosMinimos[agrupadorActual], config.radiosMaximos[agrupadorActual] ]);
 						.range([config.radiosMinimos[agrupadorActual], config.radiosMaximos[agrupadorActual] ]);
 
-	if(kpiExpert_FR.DrawElement){
+	for(var i=0; i < entities.length; i++){  			
+		
+			if(entities[i].lat){
 
-		for(var i=0; i < entities.length; i++){  			
-			
-				if(entities[i].lat){
+					entities[i].altura = config.alturas[agrupadorActual];
 
-						entities[i].altura = config.alturas[agrupadorActual];
+					entities[i].radio=radioScale(entities[i].fillRate.totalSolicitado);
 
-						entities[i].radio=radioScale(entities[i][varName].totalSolicitado);
+					entities[i].altura = entities[i].altura*escalado;
+					entities[i].radio=entities[i].radio*escalado;
 
-						entities[i].altura = entities[i].altura*escalado;
-						entities[i].radio=entities[i].radio*escalado;
+					if(entities[i].radio < 40)
+						entities[i].radio=40;
 
-						if(entities[i].radio < 40)
-							entities[i].radio=40;
+					store.map_var.DrawElement(entities[i],i);
 
-						kpiExpert_FR.DrawElement(entities[i],varName,i);
-
-				}
-		}
-
+			}
 	}
 
 	currentEntities=entities;
@@ -352,3 +297,36 @@ Stage.FocusMapElement=function(id){
 
 	}
 }
+
+
+Stage.DrawFRLabels=function(){
+      
+	svgLines.selectAll(".entityLabel").style("opacity",0) ;
+
+	 for(var i=0;  i < entities.length; i++){
+
+			 var newPoint = new Point (Number( entities[i].lat ),Number( entities[i].lng ));
+
+			 var nextPoint = new Point (Cesium.Math.toDegrees(viewer.camera.positionCartographic.latitude),Cesium.Math.toDegrees(viewer.camera.positionCartographic.longitude));
+
+			 var distance = newPoint.distanceTo(nextPoint); 
+		   
+			 if( distance < 18 ){  
+					 
+					 var position = Cesium.Cartesian3.fromDegrees(Number( entities[i].lng ),Number( entities[i].lat ), 0 );
+					 
+					 var coord = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, position);  
+			  
+					 if(coord){
+							
+							 if(coord.x > 400 && coord.x < $(document).width()-50 && coord.y > 40 && coord.y < ($(document).height())){
+									
+									 entities[i].labelSVG.attr("x",coord.x+7 )
+													 .attr("y", coord.y+3  ).style("opacity",1); 
+													 
+							 }
+					 }
+
+			 }
+	 }
+}   

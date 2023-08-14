@@ -214,6 +214,7 @@ dataLoader.LoadData=function(def,cb){
 var loadsToComplete=0;
 var loadsCompleted=0;
 dataLoader.CheckIfComplete=function(){
+    
     loadsCompleted++;
     if(loadsCompleted == loadsToComplete){
 

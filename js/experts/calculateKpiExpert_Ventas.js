@@ -160,7 +160,7 @@ calculateKpiExpert_Ventas.getTooltipDetail=function(entityId){
                 if(entities[i].ventas.ventas!=undefined)
                     prodPer=entities[i].ventas.ventas+"%";
 
-                var text=`<br><hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>CUMPLIMIENTO VENTAS: </span><br>
+                var text=`<br><hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento Ventas: </span><br>
                 <span style='color:#fff600;font-size:15px;'>Diferencia: <span style='color:#ffffff'>${prodPer} <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].ventas.VolumenPlan/1000)}k , Real:${formatNumber(entities[i].ventas.VolumenReal/1000)}k)<br>
                 `
 

@@ -173,7 +173,7 @@ filterControls.showActiveFilters=function(){
     svgLines.selectAll(".filters").data([]).exit().remove();
 
     var caso=1;  
-    var topOffset=100;           
+    var topOffset=130;           
    
     for(var e in filtrosAplicados){
 
@@ -220,12 +220,24 @@ filterControls.showActiveFilters=function(){
         filtroPresentacion=filtrosAplicados["cat_presentacion"];
     }
 
-    var titulo=`<div style="font-size:100%">FILL RATE: ${filtroProducto} | ${filtroPresentacion} | Pedidos Entregados. Nivel: ${nivel} <br>
+    var titulo=`<div style="font-size:100%"><div id="indicadorLabel" style="float:left;"> </div>  ${filtroProducto} | ${filtroPresentacion} | Pedidos Entregados. Nivel: ${nivel} <br>
     <span style="font-size:12px">
     Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;
 
     $("#titulo").html(titulo);
+
+    if(store.map_var==kpiExpert_OOS){
+
+        $("#modo_label").html("Cambiar a FillRate");
+        $("#indicadorLabel").html("OOS FILIALES: ");
+
+    }else if(store.map_var==kpiExpert_FR){
+
+        $("#modo_label").html("Cambiar a OOS Filiales");
+        $("#indicadorLabel").html("FILLRATE: ");
+
+    }
        
 
     svgLines.append("text")						
@@ -459,9 +471,6 @@ filterControls.lookForEntity=function(name, catlog){
             
             for(var i=0; i < store[e].length; i++){
                
-                if(e=="cat_estado")
-                console.log(String(store[e][i].Nombre),name);
-
                 if( String(store[e][i].ID).toLocaleLowerCase()== name || String(store[e][i].Nombre).toLocaleLowerCase() == name  ){                   
                    
                     for(var j=0; j < store.niveles.length; j++){
@@ -492,7 +501,7 @@ filterControls.lookForEntity=function(name, catlog){
 
     }
 
-    alert("No encontró una entidad con ese nombre: ",name);
+    alert("No encontró una entidad con el nombre: "+name);
 
 }
 

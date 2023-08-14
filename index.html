@@ -28,10 +28,10 @@
     <script src="js/autocomplete.js"></script>
 
     <!-- EXPERTOS EN KPI -->
-    <script src="js/experts/drawKpiExpert_FR.js"></script>
+    
     <script src="js/experts/calculateKpiExpert_FR.js"></script>
-    <script src="js/experts/calculateKpiExpert_OOS.js"></script>
-    <script src="js/experts/drawKpiExpert_OOS.js"></script>
+    <script src="js/experts/calculateKpiExpert_OOS.js"></script>   
+    <script src="js/experts/calculateKpiExpert_OOSFiliales.js"></script> 
     <script src="js/experts/calculateKpiExpert_Mas.js"></script>
     <script src="js/experts/calculateKpiExpert_Ventas.js"></script>
     <script src="js/experts/calculateKpiExpert_Pendientes.js"></script>
@@ -39,6 +39,10 @@
     <script src="js/experts/calculateKpiExpert_Produccion.js"></script>
     <script src="js/experts/drawKpiExpert_ABAS.js"></script>
     <script src="js/experts/reportExpert.js"></script>
+
+    <script src="js/experts/drawKpiExpert_FR.js"></script>
+    <script src="js/experts/drawKpiExpert_OOS.js"></script>
+    <script src="js/experts/drawKpiExpert_OOS_Filiales.js"></script>
     <script src="js/experts/drawKpiExpert_PROD.js"></script>
     <script src="js/experts/drawKpiExpert_VENTAS.js"></script>
     <script src="js/experts/drawKpiExpert_MAS.js"></script>
@@ -125,6 +129,12 @@ z-index:900;
 
 }
 
+.listado:hover {
+
+color: yellow;
+
+}
+
 
 </style>
 
@@ -187,12 +197,16 @@ z-index:900;
 
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
 
-        <ul class="fa-ul" style="position:absolute;right:2px;top:31px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
+        <div class="listado" style="position:fixed;top:10px;right:10px;z-index:99999"><span  id="modo_label" onclick="dataManager.CambiaModoKPI();" style="font-family:Cabin;font-size:15px;margin-top:10px;color:white;float:left">Cambiar a OOS Filiales</span><img id="cargando" class="listado" src="images/cilindro.png" onclick="dataManager.CambiaModoKPI();" style="width:18px;float:left;margin:8px"></img></div>
+
+        <ul class="fa-ul" style="position:absolute;right:2px;top:38px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;">
+            
             <img id="cargando" src="images/fontSize1.png" onclick="escalaTextos=escalaTextos*(1.1);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:18px ;float:left;margin:8px"></img>
             <img id="cargando" src="images/fontSize2.png" onclick="escalaTextos=escalaTextos*(.9);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:18px ;float:left;margin:8px"></img>
             <img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:18px ;float:left;margin:8px"></img>
             <img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:18px;float:left;margin:8px"></img>
             <img id="cargando" src="images/chemical.png" onclick="$('#Controls').toggle(1000);" style="width:18px;float:left;margin:8px"></img>
+
 
         </ul>
 
@@ -203,7 +217,7 @@ z-index:900;
       
         </div>
 
-        <ul class="fa-ul" style="position:absolute;right:0px;top:-15px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
+        <ul class="fa-ul" style="position:absolute;right:180px;top:-15px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
             
             <img id="back_btn" src="images/back_icon.png" onclick="filterControls.back()" style="width:43px;float:left;margin:8px;visibility:hidden"></img>
 

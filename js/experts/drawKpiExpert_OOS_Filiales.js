@@ -1,90 +1,29 @@
-var kpiExpert_OOS={};
+var kpiExpert_OOS_Filiales={};
 
-kpiExpert_OOS.DrawElement=function(entity,i){      
-      
-    var altura1=GetValorRangos(entity.oos.oos,1 ,100 ,1 ,entity.altura );
 
-    var geometry1= viewer.entities.add({
-            name : '',
-            position: Cesium.Cartesian3.fromDegrees( entity.lng , entity.lat , (altura1/2)  ),
-            cylinder : {
-                length : altura1,
-                topRadius : entity.radio*.9,
-                bottomRadius : entity.radio*.9,
-                material : Cesium.Color.fromCssColorString("#4989FF").withAlpha(1)              
-                
-            }
-    });
+kpiExpert_OOS_Filiales.eraseChart=function(){ 
 
-    mapElementsArr.push(geometry1);						
-
-    //VASO EXTERIOR
-    var geometryExt= viewer.entities.add({
-        name : '',
-        position: Cesium.Cartesian3.fromDegrees( entity.lng , entity.lat , (entity.altura/2)  ),
-        cylinder : {
-                length : entity.altura+(entity.altura*.04),
-                topRadius : entity.radio,
-                bottomRadius : entity.radio,
-                material : Cesium.Color.fromCssColorString("#ffffff").withAlpha(.2)              
-                
-        }
-    });
-
-    entity.geometries=[geometry1,geometryExt];
-    mapElementsArr.push(geometryExt);
-    mapElements[geometryExt.id]=entity; 
-    
-    if(i < 100){
-
-            entity.labelSVG=svgLines.append("text")                            
-                    .attr("x",0 )
-                    .attr("y", 0   )
-                    .style("fill","#FFFFFF")
-                    .attr("filter","url(#dropshadowText)")
-                    .attr("class","entityLabel")                                    
-                    .style("font-family","Cabin")
-                    .style("text-anchor","middle")
-                    .style("font-weight","normal")
-                    .style("font-size",12)                                
-                    .text( function(d){
-                        
-                    return entity.oos.oos+"%";
-                    
-                    });
-
-    }
-
-    if(Stage.labelsInterval)        
-            clearInterval(Stage.labelsInterval);
-   
-    Stage.labelsInterval = setInterval(function(){ Stage.DrawFRLabels(); }, 50);
-
-}
-
-kpiExpert_OOS.eraseChart=function(){ 
-
-    d3.select("#svgTooltip").selectAll(".ossDetail").data([]).exit().remove();
-    d3.select("#svgTooltip3").selectAll(".ossDetail").data([]).exit().remove();
+    d3.select("#svgTooltip").selectAll(".ossFilialesDetail").data([]).exit().remove();
+    d3.select("#svgTooltip3").selectAll(".ossFilialesDetail").data([]).exit().remove();
     
     $("#toolTip2").css("visibility","hidden");	
     $("#toolTip3").css("visibility","hidden");
 
 }
 
-kpiExpert_OOS.DrawTooltipDetail=function(entity){    
+kpiExpert_OOS_Filiales.DrawTooltipDetail=function(entity){    
  
-    d3.select("#svgTooltip").selectAll(".ossDetail").data([]).exit().remove();
-    d3.select("#svgTooltip3").selectAll(".ossDetail").data([]).exit().remove();
+    d3.select("#svgTooltip").selectAll(".ossFilialesDetail").data([]).exit().remove();
+    d3.select("#svgTooltip3").selectAll(".ossFilialesDetail").data([]).exit().remove();
     
     kpiExpert_OOS.DrawTooltipDetail_UN(entity);
     kpiExpert_OOS.DrawTooltipDetail_Dia(entity);
 
 }
 
-kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){    
+kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){    
 
-    d3.select("#svgTooltip").selectAll(".ossDetail").data([]).exit().remove();
+    d3.select("#svgTooltip").selectAll(".ossFilialesDetail").data([]).exit().remove();
 
     var maximo=0;
     var maximoVolumen=0;   
@@ -170,7 +109,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
     d3.select("#svgTooltip")
             .append("text")						
-            .attr("class","ossDetail")
+            .attr("class","ossFilialesDetail")
             .style("fill","#8EBBFF")		
             .style("font-family","Cabin")
             .style("font-weight","bold")
@@ -183,7 +122,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
     d3.select("#svgTooltip")
             .append("text")						
-            .attr("class","ossDetail")
+            .attr("class","ossFilialesDetail")
             .style("fill","#8EBBFF")		
             .style("font-family","Cabin")
             .style("font-weight","bold")
@@ -196,7 +135,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
     
     d3.select("#svgTooltip")
             .append("text")						
-            .attr("class","ossDetail")
+            .attr("class","ossFilialesDetail")
             .style("fill","#8EBBFF")		
             .style("font-family","Cabin")
             .style("font-weight","bold")
@@ -213,7 +152,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
         d3.select("#svgTooltip").append("rect")		    		
                 .attr("width",1 )
-                .attr("class","ossDetail")
+                .attr("class","ossFilialesDetail")
                 .attr("x",marginLeft   )
                 .attr("y", (altura*caso)+marginTop )
                 .attr("height",altura*.5)
@@ -224,7 +163,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
         d3.select("#svgTooltip")
                 .append("text")						
-                .attr("class","ossDetail")
+                .attr("class","ossFilialesDetail")
                 .style("fill","#ffffff")		
                 .style("font-family","Cabin")
                 .style("font-weight","bold")
@@ -247,7 +186,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
         d3.select("#svgTooltip").append("rect")		    		
                     .attr("width",1 )
-                    .attr("class","ossDetail")
+                    .attr("class","ossFilialesDetail")
                     .attr("x",(svgTooltipWidth*.55)   )
                     .attr("y", (altura*caso)+marginTop )
                     .attr("height",altura*.5)
@@ -258,7 +197,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
         d3.select("#svgTooltip")
                     .append("text")						
-                    .attr("class","ossDetail")
+                    .attr("class","ossFilialesDetail")
                     .style("fill","#FFFE97")		
                     .style("font-family","Cabin")
                     .style("font-weight","bold")
@@ -279,7 +218,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
                     
         d3.select("#svgTooltip")
                   .append("text")						
-                  .attr("class","ossDetail")
+                  .attr("class","ossFilialesDetail")
                   .style("fill","#ffffff")		
                   .style("font-family","Cabin")
                   .style("font-weight","bold")
@@ -298,7 +237,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
         d3.select("#svgTooltip")
                   .append("text")						
-                  .attr("class","ossDetail")
+                  .attr("class","ossFilialesDetail")
                   .style("fill","#ffffff")		
                   .style("font-family","Cabin")
                   .style("font-weight","bold")
@@ -336,7 +275,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
 }
 
-kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){ 
+kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia=function(entity){ 
 
     var maximo=0;
     var maximo2=0;
@@ -437,7 +376,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
                 d3.select("#svgTooltip3").append("rect")		    		
                                 .attr("width",ancho*.8 )
-                                .attr("class","ossDetail")
+                                .attr("class","ossFilialesDetail")
                                 .attr("x",(ancho*i)  )
                                 .attr("y", (svgTooltipHeight)-altura1-marginBottom  )
                                 .attr("height",altura1)
@@ -448,7 +387,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
         
                 d3.select("#svgTooltip3").append("rect")		    		
                                 .attr("width",ancho*.8 )
-                                .attr("class","ossDetail")
+                                .attr("class","ossFilialesDetail")
                                 .attr("x",(ancho*i)  )
                                 .attr("y", (svgTooltipHeight*.5)-altura2-marginBottom  )
                                 .attr("height",altura2)
@@ -459,7 +398,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
                 d3.select("#svgTooltip3")
                                 .append("text")						
-                                .attr("class","ossDetail")
+                                .attr("class","ossFilialesDetail")
                                 .style("fill","#ffffff")		
                                 .style("font-family","Cabin")
                                 .style("font-weight","bold")
@@ -474,7 +413,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                 
                 d3.select("#svgTooltip3")
                                 .append("text")						
-                                .attr("class","ossDetail")
+                                .attr("class","ossFilialesDetail")
                                 .style("fill","#ffffff")		
                                 .style("font-family","Cabin")
                                 .style("font-weight","bold")
@@ -491,7 +430,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
                 d3.select("#svgTooltip3")
                                 .append("text")						
-                                .attr("class","ossDetail")
+                                .attr("class","ossFilialesDetail")
                                 .style("fill","#ffffff")		
                                 .style("font-family","Cabin")
                                 .style("font-weight","bold")

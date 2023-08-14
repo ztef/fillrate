@@ -90,10 +90,10 @@ calculateKpiExpert_FR.calculateKPI=function(entities,varName,cb){
             }
 
             if(calculateKpiExpert_FR.max < entities[i][varName].totalVolumenEntregado)
-            calculateKpiExpert_FR.max=entities[i][varName].totalVolumenEntregado;
+                calculateKpiExpert_FR.max=entities[i][varName].totalVolumenEntregado;
 
             if(calculateKpiExpert_FR.min > entities[i][varName].totalVolumenEntregado)
-            calculateKpiExpert_FR.min=entities[i][varName].totalVolumenEntregado;
+                calculateKpiExpert_FR.min=entities[i][varName].totalVolumenEntregado;
             
             entities[i][varName].por1=Math.round((entities[i][varName].vol1/entities[i][varName].totalSolicitado)*100);
             entities[i][varName].por2=Math.round((entities[i][varName].vol2/entities[i][varName].totalSolicitado)*100);

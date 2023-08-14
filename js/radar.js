@@ -35,6 +35,11 @@ radar.radarInitStage=function(){
 
 radar.CleanWindows=function(){    
 
+    if(kpiExpert_OOS_Filiales){
+        if(kpiExpert_OOS_Filiales.DrawTooltipDetail){
+            kpiExpert_OOS_Filiales.eraseChart();
+        }
+    }    
     if(kpiExpert_OOS){
         if(kpiExpert_OOS.DrawTooltipDetail){
             kpiExpert_OOS.eraseChart();
@@ -78,7 +83,7 @@ radar.CleanWindows=function(){
 
 }
 
-radar.config=[
+radar.kpis=[
 
     {label:"Cump Venta",color:"#4EFF00",var:"ventas",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"VENTA" ,unidad:"%",tooltipDetail:drawKpiExpert_VENTAS,calculateExpert:calculateKpiExpert_Ventas},
     {label:"Fill Rate",color:"#E4FF00",var:"fillRate",minimoValor:50 ,valorEquilibrio:100,maximoValor:150, abreviacion:"FR",unidad:"%",tooltipDetail:kpiExpert_FR,calculateExpert:calculateKpiExpert_FR},
@@ -86,12 +91,25 @@ radar.config=[
     {label:"Pedidos Masivos",color:"#FF00F6",var:"masivos",minimoValor:50,valorEquilibrio:0 ,maximoValor:-50, abreviacion:"MAS",unidad:"%" ,tooltipDetail:kpiExpert_MAS,calculateExpert:calculateKpiExpert_Mas},
     {label:"Déficit Flota",color:"#6CFF00",var:"df",minimoValor:0 ,valorEquilibrio:50,maximoValor:100, abreviacion:"DF",unidad:""},
     {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},
+    {label:"Out of Stock Filiales",color:"#FCFF05",var:"oosFiliales",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS FI",unidad:"%",tooltipDetail:kpiExpert_OOS_Filiales,calculateExpert:calculateKpiExpert_OOSFiliales},
     {label:"Cump Abasto",color:"#6349FF", var:"abasto",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"ABAS",unidad:"%",tooltipDetail:kpiExpert_ABAS,calculateExpert:calculateKpiExpert_Abasto},
     {label:"Cump Producción",color:"#FFFFFF",var:"produccion",minimoValor:60,valorEquilibrio:100 ,maximoValor:140, abreviacion:"PROD",unidad:"%",tooltipDetail:kpiExpert_PROD,calculateExpert:calculateKpiExpert_Produccion}
 
 ];
 
-radar.DrawEntities=function(entities){    
+radar.DrawEntities=function(){    
+
+    radar.config=[];
+
+    for(var i=0; i < radar.kpis.length; i++){
+        if(radar.kpis[i].var=="fillRate" && store.map_var==kpiExpert_OOS){
+            continue;
+        }
+        if(entities[0][radar.kpis[i].var]){
+            radar.config.push(radar.kpis[i]);
+        }
+       
+    }
     
     radar.rows=0;
 
@@ -521,74 +539,7 @@ radar.DrawEntityValues=function(entity){
 
                                     $("#toolTip").css("left",mouse_x+50);
 
-                                    var dataCatlog="";
-                                    var nombre = this.data.key;                                    
-                                    
-                                    for(var i=0; i < store.niveles.length; i++){    
-
-                                        if( store.niveles[i].id == $("#nivel_cb").val() ){
-
-                                            dataCatlog=store[store.niveles[i].coordinatesSource]; 
-
-                                            if(dataCatlog){
-                                            
-                                                for(var j=0; j < dataCatlog.length; j++){    
-                                                
-                                                    if(dataCatlog[j].ID==this.data.key){
-                                                        if(dataCatlog[j].Nombre!=nombre)
-                                                            nombre+=" "+dataCatlog[j].Nombre;
-                                                    }
-                                                        
-                                                }
-
-                                            }
-                                        }						
-                                    }
-
-                                    nombre=nombre.replaceAll("_"," ");
-                                    nombre=nombre.replaceAll("undefined"," ");
-
-                                    var text=`
-                                                <span style='color:#00C6FF;font-size:15px;'><span style='color:#00C6FF'>${nombre}<br>
-                                            `
-                                            if(calculateKpiExpert_Ventas.getTooltipDetail){
-                                                if(calculateKpiExpert_Ventas.getTooltipDetail(this.data.key)!=undefined)
-                                                text+=calculateKpiExpert_Ventas.getTooltipDetail(this.data.key);
-                                            }
-        
-                                            if(calculateKpiExpert_FR.getTooltipDetail){
-                                                text+=calculateKpiExpert_FR.getTooltipDetail(this.data.key,store.mainDataset);
-                                            }
-        
-                                          if(calculateKpiExpert_Pendientes.getTooltipDetail){
-                                                if(calculateKpiExpert_Pendientes.getTooltipDetail(this.data.key)!=undefined)
-                                                text+=calculateKpiExpert_Pendientes.getTooltipDetail(this.data.key);
-                                            }
-        
-                                            if(calculateKpiExpert_Mas.getTooltipDetail){
-                                                if(calculateKpiExpert_Mas.getTooltipDetail(this.data.key)!=undefined)
-                                                text+=calculateKpiExpert_Mas.getTooltipDetail(this.data.key);
-                                            }
-        
-                                            if(calculateKpiExpert_OOS.getTooltipDetail){
-                                                if(calculateKpiExpert_OOS.getTooltipDetail(this.data.key)!=undefined)
-                                                text+=calculateKpiExpert_OOS.getTooltipDetail(this.data.key);
-                                            }
-        
-                                            if(calculateKpiExpert_Abasto.getTooltipDetail){
-                                                if(calculateKpiExpert_Abasto.getTooltipDetail(this.data.key)!=undefined)
-                                                text+=calculateKpiExpert_Abasto.getTooltipDetail(this.data.key);
-                                            }
-        
-                                            if(calculateKpiExpert_Produccion.getTooltipDetail){
-                                                if(calculateKpiExpert_Produccion.getTooltipDetail(this.data.key)!=undefined)
-                                                text+=calculateKpiExpert_Produccion.getTooltipDetail(this.data.key);
-                                            }
-        
-                                                                       
-                
-
-                                    $("#toolTip").html(text );                            
+                                    $("#toolTip").html(dataManager.getTooltipText(this.data) );                            
                                     
                                     var posY=mouse_y-50;
                                     if( $("#toolTip").height()+mouse_y > windowHeight ){
@@ -625,7 +576,7 @@ radar.DrawEntityValues=function(entity){
                             
                                                         if(store.niveles[j].coordinatesSource){
 
-                                                            backInfoNav.catlog= store.niveles[j].coordinatesSource;            
+                                                            backInfoNav.catlog = store.niveles[j].coordinatesSource;            
                             
                                                         }
                             
