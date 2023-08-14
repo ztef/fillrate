@@ -328,16 +328,22 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
 
 
   */
-
-
-    function vix_tt_table_extended(data, columns, columnVisitors, containerID) {
      
+
+    function vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, containerID,  columnsWithTotals) {
+     
+
+      // CALCULA TOTALES PARA LAS COLUMNAS EN columnsWithTotals
+
+
+            
 
 
 
         // CREA TABLA, Aplica estilos 
     
         var table = d3.select(`#${containerID}`).append("table")
+          .classed("tooltip-table", true)
           .style("border-collapse", "collapse")
           .style("border", "0px solid white"); // Set the table border color to white
       
@@ -399,6 +405,8 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
        
             }
           });
+
+          
       
         // Crea una fila (tr) para cada renglon de data
         var rows = tbody.selectAll("tr")
@@ -423,6 +431,63 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
             var visitor = columnVisitors[d.column.key];                          // Aplica visitors para cada celda
             return visitor ? visitor(d.value, d.rowIndex) : d.value;    // si no hay visitor valor tal cual
           });
+
+         
+           // CREA UNA TABLA SEPARADA CON LOS TOTALES
+
+                var totalsTable = d3.select(`#${containerID}`).append("table")
+                .classed("tooltip-table", true)
+                .style("border-collapse", "collapse")
+                .style("border", "1px solid white");  
+
+            var totalsTbody = totalsTable.append("tbody");  
+
+            // Cotadores en 0
+            var columnTotals = {};
+            columnsWithTotals.forEach(function(columnKey) {
+                columnTotals[columnKey] = 0;
+            });
+
+            // Calcula totales para cada columna
+            data.forEach(function(row) {
+                columnsWithTotals.forEach(function(columnKey) {
+                    columnTotals[columnKey] += row[columnKey];
+                });
+            });
+
+            // Crea fila de totales
+            var totalsRow = totalsTbody.append("tr")
+                .attr("class", "totals-row");
+
+            // Crea celdas
+            var totalsCells = totalsRow.selectAll("td")
+                
+                .data(function() {
+                    return columns.map(function(column) {
+                        if (columnsWithTotals.includes(column.key)) {
+                            return { column: column, value: columnTotals[column.key], width: column.width };
+                        } else {
+                            return { column: column, value: '', width: column.width  };
+                        }
+                    });
+                })
+                .enter()
+                .append("td")
+                .attr("class", "body-cell")
+                .style("border", "0px solid white") 
+                .style("width", function(d) {
+                  return d.width; // Usa los mismos anchos que las columnas de la tabla de datos
+                })
+                .html(function(d) {
+                  var visitor = totalsColumnVisitors[d.column.key] || totalsColumnVisitors[d.column.key] || (function() { return ''; });
+
+                   
+                    return visitor ? visitor(d.value) : d.value;
+                });
+
+
+
+
       
         return table;
       }
