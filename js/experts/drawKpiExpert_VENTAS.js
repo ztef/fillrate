@@ -118,15 +118,17 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     });
 
 
+  
+
     // DEFINE COLUMNAS
   
   var columns = [
-    { key: "key", header: "Producto", sortable: true, width: "300px" },
-    { key: "VolumenPlan", header: "Vol Plan (k)", sortable: true, width: "150px" },
-    { key: "VolumenReal", header: "Vol Real (k)", sortable: true, width: "150px" },
-    { key: "DifK", header: "Dif (k)", sortable: true, width: "150px" },
-    { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "1500px" },
-    { key: "Peso", header: "Peso (k)", sortable: true,  width: "1500px" }
+    { key: "key", header: "Producto", sortable: true, width: "100px" },
+    { key: "VolumenPlan", header: "Vol Plan (k)", sortable: true, width: "100px" },
+    { key: "VolumenReal", header: "Vol Real (k)", sortable: true, width: "100px" },
+    { key: "DifK", header: "Dif (k)", sortable: true, width: "100px" },
+    { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+    { key: "Peso", header: "Peso", sortable: true,  width: "100px" }
   ];
 
 
@@ -135,7 +137,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   var columnVisitors = {
     key: function(value) {
-        return `<div class="bar-container" onclick="filterControls.lookForEntity('${value}')">${value}
+        return `<div>${value}
         </div>`;
       },
 
@@ -151,7 +153,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     DifP: function(value){
   
         var barWidth = value + '%';
-        var barValue = vix_tt_formatNumber(value)+'%';
+        var barValue = vix_tt_formatNumber(value)+'%   ';
     
         return '<div class="bar-container">' +
         '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
@@ -164,8 +166,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
         var barValue = vix_tt_formatNumber(value)+'k';
    
        return '<div class="bar-container">' +
-       '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
-       
+       '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
        '</div>';
     }
   };
@@ -173,11 +174,34 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   // FORMATEA DIV :
 
-  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",600);
+  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",700);
 
+
+
+  
+        // COLUMNAS CON TOTALES :
+
+        var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
+        var totalsColumnVisitors = {
+                  'VolumenPlan': function(value) { 
+                    return vix_tt_formatNumber(value) + "T";
+                  },
+                  'VolumenReal': function(value) { 
+                    return vix_tt_formatNumber(value) + "T"; 
+                  },
+                  'DifK': function(value) { 
+                    return vix_tt_formatNumber(value) + "T"; 
+                  }
+                  };
+  
+      
+      
+       
+      
   // CREA TABLA USANDO DATOS
-
-  vix_tt_table(data, columns, columnVisitors, "toolTip3");
+      
+        vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );
+ 
   
   
   // APLICA TRANSICIONES 
@@ -275,16 +299,17 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         });
     
 
-    
+
+      
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Estado", sortable: true, width: "500px" },
-        { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "150px" },
-        { key: "VolumenReal", header: "Vol Real", sortable: true, width: "150px" },
-        { key: "DifK", header: "Dif (k)", sortable: true, width: "150px" },
-        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "1500px" },
-        { key: "Peso", header: "Peso (k)", sortable: true,  width: "1500px" }
+        { key: "key", header: "Estado", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (k)", sortable: true, width: "100px" },
+        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "Peso", header: "Peso", sortable: true,  width: "100px" }
       ];
     
     
@@ -293,7 +318,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     
       var columnVisitors = {
         key: function(value) {
-            return `<div class="bar-container" onclick="filterControls.lookForEntity('${value}')">${value}
+            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
             </div>`;
           },
     
@@ -331,6 +356,27 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     
         }
       };
+
+
+           // COLUMNAS CON TOTALES :
+
+           var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
+           var totalsColumnVisitors = {
+                     'VolumenPlan': function(value) { 
+                       return vix_tt_formatNumber(value) + "T";
+                     },
+                     'VolumenReal': function(value) { 
+                       return vix_tt_formatNumber(value) + "T"; 
+                     },
+                     'DifK': function(value) { 
+                       return vix_tt_formatNumber(value) + "T"; 
+                     }
+                     };
+     
+         
+         
+
+
     
     
       // FORMATEA DIV :
@@ -340,7 +386,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     
       // CREA TABLA USANDO DATOS
     
-      vix_tt_table(data, columns, columnVisitors, "toolTip2");
+      
+      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
       
       
       // APLICA TRANSICIONES 

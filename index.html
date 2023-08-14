@@ -93,22 +93,50 @@
              padding: 8px;
              font-size: 12px;
         }
-       
+
+        .totals-row {
+             color:#ea09e2;
+             border: 0px solid white;
+             padding: 8px;
+             font-size: 12px;
+        }
+
 
         .bar-container {
              display: flex;
              align-items: center;
         }
-        .bar-container:hover {
-             fill: yellow;
-            
+
+
+        .key-selector{
+             display: flex;
+             align-items: center;
+        }
+        .key-selector:hover{
+            color:#000000;
+            background-color: lightgray;
+            cursor: pointer; 
         }
 
+
+
+         
+
         .bar-value {
-             margin-left: 8px; /* Add some spacing between the bar and value */
+             margin-left: 1px; /* Add some spacing between the bar and value */
+             margin-right: 8px;
          }
 
-       
+         .tooltip-table {
+            border-collapse: collapse;
+            border: 0;
+            /* Other styling properties */
+        }
+
+        .tooltip-table th, .tooltip-table td {
+            padding: 0;
+            /* Other cell styling properties */
+        }
 
   
    </style>

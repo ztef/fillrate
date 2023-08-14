@@ -234,8 +234,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       
       var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "por1", header: "Fill Rate", sortable: true, width: "150px" },    
-        { key: "cant", header: "Vol. Entregado", sortable: true, width: "150px" },
+        { key: "por1", header: "Fill Rate", sortable: true, width: "200px" },    
+        { key: "cant", header: "Vol. Entregado", sortable: true, width: "200px" },
         ];
     
     
@@ -244,7 +244,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
       var columnVisitors = {
         key: function(value,i) {
-            return `<div class="bar-container" onclick="filterControls.lookForEntity('${value}')">${value}
+            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
             </div>`;
           },
     
@@ -267,24 +267,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
                 var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.4);
                 var barValue = Math.round((arr[i].CantEntfinal/1000)*100)/100 +"k";
                
-                /*
-                .append("text")						
-                .attr("class","abasDetail")
-                .style("fill","#ffffff")		
-                .style("font-family","Cabin")
-                .style("font-weight","bold")
-                .style("font-size",tamanioFuente)	
-                .style("text-anchor","start")
-                .attr("transform"," translate("+String( (svgTooltipWidth*.7)+ancho+3  )+","+String( (altura*caso)+tamanioFuente+marginTop    )+")  rotate("+(0)+") ")
-                .text(function(){
-                
-                    return  Math.round((arr[i].CantEntfinal/1000)*100)/100 +"k";
-
-                });
-                */
-
-
-                
+              
 
                 return '<div class="bar-container">' +
                 '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
@@ -296,6 +279,19 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
                 
         }
       };
+
+      // COLUMNAS CON TOTALES :
+
+      var columnsWithTotals = ['cant']; 
+      var totalsColumnVisitors = {
+                'cant': function(value) { 
+                        var v = Math.round((value/1000)*100)/100 +"k";
+             
+                        return v; 
+                },
+                //'column2': function(value) { return '$' + value.toFixed(2); }
+                };
+
     
     
       // FORMATEA DIV :
@@ -304,7 +300,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
       // CREA TABLA USANDO DATOS
     
-      vix_tt_table_extended(data, columns, columnVisitors, "toolTip3");
+      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );
       
       
       // APLICA TRANSICIONES 
