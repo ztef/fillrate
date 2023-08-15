@@ -207,7 +207,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         var marginTop=35;
 
         $("#toolTip3").css("visibility","visible");            
-        $("#toolTip3").css("left",(mouse_x+950)+"px");
+        $("#toolTip3").css("right",20+"px");
 
 
 

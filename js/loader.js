@@ -33,8 +33,73 @@ dataLoader.LoadInitialData = function(dataSources ){
 
 }
 
-dataLoader.LoadData=function(def,cb){   
+dataLoader.loadings={history:[],current:[]};
+dataLoader.AddLoadingTitle=function(name){
+    dataLoader.loadings.current.push(name);
+    dataLoader.ShowLoadings();
+}
 
+dataLoader.DeleteLoadingTitle=function(name){
+
+    var arrTemp=dataLoader.loadings.current;
+
+    for(var i=0; i < dataLoader.loadings.current.length; i++ ){
+
+        if(dataLoader.loadings.current[i] == name){
+            arrTemp.splice(i,1);
+            dataLoader.loadings.history.push(name);
+            break;
+        }      
+
+    }
+
+    dataLoader.loadings.current=arrTemp;
+    dataLoader.ShowLoadings();
+
+}   
+
+dataLoader.ShowLoadings=function(){
+
+    $("#toolTip3").css("visibility","visible");
+			    	
+    $("#toolTip3").css("left",(windowWidth/2) );    
+
+    var text=`
+        <span style='color:#7F7F7F;font-size:11px;'>Cargas Recientes: </span><br>
+    `;
+
+    for(var i=0; i < dataLoader.loadings.history.length; i++ ){
+        text+=`
+        <span style='color:#7F7F7F;font-size:11px;'>Terminó ${ toTitleCase(dataLoader.loadings.history[i]).replaceAll("_"," ") }...<br>
+        `   
+    }
+
+    text+=`
+        <hr class="hr">
+    `;
+
+    for(var i=0; i < dataLoader.loadings.current.length; i++ ){
+        text+=`
+        <span style='color:#00EAFF;font-size:16px;'>Cargando ${ toTitleCase(dataLoader.loadings.current[i]).replaceAll("_"," ") }...<br>
+        `   
+    }
+
+    $("#toolTip3").html(text);
+
+    $("#toolTip3").css("top","20%");
+
+}
+
+dataLoader.HideLoadings=function(){
+    
+    dataLoader.loadings={history:[],current:[]};
+    $("#toolTip3").css("visibility","hidden");
+
+}
+
+
+
+dataLoader.LoadData=function(def,cb){  
 
     $("#cargando").css("visibility","visible");   
 
@@ -84,8 +149,13 @@ dataLoader.LoadData=function(def,cb){
             URL+="&columns="+columns;
         }
 
-        console.log(URL); 
+        console.log(URL);
+
+        dataLoader.AddLoadingTitle(def.varName);
+
         d3.json(URL, function (error, data) {
+
+            dataLoader.DeleteLoadingTitle(def.varName);
 
             if(error){
                 alert("Error API ",def.serviceName,error);
@@ -145,12 +215,17 @@ dataLoader.LoadData=function(def,cb){
     }else if(config[def.sourceName])
     {
        console.log(config[def.sourceName]);
+
+       dataLoader.AddLoadingTitle(def.varName);
+
         d3.csv(config[def.sourceName])
                 .row(function(d) { return d; })
                 .get(function(error, rows) {
        
                  console.log(config[def.sourceName],rows);
-                //filtra por fechas selecionadas por el usuario
+                
+                 dataLoader.DeleteLoadingTitle(def.varName);
+
                 var rowsTemp=[];
                
                 for(var i=0; i < rows.length; i++){

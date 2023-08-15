@@ -20,6 +20,7 @@ dataManager.CambiaModoKPI=function(){
 var entities;
 dataManager.ClusterObjects=function(){
 
+    dataLoader.HideLoadings();
 
     Stage.blockScreen.style("visibility","visible"); 
     
@@ -108,8 +109,10 @@ dataManager.CalculateKPIs=function(entities_){
 
     // 1
     loadsTarget++;
+    dataLoader.AddLoadingTitle("Fillrate");
     setTimeout(()=>{
-        entities = calculateKpiExpert_FR.calculateKPI(entities_,"fillRate",dataManager.checkAllLoads);    
+        entities = calculateKpiExpert_FR.calculateKPI(entities_,"fillRate",dataManager.checkAllLoads);   
+        dataLoader.DeleteLoadingTitle("Fillrate"); 
     }, 500);    
     
     
@@ -117,10 +120,12 @@ dataManager.CalculateKPIs=function(entities_){
     if(calculateKpiExpert_OOS){
 
         loadsTarget++;
+        dataLoader.AddLoadingTitle("SP OOS");
         setTimeout(()=>{
 
             calculateKpiExpert_OOS.calculateKPI(entities).then(()=>{
                 loadsCount++;
+                dataLoader.DeleteLoadingTitle("SP OOS"); 
                 dataManager.checkAllLoads();
              }); 
 
@@ -128,15 +133,17 @@ dataManager.CalculateKPIs=function(entities_){
 
     }    
 
-
+    
     // 3
     if(store.map_var==kpiExpert_OOS){
 
         if(calculateKpiExpert_OOSFiliales){
             loadsTarget++;
+            dataLoader.AddLoadingTitle("SP OOS Filiales");
             setTimeout(()=>{
                 calculateKpiExpert_OOSFiliales.calculateKPI(entities).then(()=>{
                     loadsCount++;
+                    dataLoader.DeleteLoadingTitle("SP OOS Filiales"); 
                     dataManager.checkAllLoads();
                 });
             }, 500);
@@ -149,9 +156,11 @@ dataManager.CalculateKPIs=function(entities_){
     // 4
     if(calculateKpiExpert_Ventas){
         loadsTarget++;
+        dataLoader.AddLoadingTitle("SP Ventas");
         setTimeout(()=>{
             calculateKpiExpert_Ventas.calculateKPI(entities).then(()=>{
                                                                     loadsCount++;
+                                                                    dataLoader.DeleteLoadingTitle("SP Ventas"); 
                                                                     dataManager.checkAllLoads();
                                                              });
         }, 500);
@@ -162,9 +171,11 @@ dataManager.CalculateKPIs=function(entities_){
     if(calculateKpiExpert_Abasto && $("#nivel_cb").val() ){
 
         loadsTarget++;
+        dataLoader.AddLoadingTitle("SP Abasto");
         setTimeout(()=>{
         calculateKpiExpert_Abasto.calculateKPI(entities).then(()=>{
                                                                 loadsCount++;
+                                                                dataLoader.DeleteLoadingTitle("SP Abasto"); 
                                                                 dataManager.checkAllLoads();
                                                              });
         }, 500);
@@ -176,9 +187,11 @@ dataManager.CalculateKPIs=function(entities_){
             // 6
             if(calculateKpiExpert_Pendientes && $("#nivel_cb").val() ){
                 loadsTarget++;
+                dataLoader.AddLoadingTitle("SP Pendientes");
                 setTimeout(()=>{
                     calculateKpiExpert_Pendientes.calculateKPI(entities).then(()=>{
                                                                         loadsCount++;
+                                                                        dataLoader.DeleteLoadingTitle("SP Pendientes"); 
                                                                         dataManager.checkAllLoads();
                                                                         });
                 }, 500);
@@ -188,7 +201,9 @@ dataManager.CalculateKPIs=function(entities_){
             // 7  
             if(calculateKpiExpert_Mas){
                 loadsTarget++;
+                dataLoader.AddLoadingTitle("Masivos");
                 setTimeout(()=>{
+                    dataLoader.DeleteLoadingTitle("Masivos"); 
                     calculateKpiExpert_Mas.calculateKPI(entities,dataManager.checkAllLoads);
                 }, 500);
             }  
@@ -199,14 +214,16 @@ dataManager.CalculateKPIs=function(entities_){
     // 8
     if(calculateKpiExpert_Produccion && $("#nivel_cb").val()  ){
         loadsTarget++;
+        dataLoader.AddLoadingTitle("SP Produccion");
         setTimeout(()=>{
             calculateKpiExpert_Produccion.calculateKPI(entities).then(()=>{
                                                                 loadsCount++;
+                                                                dataLoader.DeleteLoadingTitle("SP Produccion"); 
                                                                 dataManager.checkAllLoads();
                                                              });
         }, 500);
     } 
-
+    
 
 }
 
