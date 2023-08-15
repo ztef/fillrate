@@ -214,7 +214,9 @@ color: yellow;
         <div style="position:fixed;z-index:-10;float:left;top:0px;pointer-events:none;height:100%;width:100%;background:linear-gradient(#000000, #000000);"></div>
 
         <div id="cesiumContainer" style="position:fixed;top:0px;z-index:1;background-color: black"></div>
- 
+        
+        <img id="" src="images/logo.png" style="position:fixed;z-index:9999999;width:140px;float:left;left:5px;top:6px;pointer-events: none;visibility:visible;"></img>
+
       
         <img id="cargando" src="images/preloader_7.gif" style="width:100px;position:fixed;float:left;left:50%;top:10%;pointer-events: none;z-index:100;visibility:hidden;padding:30px;opacity:.7"></img>
 
@@ -225,7 +227,7 @@ color: yellow;
 
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
 
-        <div class="listado" style="position:fixed;top:10px;right:10px;z-index:99999"><span  id="modo_label" onclick="dataManager.CambiaModoKPI();" style="font-family:Cabin;font-size:15px;margin-top:10px;color:white;float:left">Cambiar a OOS Filiales</span><img id="cargando" class="listado" src="images/cilindro.png" onclick="dataManager.CambiaModoKPI();" style="width:18px;float:left;margin:8px"></img></div>
+        <div class="listado" style="position:fixed;top:0px;right:-1px;z-index:99999"><span  id="modo_label" onclick="dataManager.CambiaModoKPI();" style="font-family:Cabin;font-size:15px;margin-top:10px;color:white;float:left">Cambiar a OOS Filiales</span><img id="cargando" class="listado" src="images/cilindro.png" onclick="dataManager.CambiaModoKPI();" style="width:18px;float:left;margin:8px"></img></div>
 
         <ul class="fa-ul" style="position:absolute;right:2px;top:38px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;">
             
@@ -238,14 +240,12 @@ color: yellow;
 
         </ul>
 
-        <div id="titulo" class="sombra" align="left" style="position:fixed;top:8px;left:15px;font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;z-index:9999"/> 
+        <div id="titulo" class="sombra" align="left" style="position:fixed;top:8px;left:148px;font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;z-index:9999"/> 
         
         </div>
-        <div id="titulo2" class="sombra" align="right" style="position:fixed;top:60px;left:15px;font-family:Cabin;pointer-events:none;font-size:14px;color:#00C3FF;opacity:1;font-weight:bold;z-index:9999"/> 
-      
-        </div>
 
-        <ul class="fa-ul" style="position:absolute;right:220px;top:-15px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
+
+        <ul class="fa-ul" style="position:absolute;right:210px;top:-15px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
             
             <img id="back_btn" src="images/back_icon.png" onclick="filterControls.back()" style="width:43px;float:left;margin:8px;visibility:hidden"></img>
 
@@ -299,8 +299,8 @@ color: yellow;
         
             });
 
-            $('#datepicker').val("05-01-2023");
-            $('#datepicker2').val("05-31-2023");
+            $('#datepicker').val("07-01-2023");
+            $('#datepicker2').val("07-31-2023");
 
             setTimeout(()=>{$(".loginBtn").click()}, 1000);
             
@@ -313,6 +313,10 @@ color: yellow;
 
                     dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){
 
+                        DibujaRegiones();
+
+                        DibujaEstados();
+
                         filterControls.createDataFiltersControls(store.catlogsForFilters);
                         filterControls.createHardCodedControls();
                         radar.radarInitStage();
@@ -320,7 +324,7 @@ color: yellow;
                         if(elementosContextoMapa)
                             elementosContextoMapa.DibujaUNs();
 
-                        DibujaRegiones();
+                        
 
                     })
 

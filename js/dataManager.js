@@ -28,10 +28,10 @@ dataManager.ClusterObjects=function(){
 
     if(svgRadar){
         radar.CleanWindows();
-        svgRadar.selectAll(".radarElement").data([]).exit().remove();
-       
+        svgRadar.selectAll(".radarElement").data([]).exit().remove();       
     }      
 
+    /// se asgeura de que se muestre la flecha de Regresar solo si hubi un cmabio en el nivel
     if(backInfoNav.entity){
 
         for(var j=0; j < store.niveles.length; j++){
@@ -47,8 +47,7 @@ dataManager.ClusterObjects=function(){
             
         }
        
-    }
-    
+    }   
 
     var agrupador="";
 
@@ -64,8 +63,16 @@ dataManager.ClusterObjects=function(){
                         .entries(store.dataToDraw);
     }else{
         entities = [{key:"Nacional" , values:store.dataToDraw}];
-    }    
+    }   
 
+    console.log("entities",entities);
+
+    var estados  = d3.nest()
+        .key(function(d) { return  d["EstadoZTDem"]; })                           
+        .entries(store.dataToDraw);
+    
+    calculateKpiExpert_FR.calculateFRPorEstado(estados);
+    
     
     //Utiliza un timeout solo para q sea posible poner una pantalla de espera (negra)
     setTimeout(()=>{
@@ -75,7 +82,7 @@ dataManager.ClusterObjects=function(){
         dataManager.CalculateKPIs(entities);
         $('#Controls').hide();
 
-        //en casod e que exista un campo ara busqueda de entidades lo llena
+        //en casod e que exista un campo para busqueda de entidades lo llena
         if( $("#inputEnfoqueCamara") ){
 
             $("#inputEnfoqueCamara").val("");
@@ -132,6 +139,8 @@ dataManager.CalculateKPIs=function(entities_){
         }, 500);   
 
     }    
+
+    
 
     
     // 3
@@ -229,7 +238,7 @@ dataManager.CalculateKPIs=function(entities_){
 
 dataManager.checkAllLoads=function(){ 
     
-    console.log(loadsTarget,loadsCount);
+    console.log("Cargas esperadas: "+loadsTarget,"Cargas completadas: "+loadsCount);
 
     if(loadsTarget==loadsCount){
 

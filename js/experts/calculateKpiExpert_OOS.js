@@ -197,10 +197,10 @@ calculateKpiExpert_OOS.getTooltipDetail=function(entityId){
     
                 if(entities[i].key == entityId){
     
-                        var csv = 'Agrupador,CantEntFinal,CantEntFinal_Total,Denominador,DescrProducto,Destino,N1,N2,N3,Numerador,OOS_Final,grupo\n';
+                        var csv = 'Agrupador,CantEntFinal,Denominador,DescrProducto,Destino,Fecha,Fisico,Numerador,grupo\n';
     
-                        var LLaves=["Agrupador","CantEntFinal","CantEntFinal_Total","Denominador","DescrProducto","Destino","N1","N2","N3","Numerador","OOS_Final","Grupo"];
-    
+                        var LLaves=["Agrupador","CantEntFinal","Denominador","DescrProducto","Destino","Fecha","Fisico","Numerador","grupo"];
+                        
                         //merge the data with CSV
     
                             for(var j=0;  j < entities[i].oos.values.length; j++){

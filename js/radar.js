@@ -97,7 +97,13 @@ radar.kpis=[
 
 ];
 
-radar.DrawEntities=function(){    
+radar.DrawEntities=function(){  
+    
+    if(entities.length==0){
+        alert("existe un problema con los datos básicos de Fill Rate");
+        return;
+    }
+        
 
     radar.config=[];
 

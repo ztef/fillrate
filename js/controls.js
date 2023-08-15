@@ -59,9 +59,6 @@ var caso=0;
 var filtrosAplicados={};
 filterControls.FilterData=function(e,val){
 
-    if($("#fillRate_cb").val())
-        $("#fillRate_cb").val("");    
-
     if(e){
         if(e.target){
             if(e.target.parentElement.id.toLowerCase().indexOf("enfoque") > -1 ){
@@ -206,15 +203,23 @@ filterControls.showActiveFilters=function(){
     for(var i=0; i < store.niveles.length; i++){    
         if( store.niveles[i].id == $("#nivel_cb").val() )
             nivel+=store.niveles[i].label;           
-    }
+    }    
 
-    var filtroProducto="Cemento Gris, Mortero, Blanco, Especiales";
+    if(store.map_var==kpiExpert_OOS){        
+
+        var filtroPresentacion=" Granel " ;
+        var filtroProducto="Cemento Gris, Blanco ";
+
+    }else if(store.map_var==kpiExpert_FR){
+
+        var filtroPresentacion="Sacos y Granel";
+        var filtroProducto="Cemento Gris, Mortero, Blanco, Especiales";
+    }
 
     if(filtrosAplicados["cat_producto"]){
         filtroProducto="Cemento "+filtrosAplicados["cat_producto"];
-    }
+    }    
 
-    var filtroPresentacion="Sacos y Granel";
 
     if(filtrosAplicados["cat_presentacion"]){
         filtroPresentacion=filtrosAplicados["cat_presentacion"];
@@ -301,11 +306,7 @@ filterControls.createHardCodedControls=function(){
 
                     return;
                 }
-            }            
-
-            if($("#fillRate_cb").val())
-                $("#fillRate_cb").val("");
-            
+            }           
 
             posAnterior=$("#nivel_cb").val();
 
@@ -333,19 +334,20 @@ filterControls.createHardCodedControls=function(){
 
         d3.select("#fillRate_cb").on("change",function(){           
 
-            if($("#fillRate_cb").val()!=""){           
-                
-                filtrosAplicados["niveles_fillrate"]=$("#fillRate_cb").val();
-                dataManager.ClusterObjects();
+                    if($("#fillRate_cb").val()!=""){           
+                     
+                        filtrosAplicados["niveles_fillrate"]="Menores de "+$("#fillRate_cb").val()+"%";
+                        //dataManager.ClusterObjects();
 
-            }else{                
+                    }else{                
 
-                delete filtrosAplicados["niveles_fillrate"];
-                filterControls.showActiveFilters();
-                filterControls.FilterData();
+                        delete filtrosAplicados["niveles_fillrate"];                       
 
-            }   
+                    }   
 
+                    filterControls.showActiveFilters();
+                    store.dataToDraw=[];
+                    filterControls.FilterData();
     
         });
 

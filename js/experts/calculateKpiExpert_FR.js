@@ -101,6 +101,8 @@ calculateKpiExpert_FR.calculateKPI=function(entities,varName,cb){
 
             entities[i][varName][varName]=entities[i][varName].por1;
 
+            
+
     }
 
     //Valida si hay filtro de fillrate minimo  
@@ -110,6 +112,7 @@ calculateKpiExpert_FR.calculateKPI=function(entities,varName,cb){
     if($("#fillRate_cb").val()!=""){         
 
         var value=Number($("#fillRate_cb").val());   
+        console.log("value",value);
         var entitiesFiltered=[];        
 
         for(var i=0;  i < entities.length; i++){   
@@ -136,6 +139,51 @@ calculateKpiExpert_FR.calculateKPI=function(entities,varName,cb){
     cb();
 
     return entities;
+
+}
+
+
+calculateKpiExpert_FR.calculateFRPorEstado=function(estados){
+
+    for(var i=0;  i < estados.length; i++){ 
+
+            estados[i].totalSolicitado=0;
+            estados[i].vol1=0;
+            estados[i].por1=0;
+
+            // SE AGRUPAN POR PEDIDO, llavepos
+            var pedidos = d3.nest()
+                        .key(function(d) { return d.llavepos; })
+                        .entries(estados[i].values);
+
+            for(var j=0;  j < pedidos.length; j++){             
+
+                for(var k=0;  k < pedidos[j].values.length; k++){
+
+                    estados[i].totalSolicitado+=Number(pedidos[j].values[k][campoTotalSolicitado]);
+
+                    if(pedidos[j].values[k][campoDeATiempo] == "A Tiempo"){
+                        estados[i].vol1+=Number(pedidos[j].values[k][campoDeVolumenFR]);
+                    }
+
+                }
+
+            }
+
+            estados[i].por1=Math.round((estados[i].vol1/estados[i].totalSolicitado)*100);
+
+            var color="#ffffff";
+            if(estados[i].por1 >= 90){
+                color="#18CC00";
+            }else if(estados[i].por1 <= 70){
+                color="#FF0000";
+            }else{
+                color="#F0FF00";
+            }
+
+            DibujaEstadoEspecifico(estados[i].key, color);
+
+    }
 
 }
 

@@ -62,7 +62,9 @@ dataLoader.ShowLoadings=function(){
 
     $("#toolTip3").css("visibility","visible");
 			    	
-    $("#toolTip3").css("left",(windowWidth/2) );    
+    $("#toolTip3").css("left",((windowWidth/2)-40)+"px" );    
+
+    $("#toolTip3").css("width","200px" );    
 
     var text=`
         <span style='color:#7F7F7F;font-size:11px;'>Cargas Recientes: </span><br>
@@ -91,7 +93,7 @@ dataLoader.ShowLoadings=function(){
 }
 
 dataLoader.HideLoadings=function(){
-    
+
     dataLoader.loadings={history:[],current:[]};
     $("#toolTip3").css("visibility","hidden");
 

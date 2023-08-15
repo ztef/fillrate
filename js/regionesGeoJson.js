@@ -1,3 +1,142 @@
+
+
+var coodsEstados=[];
+
+function DibujaEstados()
+{
+    $.ajax({
+      type: "GET",
+      url: "docs/geojson/Estados CEMEX.json",
+      dataType: "text",
+      success: function(data) {parseEstados(data);}
+   });
+}
+
+var estadosSiluetas={};
+function parseEstados(allText)
+{
+
+  var seccionesJson=JSON.parse(allText);
+
+  for(var i in seccionesJson.features){
+
+        var claveGeo=seccionesJson.features[i].properties.Estado;
+
+        estadosSiluetas[claveGeo]=[];
+
+        console.log(claveGeo);
+        console.log(seccionesJson.features[i].geometry.coordinates);       
+
+        for(var j=0; j < seccionesJson.features[i].geometry.coordinates.length; j++){
+
+            if(seccionesJson.features[i].geometry.coordinates.length > 1){
+
+                var element=[];
+
+                for(var k=0; k < seccionesJson.features[i].geometry.coordinates[j][0].length; k++){
+
+                        var lat=seccionesJson.features[i].geometry.coordinates[j][0][k][0];
+                        var lng=seccionesJson.features[i].geometry.coordinates[j][0][k][1];
+                        element.push(lat);
+                        element.push(lng);
+                    
+                }
+
+                coodsEstados.push(element);  
+                
+                estadosSiluetas[claveGeo].push(element);
+
+                
+
+            }else{
+
+                var element=[];
+
+                for(var k=0; k < seccionesJson.features[i].geometry.coordinates[j].length; k++){
+
+                        var lat=seccionesJson.features[i].geometry.coordinates[j][k][0];
+                        var lng=seccionesJson.features[i].geometry.coordinates[j][k][1];
+                        element.push(lat);
+                        element.push(lng);
+                    
+                }
+
+                coodsEstados.push(element);     
+
+
+                estadosSiluetas[claveGeo].push(element);
+                
+            }
+
+        }             
+
+    }   
+    
+}
+
+var ultimosEstadosDibujados={};
+
+var equivalenciasNombres={};
+equivalenciasNombres["Estado de México"]="Ciudad de México";
+equivalenciasNombres["Coahuila"]="Coahuila de Zaragoza";
+equivalenciasNombres["Michoacán"]="Michoacán de Ocampo";
+equivalenciasNombres["Veracruz"]="Veracruz Sur";
+equivalenciasNombres["Veracruz N"]="Veracruz Norte";
+
+function DibujaEstadoEspecifico(entity, color)
+{
+    console.log("DibujaEstadoEspecifico",entity);
+    var encontro=false;
+    for(var e in estadosSiluetas){
+        if(e.toLocaleLowerCase() == entity.toLocaleLowerCase() ){
+            encontro=true;
+        } 
+        
+        if(equivalenciasNombres[entity]){
+
+            if(equivalenciasNombres[entity].toLocaleLowerCase() == e.toLocaleLowerCase() ){
+                encontro=true;
+            }
+
+        }
+
+        if(encontro){
+
+            if(ultimosEstadosDibujados[entity]){
+                for(var k=0; k < ultimosEstadosDibujados[entity].length; k++ ){
+                    viewer.entities.remove(ultimosEstadosDibujados[entity][k]);
+                }
+            }
+
+            ultimosEstadosDibujados[entity]=[];
+
+            for(var j=0; j < estadosSiluetas[e].length; j++ ){               
+                    
+                var polygon = viewer.entities.add({
+                    polygon: {
+                    hierarchy: Cesium.Cartesian3.fromDegreesArray(estadosSiluetas[e][j]),
+                    height: 0,
+                    material: Cesium.Color.fromCssColorString(color).withAlpha(0.2),
+                    //outline: true,
+                    //outlineColor: Cesium.Color.BLACK,
+                    },
+                });
+
+                ultimosEstadosDibujados[entity].push(polygon);
+
+            }
+
+            break;
+        }
+    }
+
+    if(!encontro)
+    console.log("No encontro: ",entity);
+
+}
+
+
+
 var coords=[]; 
 
 function DibujaRegiones()
@@ -217,12 +356,12 @@ function DibujaGeoJsons(){
 
             var polyline = new Cesium.PolylineGraphics();
             
-            polyline.material = Cesium.Color.fromCssColorString("#31A6B0");
+            polyline.material = Cesium.Color.fromCssColorString("#31A6B0").withAlpha(0.2);
 
-            polyline.width = new Cesium.ConstantProperty(2);
+            polyline.width = new Cesium.ConstantProperty(3);
             polyline.followSurface = new Cesium.ConstantProperty(false);
             polyline.positions = new Cesium.ConstantProperty([surfacePosition, heightPosition]);
-            polyline.width = 1;
+            polyline.width = 3;
 
             //The polyline instance itself needs to be on an entity.
             var entity = viewer.entities.add({
