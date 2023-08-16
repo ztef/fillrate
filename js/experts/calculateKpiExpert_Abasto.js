@@ -102,13 +102,14 @@ calculateKpiExpert_Abasto.calculateKPI=function(entities){
 
                     var entities_coll={};
 
+                    
                     for(var i=0;  i < entities.length; i++){ 
 
                         entities[i].abasto={VolumenPlan:0,VolumenReal:0, abasto:undefined,Pct_Radar:0, values:[]};
                         entities_coll[entities[i].key]=entities[i];                       
 
-                    }                  
-
+                    }   
+                    
                     var sumaZapo=0;
                         
                     for(var j=0;  j < data.recordset.length; j++){
@@ -118,7 +119,7 @@ calculateKpiExpert_Abasto.calculateKPI=function(entities){
                         if(entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ]] && !entidad){
                             entidad=entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ]];
                         }
-
+                        
                         if( entidad ){
 
                             entidad.abasto.VolumenPlan+=Number(data.recordset[j].VolumenPlan);

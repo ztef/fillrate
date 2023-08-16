@@ -404,7 +404,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UN=function(entity){
        
 
     var toolText =  
-                "<span style='color:#fff600'><span style='color:#ffffff'>Abasto por U. N.</span></span> "+               
+                "<span style='color:#fff600'><span style='color:#ffffff'>Abasto por Destino</span></span> "+               
                 "<svg id='svgTooltip3'  style='pointer-events:none;'></svg> ";
 
     $("#toolTip3").html(toolText);

@@ -89,12 +89,12 @@ radar.kpis=[
     {label:"Fill Rate",color:"#E4FF00",var:"fillRate",minimoValor:50 ,valorEquilibrio:100,maximoValor:150, abreviacion:"FR",unidad:"%",tooltipDetail:kpiExpert_FR,calculateExpert:calculateKpiExpert_FR},
     {label:"Pedidos Retrasados (Miles de Ton)",color:"#00F6FF",var:"pendientes",labelVar: "volumen",minimoValor:100,valorEquilibrio:0 ,maximoValor:-100, abreviacion:"RETRA",tooltipDetail:kpiExpert_PENDIENTES,unidad:"k",calculateExpert:calculateKpiExpert_Pendientes},
     {label:"Pedidos Masivos",color:"#FF00F6",var:"masivos",minimoValor:50,valorEquilibrio:0 ,maximoValor:-50, abreviacion:"MAS",unidad:"%" ,tooltipDetail:kpiExpert_MAS,calculateExpert:calculateKpiExpert_Mas},
-    {label:"Déficit Flota",color:"#6CFF00",var:"df",minimoValor:0 ,valorEquilibrio:50,maximoValor:100, abreviacion:"DF",unidad:""},
-    {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},
-    {label:"Out of Stock Filiales",color:"#FCFF05",var:"oosFiliales",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS FI",unidad:"%",tooltipDetail:kpiExpert_OOS_Filiales,calculateExpert:calculateKpiExpert_OOSFiliales},
-    {label:"Cump Abasto",color:"#6349FF", var:"abasto",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"ABAS",unidad:"%",tooltipDetail:kpiExpert_ABAS,calculateExpert:calculateKpiExpert_Abasto},
-    {label:"Cump Producción",color:"#FFFFFF",var:"produccion",minimoValor:60,valorEquilibrio:100 ,maximoValor:140, abreviacion:"PROD",unidad:"%",tooltipDetail:kpiExpert_PROD,calculateExpert:calculateKpiExpert_Produccion}
-
+    
+    {label:"Out of Stock Filiales",color:"#FCFF05",var:"oosFiliales",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS FIL",unidad:"%",tooltipDetail:kpiExpert_OOS_Filiales,calculateExpert:calculateKpiExpert_OOSFiliales},
+    {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS CED",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},    
+    {label:"Cump Abasto",color:"#E361FF", var:"abasto",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"ABAS",unidad:"%",tooltipDetail:kpiExpert_ABAS,calculateExpert:calculateKpiExpert_Abasto},
+    {label:"Cump Producción",color:"#FFFFFF",var:"produccion",minimoValor:60,valorEquilibrio:100 ,maximoValor:140, abreviacion:"PROD",unidad:"%",tooltipDetail:kpiExpert_PROD,calculateExpert:calculateKpiExpert_Produccion},
+    {label:"Déficit Flota",color:"#6CFF00",var:"df",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"DF",unidad:""}
 ];
 
 radar.DrawEntities=function(){  
@@ -252,6 +252,7 @@ radar.DrawBaseRadar=function(entity){
 
         if(entity.fillRate.totalVolumenEntregado){
 
+            var anchoBarraTotal=GetValorRangos(  maxValueFR  ,1 ,maxValueFR,1,radio-(radio*.2));
             var anchoBarra=GetValorRangos(  entity.fillRate.totalVolumenEntregado  ,1 ,maxValueFR,1,radio-(radio*.2));
 
             svgRadar.append("rect")		    		
@@ -261,6 +262,16 @@ radar.DrawBaseRadar=function(entity){
                         .attr("x",(10+(8*(tamanioTexto*radar.escalado)*.6))+entity.radarData.posX  )
                         .attr("y", entity.radarData.posY-(tamanioTexto*.7)-((tamanioTexto*radar.escalado)*.4)   )
                         .style("height",(tamanioTexto*radar.escalado)*.3 )
+                        .attr("fill","#ffffff")
+                        ;
+
+            svgRadar.append("rect")		    		
+                        .attr("width",anchoBarraTotal )
+                        .attr("class","radarElement")
+                        .attr("filter","url(#dropshadowText)")
+                        .attr("x",(10+(8*(tamanioTexto*radar.escalado)*.6))+entity.radarData.posX  )
+                        .attr("y", entity.radarData.posY-(tamanioTexto*.7)-((tamanioTexto*radar.escalado)*.4)   )
+                        .style("height",(tamanioTexto*radar.escalado)*.05 )
                         .attr("fill","#ffffff")
                         ;
 

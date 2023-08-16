@@ -1,6 +1,8 @@
 var filterControls={};
 
 filterControls.createDataFiltersControls=function(catalogs){
+
+    vix_tt_formatToolTip("#Controls",".",160);
     
     for(var i=0;  i < catalogs.length; i++){
 
@@ -18,7 +20,8 @@ filterControls.createDataFiltersControls=function(catalogs){
                 `<div class="autocomplete loginBtn" style="width: 100%;margin-top:15px;" >
                     <input class="inputs" id="${catalogs[i].id}" type="text" style="border-color:${catalogs[i].color};" name="" placeholder="${ catalogs[i].placeholder }">
                 </div>`
-            );
+            );           
+
             
             var arr=d3.nest()
                         .key(function(d) { return d[catalogs[i].fieldInCatlog]; })
@@ -240,7 +243,7 @@ filterControls.showActiveFilters=function(){
     }else if(store.map_var==kpiExpert_FR){
 
         $("#modo_label").html("Cambiar a OOS Filiales");
-        $("#indicadorLabel").html("FILLRATE: ");
+        $("#indicadorLabel").html("FILL RATE: ");
 
     }
        

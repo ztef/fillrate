@@ -22,4 +22,18 @@ var config={
     alturas:[300000,300000,110000,90000,50000,4000,4000],
     offSetCamaraParaEnfocar:[-3,-3,-1,-1,-.7,-.09,-.09],
 
+    labels:{
+        "Libre_RecAutf":"Libre Recogido"
+    }
+}
+
+config.checkLabel=function(label){
+
+    if(config.labels[label]){
+        return config.labels[label];
+    }else{
+        label=label.replaceAll("_"," ");
+        return label;
+    }
+
 }

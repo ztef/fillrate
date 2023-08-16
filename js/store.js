@@ -27,7 +27,7 @@ var store={
 
             {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_FillRate_2",tableName:"d",varName:"fillRate",dateField:"dtOnSiteFinal",onInitLoad:true,useDateFilters:true},
             
-            //{apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatClientes",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",varName:"cat_cliente",onInitLoad:true,useDateFilters:false},
+            {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatClientes",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",varName:"cat_cliente",onInitLoad:true,useDateFilters:false},
             //{sourceName:"frenteSource",varName:"cat_frente",onInitLoad:true}
   
     ],

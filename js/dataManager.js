@@ -70,8 +70,21 @@ dataManager.ClusterObjects=function(){
     var estados  = d3.nest()
         .key(function(d) { return  d["EstadoZTDem"]; })                           
         .entries(store.dataToDraw);
-    
-    calculateKpiExpert_FR.calculateFRPorEstado(estados);
+
+
+    // COLOREA ESTADOS SOLO SI SE ESTA VIENDO FILL RATE
+    if(store.map_var==kpiExpert_FR){
+
+        calculateKpiExpert_FR.calculateFRPorEstado(estados);
+
+    }else{
+        EliminaEstadosDibujados();
+    }
+
+    // se HARCODEA EL TKPI DE DF solo para q apaarezca en el radar
+    for(var j=0;  j < entities.length; j++){
+        entities[j].df={df:0};
+    }
     
     
     //Utiliza un timeout solo para q sea posible poner una pantalla de espera (negra)
@@ -80,7 +93,7 @@ dataManager.ClusterObjects=function(){
         filterControls.showActiveFilters();
 
         dataManager.CalculateKPIs(entities);
-        $('#Controls').hide();
+        $('#Controls').css("visibility","hidden");
 
         //en casod e que exista un campo para busqueda de entidades lo llena
         if( $("#inputEnfoqueCamara") ){
@@ -284,7 +297,7 @@ dataManager.getTooltipText=function(entity){
 
 
     var text=`
-        <span style='color:#00C6FF;font-size:15px;'><span style='color:#00C6FF'>${nombre}<br>
+        <span style='color:#00C6FF;font-size:15px;'><span style='color:#00C6FF'>${nombre}
         `
         if(calculateKpiExpert_Ventas.getTooltipDetail){
 

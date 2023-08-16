@@ -5,7 +5,7 @@ reportExpert.EraseReport=function(){
     d3.select("#svgTooltipReport").selectAll(".reportDetail").data([]).exit().remove();
     $("#toolTip4").css("visibility","hidden");  
     Stage.blockScreen.style("visibility","hidden"); 
-    $("#Controls").css("visibility","visible");
+    $("#Controls").css("visibility","hidden");
     $("#radarDiv").css("opacity",1);
 
 }

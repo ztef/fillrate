@@ -86,7 +86,7 @@ Stage.initStage=function(resolve, reject){
 				
 				radar.CleanWindows();
 
-				$('#Controls').hide();
+				$('#Controls').css("visibility","hidden");
 
 		    }	  
 
@@ -154,17 +154,29 @@ Stage.initStage=function(resolve, reject){
 
 		svgLines.append("rect")		    		
 					.attr("width","100%" )
+					.attr("filter","url(#dropshadowRadar)")
 					.attr("x",0  )
 					.attr("y", 0  )
 					.attr("height",85)
-					.attr("fill","black")
+					.attr("fill","#131313")
 					;
+
+		svgLines.append("line")
+					.style("stroke","#515252" )
+				
+					.style("stroke-width", 1 )
+					.style("stroke-opacity", .4 )
+					.attr("x1",0 )
+					.attr("y1",85)
+					.attr("x2","100%" )
+					.attr("y2",85);
 
 		Stage.blockScreen=svgLines.append("rect")		    		
 					.attr("width",windowWidth )
 					.attr("x", 0  )
 					.attr("y", 0  )
 					.attr("height",windowHeight)
+				
 					.style("opacity",.6)
 					.attr("fill","black")
 					.style("visibility","hidden")

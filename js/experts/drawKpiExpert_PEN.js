@@ -116,7 +116,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
         var altura=svgTooltipHeight*.7;
         var altura1=GetValorRangos( arr[i].Libre_Pendiente_Hoy,1, maximo ,1,altura);
         var altura2=GetValorRangos( arr[i].Libre_Retrasado,1, maximo ,1,altura);
-   
+
+       
         d3.select("#svgTooltip3").append("rect")		    		
                                             .attr("width",ancho*.8 )
                                             .attr("class","penDetail")
@@ -183,7 +184,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
 
     var dataElement=entity.pendientes.values[0];
 
-    var campos=["Libre_Retrasado","Libre_RecAutf","Libre_Pendiente_Hoy","Libre_Programado_Total"];
+    var campos=["Entregado:","Libre_Retrasado","Libre_Pendiente_Hoy","Libre_Programado_Total","AutoFlete y Recogido:","Libre_RecAutf",];
+    var colores=["#00DEFF","#00DEFF","#00DEFF","#00DEFF","#8BFF1A","#8BFF1A",];
 
     for(var i=0; i < campos.length; i++ ){
         console.log(Number(dataElement[campos[i]]));
@@ -240,56 +242,80 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
 
     for(var i=0; i < campos.length; i++ ){
 
-        var ancho=GetValorRangos(  Number(dataElement[campos[i]]) ,1, maximo ,1,svgTooltipWidth*.4);
-     
-        d3.select("#svgTooltip").append("rect")		    		
-                    .attr("width",1 )
-                    .attr("class","penDetail")
-                    .attr("x",marginLeft   )
-                    .attr("y", (altura*caso)+marginTop )
-                    .attr("height",altura*.4)
-                    .attr("fill","#ffffff")
-                    .transition().delay(0).duration(1000)
-                    .attr("width",ancho )
+        if( !dataElement[campos[i]] ){
+
+            d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","penDetail")
+                        .style("fill",colores[caso])		
+                        .style("font-family","Cabin")
+                        .style("font-weight","bold")
+                        .style("font-size",tamanioFuente)						
+                        .style("text-anchor","start")
+                        .style("opacity",0 )
+                        .attr("transform"," translate("+String( 10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
+                        .text(function(){
+                        
+                            return campos[i];
+                        })
+                        .transition().delay(0).duration(1000)
+                        .style("opacity",1 )
                     ;
 
-        d3.select("#svgTooltip")
-                    .append("text")						
-                    .attr("class","penDetail")
-                    .style("fill","#ffffff")		
-                    .style("font-family","Cabin")
-                    .style("font-weight","bold")
-                    .style("font-size",tamanioFuente)						
-                    .style("text-anchor","start")
-                    .style("opacity",0 )
-                    .attr("transform"," translate("+String( 10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
-                    .text(function(){
-                    
-                        return campos[i].replaceAll("_"," ");
-                    })
-                    .transition().delay(0).duration(1000)
-					.style("opacity",1 )
-                  ;
+        }else{
 
-        d3.select("#svgTooltip")
-                    .append("text")						
-                    .attr("class","penDetail")
-                    .style("fill","#ffffff")		
-                    .style("font-family","Cabin")
-                    .style("font-weight","bold")
-                    .style("font-size",tamanioFuente)						
-                    .style("text-anchor","start")
-                    .style("opacity",0 )
-                    .attr("transform"," translate("+String( ancho+(marginLeft)+10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
-                    .text(function(){
-                    
-                        return formatNumber((Math.round(   (Number(dataElement[campos[i]])/1000)   *100)/100) ,true)+" k";
-                    })
-                    .transition().delay(0).duration(1000)
-					.style("opacity",1 )
-                  ;
 
-                  caso++;
+            var ancho=GetValorRangos(  Number(dataElement[campos[i]]) ,1, maximo ,1,svgTooltipWidth*.4);
+        
+            d3.select("#svgTooltip").append("rect")		    		
+                        .attr("width",1 )
+                        .attr("class","penDetail")
+                        .attr("x",marginLeft   )
+                        .attr("y", (altura*caso)+marginTop )
+                        .attr("height",altura*.4)                        
+                        .attr("fill",colores[caso])
+                        .transition().delay(0).duration(1000)
+                        .attr("width",ancho )
+                        ;
+
+            d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","penDetail")
+                        .style("fill",colores[caso])		
+                        .style("font-family","Cabin")
+                        .style("font-weight","bold")
+                        .style("font-size",tamanioFuente*.8)						
+                        .style("text-anchor","start")
+                        .style("opacity",0 )
+                        .attr("transform"," translate("+String( 10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
+                        .text(function(){
+                        
+                            return config.checkLabel(campos[i]);
+                        })
+                        .transition().delay(0).duration(1000)
+                        .style("opacity",1 )
+                    ;
+
+            d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","penDetail")
+                        .style("fill",colores[caso])		
+                        .style("font-family","Cabin")
+                        .style("font-weight","bold")
+                        .style("font-size",tamanioFuente*.8)						
+                        .style("text-anchor","start")
+                        .style("opacity",0 )
+                        .attr("transform"," translate("+String( ancho+(marginLeft)+10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
+                        .text(function(){
+                        
+                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])/1000)   *100)/100) ,true)+" k";
+                        })
+                        .transition().delay(0).duration(1000)
+                        .style("opacity",1 )
+                    ;                  
+
+        }
+        caso++;
 
     }
    

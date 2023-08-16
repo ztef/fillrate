@@ -6,7 +6,7 @@ function DibujaEstados()
 {
     $.ajax({
       type: "GET",
-      url: "docs/geojson/Estados CEMEX.json",
+      url: "docs/geojson/Estados_CEMEX.json",
       dataType: "text",
       success: function(data) {parseEstados(data);}
    });
@@ -23,10 +23,7 @@ function parseEstados(allText)
         var claveGeo=seccionesJson.features[i].properties.Estado;
 
         estadosSiluetas[claveGeo]=[];
-
-        console.log(claveGeo);
-        console.log(seccionesJson.features[i].geometry.coordinates);       
-
+        
         for(var j=0; j < seccionesJson.features[i].geometry.coordinates.length; j++){
 
             if(seccionesJson.features[i].geometry.coordinates.length > 1){
@@ -63,7 +60,6 @@ function parseEstados(allText)
 
                 coodsEstados.push(element);     
 
-
                 estadosSiluetas[claveGeo].push(element);
                 
             }
@@ -85,16 +81,16 @@ equivalenciasNombres["Veracruz N"]="Veracruz Norte";
 
 function DibujaEstadoEspecifico(entity, color)
 {
-    console.log("DibujaEstadoEspecifico",entity);
+
     var encontro=false;
     for(var e in estadosSiluetas){
-        if(e.toLocaleLowerCase() == entity.toLocaleLowerCase() ){
+        if(e.toLowerCase() == entity.toLowerCase() ){
             encontro=true;
         } 
         
         if(equivalenciasNombres[entity]){
 
-            if(equivalenciasNombres[entity].toLocaleLowerCase() == e.toLocaleLowerCase() ){
+            if(equivalenciasNombres[entity].toLowerCase() == e.toLowerCase() ){
                 encontro=true;
             }
 
@@ -116,9 +112,9 @@ function DibujaEstadoEspecifico(entity, color)
                     polygon: {
                     hierarchy: Cesium.Cartesian3.fromDegreesArray(estadosSiluetas[e][j]),
                     height: 0,
-                    material: Cesium.Color.fromCssColorString(color).withAlpha(0.2),
-                    //outline: true,
-                    //outlineColor: Cesium.Color.BLACK,
+                    material: Cesium.Color.fromCssColorString(color).withAlpha(0.3),
+                    outline: true,
+                    outlineColor: Cesium.Color.WHITE,
                     },
                 });
 
@@ -128,11 +124,19 @@ function DibujaEstadoEspecifico(entity, color)
 
             break;
         }
+    } 
+
+}
+
+function EliminaEstadosDibujados()
+{
+    for(var e in ultimosEstadosDibujados){
+
+        for(var k=0; k < ultimosEstadosDibujados[e].length; k++ ){
+            viewer.entities.remove(ultimosEstadosDibujados[e][k]);
+        }
+
     }
-
-    if(!encontro)
-    console.log("No encontro: ",entity);
-
 }
 
 

@@ -176,8 +176,6 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",700);
 
-
-
   
         // COLUMNAS CON TOTALES :
 
