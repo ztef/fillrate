@@ -272,6 +272,7 @@ radar.DrawBaseRadar=function(entity){
                         .attr("x",(10+(8*(tamanioTexto*radar.escalado)*.6))+entity.radarData.posX  )
                         .attr("y", entity.radarData.posY-(tamanioTexto*.7)-((tamanioTexto*radar.escalado)*.4)   )
                         .style("height",(tamanioTexto*radar.escalado)*.05 )
+                        .style("opacity",.4)
                         .attr("fill","#ffffff")
                         ;
 

@@ -1,5 +1,5 @@
-//const _bkserver = "https://uscldv3dwad01.azurewebsites.net/";
-const _bkserver = "http://10.26.83.135:8080";
+const _bkserver = "https://uscldv3dwad01.azurewebsites.net/";
+//const _bkserver = "http://10.26.83.135:8080";
 
 var store={
    dataToDraw:[],
@@ -22,12 +22,12 @@ var store={
             //{sourceName:"unSource",varName:"cat_un",onInitLoad:true},
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_un",onInitLoad:true,useDateFilters:false},
             //{sourceName:"ztSource",varName:"cat_zt",onInitLoad:true},
-            {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatZT" ,varName:"cat_zt",onInitLoad:true,useDateFilters:false},
+            //{apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatZT" ,varName:"cat_zt",onInitLoad:true,useDateFilters:false},
             {sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true},
 
             {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_FillRate_2",tableName:"d",varName:"fillRate",dateField:"dtOnSiteFinal",onInitLoad:true,useDateFilters:true},
             
-            {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatClientes",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",varName:"cat_cliente",onInitLoad:true,useDateFilters:false},
+            //{apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatClientes",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",varName:"cat_cliente",onInitLoad:true,useDateFilters:false},
             //{sourceName:"frenteSource",varName:"cat_frente",onInitLoad:true}
   
     ],
