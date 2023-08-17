@@ -11,7 +11,7 @@ kpiExpert_FR.DrawElement=function(entity,i){
                     length : altura1,
                     topRadius : entity.radio*.9,
                     bottomRadius : entity.radio*.9,
-                    material : Cesium.Color.fromCssColorString("#4989FF").withAlpha(1)              
+                    material : Cesium.Color.fromCssColorString("#12F900").withAlpha(1)              
                     
                 }
         });
