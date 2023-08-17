@@ -87,7 +87,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     
 
     $("#toolTip3").css("visibility","visible");            
-    $("#toolTip3").css("left",(mouse_x+930)+"px");
+    $("#toolTip3").css("right",(50)+"px");
     
     if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
         $("#toolTip3").css("top",(windowHeight-(arr.length*altura)-150)+"px");
@@ -113,7 +113,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
       "VolumenReal": item.VolumenReal,
       "DifK": item.VolumenReal - item.VolumenPlan,
       "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
-      Peso: item.VolumenReal
+      "Peso": item.VolumenReal,
     };
     });
 
@@ -128,7 +128,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     { key: "VolumenReal", header: "Vol Real (k)", sortable: true, width: "100px" },
     { key: "DifK", header: "Dif (k)", sortable: true, width: "100px" },
     { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
-    { key: "Peso", header: "Peso", sortable: true,  width: "100px" }
+    { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
   ];
 
 
@@ -270,7 +270,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     var marginTop=35;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",(mouse_x+350)+"px");    
+    $("#toolTip2").css("left",(350)+"px");    
     
     if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
         $("#toolTip2").css("top",(windowHeight-(arr.length*altura)-150)+"px");
@@ -292,7 +292,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
           "VolumenReal": item.VolumenReal,
           "DifK": item.VolumenReal - item.VolumenPlan,
           "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
-          Peso: item.VolumenReal
+          "Peso": item.VolumenReal
         };
         });
     
@@ -307,7 +307,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (k)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
-        { key: "Peso", header: "Peso", sortable: true,  width: "100px" }
+        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
       ];
     
     

@@ -215,7 +215,7 @@ color: yellow;
 
         <div id="cesiumContainer" style="position:fixed;top:0px;z-index:1;background-color: black"></div>
         
-        <img id="" src="images/logo.png" style="position:fixed;z-index:9999999;width:140px;float:left;left:5px;top:6px;pointer-events: none;visibility:visible;"></img>
+        <img id="logo" src="images/logo1.png" style="position:fixed;z-index:9999999;width:140px;float:left;left:10px;top:11px;pointer-events: none;visibility:visible;"></img>
 
       
         <img id="cargando" src="images/preloader_7.gif" style="width:100px;position:fixed;float:left;left:50%;top:10%;pointer-events: none;z-index:100;visibility:hidden;padding:30px;opacity:.7"></img>
@@ -226,8 +226,6 @@ color: yellow;
         <div id="toolTip4" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
 
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
-
-        <div class="listado" style="position:fixed;top:0px;right:-1px;z-index:99999"><span  id="modo_label" onclick="dataManager.CambiaModoKPI();" style="font-family:Cabin;font-size:15px;margin-top:10px;color:white;float:left">Cambiar a OOS Filiales</span><img id="cargando" class="listado" src="images/cilindro.png" onclick="dataManager.CambiaModoKPI();" style="width:18px;float:left;margin:8px"></img></div>
 
         <ul class="fa-ul" style="position:absolute;right:2px;top:38px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;">
             
@@ -241,12 +239,20 @@ color: yellow;
 
         </ul>
 
-        <div id="titulo" class="sombra" align="left" style="position:fixed;top:8px;left:148px;font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;z-index:9999"/> 
+        <ul class="fa-ul" style="position:absolute;right:2px;top:-9px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;">
+            
+            <img id="iconFR" src="images/mode1_.png" onclick="dataManager.CambiaModoKPI('FR')" style="width:30px ;float:left;margin:8px" ></img>
+            <img id="iconOOSF" src="images/mode_2.png" onclick="dataManager.CambiaModoKPI('OOS F')" style="width:30px ;float:left;margin:8px"></img>
+            <img id="iconVenta" src="images/mode_3.png" onclick="dataManager.CambiaModoKPI('Venta')" style="width:30px;float:left;margin:8px"></img>
+
+        </ul>
+
+        <div id="titulo" class="sombra" align="left" style="position:fixed;top:13px;left:168px;font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;z-index:9999"/> 
         
         </div>
 
 
-        <ul class="fa-ul" style="position:absolute;right:183px;top:-15px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
+        <ul class="fa-ul" style="position:absolute;right:143px;top:-15px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
             
             <img id="back_btn" src="images/back_icon.png" onclick="filterControls.back()" style="width:43px;float:left;margin:8px;visibility:hidden"></img>
 
@@ -266,7 +272,7 @@ color: yellow;
     
         </div>
 
-        <ul id="Controls" class="fa-ul" style="width:150px;float:left;position:fixed;top:10px;font-family:Cabin;box-shadow: 5px 5px 20px #000000;right:10px;font-size:11px;z-index:9999999;opacity:1;line-height: 8px;margin:0px;text-transform:uppercase;border-style:solid;border-color:#254650;border-width:1px;color:#ffffff;background-color:rgba(0,0,0,.9);padding:20px;border-radius:9px;">
+        <ul id="Controls" class="fa-ul" style="width:150px;float:left;position:fixed;top:120px;font-family:Cabin;box-shadow: 5px 5px 20px #000000;right:10px;font-size:11px;z-index:9999999;opacity:1;line-height: 8px;margin:0px;text-transform:uppercase;border-style:solid;border-color:#254650;border-width:1px;color:#000000;background-color:rgba(0,0,0,.9);padding:20px;border-radius:9px;">
         </ul>
         
 
@@ -288,7 +294,7 @@ color: yellow;
             $('#datepicker').datepicker({format: 'mm-dd-yyyy'});
             $('#datepicker2').datepicker({format: 'mm-dd-yyyy'});
 
-            $("#titulo").css("width",(windowWidth*.32)+"px")
+            $("#titulo").css("width",(windowWidth*.7)+"px")
 
             $("#cargando").css("visibility","hidden");
 

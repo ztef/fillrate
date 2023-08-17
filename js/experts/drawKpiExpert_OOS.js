@@ -178,7 +178,8 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
             .style("text-anchor","start")
             .style("opacity",1 )
             .attr("transform"," translate("+String( svgTooltipWidth*.3  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-            .text("Cant Ent Final (k)")
+          
+            .text("# OOS")
             .transition().delay(0).duration(i*50);
 
     d3.select("#svgTooltip")
@@ -191,7 +192,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
             .style("text-anchor","start")
             .style("opacity",1 )
             .attr("transform"," translate("+String( svgTooltipWidth*.55  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-            .text("OOS (%)")
+            .text("% OOS")
             .transition().delay(0).duration(i*50);
     
     d3.select("#svgTooltip")
@@ -204,7 +205,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
             .style("text-anchor","start")
             .style("opacity",1 )
             .attr("transform"," translate("+String( svgTooltipWidth*.8  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-            .text("Numerador")
+            .text("Volumen Entregado")
             .transition().delay(0).duration(i*50);
 
     for(var i=0; i < arr.length; i++ ){
@@ -214,24 +215,24 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
         d3.select("#svgTooltip").append("rect")		    		
                 .attr("width",1 )
                 .attr("class","ossDetail")
-                .attr("x",marginLeft   )
+                .attr("x",svgTooltipWidth*.82   )
                 .attr("y", (altura*caso)+marginTop )
-                .attr("height",altura*.5)
-                .attr("fill","#ffffff")
+                .attr("height",altura*.5)                
+                .attr("fill","#FFFE97")
                 .transition().delay(0).duration(1000)
                 .attr("width",ancho )	
                 ;
 
         d3.select("#svgTooltip")
                 .append("text")						
-                .attr("class","ossDetail")
-                .style("fill","#ffffff")		
+                .attr("class","ossDetail")                
+                .style("fill","#FFFE97")	
                 .style("font-family","Cabin")
                 .style("font-weight","bold")
                 .style("font-size",tamanioFuente*.8)						
                 .style("text-anchor","start")
                 .style("opacity",0 )
-                .attr("transform"," translate("+String( ancho+(marginLeft)+10  )+","+String( altura*caso+(tamanioFuente)+marginTop -(tamanioFuente*.3)  )+")  rotate("+(0)+") ")
+                .attr("transform"," translate("+String( ancho+(svgTooltipWidth*.82)+4  )+","+String( altura*caso+(tamanioFuente)+marginTop -(tamanioFuente*.3)  )+")  rotate("+(0)+") ")
                 .text(function(){
 
                     return formatNumber(Math.round(arr[i].CantEntFinal/1000));
@@ -251,7 +252,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
                     .attr("x",(svgTooltipWidth*.55)   )
                     .attr("y", (altura*caso)+marginTop )
                     .attr("height",altura*.5)
-                    .attr("fill","#FFFE97")
+                    .attr("fill","#ffffff")
                     .transition().delay(0).duration(1000)
                     .attr("width",anchoVol)	
                     ;
@@ -259,7 +260,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
         d3.select("#svgTooltip")
                     .append("text")						
                     .attr("class","ossDetail")
-                    .style("fill","#FFFE97")		
+                    .style("fill","#ffffff")		
                     .style("font-family","Cabin")
                     .style("font-weight","bold")
                     .style("font-size",tamanioFuente*.8)						
@@ -286,7 +287,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
                   .style("font-size",tamanioFuente)						
                   .style("text-anchor","start")
                   .style("opacity",0 )
-                  .attr("transform"," translate("+String( svgTooltipWidth*.84  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
+                  .attr("transform"," translate("+String(  marginLeft   )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
                   .text(function(){
                   
                       return arr[i].Numerador;

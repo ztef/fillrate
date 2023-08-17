@@ -32,8 +32,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
            
             arr[i].VolVenta_Real=0;
             arr[i].VolVenta_Plan=0;
-           
-            arr[i].Peso=0;
+    
 
             for(var j=0; j < arr[i].values.length; j++ ){
 
@@ -41,7 +40,6 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
                 arr[i].VolVenta_Real+=Number(arr[i].values[j].VolVenta_Real);
                 arr[i].VolVenta_Plan+=Number(arr[i].values[j].VolVenta_Plan);
                 
-                arr[i].Peso+=Number(arr[i].values[j].Peso);
 
             }
 
@@ -53,8 +51,8 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
                 arr[i].DifPer=0;
             }  
             
-            if(maximo < arr[i].Peso){
-                maximo = arr[i].Peso;
+            if(maximo < arr[i].VolVenta_Real){
+                maximo = arr[i].VolVenta_Real;
             }
 
             if(maximo2 < arr[i].DifPer*1000){
@@ -171,15 +169,15 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         .style("text-anchor","start")
         .style("opacity",1 )
         .attr("transform"," translate("+String( svgTooltipWidth*.9  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-        .text("Peso")
+        .text("Volumen Real")
         .transition().delay(0).duration(i*50);    
      
         for(var i=0; i < arr.length; i++ ){
 
-            if(arr[i].Peso==0)
-            continue;
+            if(arr[i].VolVenta_Real==0)
+                continue;
         
-            var ancho=GetValorRangos( arr[i].Peso,1, maximo ,1,svgTooltipWidth*.11 );
+            var ancho=GetValorRangos( arr[i].VolVenta_Real,1, maximo ,1,svgTooltipWidth*.11 );
          
             d3.select("#svgTooltip").append("rect")		    		
     					.attr("width",1 )
@@ -322,7 +320,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
                             }
                                 
                         });
-    ;
+    
 
                         caso++;
 

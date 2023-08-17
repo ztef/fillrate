@@ -82,7 +82,7 @@ Stage.initStage=function(resolve, reject){
 
 		    }else
 		    {
-		    	$("#tool").css("visibility","hidden");
+		    	$("#toolTip").css("visibility","hidden");
 				
 				radar.CleanWindows();
 
@@ -122,7 +122,12 @@ Stage.initStage=function(resolve, reject){
 					}
 					$("#toolTip").css("top",posY);
 					
-		    	}
+		    	}else
+				{
+	
+					$("#toolTip").css("visibility","hidden");		    	
+	
+				}
 		    	
 		    }else
 		    {
@@ -332,9 +337,10 @@ Stage.DrawFRLabels=function(){
 					 if(coord){
 							
 							 if(coord.x > 400 && coord.x < $(document).width()-50 && coord.y > 40 && coord.y < ($(document).height())){
-									
-									 entities[i].labelSVG.attr("x",coord.x+7 )
-													 .attr("y", coord.y+3  ).style("opacity",1); 
+									if( entities[i].labelSVG){
+										entities[i].labelSVG.attr("x",coord.x+7 )
+											.attr("y", coord.y+3  ).style("opacity",1); 
+									}							
 													 
 							 }
 					 }

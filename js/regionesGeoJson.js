@@ -112,7 +112,7 @@ function DibujaEstadoEspecifico(entity, color)
                     polygon: {
                     hierarchy: Cesium.Cartesian3.fromDegreesArray(estadosSiluetas[e][j]),
                     height: 0,
-                    material: Cesium.Color.fromCssColorString(color).withAlpha(0.3),
+                    material: Cesium.Color.fromCssColorString(color).withAlpha(0.2),
                     outline: true,
                     outlineColor: Cesium.Color.WHITE,
                     },

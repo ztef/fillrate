@@ -586,7 +586,7 @@ radar.DrawEntityValues=function(entity){
 
                                         if(backInfoNav){
 
-                                            backInfoNav.entity=this.data.key;
+                                            var catlog;                                            
 
                                             for(var j=0; j < store.niveles.length; j++){
                        
@@ -594,13 +594,20 @@ radar.DrawEntityValues=function(entity){
                             
                                                         if(store.niveles[j].coordinatesSource){
 
-                                                            backInfoNav.catlog = store.niveles[j].coordinatesSource;            
+                                                            catlog = store.niveles[j].coordinatesSource;            
                             
                                                         }
                             
                                                     }
                                                 }
                                             }
+
+                                            if(catlog){
+
+                                                backInfoNav.push({entity:this.data.key , catlog:catlog});
+                                                filterControls.arrowUpdate();
+
+                                            }                                               
                                            
                                     }                                      
 
@@ -694,7 +701,6 @@ radar.DrawEntityValues=function(entity){
 
                 var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );	
 
-               
 
 				svgRadar				
 						.append("circle")

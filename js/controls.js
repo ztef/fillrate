@@ -228,24 +228,13 @@ filterControls.showActiveFilters=function(){
         filtroPresentacion=filtrosAplicados["cat_presentacion"];
     }
 
-    var titulo=`<div style="font-size:100%"><div id="indicadorLabel" style="float:left;"> </div>  ${filtroProducto} | ${filtroPresentacion} | Pedidos Entregados. Nivel: ${nivel} <br>
-    <span style="font-size:12px">
-    Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
+    var titulo=`<div style="font-size:100%"> ${filtroProducto} | ${filtroPresentacion} | Pedidos Entregados. Nivel: ${nivel} 
+    <span style="font-size:12px; color:white">
+       Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;
 
     $("#titulo").html(titulo);
 
-    if(store.map_var==kpiExpert_OOS){
-
-        $("#modo_label").html("Cambiar a FillRate");
-        $("#indicadorLabel").html("OOS FILIALES: ");
-
-    }else if(store.map_var==kpiExpert_FR){
-
-        $("#modo_label").html("Cambiar a OOS Filiales");
-        $("#indicadorLabel").html("FILL RATE: ");
-
-    }
        
 
     svgLines.append("text")						
@@ -446,20 +435,78 @@ filterControls.createHardCodedControls=function(){
 }
 
 var waitingToFocus;
-var backInfoNav={};
+var backInfoNav=[];
 
 filterControls.back=function(){
 
-    if(backInfoNav.entity){
-        filterControls.lookForEntity(backInfoNav.entity,backInfoNav.catlog);
+    if(backInfoNav.length > 1){
+
+        filterControls.lookForEntity(backInfoNav[backInfoNav.length-2].entity,backInfoNav[backInfoNav.length-2].catlog);
+
     }
 
-    backInfoNav={};
+    if(backInfoNav.length > 0){
+        backInfoNav.splice(backInfoNav.length-1,1);        
+    }
+
+    filterControls.arrowUpdate();
 
     setTimeout(()=>{
-        $("#back_btn").css("visibility","hidden");
+
+        if(backInfoNav.length > 1){
+            $("#back_btn").css("visibility","visible");           
+        } else{
+            $("#back_btn").css("visibility","hidden");
+        }  
+    
     }, 1000);
+
+    radar.CleanWindows();
         
+}
+
+filterControls.arrowUpdate=function(){
+
+    $("#toolTip").html("");
+
+    if(backInfoNav.length > 1){
+
+        console.log("arrowUpdate");
+
+        document.getElementById("back_btn").onmouseover = function() {
+
+                $("#toolTip").css("visibility","visible");
+
+                $("#toolTip").css("top",mouse_y+20);
+
+                $("#toolTip").css("left",mouse_x+20);
+
+                $("#toolTip").html(
+                    
+                    `
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Regresa a: <span style='color:#00EAFF'>${toTitleCase(backInfoNav[backInfoNav.length-2   ].entity)}<br>
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>En: <span style='color:#00EAFF'>${backInfoNav[backInfoNav.length-1].catlog}
+                
+                    `
+                );
+
+            };   
+            
+             
+
+    }else
+    {
+        
+        $("#toolTip").css("visibility","hidden");		    	
+
+    }
+
+    if(backInfoNav.length > 1){
+        $("#back_btn").css("visibility","visible");           
+    } else{
+        $("#back_btn").css("visibility","hidden");
+    } 
+
 }
 
 filterControls.lookForEntity=function(name, catlog){
@@ -481,11 +528,12 @@ filterControls.lookForEntity=function(name, catlog){
                     for(var j=0; j < store.niveles.length; j++){
                        
                         if(store.niveles[j].coordinatesSource){
-                            console.log(store.niveles[j].coordinatesSource,e);
+                            
                             if(store.niveles[j].coordinatesSource==e){
 
                                 if( String($("#nivel_cb").val()) != String(store.niveles[j].id) ){
                                     $("#nivel_cb").val(store.niveles[j].id);
+                                    backInfoNav.push({entity:name , catlog:e});
                                     waitingToFocus=name;
                                     $("#nivel_cb").change();
                                 }else{
