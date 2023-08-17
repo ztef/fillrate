@@ -141,7 +141,7 @@ dataManager.CalculateKPIs=function(entities_){
     }, 500);    
     
     
-    
+   
 
     // 2   
     if(calculateKpiExpert_OOS){
@@ -158,9 +158,7 @@ dataManager.CalculateKPIs=function(entities_){
 
         }, 500);   
 
-    }    
-
-    
+    }  
 
     
     // 3
@@ -181,8 +179,6 @@ dataManager.CalculateKPIs=function(entities_){
         } 
     }
 
-    
-    
    
     // 4
     if(calculateKpiExpert_Ventas){
@@ -256,7 +252,7 @@ dataManager.CalculateKPIs=function(entities_){
         }, 500);
     } 
     
-  
+    
 
 }
 
@@ -326,6 +322,8 @@ dataManager.getTooltipText=function(entity){
             
         }
 
+        
+
         if(calculateKpiExpert_Pendientes.getTooltipDetail){
 
             if(calculateKpiExpert_Pendientes.getTooltipDetail(entity.key)!=undefined){
@@ -335,6 +333,7 @@ dataManager.getTooltipText=function(entity){
 
         }
 
+        
         if(calculateKpiExpert_Mas.getTooltipDetail){
 
             if(calculateKpiExpert_Mas.getTooltipDetail(entity.key)!=undefined){
@@ -379,6 +378,8 @@ dataManager.getTooltipText=function(entity){
             }
 
         } 
+
+        
 
         return text;
 

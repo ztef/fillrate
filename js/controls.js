@@ -62,14 +62,16 @@ var caso=0;
 var filtrosAplicados={};
 filterControls.FilterData=function(e,val){
 
+console.log("FilterData",e);
+
     if(e){
-        if(e.target){
-            if(e.target.parentElement.id.toLowerCase().indexOf("enfoque") > -1 ){
+        
+            if(e.toLowerCase().indexOf("enfoque") > -1 ){
 
                 Stage.FocusMapElement(val);
                 return;
             };
-        }
+        
     }    
 
      //Valida si hay valores en los formControls

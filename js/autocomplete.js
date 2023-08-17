@@ -39,8 +39,8 @@ function autocomplete(inp, arr) {
               b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
               inp.value = this.getElementsByTagName("input")[0].value;
-              
-              setTimeout(()=>{ filterControls.FilterData(e,inp.value); }, 100);
+
+              setTimeout(()=>{ filterControls.FilterData(this.getElementsByTagName("input")[0].parentElement.parentElement.id,inp.value); }, 100);
               
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
