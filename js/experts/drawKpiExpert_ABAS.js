@@ -21,7 +21,7 @@ kpiExpert_ABAS.DrawTooltipDetail=function(entity){
     d3.select("#svgTooltip").selectAll(".abasDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".abasDetail").data([]).exit().remove();
     d3.select("#svgTooltip4").selectAll(".abasDetail").data([]).exit().remove();
-    d3.select("#svgTooltip4").selectAll(".abasDetail").data([]).exit().remove();
+    d3.select("#svgTooltip5").selectAll(".abasDetail").data([]).exit().remove();
 
     kpiExpert_ABAS.DrawTooltipDetail_Transporte(entity);
     

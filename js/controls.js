@@ -353,6 +353,78 @@ filterControls.createHardCodedControls=function(){
     
         });
 
+        // NIVELES DE OOS FILIALES
+        $("#Controls").append(
+            `
+            <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
+                Niveles de OOS Filiales: <br> <br>                 
+                <select id="foosFil_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
+                <option value=""></option>
+                <option value="3">Mayores de 3</option>
+                <option value="5">Mayores de 5</option>
+                <option value="10">Mayores de 10</option>
+             
+                </select>
+
+            </div>                            
+            `
+        );
+
+        d3.select("#foosFil_cb").on("change",function(){           
+
+                    if($("#foosFil_cb").val()!=""){           
+                     
+                        filtrosAplicados["niveles_oosFill"]="Mayores de "+$("#foosFil_cb").val()+"%";
+                        //dataManager.ClusterObjects();
+
+                    }else{                
+
+                        delete filtrosAplicados["niveles_oosFill"];                       
+
+                    }   
+
+                    filterControls.showActiveFilters();
+                    store.dataToDraw=[];
+                    filterControls.FilterData();
+    
+        });
+
+        // NIVELES DE  VENTA
+        $("#Controls").append(
+            `
+            <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
+                Niveles de OOS Filiales: <br> <br>                 
+                <select id="ventas_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
+                <option value=""></option>
+                <option value="75">Menores de 75</option>
+                <option value="85">Menores de 85</option>
+                <option value="95">Menores de 95</option>
+             
+                </select>
+
+            </div>                            
+            `
+        );
+
+        d3.select("#ventas_cb").on("change",function(){           
+
+                    if($("#ventas_cb").val()!=""){           
+                     
+                        filtrosAplicados["niveles_ventas"]="Menores de "+$("#ventas_cb").val()+"%";
+                        //dataManager.ClusterObjects();
+
+                    }else{                
+
+                        delete filtrosAplicados["niveles_ventas"];                       
+
+                    }   
+
+                    filterControls.showActiveFilters();
+                    store.dataToDraw=[];
+                    filterControls.FilterData();
+    
+        });
+
         //BUSQUEDA DE ELEMENTOS EN MAPA
         $("#Controls").append(
             `<div class="autocomplete loginBtn" style="width: 100%;margin-top:15px;" >

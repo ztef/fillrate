@@ -112,7 +112,7 @@ calculateKpiExpert_FR.calculateKPI=function(entities,varName,cb){
     if($("#fillRate_cb").val()!=""){         
 
         var value=Number($("#fillRate_cb").val());   
-        console.log("value",value);
+
         var entitiesFiltered=[];        
 
         for(var i=0;  i < entities.length; i++){   
