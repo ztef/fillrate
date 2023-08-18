@@ -9,7 +9,7 @@ var store={
    localDataSources:[
     
             //DATA LOCAL
-           // {sourceName:"fillRateSource",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true},
+            //{sourceName:"fillRateSource",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true},
             {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_FillRate_2",tableName:"d",varName:"fillRate",dateField:"dtOnSiteFinal",onInitLoad:true,useDateFilters:true},
             
             //{sourceName:"oosSource",varName:"oos",dateField:"",onInitLoad:true},            

@@ -48,6 +48,10 @@ dataLoader.DeleteLoadingTitle=function(name){
         if(dataLoader.loadings.current[i] == name){
             arrTemp.splice(i,1);
             dataLoader.loadings.history.push(name);
+
+            if(arrTemp.length==0)
+            dataLoader.HideLoadings();
+            
             break;
         }      
 
@@ -60,11 +64,13 @@ dataLoader.DeleteLoadingTitle=function(name){
 
 dataLoader.ShowLoadings=function(){
 
-    $("#toolTip3").css("visibility","visible");
+    $("#toolTipLoader").css("visibility","visible");
 			    	
-    $("#toolTip3").css("left",((windowWidth/2)-40)+"px" );    
+    $("#toolTipLoader").css("left",((windowWidth/2)-40)+"px" );    
 
-    $("#toolTip3").css("width","200px" );    
+    $("#toolTipLoader").css("width","200px" );    
+
+   // $("#toolTipLoader").css("height","400px" ); 
 
     var text=`
         <span style='color:#7F7F7F;font-size:11px;'>Cargas Recientes: </span><br>
@@ -86,16 +92,17 @@ dataLoader.ShowLoadings=function(){
         `   
     }
 
-    $("#toolTip3").html(text);
+    $("#toolTipLoader").html(text);
 
-    $("#toolTip3").css("top","20%");
+    $("#toolTipLoader").css("top","20%");
 
 }
 
 dataLoader.HideLoadings=function(){
 
     dataLoader.loadings={history:[],current:[]};
-    $("#toolTip3").css("visibility","hidden");
+    $("#toolTipLoader").css("visibility","hidden");
+   // $("#toolTipLoader").css("height","400px" ); 
 
 }
 
@@ -295,13 +302,15 @@ dataLoader.CheckIfComplete=function(){
     loadsCompleted++;
     if(loadsCompleted == loadsToComplete){
 
+        dataLoader.HideLoadings();
+
         for(var i=0; i < dataSourcesToLoad.length; i++){
             if(dataSourcesToLoad[i].varName==store.mainDataset){
              
                 store.dataToDraw=store[dataSourcesToLoad[i].varName];
             }
         }
-
+       
         $("#cargando").css("visibility","hidden");
 
        resolveLoader();

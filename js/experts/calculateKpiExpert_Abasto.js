@@ -111,6 +111,8 @@ calculateKpiExpert_Abasto.calculateKPI=function(entities){
                     }   
                     
                     var sumaZapo=0;
+
+                    store.abasto=[];
                         
                     for(var j=0;  j < data.recordset.length; j++){
 
@@ -132,7 +134,10 @@ calculateKpiExpert_Abasto.calculateKPI=function(entities){
 
                         }else{
                             console.log("no existe entidad mencionada en abasto:",data.recordset[j].Agrupador);
-                        }           
+                        }     
+                        
+                        //Guarda todos los datos de abasto recibidos en el store sin agrupar por entidad, para poder crear ventana de detalle de U.N.
+                        store.abasto.push(data.recordset[j]);
 
                     }
                                     

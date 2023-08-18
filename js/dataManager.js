@@ -1,35 +1,37 @@
 var dataManager={};
 
-    dataManager.CambiaModoKPI=function(modo){
+dataManager.CambiaModoKPI=function(modo){
 
-        $("#iconFR").attr("src","images/mode_1.png");
-        $("#iconOOSF").attr("src","images/mode_2.png");
-        $("#iconOOSF").attr("src","images/mode_3.png");
+    console.log(modo);
 
-        if(modo =="FR"){
+    $("#iconFR").attr("src","images/mode_1.png");
+    $("#iconOOSF").attr("src","images/mode_2.png");
+    $("#iconVenta").attr("src","images/mode_3.png");
 
-            store.map_var=kpiExpert_FR;
-            $("#iconFR").attr("src","images/mode1_.png");
-            $("#logo").attr("src","images/logo1.png");
-            dataManager.ClusterObjects();
+    if(modo =="FR"){
 
-        }else if(modo =="OOS F"){
+        store.map_var=kpiExpert_FR;
+        $("#iconFR").attr("src","images/mode1_.png");
+        $("#logo").attr("src","images/logo1.png");
+        dataManager.ClusterObjects();
 
-            store.map_var=kpiExpert_OOS;
-            $("#iconOOSF").attr("src","images/mode2_.png");
-            $("#logo").attr("src","images/logo2.png");
-            dataManager.ClusterObjects();
+    }else if(modo =="OOS F"){
 
-        }else if(modo =="Venta"){
+        store.map_var=kpiExpert_OOS;
+        $("#iconOOSF").attr("src","images/mode2_.png");
+        $("#logo").attr("src","images/logo2.png");
+        dataManager.ClusterObjects();
 
-            $("#iconVenta").attr("src","images/mode3_.png");
-            $("#logo").attr("src","images/logo3.png");
+    }else if(modo =="Venta"){
 
-        }
-
-       
+        $("#iconVenta").attr("src","images/mode3_.png");
+        $("#logo").attr("src","images/logo3.png");
 
     }
+
+    
+
+}
 
 //PROCESO QUE AGRUPA ELEMENTOS SEGUN EL NIVEL AL Q SE ENCUENTRA
 var entities;
@@ -141,7 +143,7 @@ dataManager.CalculateKPIs=function(entities_){
     }, 500);    
     
     
-   
+    
 
     // 2   
     if(calculateKpiExpert_OOS){
@@ -160,6 +162,7 @@ dataManager.CalculateKPIs=function(entities_){
 
     }  
 
+   
     
     // 3
     if(store.map_var==kpiExpert_OOS){
@@ -192,6 +195,8 @@ dataManager.CalculateKPIs=function(entities_){
                                                              });
         }, 500);
     }  
+
+    
     
     
     // 5
@@ -206,7 +211,9 @@ dataManager.CalculateKPIs=function(entities_){
                                                                 dataManager.checkAllLoads();
                                                              });
         }, 500);
-    }     
+    }   
+    
+    
 
     if(store.map_var==kpiExpert_FR){
 
@@ -262,6 +269,8 @@ dataManager.checkAllLoads=function(){
 
     if(loadsTarget==loadsCount){
 
+        dataLoader.HideLoadings();
+
         radar.DrawEntities(entities);
 
         Stage.DrawMapObjects(entities);
@@ -269,6 +278,8 @@ dataManager.checkAllLoads=function(){
         kpiExpert_FR.DrawMainHeader();
 
         kpiExpert_FR.DrawFilteredHeader();
+
+        
 
     }
 }

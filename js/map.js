@@ -285,6 +285,8 @@ Stage.DrawMapObjects=function(entities){
 Stage.FocusMapElement=function(id){
 
 	console.log("FocusMapElement",id);
+
+	
 	
 	for(var e in mapElements){
 
