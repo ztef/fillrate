@@ -205,20 +205,28 @@ filterControls.showActiveFilters=function(){
     }
 
     var nivel="";
+    var pedidosEntregados="Pedidos Entregados.";
+
     for(var i=0; i < store.niveles.length; i++){    
         if( store.niveles[i].id == $("#nivel_cb").val() )
             nivel+=store.niveles[i].label;           
     }    
 
-    if(store.map_var==kpiExpert_OOS){        
+    if(store.map_var==kpiExpert_OOS_Filiales){        
 
         var filtroPresentacion=" Granel " ;
         var filtroProducto="Cemento Gris, Blanco ";
 
-    }else if(store.map_var==kpiExpert_FR){
+    }else if(store.map_var==kpiExpert_FR || store.map_var==drawKpiExpert_VENTAS){
 
         var filtroPresentacion="Sacos y Granel";
         var filtroProducto="Cemento Gris, Mortero, Blanco, Especiales";
+    }
+
+    if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
+
+        var pedidosEntregados="";
+       
     }
 
     if(filtrosAplicados["cat_producto"]){
@@ -230,7 +238,7 @@ filterControls.showActiveFilters=function(){
         filtroPresentacion=filtrosAplicados["cat_presentacion"];
     }
 
-    var titulo=`<div style="font-size:100%"> ${filtroProducto} | ${filtroPresentacion} | Pedidos Entregados. Nivel: ${nivel} 
+    var titulo=`<div style="font-size:100%"> ${filtroProducto} | ${filtroPresentacion} | ${pedidosEntregados} Nivel: ${nivel} 
     <span style="font-size:12px; color:white">
        Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;

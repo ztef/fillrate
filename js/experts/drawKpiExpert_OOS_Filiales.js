@@ -1,5 +1,78 @@
 var kpiExpert_OOS_Filiales={};
 
+kpiExpert_OOS_Filiales.DrawElement=function(entity,i){      
+      
+    var altura1=GetValorRangos(entity.oos.oos,1 ,10 ,1 ,entity.altura );
+
+    if(altura1 < 0)
+        altura1=1;
+
+    if(altura1 == NaN || String(altura1) == "NaN" )
+        return;
+
+    if(altura1>entity.altura)
+        altura1=entity.altura;
+
+        console.log("altura1",entity.lng , entity.lat ,altura1);
+
+    var geometry1= viewer.entities.add({
+            name : '',
+            position: Cesium.Cartesian3.fromDegrees( entity.lng , entity.lat , (altura1/2)  ),
+            cylinder : {
+                length : altura1,
+                topRadius : entity.radio*.9,
+                bottomRadius : entity.radio*.9,
+                material : Cesium.Color.fromCssColorString("#4989FF").withAlpha(1)              
+                
+            }
+    });
+
+    mapElementsArr.push(geometry1);						
+
+    //VASO EXTERIOR
+    var geometryExt= viewer.entities.add({
+        name : '',
+        position: Cesium.Cartesian3.fromDegrees( entity.lng , entity.lat , (entity.altura/2)  ),
+        cylinder : {
+                length : entity.altura+(entity.altura*.04),
+                topRadius : entity.radio,
+                bottomRadius : entity.radio,
+                material : Cesium.Color.fromCssColorString("#ffffff").withAlpha(.2)              
+                
+        }
+    });
+
+    entity.geometries=[geometry1,geometryExt];
+    mapElementsArr.push(geometryExt);
+    mapElements[geometryExt.id]=entity; 
+    
+    if(i < 100){
+
+            entity.labelSVG=svgLines.append("text")                            
+                    .attr("x",0 )
+                    .attr("y", 0   )
+                    .style("fill","#FFFFFF")
+                    .attr("filter","url(#dropshadowText)")
+                    .attr("class","entityLabel")                                    
+                    .style("font-family","Cabin")
+                    .style("text-anchor","middle")
+                    .style("font-weight","normal")
+                    .style("font-size",12)                                
+                    .text( function(d){
+                        
+                    return entity.oos.oos+"%";
+                    
+                    });
+
+    }
+
+    if(Stage.labelsInterval)        
+            clearInterval(Stage.labelsInterval);
+   
+    Stage.labelsInterval = setInterval(function(){ Stage.DrawFRLabels(); }, 50);
+
+}
+
 
 kpiExpert_OOS_Filiales.eraseChart=function(){ 
 

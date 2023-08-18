@@ -4,8 +4,10 @@ const _bkserver = "https://uscldv3dwad01.azurewebsites.net/";
 var store={
    dataToDraw:[],
    mainDataset:"fillRate",
+
    map_var:kpiExpert_FR,
-   //map_var:kpiExpert_OOS,
+   //map_var:kpiExpert_OOS_Filiales,
+
    localDataSources:[
     
             //DATA LOCAL

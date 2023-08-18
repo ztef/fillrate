@@ -33,6 +33,26 @@ radar.radarInitStage=function(){
 
 }
 
+radar.DecreaseRadars=function(){
+
+    if(columnasRadar > 1){
+        columnasRadar--;
+    }
+
+    radar.DrawEntities(entities);           
+
+}
+
+radar.IncreaseRadars=function(){
+
+    if(columnasRadar < 7){
+        columnasRadar++;
+    }
+
+    radar.DrawEntities(entities);           
+
+}
+
 radar.CleanWindows=function(){    
 
     if(kpiExpert_OOS_Filiales){
@@ -94,7 +114,8 @@ radar.kpis=[
     {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS CED",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},    
     {label:"Cump Abasto",color:"#E361FF", var:"abasto",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"ABAS",unidad:"%",tooltipDetail:kpiExpert_ABAS,calculateExpert:calculateKpiExpert_Abasto},
     {label:"Cump Producción",color:"#FFFFFF",var:"produccion",minimoValor:60,valorEquilibrio:100 ,maximoValor:140, abreviacion:"PROD",unidad:"%",tooltipDetail:kpiExpert_PROD,calculateExpert:calculateKpiExpert_Produccion},
-    {label:"Déficit Flota",color:"#6CFF00",var:"df",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"DF",unidad:""}
+    {label:"Déficit Flota",color:"#6CFF00",var:"df",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"DF",unidad:""},
+    {label:"Estadías",color:"#FF00DE",var:"estadias",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"EST",unidad:""}
 ];
 
 radar.DrawEntities=function(){  
@@ -102,13 +123,15 @@ radar.DrawEntities=function(){
     if(entities.length==0){
         alert("existe un problema con los datos básicos de Fill Rate");
         return;
-    }
-        
+    }        
 
     radar.config=[];
 
     for(var i=0; i < radar.kpis.length; i++){
-        if(radar.kpis[i].var=="fillRate" && store.map_var==kpiExpert_OOS){
+        if(radar.kpis[i].var=="fillRate" && store.map_var==kpiExpert_OOS_Filiales){
+            continue;
+        }
+        if(radar.kpis[i].var=="estadias" && store.map_var!=drawKpiExpert_VENTAS ){
             continue;
         }
         if(entities[0][radar.kpis[i].var]){

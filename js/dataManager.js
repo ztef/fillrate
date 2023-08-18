@@ -17,16 +17,18 @@ dataManager.CambiaModoKPI=function(modo){
 
     }else if(modo =="OOS F"){
 
-        store.map_var=kpiExpert_OOS;
+        store.map_var=kpiExpert_OOS_Filiales;
         $("#iconOOSF").attr("src","images/mode2_.png");
         $("#logo").attr("src","images/logo2.png");
         dataManager.ClusterObjects();
 
     }else if(modo =="Venta"){
 
+        store.map_var=drawKpiExpert_VENTAS;
         $("#iconVenta").attr("src","images/mode3_.png");
         $("#logo").attr("src","images/logo3.png");
-
+        dataManager.ClusterObjects();
+        
     }
 
     
@@ -91,6 +93,7 @@ dataManager.ClusterObjects=function(){
     // se HARCODEA EL TKPI DE DF solo para q apaarezca en el radar
     for(var j=0;  j < entities.length; j++){
         entities[j].df={df:0};
+        entities[j].estadias={estadias:0};
     }
     
     
@@ -165,7 +168,7 @@ dataManager.CalculateKPIs=function(entities_){
    
     
     // 3
-    if(store.map_var==kpiExpert_OOS){
+    if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
 
         if(calculateKpiExpert_OOSFiliales){
             loadsTarget++;

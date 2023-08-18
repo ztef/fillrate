@@ -188,8 +188,6 @@ Stage.initStage=function(resolve, reject){
 					;
 
 		resolve();
-
-
 		
 };
 
