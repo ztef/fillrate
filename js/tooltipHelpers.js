@@ -99,6 +99,14 @@
 */
 
 
+
+// Crea contador global para z-order de los tooltips :
+
+
+var zIndexCounter = 1000;
+
+
+
 // Formatea un numero, eliminando decimales y separando por comas.
 
 function vix_tt_formatNumber(value) {
@@ -216,6 +224,23 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
     closeButton.on("click", function () {
       $(divElement).css("visibility","hidden");
     });
+
+
+    $(divElement).on("click", function () {
+      // Incrementa el contador global z-index 
+      zIndexCounter++;
+  
+      // Adjust the z-index and make the tooltip visible
+      $(divElement).css({
+        visibility: "visible",
+        zIndex: zIndexCounter,
+      });
+
+    });
+
+
+
+
   }
 
 
