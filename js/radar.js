@@ -15,12 +15,13 @@ var maximaCantidadRadaresDibujables=50;
 var minValueFR=0;
 var maxValueFR=0;
 var columnasRadar=1;
+var ordenRadares="Vol";
 
 radar.radarInitStage=function(){    
 
     var elemDiv = document.createElement('div');
     elemDiv.setAttribute("id", "radarDiv");
-    elemDiv.style.cssText = 'width:'+widthInit+'%;position:fixed;bottom:0px;top:90px;z-index:99999;pointer-events:auto;overflow-y:scroll;height:100%';
+    elemDiv.style.cssText = 'width:'+widthInit+'%;position:fixed;bottom:0px;top:120px;z-index:99999;pointer-events:auto;overflow-y:scroll;height:100%';
    
     document.body.appendChild(elemDiv);
 
@@ -139,6 +140,34 @@ radar.DrawEntities=function(){
         }
        
     }
+
+    $("#ordenVol").attr("src","images/order1.png");
+    $("#ordenFR").attr("src","images/order2.png");
+    $("#ordenOOS").attr("src","images/order3.png");
+    $("#ordenVen").attr("src","images/order4.png");
+
+    //ORDEN DE RADARES
+    if(ordenRadares =="Vol"){
+
+        entities=entities.sort((a, b) =>   b.fillRate.totalVolumenEntregado - a.fillRate.totalVolumenEntregado );
+        $("#ordenVol").attr("src","images/order1_.png");
+
+    }else if(ordenRadares =="FR"){
+
+        entities=entities.sort((a, b) =>   b.fillRate.fillRate - a.fillRate.fillRate );
+        $("#ordenFR").attr("src","images/order2_.png");
+
+    }else if(ordenRadares =="OOS"){
+
+        entities=entities.sort((a, b) =>   b.oos.oos - a.oos.oos );
+        $("#ordenOOS").attr("src","images/order3_.png");
+
+    }else if(ordenRadares == "Ven"){
+
+        entities=entities.sort((a, b) =>   b.ventas.ventas - a.ventas.ventas );
+        $("#ordenVen").attr("src","images/order4_.png");
+
+    }    
     
     radar.rows=0;
 

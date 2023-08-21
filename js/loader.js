@@ -131,7 +131,7 @@ dataLoader.LoadData=function(def,cb){
         if(dia2 < 10)
         dia2="0"+String(dia2);
 
-    
+        
         var URL=def.apiURL+"/"+def.serviceName+"?";
 
         if(def.tableName){

@@ -1,5 +1,5 @@
-const _bkserver = "https://uscldv3dwad01.azurewebsites.net/";
-//const _bkserver = "http://10.26.83.135:8080";
+//const _bkserver = "https://uscldv3dwad01.azurewebsites.net/";
+const _bkserver = "http://10.26.83.135:8080";
 
 var store={
    dataToDraw:[],
@@ -36,9 +36,10 @@ var store={
     apiDataSources:[
 
         {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_Abasto_FillRate",varName:"abasto",onInitLoad:false,useDateFilters:true},
+        {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_OOSFilial",varName:"oosFiliales",onInitLoad:false,useDateFilters:true},
         {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_Produccion_FillRate",varName:"produccion",onInitLoad:false,useDateFilters:true},
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_OOS_FillRate",varName:"oos",onInitLoad:false,useDateFilters:true},
-        {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_OOS_FillRate",varName:"oosFiliales",onInitLoad:false,useDateFilters:true},
+        
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate",varName:"ventas",onInitLoad:false,useDateFilters:true},
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_PedidosPendientes",varName:"pendientes",onInitLoad:false,useDateFilters:true},
        
@@ -66,10 +67,10 @@ var store={
     
     niveles:[
 
-        {id:0,label:"Nacional",field:"",coordinatesSource:"",storeProcedureField:"Nacional"},
-        {id:1,label:"Región",field:"RegionZTDem",coordinatesSource:"cat_region",storeProcedureField:"Region"},
-        {id:2,label:"Estado",field:"EstadoZTDem",coordinatesSource:"cat_estado",storeProcedureField:"Estado"},
-        {id:3,label:"Gerencia",field:"GerenciaUN",coordinatesSource:"cat_gerencia",storeProcedureField:"Gerencia"},
+        {id:0,label:"Nacional",field:"",coordinatesSource:"",storeProcedureField:"Nacional",oosFlilialesField:"Nacional"},
+        {id:1,label:"Región",field:"RegionZTDem",coordinatesSource:"cat_region",storeProcedureField:"Region",oosFlilialesField:"RegionDem"},
+        {id:2,label:"Estado",field:"EstadoZTDem",coordinatesSource:"cat_estado",storeProcedureField:"Estado",oosFlilialesField:"EstadoDem"},
+        {id:3,label:"Gerencia",field:"GerenciaUN",coordinatesSource:"cat_gerencia",storeProcedureField:"Gerencia",oosFlilialesField:"Gerencia"},
         {id:4,label:"Unidad de Negocio",field:"vc50_UN_Tact",coordinatesSource:"cat_un",storeProcedureField:"UnidadNegocio"},
         {id:5,label:"Zona de transporte",field:"ZonaTransporte",coordinatesSource:"cat_zt",storeProcedureField:"ZT"},       
         {id:6,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},      

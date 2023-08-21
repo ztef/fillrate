@@ -106,8 +106,7 @@ calculateKpiExpert_FR.calculateKPI=function(entities,varName){
 
     } 
 
-    entities=entities.sort((a, b) =>   b[varName].totalVolumenEntregado - a[varName].totalVolumenEntregado );
-
+ 
     return entities;
 
 }

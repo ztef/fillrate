@@ -62,7 +62,6 @@ dataManager.ClusterObjects=function(){
     }  
 
     var agrupador="";
-
     
     for(var i=0; i < store.niveles.length; i++){    
        if( store.niveles[i].id == $("#nivel_cb").val() )
@@ -79,26 +78,13 @@ dataManager.ClusterObjects=function(){
 
     console.log("entities",entities);
 
-    var estados  = d3.nest()
-        .key(function(d) { return  d["EstadoZTDem"]; })                           
-        .entries(store.dataToDraw);
-
-
-    // COLOREA ESTADOS SOLO SI SE ESTA VIENDO FILL RATE
-    if(store.map_var==kpiExpert_FR){
-
-        calculateKpiExpert_FR.calculateFRPorEstado(estados);
-
-    }else{
-        EliminaEstadosDibujados();
-    }
-
     // se HARCODEA EL TKPI DE DF solo para q apaarezca en el radar
     for(var j=0;  j < entities.length; j++){
         entities[j].df={df:0};
         entities[j].estadias={estadias:0};
     }
     
+    // ****
     
     //Utiliza un timeout solo para q sea posible poner una pantalla de espera (negra)
     setTimeout(()=>{
@@ -172,13 +158,13 @@ dataManager.CalculateKPIs=function(entities_){
     }    
     
     // 3
-    if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
+   if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
 
         if(calculateKpiExpert_OOSFiliales){
             loadsTarget++;
             dataLoader.AddLoadingTitle("SP OOS Filiales");
             setTimeout(()=>{
-                calculateKpiExpert_OOSFiliales.calculateKPI(entities).then(()=>{
+                calculateKpiExpert_OOSFiliales.calculateKPI().then(()=>{
                     loadsCount++;
                     dataLoader.DeleteLoadingTitle("SP OOS Filiales"); 
                     dataManager.checkAllLoads();
@@ -187,7 +173,7 @@ dataManager.CalculateKPIs=function(entities_){
        
 
         } 
-    }
+   }
 
    
     // 4
@@ -204,7 +190,7 @@ dataManager.CalculateKPIs=function(entities_){
     }  
 
     
-    /*
+    
     
     // 5
     if(calculateKpiExpert_Abasto && $("#nivel_cb").val() ){
@@ -266,7 +252,7 @@ dataManager.CalculateKPIs=function(entities_){
         }, 500);
     } 
     
-    */
+    
 
 }
 
@@ -293,7 +279,28 @@ dataManager.checkAllLoads=function(){
 
         kpiExpert_FR.DrawFilteredHeader();
 
-        
+        // COLOREA ESTADOS SOLO SI SE ESTA VIENDO FILL RATE O OOSF
+
+        EliminaEstadosDibujados();
+
+        if(store.map_var==kpiExpert_FR){
+
+            var estados  = d3.nest()
+                .key(function(d) { return  d["EstadoZTDem"]; })                           
+                .entries(store.dataToDraw);
+
+            calculateKpiExpert_FR.calculateFRPorEstado(estados);
+
+        }if(store.map_var==kpiExpert_OOS_Filiales){
+
+            var estados  = d3.nest()
+                .key(function(d) { return  d["EstadoDem"]; })                           
+                .entries(store.oosFiliales);
+
+            calculateKpiExpert_OOSFiliales.calculateFRPorEstado(estados);
+            
+
+        }
 
     }
 }

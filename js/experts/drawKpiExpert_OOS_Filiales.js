@@ -2,7 +2,7 @@ var kpiExpert_OOS_Filiales={};
 
 kpiExpert_OOS_Filiales.DrawElement=function(entity,i){      
       
-    var altura1=GetValorRangos(entity.oos.oos,1 ,10 ,1 ,entity.altura );
+    var altura1=GetValorRangos(entity.oosFiliales.oosFiliales,1 ,20 ,1 ,entity.altura );
 
     if(altura1 < 0)
         altura1=1;
@@ -12,8 +12,15 @@ kpiExpert_OOS_Filiales.DrawElement=function(entity,i){
 
     if(altura1>entity.altura)
         altura1=entity.altura;
-
-        console.log("altura1",entity.lng , entity.lat ,altura1);
+    
+    var color="#cccccc";
+    if(entity.oosFiliales.oosFiliales <= 8){
+        color="#28F100";
+    }else if(entity.oosFiliales.oosFiliales <= 10){
+        color="#FFF60C";
+    }else if(entity.oosFiliales.oosFiliales > 10){
+        color="#FF0000";
+    }
 
     var geometry1= viewer.entities.add({
             name : '',
@@ -22,7 +29,7 @@ kpiExpert_OOS_Filiales.DrawElement=function(entity,i){
                 length : altura1,
                 topRadius : entity.radio*.9,
                 bottomRadius : entity.radio*.9,
-                material : Cesium.Color.fromCssColorString("#4989FF").withAlpha(1)              
+                material : Cesium.Color.fromCssColorString(color).withAlpha(1)              
                 
             }
     });
@@ -60,7 +67,7 @@ kpiExpert_OOS_Filiales.DrawElement=function(entity,i){
                     .style("font-size",12)                                
                     .text( function(d){
                         
-                    return entity.oos.oos+"%";
+                    return entity.oosFiliales.oosFiliales+"%";
                     
                     });
 

@@ -1,6 +1,6 @@
 var calculateKpiExpert_OOSFiliales={};
 
-calculateKpiExpert_OOSFiliales.calculateKPI=function(entities,cb){ 
+calculateKpiExpert_OOSFiliales.calculateKPI=function(cb){ 
 
         $("#cargando").css("visibility","visible");
 
@@ -71,7 +71,7 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(entities,cb){
                                 
                         } 
             
-                         var URL=apiURL+"/"+serviceName+"&fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
+                         var URL=apiURL+"/"+serviceName+"?fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
                          console.log(URL);  
 
                         if(URL.indexOf("undefined" < 0)){
@@ -92,20 +92,38 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(entities,cb){
                                             return;
                                         }
             
-                                        console.log("oos filiales",data.recordset); 
-                                        
+                                        console.log("oos filiales",data.recordset);
+
+                                        for(var j=0;  j < data.recordset.length; j++){
+                                                data.recordset[j].Nacional="Nacional";
+                                        }
+
+                                        var agrupador="";
+    
+                                        for(var i=0; i < store.niveles.length; i++){    
+                                                if( store.niveles[i].id == $("#nivel_cb").val() )
+                                                        agrupador=store.niveles[i].oosFlilialesField;           
+                                        }
+                                       
+                                        if(agrupador==""){
+                                                alert("No se tiene data de OOS Filiales en ese Nivel");
+                                                resolve();
+                                                return;
+                                        }
+ 
                                         var entities_coll={};
 
                                         for(var i=0;  i < entities.length; i++){ 
             
-                                            entities[i].oosFiliales={oosFiliales:0,Numerador:0,Denominador:0,values:[]};
-                                            entities_coll[entities[i].key]=entities[i];                                 
-                                        }  
+                                                entities[i].oosFiliales={oosFiliales:0,Numerador:0,Denominador:0,values:[]};
+                                                entities_coll[entities[i].key]=entities[i];                                 
+                                        }     
+                                        
+                                        store.oosFiliales=[];
 
                                         for(var j=0;  j < data.recordset.length; j++){
 
                                                 if(data.recordset[j].Fecha!=""){
-
                                                         
                                                         if( data.recordset[j].Fecha.indexOf("T") > -1){
                 
@@ -123,10 +141,10 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(entities,cb){
                         
                                                 }
 
-                                                var entidad=entities_coll[data.recordset[j].Agrupador];
+                                                var entidad=entities_coll[data.recordset[j][agrupador]];
 
-                                                if(entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ]] && !entidad){
-                                                        entidad=entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ]];
+                                                if(entities_coll[ diccionarioNombres[ data.recordset[j][agrupador] ]] && !entidad){
+                                                        entidad=entities_coll[ diccionarioNombres[ data.recordset[j][agrupador] ]];
                                                 }
 
                                                 if( entidad ){
@@ -136,13 +154,15 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(entities,cb){
                                                         entidad.oosFiliales.values.push(data.recordset[j]);                                                   
                         
                                                 }else{
-                                                        console.log("no existe entidad mencionada en OOS Filiales:",data.recordset[j].Agrupador);
+                                                        console.log("no existe entidad mencionada en OOS Filiales:",data.recordset[j][agrupador]);
                                                 }  
+
+                                                store.oosFiliales.push(data.recordset[j]);
 
                                         }
 
                                         for(var i=0;  i < entities.length; i++){ 
-            
+
                                                 entities[i].oosFiliales.oosFiliales=Math.round(  (entities[i].oosFiliales.Numerador/entities[i].oosFiliales.Denominador)    *10000)/100;
                                                                                 
                                         }  
@@ -159,6 +179,42 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(entities,cb){
                 }
 
         });
+}
+
+
+calculateKpiExpert_OOSFiliales.calculateFRPorEstado=function(estados){
+
+        for(var i=0;  i < estados.length; i++){ 
+
+                estados[i].Numerador=0; 
+                estados[i].Denominador=0; 
+
+                for(var j=0;  j < estados[i].values.length; j++){
+
+                        estados[i].Numerador+=Number(estados[i].values[j].Numerador); 
+                        estados[i].Denominador+=Number(estados[i].values[j].Denominador); 
+                        
+                }
+
+                estados[i].oosFiliales=Math.round(  (estados[i].Numerador/estados[i].Denominador)    *10000)/100; 
+
+         
+                var color="#cccccc";
+                if(estados[i].oosFiliales <= 8){
+                    color="#28F100";
+                }else if(estados[i].oosFiliales <= 10){
+                    color="#FFF60C";
+                }else if(estados[i].oosFiliales > 10){
+                    color="#FF0000";
+                }
+            
+
+                console.log("llama edo",estados[i].key,estados[i].oosFiliales);
+
+                DibujaEstadoEspecifico(estados[i].key, color);
+
+        }
+
 }
 
 

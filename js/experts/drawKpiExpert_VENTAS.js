@@ -14,7 +14,16 @@ drawKpiExpert_VENTAS.DrawElement=function(entity,i){
   if(altura1>entity.altura)
       altura1=entity.altura;
 
-      console.log("altura1",entity.lng , entity.lat ,altura1);
+  var color="#cccccc";
+  if(entity.ventas.ventas > 100){
+      color="#11EC00";
+  }else if(entity.ventas.ventas <= 100 && entity.ventas.ventas >= 95){
+      color="#94FF3F";
+  }else if(entity.ventas.ventas <= 95 && entity.ventas.ventas >= 90){
+    color="#FCED00";
+  }else if(entity.ventas.ventas < 90){
+      color="#FF0000";
+  }
 
   var geometry1= viewer.entities.add({
           name : '',
@@ -23,7 +32,7 @@ drawKpiExpert_VENTAS.DrawElement=function(entity,i){
               length : altura1,
               topRadius : entity.radio*.9,
               bottomRadius : entity.radio*.9,
-              material : Cesium.Color.fromCssColorString("#4989FF").withAlpha(1)              
+              material : Cesium.Color.fromCssColorString(color).withAlpha(1)              
               
           }
   });

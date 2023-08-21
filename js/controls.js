@@ -217,14 +217,32 @@ filterControls.showActiveFilters=function(){
         var filtroPresentacion=" Granel " ;
         var filtroProducto="Cemento Gris, Blanco ";
 
-        $("#oosfil_filter").show();
 
     }else if(store.map_var==kpiExpert_FR || store.map_var==drawKpiExpert_VENTAS){
 
         var filtroPresentacion="Sacos y Granel";
         var filtroProducto="Cemento Gris, Mortero, Blanco, Especiales";
 
+    }
+
+    // visibilidad de filtros por nivel
+    if(store.map_var==kpiExpert_OOS_Filiales){        
+
+        $("#oosfil_filter").show();
+        $("#ventas_cb").hide();
+        $("#fillRate_cb ").hide();        
+
+    }else if(store.map_var==kpiExpert_FR ){
+
         $("#oosfil_filter").hide();
+        $("#ventas_cb").hide();
+        $("#fillRate_cb").show();
+
+    }else if( store.map_var==drawKpiExpert_VENTAS){
+
+        $("#oosfil_filter").hide();
+        $("#ventas_cb").show();
+        $("#fillRate_cb").hide();
     }
 
     if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
@@ -280,7 +298,7 @@ filterControls.createHardCodedControls=function(){
         $("#Controls").append(
                 `
                 <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
-                    Nivel: <br> <br>                 
+                    Nivel de Lectura: <br> <br>                 
                     <select id="nivel_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
                          
                     </select>
