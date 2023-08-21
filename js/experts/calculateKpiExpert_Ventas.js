@@ -128,7 +128,7 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
                             console.log("no existe entidad mencionada en ventas:",data.recordset[j].Agrupador);
                         }
 
-                    }
+                    }                
 
                     resolve();
 
@@ -142,10 +142,44 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
         } 
 
     });
-}  
+}
 
 
+calculateKpiExpert_Ventas.filterByLevel=function(entities){
 
+    //Valida si hay filtro de ventas minimo  
+    var dataToDrawFiltered=[];
+
+    if($("#ventas_cb").val()!=""){         
+
+        var value=Number($("#ventas_cb").val());   
+
+        var entitiesFiltered=[];        
+
+        for(var i=0;  i < entities.length; i++){   
+
+            // SE FILTRAN SOLO AQUELLOS QUE CUMPLEN CON CRITERIO DE FILTRADO DE FILL RATE
+            if(entities[i].ventas.ventas<=value){
+                
+                entitiesFiltered.push(entities[i]);
+                
+                for(var j=0;  j < entities[i].values.length; j++){ 
+                    dataToDrawFiltered.push(entities[i].values[j]);
+                }
+            }            
+
+        }  
+       
+        entities=entitiesFiltered;
+        store.dataToDraw=dataToDrawFiltered;
+
+        return entities;
+
+    }else{
+        return entities;
+    }    
+
+}
 
 calculateKpiExpert_Ventas.getTooltipDetail=function(entityId){
 

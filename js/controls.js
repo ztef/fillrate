@@ -217,10 +217,14 @@ filterControls.showActiveFilters=function(){
         var filtroPresentacion=" Granel " ;
         var filtroProducto="Cemento Gris, Blanco ";
 
+        $("#oosfil_filter").show();
+
     }else if(store.map_var==kpiExpert_FR || store.map_var==drawKpiExpert_VENTAS){
 
         var filtroPresentacion="Sacos y Granel";
         var filtroProducto="Cemento Gris, Mortero, Blanco, Especiales";
+
+        $("#oosfil_filter").hide();
     }
 
     if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
@@ -356,9 +360,9 @@ filterControls.createHardCodedControls=function(){
         // NIVELES DE OOS FILIALES
         $("#Controls").append(
             `
-            <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
+            <div id="oosfil_filter" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
                 Niveles de OOS Filiales: <br> <br>                 
-                <select id="foosFil_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
+                <select id="oosfil_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
                 <option value=""></option>
                 <option value="3">Mayores de 3</option>
                 <option value="5">Mayores de 5</option>
@@ -370,11 +374,12 @@ filterControls.createHardCodedControls=function(){
             `
         );
 
-        d3.select("#foosFil_cb").on("change",function(){           
+       
+        d3.select("#oosfil_cb").on("change",function(){           
 
-                    if($("#foosFil_cb").val()!=""){           
+                    if($("#oosfil_cb").val()!=""){           
                      
-                        filtrosAplicados["niveles_oosFill"]="Mayores de "+$("#foosFil_cb").val()+"%";
+                        filtrosAplicados["niveles_oosFill"]="Mayores de "+$("#oosfil_cb").val()+"%";
                         //dataManager.ClusterObjects();
 
                     }else{                
@@ -393,7 +398,7 @@ filterControls.createHardCodedControls=function(){
         $("#Controls").append(
             `
             <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
-                Niveles de OOS Filiales: <br> <br>                 
+                Niveles de Ventas: <br> <br>                 
                 <select id="ventas_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
                 <option value=""></option>
                 <option value="75">Menores de 75</option>
@@ -405,6 +410,8 @@ filterControls.createHardCodedControls=function(){
             </div>                            
             `
         );
+
+        
 
         d3.select("#ventas_cb").on("change",function(){           
 

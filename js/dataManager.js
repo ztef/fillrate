@@ -14,6 +14,7 @@ dataManager.CambiaModoKPI=function(modo){
         $("#iconFR").attr("src","images/mode1_.png");
         $("#logo").attr("src","images/logo1.png");
         dataManager.ClusterObjects();
+        
 
     }else if(modo =="OOS F"){
 
@@ -21,6 +22,7 @@ dataManager.CambiaModoKPI=function(modo){
         $("#iconOOSF").attr("src","images/mode2_.png");
         $("#logo").attr("src","images/logo2.png");
         dataManager.ClusterObjects();
+       
 
     }else if(modo =="Venta"){
 
@@ -28,6 +30,7 @@ dataManager.CambiaModoKPI=function(modo){
         $("#iconVenta").attr("src","images/mode3_.png");
         $("#logo").attr("src","images/logo3.png");
         dataManager.ClusterObjects();
+      
         
     }
 
@@ -141,10 +144,13 @@ dataManager.CalculateKPIs=function(entities_){
     loadsTarget++;
     dataLoader.AddLoadingTitle("Fillrate");
     setTimeout(()=>{
-        entities = calculateKpiExpert_FR.calculateKPI(entities_,"fillRate",dataManager.checkAllLoads);   
+        console.log("Elimina fillrate");
+        entities = calculateKpiExpert_FR.calculateKPI(entities_,"fillRate");   
+       
         dataLoader.DeleteLoadingTitle("Fillrate"); 
-    }, 500);    
-    
+        loadsCount++;
+        dataManager.checkAllLoads();
+    }, 500);       
     
     
 
@@ -163,9 +169,7 @@ dataManager.CalculateKPIs=function(entities_){
 
         }, 500);   
 
-    }  
-
-   
+    }    
     
     // 3
     if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
@@ -200,7 +204,7 @@ dataManager.CalculateKPIs=function(entities_){
     }  
 
     
-    
+    /*
     
     // 5
     if(calculateKpiExpert_Abasto && $("#nivel_cb").val() ){
@@ -262,7 +266,7 @@ dataManager.CalculateKPIs=function(entities_){
         }, 500);
     } 
     
-    
+    */
 
 }
 
@@ -271,6 +275,13 @@ dataManager.checkAllLoads=function(){
     console.log("Cargas esperadas: "+loadsTarget,"Cargas completadas: "+loadsCount);
 
     if(loadsTarget==loadsCount){
+
+        //Segundo filtrado asociado a Selecciones de nivel:
+        console.log("Inicia filtros: ",entities);
+
+        entities = calculateKpiExpert_FR.filterByLevel(entities);        
+        entities = calculateKpiExpert_Ventas.filterByLevel(entities);
+        entities = calculateKpiExpert_OOSFiliales.filterByLevel(entities);
 
         dataLoader.HideLoadings();
 

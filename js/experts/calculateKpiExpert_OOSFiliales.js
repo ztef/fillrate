@@ -162,6 +162,43 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(entities,cb){
 }
 
 
+calculateKpiExpert_OOSFiliales.filterByLevel=function(entities){
+
+        //Valida si hay filtro de oosFiliales minimo  
+        var dataToDrawFiltered=[];
+    
+        if($("#oosfil_cb").val()!=""){         
+    
+            var value=Number($("#oosfil_cb").val());   
+    
+            var entitiesFiltered=[];        
+    
+            for(var i=0;  i < entities.length; i++){   
+    
+                // SE FILTRAN SOLO AQUELLOS QUE CUMPLEN CON CRITERIO DE FILTRADO DE FILL RATE
+                if(entities[i].oosFiliales.oosFiliales>=value){
+                    
+                    entitiesFiltered.push(entities[i]);
+                    
+                    for(var j=0;  j < entities[i].values.length; j++){ 
+                        dataToDrawFiltered.push(entities[i].values[j]);
+                    }
+                }            
+    
+            }  
+           
+            entities=entitiesFiltered;
+            store.dataToDraw=dataToDrawFiltered;
+    
+            return entities;
+    
+        }else{
+                return entities;
+        }    
+    
+    }
+
+
 
 calculateKpiExpert_OOSFiliales.getTooltipDetail=function(entityId){    
 

@@ -21,7 +21,9 @@ var initialized=false;
 calculateKpiExpert_FR.max=0;
 calculateKpiExpert_FR.min=1000000000;
 
-calculateKpiExpert_FR.calculateKPI=function(entities,varName,cb){  
+calculateKpiExpert_FR.calculateKPI=function(entities,varName){  
+
+   
     
     fillRateEntities=entities;
 
@@ -100,13 +102,19 @@ calculateKpiExpert_FR.calculateKPI=function(entities,varName,cb){
             entities[i][varName].por3=Math.round((entities[i][varName].vol3/entities[i][varName].totalSolicitado)*100);
 
             entities[i][varName][varName]=entities[i][varName].por1;
+           
 
-            
+    } 
 
-    }
+    entities=entities.sort((a, b) =>   b[varName].totalVolumenEntregado - a[varName].totalVolumenEntregado );
+
+    return entities;
+
+}
+
+calculateKpiExpert_FR.filterByLevel=function(entities){
 
     //Valida si hay filtro de fillrate minimo  
-
     var dataToDrawFiltered=[];
 
     if($("#fillRate_cb").val()!=""){         
@@ -116,11 +124,12 @@ calculateKpiExpert_FR.calculateKPI=function(entities,varName,cb){
         var entitiesFiltered=[];        
 
         for(var i=0;  i < entities.length; i++){   
-            
+
+            // SE FILTRAN SOLO AQUELLOS QUE CUMPLEN CON CRITERIO DE FILTRADO DE FILL RATE
             if(entities[i].fillRate.fillRate<=value){
                 
                 entitiesFiltered.push(entities[i]);
-
+                
                 for(var j=0;  j < entities[i].values.length; j++){ 
                     dataToDrawFiltered.push(entities[i].values[j]);
                 }
@@ -131,14 +140,11 @@ calculateKpiExpert_FR.calculateKPI=function(entities,varName,cb){
         entities=entitiesFiltered;
         store.dataToDraw=dataToDrawFiltered;
 
+        return entities;
+
+    }else{
+        return entities;
     }
-
-    entities=entities.sort((a, b) => b[varName].totalVolumenEntregado - a[varName].totalVolumenEntregado );
-
-    loadsCount++;
-    cb();
-
-    return entities;
 
 }
 
@@ -194,7 +200,6 @@ calculateKpiExpert_FR.getTooltipDetail=function(entityId,varName){
        
         if(fillRateEntities[i].key.toLowerCase()==entityId.toLowerCase()){
 
-            
             var text=`<hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>FillRate: </span><br>
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>A Tiempo: <span style='color:#00EAFF'>${fillRateEntities[i][varName].por1}% <span style='color:#00EAFF;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol1)})<br>
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>1 a 2 días: <span style='color:#FFCC00'>${fillRateEntities[i][varName].por2}% <span style='color:#FFCC00;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol2)})<br>
@@ -203,9 +208,7 @@ calculateKpiExpert_FR.getTooltipDetail=function(entityId,varName){
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Entregado: <span style='color:#ffffff'>${Math.round((fillRateEntities[i][varName].totalVolumenEntregado/fillRateEntities[i][varName].totalSolicitado)*100)}% <span style='color:#ffffff;font-size:${12*escalaTextos}px;'>${formatNumber(fillRateEntities[i][varName].totalVolumenEntregado)}k<br>
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Solicitado: <span style='color:#ffffff'>${formatNumber(fillRateEntities[i][varName].totalSolicitado)}<br>
 
-           
             `
-
             return text;
         }
             
