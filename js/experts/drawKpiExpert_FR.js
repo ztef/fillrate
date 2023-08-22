@@ -207,7 +207,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         var marginTop=35;
 
         $("#toolTip3").css("visibility","visible");            
-        $("#toolTip3").css("right",20+"px");
+        $("#toolTip3").css("top",15+"%");
+        $("#toolTip3").css("left",64+"%");
 
 
 
@@ -389,7 +390,8 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         var tamanioFuente=ancho*.8;   
     
         $("#toolTip2").css("visibility","visible");            
-        $("#toolTip2").css("left",(mouse_x+300)+"px");
+        $("#toolTip2").css("top",15+"%");
+        $("#toolTip2").css("left",24+"%");
            
       
         // ADD ON PARA USAR EL FORMATEADOR DE TOOLTIPS ---------------------------------------------------

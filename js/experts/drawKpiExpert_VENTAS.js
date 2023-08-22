@@ -167,7 +167,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     
 
     $("#toolTip3").css("visibility","visible");            
-    $("#toolTip3").css("right",(50)+"px");
+    $("#toolTip3").css("top",15+"%");
+    $("#toolTip3").css("left",62+"%");
     
     if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
         $("#toolTip3").css("top",(windowHeight-(arr.length*altura)-150)+"px");
@@ -350,7 +351,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     var marginTop=35;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",(350)+"px");    
+    $("#toolTip2").css("top",15+"%");
+    $("#toolTip2").css("left",24+"%");
     
     if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
         $("#toolTip2").css("top",(windowHeight-(arr.length*altura)-150)+"px");

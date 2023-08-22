@@ -66,7 +66,8 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     var marginTop=30;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",(mouse_x+300)+"px");
+    $("#toolTip2").css("top",15+"%");
+    $("#toolTip2").css("left",34+"%");
 
 
     var toolText =  
@@ -82,19 +83,6 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
                 .style("width", svgTooltipWidth )
                 .style("height", svgTooltipHeight )
                 ;   
-
-    var posY=mouse_y+50;
-
-    if( $("#toolTip2").height()+mouse_y+50 > windowHeight ){
-        posY=windowHeight-($("#toolTip2").height()+20);
-    }
-
-    if( posY < 0 ){
-        posY=20;
-
-    }
-    $("#toolTip2").css("top",posY);
-
 
     d3.select("#svgTooltip")
         .append("text")						
