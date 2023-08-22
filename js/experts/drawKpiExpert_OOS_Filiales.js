@@ -2,7 +2,7 @@ var kpiExpert_OOS_Filiales={};
 
 kpiExpert_OOS_Filiales.DrawElement=function(entity,i){      
       
-    var altura1=GetValorRangos(entity.oosFiliales.oosFiliales,1 ,20 ,1 ,entity.altura );
+    var altura1=GetValorRangos(entity.oosFiliales.oosFiliales,1 ,10 ,1 ,entity.altura );
 
     if(altura1 < 0)
         altura1=1;
@@ -96,27 +96,27 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail=function(entity){
     d3.select("#svgTooltip").selectAll(".ossFilialesDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".ossFilialesDetail").data([]).exit().remove();
     
-    kpiExpert_OOS.DrawTooltipDetail_UN(entity);
-    kpiExpert_OOS.DrawTooltipDetail_Dia(entity);
+    kpiExpert_OOS_Filiales.DrawTooltipDetail_UN(entity);
+    kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia(entity);
 
 }
 
-kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){    
-
+kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){  
+    
     d3.select("#svgTooltip").selectAll(".ossFilialesDetail").data([]).exit().remove();
 
     var maximo=0;
     var maximoVolumen=0;   
 
-    for(var i=0; i < entity.oos.values.length; i++ ){
+    for(var i=0; i < entity.oosFiliales.values.length; i++ ){
 
-        entity.oos.values[i].grupo=entity.oos.values[i].DescrProducto+"_"+entity.oos.values[i].Destino;       
+        entity.oosFiliales.values[i].grupo=entity.oosFiliales.values[i].DescrProducto+"_"+entity.oosFiliales.values[i].Origen;       
 
     }
 
     var arr=d3.nest()
-            .key(function(d) { return d.Destino; })
-            .entries(entity.oos.values);            
+            .key(function(d) { return d.Origen; })
+            .entries(entity.oosFiliales.values);            
     
     for(var i=0; i < arr.length; i++ ){
 
@@ -128,7 +128,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
             
             arr[i].Numerador+=Number(arr[i].values[j].Numerador);
             arr[i].Denominador+=Number(arr[i].values[j].Denominador);
-            arr[i].CantEntFinal+=Number(arr[i].values[j].CantEntFinal);            
+            arr[i].CantEntFinal+=Number(arr[i].values[j].Fisico);            
 
             if(maximoVolumen < arr[i].CantEntFinal){
                 maximoVolumen=arr[i].CantEntFinal;
@@ -163,19 +163,18 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
     $("#toolTip2").css("visibility","visible");            
     $("#toolTip2").css("left",(300)+"px");   
   
-
-    var toolText =  
-                "<span style='color:#fff600'><span style='color:#ffffff'>OOS por U.N. y Producto de "+entity.key+"</span></span> <br>"+               
-                "<svg id='svgTooltip'  style='pointer-events:none;'></svg> ";
-
-    $("#toolTip2").html(toolText);
-
+   
     d3.select("#toolTip2")                                     
                 .style("width", (svgTooltipWidth)+"px" );
 
-    vix_tt_formatToolTip("#toolTip2","OOS por U.N. y Producto de "+entity.key,svgTooltipWidth);
+                $("#toolTip2").html("<svg id='svgTooltip'  style='pointer-events:none;'></svg> ");
+
+
+    vix_tt_formatToolTip("#toolTip2","OOS Filiales por Origen y Producto de "+entity.key,svgTooltipWidth);
 
     $("#toolTip2").css("top",(300)+"px");
+
+    
 
     var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
     d3.select("#toolTip2").append("div").html(svgElement);
@@ -210,7 +209,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
             .style("text-anchor","start")
             .style("opacity",1 )
             .attr("transform"," translate("+String( svgTooltipWidth*.55  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-            .text("OOS (%)")
+            .text("OOS F (%)")
             .transition().delay(0).duration(i*50);
     
     d3.select("#svgTooltip")
@@ -286,7 +285,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
                     .style("opacity",0 )
                     .attr("transform"," translate("+String( (svgTooltipWidth*.55)+anchoVol+10  )+","+String( altura*caso+(tamanioFuente)+marginTop -(tamanioFuente*.3)  )+")  rotate("+(0)+") ")
                     .text(function(){
-    
+                        return "";
                             return  arr[i].OOS+"%";
     
                         })
@@ -321,14 +320,14 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
                   .style("fill","#ffffff")		
                   .style("font-family","Cabin")
                   .style("font-weight","bold")
-                  .style("font-size",tamanioFuente)	
+                  .style("font-size",tamanioFuente*.85)	
                   .style("text-anchor","start")
                   .style("pointer-events","auto")
                   .attr("transform"," translate("+String( 5  )+","+String( altura*caso+(tamanioFuente )+marginTop   )+")  rotate("+(0)+") ")
                   .text(function(){
 
                         this.name=arr[i].key;
-                        return  arr[i].key;
+                        return  toTitleCase(arr[i].key);
 
                     })
                     .on("mouseover",function(){
@@ -370,7 +369,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia=function(entity){
                     }                        
     
             })
-            .entries(entity.oos.values);
+            .entries(entity.oosFiliales.values);
 
             for(var i=0; i < arr.length; i++ ){
 
@@ -427,7 +426,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia=function(entity){
 
             // FORMATEA TOOL TIP :
             
-            vix_tt_formatToolTip("#toolTip3","OOS por Día de "+entity.key,svgTooltipWidth);
+            vix_tt_formatToolTip("#toolTip3","OOS Filiales por Día de "+entity.key,svgTooltipWidth);
         
             // Agrega un div con un elemento svg :
         

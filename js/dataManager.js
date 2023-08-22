@@ -252,7 +252,6 @@ dataManager.CalculateKPIs=function(entities_){
         }, 500);
     } 
     
-    
 
 }
 

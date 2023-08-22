@@ -573,8 +573,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 var ancho=kpiExpert_FR.ancho;
                 var offSetLeft=kpiExpert_FR.offSetLeft;
                 var offSetTop=kpiExpert_FR.offSetTop;
-                ancho=kpiExpert_FR.ancho;
-
+              
                 var altura=kpiExpert_FR.altura;
                 
                 svgLines.selectAll(".encabezado").data([]).exit().remove();
@@ -699,7 +698,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                 // AZUL **********
                 
-                var ancho2 = GetValorRangos( vol1_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
+                var ancho2 = GetValorRangos( vol1_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho-355);
 
                 if(!ancho2)
                 ancho2=1;
@@ -726,7 +725,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 
                 // AMARILLO        
 
-                var ancho3 = GetValorRangos( vol2_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
+                var ancho3 = GetValorRangos( vol2_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho-355);
 
                 if(!ancho3)
                 ancho3=1;
@@ -751,7 +750,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                 // ROJO
 
-                var ancho4 = GetValorRangos( vol3_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
+                var ancho4 = GetValorRangos( vol3_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho-355);
 
                 if(!ancho4)
                 ancho4=1;

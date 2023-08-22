@@ -230,7 +230,11 @@ filterControls.showActiveFilters=function(){
 
         $("#oosfil_filter").show();
         $("#ventas_cb").hide();
-        $("#fillRate_cb ").hide();        
+        $("#fillRate_cb ").hide();       
+        
+        $("#id_4").hide();
+        $("#id_5").hide();
+        $("#id_6").hide();
 
     }else if(store.map_var==kpiExpert_FR ){
 
@@ -238,11 +242,19 @@ filterControls.showActiveFilters=function(){
         $("#ventas_cb").hide();
         $("#fillRate_cb").show();
 
+        $("#id_4").show();
+        $("#id_5").show();
+        $("#id_6").show();
+
     }else if( store.map_var==drawKpiExpert_VENTAS){
 
         $("#oosfil_filter").hide();
         $("#ventas_cb").show();
         $("#fillRate_cb").hide();
+
+        $("#id_4").hide();
+        $("#id_5").hide();
+        $("#id_6").hide();
     }
 
     if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
@@ -310,7 +322,7 @@ filterControls.createHardCodedControls=function(){
 
         for(var i=0; i < store.niveles.length; i++){    
             $("#nivel_cb").append(
-                `<option value="${store.niveles[i].id}">${store.niveles[i].label}</option>   `); 
+                `<option id="id_${store.niveles[i].id}" value="${store.niveles[i].id}">${store.niveles[i].label}</option>   `); 
         }
 
         $("#nivel_cb").val(1);

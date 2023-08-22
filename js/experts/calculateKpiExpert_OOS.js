@@ -143,8 +143,14 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                         }
 
                                         for(var i=0;  i < entities.length; i++){ 
-            
-                                                entities[i].oos.oos=Math.round(  (entities[i].oos.Numerador/entities[i].oos.Denominador)    *10000)/100;
+
+                                                if(entities[i].oos.Numerador>0){                                                      
+
+                                                        entities[i].oos.oos=Math.round(  (entities[i].oos.Numerador/entities[i].oos.Denominador)    *10000)/100;
+                                                }else{
+                                                        entities[i].oos.oos=0;
+                                                }
+                                               
                                                                                 
                                         }  
 

@@ -56,6 +56,9 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
 
             }
 
+
+            /*
+
              //FILTRO DE MASIVO
             if($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""){
 
@@ -70,6 +73,24 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
                     params+="&Masivos=Solo Masivos"; 
                     
             } 
+
+            */
+
+             
+            if(store.map_var==kpiExpert_FR){
+
+                    serviceName ="getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate";
+        
+            }else if(store.map_var==kpiExpert_OOS_Filiales){               
+            
+                    serviceName ="getSP/Generico?spname=VIS_Calcular_KPI_Venta_OOSFiliales";
+    
+            }else if(store.map_var==drawKpiExpert_VENTAS){               
+            
+                    serviceName ="getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate_TMP";
+    
+            }
+                        
 
             var URL=apiURL+"/"+serviceName+"&fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
             console.log(URL);

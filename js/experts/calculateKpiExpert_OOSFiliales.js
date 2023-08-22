@@ -56,6 +56,8 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(cb){
              
                          }
 
+                         
+
                         //FILTRO DE MASIVO
                         if($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""){
 
@@ -70,7 +72,9 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(cb){
                                 params+="&Masivos=Solo Masivos"; 
                                 
                         } 
-            
+                        
+
+                       
                          var URL=apiURL+"/"+serviceName+"?fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
                          console.log(URL);  
 
@@ -162,8 +166,13 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(cb){
                                         }
 
                                         for(var i=0;  i < entities.length; i++){ 
-
-                                                entities[i].oosFiliales.oosFiliales=Math.round(  (entities[i].oosFiliales.Numerador/entities[i].oosFiliales.Denominador)    *10000)/100;
+                                                if(entities[i].oosFiliales.Numerador>0){
+                                                      
+                                                        entities[i].oosFiliales.oosFiliales=Math.round(  (entities[i].oosFiliales.Numerador/entities[i].oosFiliales.Denominador)    *10000)/100;
+                                                }else{
+                                                        entities[i].oosFiliales.oosFiliales=0;
+                                                }
+                                                
                                                                                 
                                         }  
 
@@ -208,9 +217,6 @@ calculateKpiExpert_OOSFiliales.calculateFRPorEstado=function(estados){
                     color="#FF0000";
                 }
             
-
-                console.log("llama edo",estados[i].key,estados[i].oosFiliales);
-
                 DibujaEstadoEspecifico(estados[i].key, color);
 
         }

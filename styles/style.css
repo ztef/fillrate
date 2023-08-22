@@ -194,3 +194,19 @@ hr {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+
+#cargando:hover {
+  box-shadow: 0 0 15px #5571ff;
+}
+#iconFR:hover{
+  box-shadow: 0 0 15px #5571ff;
+}
+
+.iconKPI:hover{
+  box-shadow: 0 0 15px #222e6b;
+}
+
+#iconVenta:hover{
+  box-shadow: 0 0 15px #222e6b;
+}
