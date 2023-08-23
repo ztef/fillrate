@@ -152,6 +152,30 @@ hr {
   position:relative;
 }
 
+.detailContainer{
+  background-color: #0071bc;
+}
+
+.tooltipDetailElement{
+
+    padding:10px;
+   
+    background-color: black;
+    margin: 4px;
+    border-radius: 8px;
+    margin-top: 1px;
+
+
+}
+.tooltipHeader{
+    background-color: #16404f;
+    padding: 10px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #0071bc;
+    border-radius: 10px;
+}
+
 .hr {
   border: 0;
   height: 1px;

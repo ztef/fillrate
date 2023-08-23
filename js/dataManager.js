@@ -342,8 +342,10 @@ dataManager.getTooltipText=function(entity){
     nombre=nombre.replaceAll("undefined"," ");
 
 
-    var text=`
-        <span style='color:#00C6FF;font-size:15px;'><span style='color:#00C6FF'>${nombre}
+    var text=` <div class="detailContainer">
+         <div class="tooltipHeader">
+        <span style='color:#00C6FF;font-size:15px;'></span><span style='color:#00C6FF'>${nombre}</span>
+        </div>
         `
         if(calculateKpiExpert_Ventas.getTooltipDetail){
 
@@ -418,7 +420,7 @@ dataManager.getTooltipText=function(entity){
 
         } 
 
-        
+        text+="</div>";
 
         return text;
 
