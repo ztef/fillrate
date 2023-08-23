@@ -183,8 +183,10 @@ calculateKpiExpert_OOS.getTooltipDetail=function(entityId){
                         if(entities[i].oos.oos!=undefined)
                                 prodPer=entities[i].oos.oos+"%";
 
-                        var text=`<hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>OOS: </span><br>
-                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Total: <span style='color:#ffffff'>${ prodPer }
+                        var text=`<div class="tooltipDetailElement"><img id="" src="images/OOS.png" style=""></img>
+                        <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>OOS: </span><br>
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Total:</span> <span style='color:#ffffff'>${ prodPer }</span><br>
+                        </div>
                         `
                         return text;
 

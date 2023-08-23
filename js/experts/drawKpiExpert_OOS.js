@@ -84,8 +84,8 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip3").css("top",15+"%");
-            $("#toolTip3").css("left",64+"%"); 
+    $("#toolTip2").css("top",15+"%");
+    $("#toolTip2").css("left",24+"%"); 
   
 
     var toolText =  
@@ -99,8 +99,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
     vix_tt_formatToolTip("#toolTip2","OOS por U.N. y Producto de "+entity.key,svgTooltipWidth);
 
-    $("#toolTip2").css("top",(300)+"px");
-
+    
     var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
     d3.select("#toolTip2").append("div").html(svgElement);
 

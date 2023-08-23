@@ -276,7 +276,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
                         .attr("transform"," translate("+String( ancho+(marginLeft)+10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
                         .text(function(){
                         
-                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])/1000)   *100)/100) ,true)+" k";
+                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])))))+" T";
                         })
                         .transition().delay(0).duration(1000)
                         .style("opacity",1 )

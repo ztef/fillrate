@@ -169,8 +169,10 @@ calculateKpiExpert_Abasto.getTooltipDetail=function(entityId){
                 if(entities[i].abasto.abasto!=undefined)
                 abastoPer=entities[i].abasto.abasto+"%";
                 
-                var text=`<br><hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento de Abasto: </span><br>
-                <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Diferencia: <span style='color:#ffffff'>${abastoPer} <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].abasto.VolumenPlan/1000)}k , Real:${formatNumber(entities[i].abasto.VolumenReal/1000)}k)
+                var text=`<div class="tooltipDetailElement"><img id="" src="images/cump_abasto.png" style=""></img>
+                <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento de Abasto: </span><br>
+                <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Diferencia: </span> <span style='color:#ffffff'>${abastoPer} <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].abasto.VolumenPlan/1000)}k , Real:${formatNumber(entities[i].abasto.VolumenReal/1000)}k)</span>
+                </div>
                 `
 
                 return text;

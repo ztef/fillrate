@@ -114,10 +114,120 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     $("#toolTip5").css("left",10+"%");
     $("#toolTip5").css("top",5+"%");
 
-    vix_tt_formatToolTip("#toolTip5","Destinos de Abasto desde "+toTitleCase(entity.key),700);
+       
+    /* 
 
-    $("#toolTip5").append("<svg id='svgTooltip5' ></svg> ");
+        VIX_TT  : Prepara datos para el tool tip
 
+    */
+
+
+    // DATOS 
+
+    var data = arr.map(function(item) {
+        return {
+          key: item.key,
+          "VolumenPlan": item.VolumenPlan,
+          "VolumenReal": item.VolumenReal,
+          "DifK": item.VolumenReal - item.VolumenPlan,
+          "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
+          "Peso": item.VolumenReal,
+        };
+        });
+    
+    
+      
+    
+        // DEFINE COLUMNAS
+      
+      var columns = [
+        { key: "key", header: "Producto", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+      ];
+    
+    
+       // DEFINE VISITORS PARA CADA COLUMNA
+    
+    
+      var columnVisitors = {
+        key: function(value) {
+            return `<div>${value}
+            </div>`;
+          },
+    
+        VolumenPlan: function(value) {
+          return vix_tt_formatNumber(value) + "T";
+        },
+        VolumenReal: function(value) {
+            return vix_tt_formatNumber(value) + "T";
+        },
+        DifK: function(value) {
+            return vix_tt_formatNumber(value) + "T";
+        },
+        DifP: function(value){
+      
+            var barWidth = value + '%';
+            var barValue = vix_tt_formatNumber(value)+'%   ';
+        
+            return '<div class="bar-container">' +
+            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
+            '<span class="bar-value">' + barValue + '</span>' +
+            '</div>';
+        },
+        Peso: function(value){
+      
+            var barWidth = (value/maximoVolumen)*100 + '%';
+            var barValue = vix_tt_formatNumber(value)+'k';
+       
+           return '<div class="bar-container">' +
+           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
+           '</div>';
+        }
+      };
+    
+    
+      // FORMATEA DIV :
+    
+      vix_tt_formatToolTip("#toolTip5","Abasto por U.N. como Origen",700);
+    
+      
+            // COLUMNAS CON TOTALES :
+    
+            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
+            var totalsColumnVisitors = {
+                      'VolumenPlan': function(value) { 
+                        return vix_tt_formatNumber(value) + "T";
+                      },
+                      'VolumenReal': function(value) { 
+                        return vix_tt_formatNumber(value) + "T"; 
+                      },
+                      'DifK': function(value) { 
+                        return vix_tt_formatNumber(value) + "T"; 
+                      }
+                      };
+      
+          
+          
+           
+          
+      // CREA TABLA USANDO DATOS
+          
+            vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip5", columnsWithTotals );
+     
+      
+      
+      // APLICA TRANSICIONES 
+    
+      vix_tt_transitionRectWidth("toolTip5");
+      
+    
+    }
+    
+/*
     d3.select("#svgTooltip5")                     
                 .style("width", svgTooltipWidth )
                 .style("height", (svgTooltipHeight)+50+"px" )
@@ -343,7 +453,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
             
         }   
 }
-
+*/
 kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){    
    
     var maximo=0;
@@ -403,14 +513,127 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
        
 
 
-    vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",600);
+   
 
-    $("#toolTip2").append("<svg id='svgTooltip' ></svg> ");    
+    
 
     $("#toolTip2").css("visibility","visible");            
     $("#toolTip2").css("top",70,"%");
     $("#toolTip2").css("left",23,"%");
     
+    
+    /* 
+
+        VIX_TT  : Prepara datos para el tool tip
+
+    */
+
+
+    // DATOS 
+
+    var data = arr.map(function(item) {
+        return {
+          key: item.key,
+          "VolumenPlan": item.VolumenPlan,
+          "VolumenReal": item.VolumenReal,
+          "DifK": item.VolumenReal - item.VolumenPlan,
+          "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
+          "Peso": item.VolumenReal,
+        };
+        });
+    
+    
+      
+    
+        // DEFINE COLUMNAS
+      
+      var columns = [
+        { key: "key", header: "Producto", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+      ];
+    
+    
+       // DEFINE VISITORS PARA CADA COLUMNA
+    
+    
+      var columnVisitors = {
+        key: function(value) {
+            return `<div>${value}
+            </div>`;
+          },
+    
+        VolumenPlan: function(value) {
+          return vix_tt_formatNumber(value) + "T";
+        },
+        VolumenReal: function(value) {
+            return vix_tt_formatNumber(value) + "T";
+        },
+        DifK: function(value) {
+            return vix_tt_formatNumber(value) + "T";
+        },
+        DifP: function(value){
+      
+            var barWidth = value + '%';
+            var barValue = vix_tt_formatNumber(value)+'%   ';
+        
+            return '<div class="bar-container">' +
+            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
+            '<span class="bar-value">' + barValue + '</span>' +
+            '</div>';
+        },
+        Peso: function(value){
+      
+            var barWidth = (value/maximoVolumen)*100 + '%';
+            var barValue = vix_tt_formatNumber(value)+'k';
+       
+           return '<div class="bar-container">' +
+           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
+           '</div>';
+        }
+      };
+    
+    
+      // FORMATEA DIV :
+    
+      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",700);
+    
+      
+            // COLUMNAS CON TOTALES :
+    
+            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
+            var totalsColumnVisitors = {
+                      'VolumenPlan': function(value) { 
+                        return vix_tt_formatNumber(value) + "T";
+                      },
+                      'VolumenReal': function(value) { 
+                        return vix_tt_formatNumber(value) + "T"; 
+                      },
+                      'DifK': function(value) { 
+                        return vix_tt_formatNumber(value) + "T"; 
+                      }
+                      };
+      
+          
+          
+           
+          
+      // CREA TABLA USANDO DATOS
+          
+            vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
+     
+      
+      
+      // APLICA TRANSICIONES 
+    
+      vix_tt_transitionRectWidth("toolTip2");
+      
+    
+    }
+    /*
     d3.select("#svgTooltip")                     
     .style("width", svgTooltipWidth )
     .style("height", svgTooltipHeight+40 )
@@ -636,7 +859,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
 
 }
 
-
+*/
     kpiExpert_ABAS.DrawTooltipDetail_UN=function(entity){  
 
         var maximo=0;    
@@ -702,10 +925,119 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         $("#toolTip3").css("left",62+"%");
         $("#toolTip3").css("top",5+"%");      
 
-        vix_tt_formatToolTip("#toolTip3","Abasto a U.N. Entrega Final",700);
+            
+    /* 
 
-        $("#toolTip3").append("<svg id='svgTooltip3' ></svg> ");
+        VIX_TT  : Prepara datos para el tool tip
 
+    */
+
+
+    // DATOS 
+
+    var data = arr.map(function(item) {
+        return {
+          key: item.key,
+          "VolumenPlan": item.VolumenPlan,
+          "VolumenReal": item.VolumenReal,
+          "DifK": item.VolumenReal - item.VolumenPlan,
+          "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
+          "Peso": item.VolumenReal,
+        };
+        });
+    
+    
+      
+    
+        // DEFINE COLUMNAS
+      
+      var columns = [
+        { key: "key", header: "Producto", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+      ];
+    
+    
+       // DEFINE VISITORS PARA CADA COLUMNA
+    
+    
+      var columnVisitors = {
+        key: function(value) {
+            return `<div>${value}
+            </div>`;
+          },
+    
+        VolumenPlan: function(value) {
+          return vix_tt_formatNumber(value) + "T";
+        },
+        VolumenReal: function(value) {
+            return vix_tt_formatNumber(value) + "T";
+        },
+        DifK: function(value) {
+            return vix_tt_formatNumber(value) + "T";
+        },
+        DifP: function(value){
+      
+            var barWidth = value + '%';
+            var barValue = vix_tt_formatNumber(value)+'%   ';
+        
+            return '<div class="bar-container">' +
+            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
+            '<span class="bar-value">' + barValue + '</span>' +
+            '</div>';
+        },
+        Peso: function(value){
+      
+            var barWidth = (value/maximoVolumen)*100 + '%';
+            var barValue = vix_tt_formatNumber(value)+'k';
+       
+           return '<div class="bar-container">' +
+           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
+           '</div>';
+        }
+      };
+    
+    
+      // FORMATEA DIV :
+    
+      vix_tt_formatToolTip("#toolTip3","Abasto por U.N. Entrega Final",700);
+    
+      
+            // COLUMNAS CON TOTALES :
+    
+            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
+            var totalsColumnVisitors = {
+                      'VolumenPlan': function(value) { 
+                        return vix_tt_formatNumber(value) + "T";
+                      },
+                      'VolumenReal': function(value) { 
+                        return vix_tt_formatNumber(value) + "T"; 
+                      },
+                      'DifK': function(value) { 
+                        return vix_tt_formatNumber(value) + "T"; 
+                      }
+                      };
+      
+          
+          
+           
+          
+      // CREA TABLA USANDO DATOS
+          
+            vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );
+     
+      
+      
+      // APLICA TRANSICIONES 
+    
+      vix_tt_transitionRectWidth("toolTip3");
+      
+    
+    }
+    /*
         d3.select("#svgTooltip3")                     
                     .style("width", svgTooltipWidth )
                     .style("height", (svgTooltipHeight)+50+"px" )
@@ -932,7 +1264,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
 
     }
 
-
+*/
 kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){  
 
         var maximo=0;    
@@ -995,7 +1327,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         var marginTop=35;
 
         $("#toolTip4").css("visibility","visible");    
-        $("#toolTip4").css("left",28+"%");
+        $("#toolTip4").css("left",23+"%");
         $("#toolTip4").css("top",5+"%");      
         
         if( 4 == $("#nivel_cb").val() ){
@@ -1006,7 +1338,119 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         
 
         $("#toolTip4").append("<svg id='svgTooltip4'  style='pointer-events:none;'></svg> ");
+    
+    /* 
 
+        VIX_TT  : Prepara datos para el tool tip
+
+    */
+
+
+    // DATOS 
+
+    var data = arr.map(function(item) {
+        return {
+          key: item.key,
+          "VolumenPlan": item.VolumenPlan,
+          "VolumenReal": item.VolumenReal,
+          "DifK": item.VolumenReal - item.VolumenPlan,
+          "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
+          "Peso": item.VolumenReal,
+        };
+        });
+    
+    
+      
+    
+        // DEFINE COLUMNAS
+      
+      var columns = [
+        { key: "key", header: "Producto", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+      ];
+    
+    
+       // DEFINE VISITORS PARA CADA COLUMNA
+    
+    
+      var columnVisitors = {
+        key: function(value) {
+            return `<div>${value}
+            </div>`;
+          },
+    
+        VolumenPlan: function(value) {
+          return vix_tt_formatNumber(value) + "T";
+        },
+        VolumenReal: function(value) {
+            return vix_tt_formatNumber(value) + "T";
+        },
+        DifK: function(value) {
+            return vix_tt_formatNumber(value) + "T";
+        },
+        DifP: function(value){
+      
+            var barWidth = value + '%';
+            var barValue = vix_tt_formatNumber(value)+'%   ';
+        
+            return '<div class="bar-container">' +
+            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
+            '<span class="bar-value">' + barValue + '</span>' +
+            '</div>';
+        },
+        Peso: function(value){
+      
+            var barWidth = (value/maximoVolumen)*100 + '%';
+            var barValue = vix_tt_formatNumber(value)+'k';
+       
+           return '<div class="bar-container">' +
+           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
+           '</div>';
+        }
+      };
+    
+    
+      // FORMATEA DIV :
+    
+      vix_tt_formatToolTip("#toolTip4","Detalle de Ventas por Producto y Presentación",700);
+    
+      
+            // COLUMNAS CON TOTALES :
+    
+            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
+            var totalsColumnVisitors = {
+                      'VolumenPlan': function(value) { 
+                        return vix_tt_formatNumber(value) + "T";
+                      },
+                      'VolumenReal': function(value) { 
+                        return vix_tt_formatNumber(value) + "T"; 
+                      },
+                      'DifK': function(value) { 
+                        return vix_tt_formatNumber(value) + "T"; 
+                      }
+                      };
+      
+          
+          
+           
+          
+      // CREA TABLA USANDO DATOS
+          
+            vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip4", columnsWithTotals );
+     
+      
+      
+      // APLICA TRANSICIONES 
+    
+      vix_tt_transitionRectWidth("toolTip4");
+      
+    
+    }
+    /*
         d3.select("#svgTooltip4")                     
                     .style("width", svgTooltipWidth )
                     .style("height", (svgTooltipHeight)+50 )
@@ -1234,4 +1678,4 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
 
        
 
-    }
+    }*/
