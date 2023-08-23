@@ -119,7 +119,8 @@ elementosContextoMapa.DrawUNLabels=function(){
                                                     .attr("y", coord.y+3  );
 
                                 uns[e].circle.attr("cx",coord.x )
-                                                    .attr("cy", coord.y  );
+                                                    .attr("cy", coord.y  )
+                                                    .style("opacity",opacidadCesium/100);
 
                             }else {        				
 
@@ -127,7 +128,8 @@ elementosContextoMapa.DrawUNLabels=function(){
                                                 .attr("y", -10  );
                 
                                 uns[e].circle.attr("cx",-10 )
-                                                .attr("cy", -10  );
+                                                .attr("cy", -10  )
+                                                .style("opacity",opacidadCesium/100);
                             }
                     }else {        				
 
@@ -135,7 +137,8 @@ elementosContextoMapa.DrawUNLabels=function(){
                                         .attr("y", -10  );
         
                         uns[e].circle.attr("cx",-10 )
-                                        .attr("cy", -10  );
+                                        .attr("cy", -10  )
+                                        .style("opacity",opacidadCesium/100);
                     }
 
             }else {        				
@@ -144,7 +147,8 @@ elementosContextoMapa.DrawUNLabels=function(){
                                 .attr("y", -10  );
 
                 uns[e].circle.attr("cx",-10 )
-                                .attr("cy", -10  );
+                                .attr("cy", -10  )
+                                .style("opacity",opacidadCesium/100);
             }
 
         }

@@ -47,12 +47,6 @@ dataManager.ClusterObjects=function(){
     Stage.blockScreen.style("visibility","visible"); 
     
     Stage.EraseMapObjects();
-
-    if(svgRadar){
-        radar.CleanWindows();
-        svgRadar.selectAll(".radarElement").data([]).exit().remove();       
-    }      
-
     
     if(backInfoNav.length > 0){
         $("#back_btn").css("visibility","visible");
@@ -105,6 +99,11 @@ dataManager.ClusterObjects=function(){
                 arrAutoCompleteArr.push(entities[j].key);
             }
 
+            if(svgRadar){
+                radar.CleanWindows();
+                svgRadar.selectAll(".radarElement").data([]).exit().remove();       
+            } 
+
             autocomplete(document.getElementById("inputEnfoqueCamara"), arrAutoCompleteArr);
         }
 
@@ -136,12 +135,10 @@ dataManager.CalculateKPIs=function(entities_){
         dataLoader.DeleteLoadingTitle("Fillrate"); 
         loadsCount++;
         dataManager.checkAllLoads();
-    }, 500);       
+    }, 500);    
     
-    
-
-    // 2   
-    if(calculateKpiExpert_OOS){
+     // 2   
+     if(calculateKpiExpert_OOS){
 
         loadsTarget++;
         dataLoader.AddLoadingTitle("SP OOS");
@@ -175,6 +172,10 @@ dataManager.CalculateKPIs=function(entities_){
         } 
    }
 
+    
+    
+
+   
    
     // 4
     if(calculateKpiExpert_Ventas){
@@ -206,8 +207,7 @@ dataManager.CalculateKPIs=function(entities_){
         }, 500);
     }   
     
-    
-
+ 
     if(store.map_var==kpiExpert_FR){
 
             // 6
@@ -237,7 +237,6 @@ dataManager.CalculateKPIs=function(entities_){
     }
 
     
-    
 
     // 8
     if(calculateKpiExpert_Produccion && $("#nivel_cb").val()  ){
@@ -252,7 +251,7 @@ dataManager.CalculateKPIs=function(entities_){
         }, 500);
     } 
     
-
+    
 }
 
 dataManager.checkAllLoads=function(){ 
@@ -297,6 +296,15 @@ dataManager.checkAllLoads=function(){
                 .entries(store.oosFiliales);
 
             calculateKpiExpert_OOSFiliales.calculateFRPorEstado(estados);
+            
+
+        }if(store.map_var==drawKpiExpert_VENTAS){
+
+            var estados  = d3.nest()
+                .key(function(d) { return  d["EstadoDem"]; })                           
+                .entries(store.ventas);
+
+            calculateKpiExpert_Ventas.calculateFRPorEstado(estados);
             
 
         }

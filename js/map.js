@@ -282,10 +282,8 @@ Stage.DrawMapObjects=function(entities){
 
 Stage.FocusMapElement=function(id){
 
-	console.log("FocusMapElement",id);
+	radar.CleanWindows();
 
-	
-	
 	for(var e in mapElements){
 
 		if(mapElements[e].key.toLowerCase()==id.toLowerCase()){
@@ -306,6 +304,8 @@ Stage.FocusMapElement=function(id){
 			$("#radarDiv").animate({scrollTop: mapElements[e].radarData.posY-200}, 1000);
 			mapElements[e].radarData.svgBack.attr("fill", "#9A9C9C").transition().delay(2000).duration(getRandomInt(0,2000))
 			.attr("fill", "black");
+
+			
 	
 			break;
 
@@ -313,6 +313,18 @@ Stage.FocusMapElement=function(id){
 		
 
 	}
+}
+
+Stage.ReorderLayout=function(){
+	windowWidth = window.innerWidth;
+	windowHeight = window.innerHeight;
+
+	if(store.fillRate){
+		kpiExpert_FR.DrawMainHeader();
+		kpiExpert_FR.DrawFilteredHeader();
+	}
+	
+	$("#titulo").css("width",((windowWidth*.9)-220)+"px");
 }
 
 
@@ -339,7 +351,7 @@ Stage.DrawFRLabels=function(){
 							 if(coord.x > 400 && coord.x < $(document).width()-50 && coord.y > 40 && coord.y < ($(document).height())){
 									if( entities[i].labelSVG){
 										entities[i].labelSVG.attr("x",coord.x+7 )
-											.attr("y", coord.y+3  ).style("opacity",1); 
+											.attr("y", coord.y+3  ).style("opacity",opacidadCesium/100); 
 									}							
 													 
 							 }

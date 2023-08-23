@@ -3,8 +3,12 @@ var kpiExpert_OOS={};
 kpiExpert_OOS.eraseChart=function(){ 
 
     d3.select("#svgTooltip").selectAll(".ossDetail").data([]).exit().remove();
+    console.log("elimnaaa");
     d3.select("#svgTooltip3").selectAll(".ossDetail").data([]).exit().remove();
+
+    console.log();
     
+    $("#toolTip2").css("visibility","hidden");	
     $("#toolTip2").css("visibility","hidden");	
     $("#toolTip3").css("visibility","hidden");
 
@@ -85,7 +89,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
   
 
     var toolText =  
-                "<span style='color:#fff600'><span style='color:#ffffff'>OOS por U.N. y Producto de "+entity.key+"</span></span> <br>"+               
+                             
                 "<svg id='svgTooltip'  style='pointer-events:none;'></svg> ";
 
     $("#toolTip2").html(toolText);
@@ -262,7 +266,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
                     })
                     .on("click",function(){
                             
-                        kpiExpert_OOS.eraseChart();
+                        radar.CleanWindows();
 
                         if(filterControls){
                                 filterControls.lookForEntity(this.name);

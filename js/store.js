@@ -11,8 +11,8 @@ var store={
    localDataSources:[
     
             //DATA LOCAL
-            //{sourceName:"fillRateSource",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true},
-            {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_FillRate_2",tableName:"d",varName:"fillRate",dateField:"dtOnSiteFinal",onInitLoad:true,useDateFilters:true},
+            {sourceName:"fillRateSource",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true},
+            //{apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_FillRate_2",tableName:"d",varName:"fillRate",dateField:"dtOnSiteFinal",onInitLoad:true,useDateFilters:true},
             
             //{sourceName:"oosSource",varName:"oos",dateField:"",onInitLoad:true},            
 
@@ -25,7 +25,7 @@ var store={
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatGerenciaCS" ,varName:"cat_gerencia",onInitLoad:true,useDateFilters:false},
             //{sourceName:"unSource",varName:"cat_un",onInitLoad:true},
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_un",onInitLoad:true,useDateFilters:false},
-            {sourceName:"ztSource",varName:"cat_zt",onInitLoad:true},
+            //{sourceName:"ztSource",varName:"cat_zt",onInitLoad:true},
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatZT" ,varName:"cat_zt",onInitLoad:true,useDateFilters:false},
             //{sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true},           
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatClientes",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",varName:"cat_cliente",onInitLoad:true,useDateFilters:false},

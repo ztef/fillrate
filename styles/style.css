@@ -159,7 +159,10 @@ hr {
   background-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,.5), rgba(0,0,0,1));
 }
 
+select{
+  padding: 6px;
 
+}    
 .autocomplete {
   /*the container must be positioned relative:*/
   position: relative;

@@ -106,7 +106,7 @@ radar.CleanWindows=function(){
 
 radar.kpis=[
 
-    {label:"Cump Venta",color:"#4EFF00",var:"ventas",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"Venta" ,unidad:"%",tooltipDetail:drawKpiExpert_VENTAS,calculateExpert:calculateKpiExpert_Ventas},
+    {label:"Cump Venta",color:"#00DEFF",var:"ventas",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"Venta" ,unidad:"%",tooltipDetail:drawKpiExpert_VENTAS,calculateExpert:calculateKpiExpert_Ventas},
     {label:"Fill Rate",color:"#E4FF00",var:"fillRate",minimoValor:50 ,valorEquilibrio:100,maximoValor:150, abreviacion:"FR",unidad:"%",tooltipDetail:kpiExpert_FR,calculateExpert:calculateKpiExpert_FR},
     {label:"Pedidos Retrasados (Miles de Ton)",color:"#00F6FF",var:"pendientes",labelVar: "volumen",minimoValor:100,valorEquilibrio:0 ,maximoValor:-100, abreviacion:"Retra",tooltipDetail:kpiExpert_PENDIENTES,unidad:"k",calculateExpert:calculateKpiExpert_Pendientes},
     {label:"Pedidos Masivos",color:"#FF00F6",var:"masivos",minimoValor:50,valorEquilibrio:0 ,maximoValor:-50, abreviacion:"MAS",unidad:"%" ,tooltipDetail:kpiExpert_MAS,calculateExpert:calculateKpiExpert_Mas},
@@ -173,7 +173,7 @@ radar.DrawEntities=function(){
 
     var anchoRadarDiv=windowWidth*(widthInit/100);
     
-    $("#radarDiv").css("width",((anchoRadarDiv*radar.escalado)*columnasRadar+(paddingTop*(columnasRadar-1))+100   )+"px");
+    $("#radarDiv").css("width",((anchoRadarDiv*radar.escalado)*columnasRadar+(paddingTop*(columnasRadar-1))+150   )+"px");
     $("#radarDiv").animate({scrollTop: 0}, 1000);
     $("#radarDiv").css("pointer-events","none");
 
@@ -502,15 +502,14 @@ radar.DrawEntityValues=function(entity){
 
     for(var i=0; i < radar.config.length; i++){
 
-        console.log(radar.config[i],entity.key,entity[radar.config[i].var]);
-
+       
         if( entity[radar.config[i].var]!= null && entity[radar.config[i].var]!= undefined ){  
                 
                 if( entity[radar.config[i].var][radar.config[i].var]!= null && entity[radar.config[i].var][radar.config[i].var]!= undefined ){ 
 
                    
 
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.45 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
 
@@ -570,7 +569,7 @@ radar.DrawEntityValues=function(entity){
               
                        // var posicionMarcador=GetValorRangos( entity[radar.config[i].var][radar.config[i].var] , radar.config[i].minimoValor , radar.config[i].maximoValor , 0+(radio*.16) , (radio/2)*.99 );
 
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.45 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
 
@@ -744,7 +743,7 @@ radar.DrawEntityValues=function(entity){
                                 
                 }else{ // Para dibujar circulo aun cuando no se tiene datos
 
-                    var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                    var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.4 ,(radio/2)*.99]);
 
                     var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
@@ -767,7 +766,7 @@ radar.DrawEntityValues=function(entity){
                 
             }else{ // Para dibujar circulo aun cuando no se tiene datos
 
-                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.4 ,(radio/2)*.99]);
 
                 var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 

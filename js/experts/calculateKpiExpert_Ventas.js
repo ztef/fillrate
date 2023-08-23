@@ -123,6 +123,7 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
 
                     } 
 
+                    store.ventas=[];
 
                     for(var j=0;  j < data.recordset.length; j++){
                         var entidad=entities_coll[data.recordset[j].Agrupador];
@@ -149,6 +150,8 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
                             console.log("no existe entidad mencionada en ventas:",data.recordset[j].Agrupador);
                         }
 
+                        store.ventas.push(data.recordset[j]);
+
                     }                
 
                     resolve();
@@ -165,6 +168,47 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
     });
 }
 
+
+calculateKpiExpert_Ventas.calculateFRPorEstado=function(estados){
+
+    console.log(estados);
+
+    for(var i=0;  i < estados.length; i++){ 
+
+            estados[i].ventas={VolumenPlan:0,VolumenReal:0,VolPlan_FR:0 ,VolReal_FR:0, ventas:undefined,values:[]};
+     
+            for(var j=0;  j < estados[i].values.length; j++){
+
+                estados[i].ventas.VolumenPlan+=Number(estados[i].values[j].VolumenPlan);
+                estados[i].ventas.VolumenReal+=Number(estados[i].values[j].VolumenReal);
+                estados[i].ventas.VolPlan_FR+=Number(estados[i].values[j].VolPlan_FR);
+                estados[i].ventas.VolReal_FR+=Number(estados[i].values[j].VolReal_FR);
+
+                estados[i].ventas.values.push(estados[i].values[j]);
+
+                if(estados[i].ventas.VolumenReal>0){
+                    estados[i].ventas.difPer=Math.round((estados[i].ventas.VolumenReal/estados[i].ventas.VolumenPlan)*100);
+                    estados[i].ventas.ventas=estados[i].ventas.difPer;
+                }
+
+            }
+
+            var color="#cccccc";
+            if(estados[i].ventas.ventas > 100){
+                color="#11EC00";
+            }else if(estados[i].ventas.ventas <= 100 && estados[i].ventas.ventas >= 95){
+                color="#94FF3F";
+            }else if(estados[i].ventas.ventas <= 95 && estados[i].ventas.ventas >= 90){
+                color="#FCED00";
+            }else if(estados[i].ventas.ventas < 90){
+                color="#FF0000";
+            }
+        
+            DibujaEstadoEspecifico(estados[i].key, color);
+
+    }
+
+}
 
 calculateKpiExpert_Ventas.filterByLevel=function(entities){
 

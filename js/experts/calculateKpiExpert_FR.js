@@ -21,11 +21,11 @@ var initialized=false;
 calculateKpiExpert_FR.max=0;
 calculateKpiExpert_FR.min=1000000000;
 
-calculateKpiExpert_FR.calculateKPI=function(entities,varName){  
-
-   
+calculateKpiExpert_FR.calculateKPI=function(entities,varName){     
     
     fillRateEntities=entities;
+
+    calculateKpiExpert_FR.max=0;
 
     if(!initialized){
 
@@ -105,6 +105,15 @@ calculateKpiExpert_FR.calculateKPI=function(entities,varName){
            
 
     } 
+
+    var max=0
+    for(var i=0; i < entities[0].values.length; i++){
+    
+    if(max < entities[0].values[i].fecha.getTime()){
+        max = entities[0].values[i].fecha.getTime();
+    }
+    }
+    console.log(new Date(max));
 
  
     return entities;
