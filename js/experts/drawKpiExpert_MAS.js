@@ -1,3 +1,4 @@
+
 var kpiExpert_MAS={};
 
 
@@ -66,7 +67,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     var marginTop=30;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top",15+"%");
+     $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",34+"%");
 
     // FORMATEA TOOL TIP :
@@ -301,3 +302,4 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     }
 
 */
+

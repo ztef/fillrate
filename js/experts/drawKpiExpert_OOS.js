@@ -84,7 +84,8 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",(300)+"px");   
+    $("#toolTip3").css("top",15+"%");
+            $("#toolTip3").css("left",64+"%"); 
   
 
     var toolText =  
@@ -343,9 +344,8 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             var tamanioFuente=ancho*.8;   
         
             $("#toolTip3").css("visibility","visible");            
-            $("#toolTip3").css("right",(svgTooltipWidth+30)+"px");        
-        
-            $("#toolTip3").css("top","300px");
+            $("#toolTip3").css("top",15+"%");
+            $("#toolTip3").css("left",64+"%");
         
             var marginBottom=svgTooltipHeight*.04;
 

@@ -408,8 +408,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     $("#toolTip2").append("<svg id='svgTooltip' ></svg> ");    
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top","70%");
-    $("#toolTip2").css("right","50px");  
+    $("#toolTip2").css("top",70,"%");
+    $("#toolTip2").css("left",23,"%");
     
     d3.select("#svgTooltip")                     
     .style("width", svgTooltipWidth )
@@ -699,8 +699,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         var marginTop=35;
 
         $("#toolTip3").css("visibility","visible");            
-        $("#toolTip3").css("left","5%");
-        $("#toolTip3").css("top","10%");        
+        $("#toolTip3").css("left",62+"%");
+        $("#toolTip3").css("top",5+"%");      
 
         vix_tt_formatToolTip("#toolTip3","Abasto a U.N. Entrega Final",700);
 
@@ -994,7 +994,9 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         var tamanioFuente=altura*.4;
         var marginTop=35;
 
-        $("#toolTip4").css("visibility","visible");          
+        $("#toolTip4").css("visibility","visible");    
+        $("#toolTip4").css("left",28+"%");
+        $("#toolTip4").css("top",5+"%");      
         
         if( 4 == $("#nivel_cb").val() ){
             vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+" Entrega Final",700);
@@ -1010,8 +1012,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
                     .style("height", (svgTooltipHeight)+50 )
                     ;
 
-        $("#toolTip4").css("left","50%");
-        $("#toolTip4").css("top","20%");
+        
 
         // FORMATEA DIV :
 
