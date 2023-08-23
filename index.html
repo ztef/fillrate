@@ -198,7 +198,7 @@ color: yellow;
 
 </style>
 
-<body>
+<body onresize=" Stage.ReorderLayout();  " >
     <svg>
         <defs>
         
@@ -257,7 +257,7 @@ color: yellow;
         <div id="toolTip3" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip4" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip5" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
-        <div id="toolTipLoader" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
+        <div id="toolTipLoader" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: rgba(0, 0, 0,.4) 5px 15px 16px ;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden;"></div>
 
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
 
@@ -329,17 +329,17 @@ color: yellow;
         //Editor: Daniel Contreras Calderon
         // Comentarios de version: ""
 
-        var windowWidth = window.innerWidth,
-        windowHeight = window.innerHeight;
+        var windowWidth; 
+        var windowHeight; 
+
+        Stage.ReorderLayout();
 
         var escalaTextos=1;
 
         $(function() {
 
             $('#datepicker').datepicker({format: 'mm-dd-yyyy'});
-            $('#datepicker2').datepicker({format: 'mm-dd-yyyy'});
-
-            $("#titulo").css("width",(windowWidth*.7)+"px")
+            $('#datepicker2').datepicker({format: 'mm-dd-yyyy'});            
 
             $("#cargando").css("visibility","hidden");
 
@@ -352,9 +352,9 @@ color: yellow;
             });
 
             $('#datepicker').val("08-01-2023");
-            $('#datepicker2').val("08-31-2023");
+            $('#datepicker2').val("08-22-2023");
 
-           // setTimeout(()=>{$(".loginBtn").click()}, 1000);
+            //setTimeout(()=>{$(".loginBtn").click()}, 1000);
             
             $(".loginBtn").click(function(){
                
@@ -395,6 +395,7 @@ color: yellow;
 
         });
 
+        var opacidadCesium=100;
 
     document.onkeydown = function(event) {
         console.log(event.keyCode);
@@ -402,24 +403,24 @@ color: yellow;
         switch (event.keyCode) {
          
             //MODIFICA TAMAÑO DE CILINDROS
-            case 37:   
+            case 39:   
                 escalado=escalado*(.7);
                 Stage.DrawMapObjects(currentEntities,store.mainDataset);
             break;
-            case 39:   
+            case 37:   
                 escalado=escalado*(1.3);
                 Stage.DrawMapObjects(currentEntities,store.mainDataset);
             break;
-            //MODIFICA TAMAÑO DE radar
+            //MODIFICA OPACIDAD DEL MAPA
             case 38:   
-                radar.escalado=radar.escalado*(1.1);
-                radar.DrawEntities(radar.lastRadarEntities);
+                opacidadCesium-=8;
+                $("#cesiumContainer").css("opacity",opacidadCesium/100);
             break;
             case 40:   
-                radar.escalado=radar.escalado*(.9);
-                radar.DrawEntities(radar.lastRadarEntities);
+                opacidadCesium+=8;
+                $("#cesiumContainer").css("opacity",opacidadCesium/100);
             break;
-            //MODIFICA TAMAÑO DE TEXTOS
+          
            
             case 87:   
 
