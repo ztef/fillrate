@@ -170,9 +170,7 @@ dataManager.CalculateKPIs=function(entities_){
        
 
         } 
-   }
-
-    
+   }    
     
 
    

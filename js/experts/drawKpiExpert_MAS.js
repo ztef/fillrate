@@ -125,7 +125,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
               
 
                 return '<div class="bar-container">' +
-                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
+                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: #FFFE97;"></rect></svg>' +
                 '<span class="bar-value">' + barValue + '</span>' +
                 '</div>';
 

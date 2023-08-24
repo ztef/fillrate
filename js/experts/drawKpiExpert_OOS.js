@@ -332,7 +332,6 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             arr=arr.reverse();
         
             var ancho=20;
-
             
             var svgTooltipWidth=arr.length*ancho;
 
@@ -346,7 +345,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             $("#toolTip3").css("top",15+"%");
             $("#toolTip3").css("left",64+"%");
         
-            var marginBottom=svgTooltipHeight*.04;
+            var marginBottom=svgTooltipHeight*.02;
 
             // FORMATEA TOOL TIP :
             
@@ -442,9 +441,32 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                                 .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight*.5)-altura2-marginBottom-3   )+")  rotate("+(-90)+") ")
                                 .text(function(){
                                 
-                                    return  formatNumber(arr[i].Fisico/1000)+"k" ;
+                                    return  formatNumber(arr[i].Fisico)+"T" ;
                 
                                 });
+
+                //TITULOS
+                d3.select("#svgTooltip3")
+                    .append("text")						
+                    .attr("class","ossDetail")
+                    .style("fill","#ffffff")		
+                    .style("font-family","Cabin")
+                    .style("font-weight","normal")
+                    .style("font-size",tamanioFuente)	
+                    .style("text-anchor","start")
+                    .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
+                    .text("Volumen Físico:"); 
+
+                d3.select("#svgTooltip3")
+                    .append("text")						
+                    .attr("class","ossDetail")
+                    .style("fill","#ffffff")		
+                    .style("font-family","Cabin")
+                    .style("font-weight","normal")
+                    .style("font-size",tamanioFuente)	
+                    .style("text-anchor","start")
+                    .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.55  )+")  rotate("+(0)+") ")
+                    .text("OOS CED:");
                 
 
             }
