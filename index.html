@@ -58,7 +58,9 @@
     <script src="js/dataManager.js"></script>
     <script src="js/radar.js"></script>
     <script src="js/elementosContexo.js"></script>
+
     <script src="js/tooltipHelpers.js"></script>
+    <script src="js/workersProcessor.js"></script>
 
     <script src="js/regionesGeoJson.js"></script>
 
@@ -279,6 +281,57 @@ color: yellow;
         
 
     </body> 
+
+    
+  
+
+    <script>
+
+
+        // Querys a ejecutar por el worker de manera serial :
+
+        const queries = [
+            {
+                url: "https://uscldv3dwad01.azurewebsites.net/getSP/VIS_Calcular_KPI_Produccion_FillRate?fechaInicio=2023-05-01&fechaFin=2023-05-31&agrupador=Estado",
+                id: 1
+            },
+            {
+                url: "https://uscldv3dwad01.azurewebsites.net/getSP/VIS_Calcular_KPI_Abasto_FillRate?fechaInicio=2023-05-01&fechaFin=2023-05-31&agrupador=Estado",
+                id: 2
+            },
+        ];
+        
+
+
+        // Funcion que procesara los datos a recibir (data)
+
+        function processData(id, data) {
+            console.log("Procesando query  :", id);
+            switch (id) {
+                case 1:
+                  console.log('query 1');
+                  break;
+                case 2:
+                case 3:
+                  console.log('query 3');
+                  
+                  break;
+                default:
+                  console.log("id incorrecto");
+              }
+        }
+        
+
+       // llama al procesador sin bloquear el main thread
+
+        processQueriesWithWorker(queries, processData);
+
+
+    </script>
+    
+   
+
+
 
     <script>
 

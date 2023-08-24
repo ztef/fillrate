@@ -175,6 +175,23 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
 
     });
 
+
+
+    $(divElement).on("mousedown", function () {
+      // Incrementa el contador global z-index 
+      zIndexCounter++;
+  
+      // Adjust the z-index and make the tooltip visible
+      $(divElement).css({
+        
+        zIndex: zIndexCounter,
+      });
+
+    });
+
+
+
+
     // Agrega capacidad de dragg al div
     $(divElement).draggable();
 
@@ -226,17 +243,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
     });
 
 
-    $(divElement).on("click", function () {
-      // Incrementa el contador global z-index 
-      zIndexCounter++;
-  
-      // Adjust the z-index and make the tooltip visible
-      $(divElement).css({
-        visibility: "visible",
-        zIndex: zIndexCounter,
-      });
-
-    });
+   
 
 
 
