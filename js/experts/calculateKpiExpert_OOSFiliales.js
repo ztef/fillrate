@@ -275,8 +275,10 @@ calculateKpiExpert_OOSFiliales.getTooltipDetail=function(entityId){
                         if(entities[i].oosFiliales.oosFiliales!=undefined)
                                 prodPer=entities[i].oosFiliales.oosFiliales+"%";
 
-                        var text=`<hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>OOS Filiales: </span><br>
-                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Total: <span style='color:#ffffff'>${ prodPer }
+                        var text=`<div class="tooltipDetailElement"><img id="" src="images/OOS.png" style=""></img>
+                        <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>OOS Filiales: </span><br>
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Total:</span> <span style='color:#ffffff'>${ prodPer }</span><br>
+                        </div>
                         `
                         return text;
 

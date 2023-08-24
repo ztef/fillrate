@@ -266,7 +266,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         
         cant: function(value,i) {
                 var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.4);
-                var barValue = Math.round((arr[i].CantEntfinal/1000)*100)/100 +"k";
+                var barValue = formatNumber(value)+"T";
                
               
 
@@ -286,7 +286,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       var columnsWithTotals = ['cant']; 
       var totalsColumnVisitors = {
                 'cant': function(value) { 
-                        var v = Math.round((value/1000)*100)/100 +"k";
+                        var v = formatNumber(value)+"T";
              
                         return v; 
                 },

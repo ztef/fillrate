@@ -205,9 +205,9 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
   
   var columns = [
     { key: "key", header: "Producto", sortable: true, width: "100px" },
-    { key: "VolumenPlan", header: "Vol Plan (k)", sortable: true, width: "100px" },
-    { key: "VolumenReal", header: "Vol Real (k)", sortable: true, width: "100px" },
-    { key: "DifK", header: "Dif (k)", sortable: true, width: "100px" },
+    { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
+    { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
+    { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
     { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
     { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
   ];
@@ -387,7 +387,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         { key: "key", header: "Estado", sortable: true, width: "100px" },
         { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (k)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
       ];
