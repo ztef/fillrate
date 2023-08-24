@@ -28,7 +28,7 @@ var store={
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_un",onInitLoad:true,useDateFilters:false},
             //{sourceName:"ztSource",varName:"cat_zt",onInitLoad:true},
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatZT" ,varName:"cat_zt",onInitLoad:true,useDateFilters:false},
-            {sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true},           
+            //{sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true},           
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatClientes",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",varName:"cat_cliente",onInitLoad:true,useDateFilters:false},
             {sourceName:"frenteSource",varName:"cat_frente",onInitLoad:true}
   

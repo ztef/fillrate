@@ -41,9 +41,7 @@ filterControls.createDataFiltersControls=function(catalogs){
                
                 arrAutoCompleteArr.push(arr[j].key);
 
-            }
-
-            
+            }            
 
             autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
         }
