@@ -25,9 +25,7 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                 diccionarioNombres=store.catlogsForFilters[i].diccNames;
                                 
                         }
-                }
-
-               
+                }               
 
                 for(var i=0; i < store.apiDataSources.length; i++){
           
@@ -137,7 +135,8 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                                         entidad.oos.values.push(data.recordset[j]);                                                   
                         
                                                 }else{
-                                                        console.log("no existe entidad mencionada en OOS:",data.recordset[j].Agrupador);
+                                                        if(data.recordset[j].Agrupador!=null)
+                                                                console.log("no existe entidad mencionada en OOS:",data.recordset[j].Agrupador);
                                                 }  
 
                                         }

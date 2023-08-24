@@ -556,6 +556,29 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 return  date.getDate()+" "+getMes(date.getMonth());
         
                                 });
+
+                //TITULOS
+                d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","ossDetail")
+                        .style("fill","#ffffff")		
+                        .style("font-family","Cabin")
+                        .style("font-weight","normal")
+                        .style("font-size",tamanioFuente)	
+                        .style("text-anchor","start")
+                        .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
+                        .text("Cantidad Entregada Final:"); 
+
+                d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","ossDetail")
+                        .style("fill","#ffffff")		
+                        .style("font-family","Cabin")
+                        .style("font-weight","normal")
+                        .style("font-size",tamanioFuente)	
+                        .style("text-anchor","start")
+                        .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.55  )+")  rotate("+(0)+") ")
+                        .text("FillRate y Tiempos:");
     
                         caso++;            
         }         

@@ -39,7 +39,9 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
     var arr=d3.nest()
             .key(function(d) { return d.Destino; })
-            .entries(entity.oos.values);            
+            .entries(entity.oos.values);     
+            
+            console.log("arr",entity);
     
     for(var i=0; i < arr.length; i++ ){
 
@@ -60,6 +62,8 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
         }
 
     }
+
+    
 
     for(var i=0; i < arr.length; i++ ){
         arr[i].OOS=Math.round(  (arr[i].Numerador/arr[i].Denominador)*10000)/100;

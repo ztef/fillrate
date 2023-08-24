@@ -1,5 +1,5 @@
-const _bkserver = "https://uscldv3dwad01.azurewebsites.net/";
-//const _bkserver = "http://10.26.83.135:8080";
+//const _bkserver = "https://uscldv3dwad01.azurewebsites.net/";
+const _bkserver = "http://10.26.83.135:8080";
 
 var store={
    dataToDraw:[],
@@ -11,9 +11,10 @@ var store={
    localDataSources:[
     
             //DATA LOCAL
+
+            //DEPRECADOS
             //{sourceName:"fillRateSource",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true},
-            {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_FillRate_2",tableName:"d",varName:"fillRate",dateField:"dtOnSiteFinal",onInitLoad:true,useDateFilters:true},
-            
+            //{apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_FillRate_2",tableName:"d",varName:"fillRate",dateField:"dtOnSiteFinal",onInitLoad:true,useDateFilters:true},           
             //{sourceName:"oosSource",varName:"oos",dateField:"",onInitLoad:true},            
 
             //CATALOGOS
@@ -34,7 +35,7 @@ var store={
     ],
 
     apiDataSources:[
-
+        {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_FillRate_conParams",tableName:"d",varName:"fillRate",dateField:"dtOnSiteFinal",onInitLoad:false,useDateFilters:true,useGroup:true},
         {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_Abasto_FillRate",varName:"abasto",onInitLoad:false,useDateFilters:true},
 
         {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_OOSFilial",varName:"oosFiliales",onInitLoad:false,useDateFilters:true},
@@ -44,7 +45,6 @@ var store={
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate",varName:"ventas",onInitLoad:false,useDateFilters:true},
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_PedidosPendientes",varName:"pendientes",onInitLoad:false,useDateFilters:true},
        
-        //{apiURL:_bkserver,serviceName:"getData",varName:"fillRate",dateField:"dtDestara",onInitLoad:true,useDateFilters:true}
 
     ],
 

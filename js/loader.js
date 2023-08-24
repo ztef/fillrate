@@ -145,6 +145,13 @@ dataLoader.LoadData=function(def,cb){
             URL+="&fechaInicio="+dateInit_+"&fechaFin="+dateEnd_;
         }
 
+        //AGRUPADOR
+        var agrupador=config.agrupadorInicial;
+
+        if(def.useGroup){
+            URL+="&agrupador="+agrupador;
+        }
+
         if(def.where){
             where=def.where;
             where = where.replaceAll("fechaInicio",dateInit_);
@@ -305,9 +312,11 @@ dataLoader.CheckIfComplete=function(){
         dataLoader.HideLoadings();
 
         for(var i=0; i < dataSourcesToLoad.length; i++){
+
             if(dataSourcesToLoad[i].varName==store.mainDataset){
              
                 store.dataToDraw=store[dataSourcesToLoad[i].varName];
+                
             }
         }
        

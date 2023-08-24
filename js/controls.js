@@ -41,9 +41,7 @@ filterControls.createDataFiltersControls=function(catalogs){
                
                 arrAutoCompleteArr.push(arr[j].key);
 
-            }
-
-            
+            }            
 
             autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
         }
@@ -52,10 +50,9 @@ filterControls.createDataFiltersControls=function(catalogs){
     
     setTimeout(()=>{
 
-       
         dataManager.ClusterObjects();
        
-    }, 2000);
+    }, 800);
 }
 
 var caso=0;

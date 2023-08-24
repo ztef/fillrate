@@ -5,6 +5,8 @@ var config={
     oosSource:"docs/OOS_Mayo_GS.csv",
     pendientesSource:"docs/Pedidos_Pendientes_Mayo_GS.csv",
 
+    agrupadorInicial:"Region",
+
     //CATALOGOS
     regionSource:"docs/catalogos/RegionZT.csv",
     estadoSource:"docs/catalogos/EstadoZTDem.csv",

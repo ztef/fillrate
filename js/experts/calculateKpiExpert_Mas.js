@@ -11,12 +11,9 @@ calculateKpiExpert_Mas.calculateKPI=function(entities,cb){
             
      }
 
-     var cuantos=0;
+     var cuantos=0;    
 
-    
-
-    for(var i=0;  i < entities.length; i++){ 
-
+    for(var i=0;  i < entities.length; i++){
      
         entities[i].masivos={masivos:0,cantidad:0,values:[],totalSolicitado:0  };
 
@@ -32,10 +29,11 @@ calculateKpiExpert_Mas.calculateKPI=function(entities,cb){
 
         }
         entities[i].masivos.masivos=0;
-        entities[i].masivos.masivos=Math.round((entities[i].masivos.cantidad/entities[i].masivos.totalSolicitado)*100);
+
+        if(entities[i].masivos.cantidad)
+            entities[i].masivos.masivos=Math.round((entities[i].masivos.cantidad/entities[i].masivos.totalSolicitado)*100);
 
     }
-
    
     MasivosEntities=entities;
 

@@ -32,15 +32,14 @@ dataManager.CambiaModoKPI=function(modo){
         dataManager.ClusterObjects();
       
         
-    }
-
-    
+    }    
 
 }
 
 //PROCESO QUE AGRUPA ELEMENTOS SEGUN EL NIVEL AL Q SE ENCUENTRA
 var entities;
-dataManager.ClusterObjects=function(){
+
+ dataManager.ClusterObjects= function(){
 
     dataLoader.HideLoadings();
 
@@ -62,13 +61,21 @@ dataManager.ClusterObjects=function(){
             agrupador=store.niveles[i].field;           
     }
 
-    if(!agrupador==""){
-        entities  = d3.nest()
-                        .key(function(d) { return  d[agrupador]; })                           
-                        .entries(store.dataToDraw);
-    }else{
-        entities = [{key:"Nacional" , values:store.dataToDraw}];
-    }   
+    entities=[];
+    dataLoader.AddLoadingTitle("Fillrate");
+    calculateKpiExpert_FR.calculateKPI().then(()=>{
+
+        dataLoader.DeleteLoadingTitle("Fillrate"); 
+
+        dataLoader.HideLoadings();
+
+        dataManager.ProcessEntities();
+    }); 
+
+}
+
+dataManager.ProcessEntities= function(){
+    
 
     console.log("entities",entities);
 
@@ -85,7 +92,7 @@ dataManager.ClusterObjects=function(){
 
         filterControls.showActiveFilters();
 
-        dataManager.CalculateKPIs(entities);
+        dataManager.CalculateKPIs();
         $('#Controls').css("visibility","hidden");
 
         //en casod e que exista un campo para busqueda de entidades lo llena
@@ -117,7 +124,7 @@ dataManager.ClusterObjects=function(){
 var loadsCount=0;
 var loadsTarget=0;
 
-dataManager.CalculateKPIs=function(entities_){ 
+dataManager.CalculateKPIs=function(){ 
 
     console.log("CalculateKPIs");   
 
@@ -125,17 +132,7 @@ dataManager.CalculateKPIs=function(entities_){
 
     loadsTarget=0;
 
-    // 1
-    loadsTarget++;
-    dataLoader.AddLoadingTitle("Fillrate");
-    setTimeout(()=>{
-        console.log("Elimina fillrate");
-        entities = calculateKpiExpert_FR.calculateKPI(entities_,"fillRate");   
-       
-        dataLoader.DeleteLoadingTitle("Fillrate"); 
-        loadsCount++;
-        dataManager.checkAllLoads();
-    }, 500);    
+     
     
      // 2   
      if(calculateKpiExpert_OOS){
@@ -418,6 +415,7 @@ dataManager.getTooltipText=function(entity){
 
         } 
 
+        
         text+="</div>";
 
         return text;

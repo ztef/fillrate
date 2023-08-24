@@ -58,6 +58,41 @@ Stage.initStage=function(resolve, reject){
 		//$(".cesium-viewer-toolbar").css("bottom","0px");
 
 		handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+
+		handler.setInputAction(function(click) {
+
+		    var pickedObject = viewer.scene.pick(click.position);
+
+		    localizacion=undefined;
+
+		    if (Cesium.defined(pickedObject)) {
+
+		        	for(var e in ultimosEstadosDibujados){
+
+						if( ultimosEstadosDibujados[e] ){
+
+							if( ultimosEstadosDibujados[e][0]._id == pickedObject.id._id ){
+								Stage.FocusMapElement(e);
+							}
+
+						}
+					}
+
+					
+
+		    }else
+		    {
+		    	$("#toolTip").css("visibility","hidden");
+				
+				radar.CleanWindows();
+
+				$('#Controls').css("visibility","hidden");
+
+		    }	  
+
+
+		}, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+
 		handler.setInputAction(function(click) {
 
 		    var pickedObject = viewer.scene.pick(click.position);
