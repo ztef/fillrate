@@ -286,6 +286,4 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
         caso++;
 
     }
-   
-
 }

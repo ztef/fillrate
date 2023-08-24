@@ -105,7 +105,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     
         MasivosVol: function(value,i) {
                 var ancho=GetValorRangos( value,1, maximo ,1,svgTooltipHeight*.4);
-                var barValue = formatNumber(value)+"T";
+                var barValue = formatNumber(value)+" T";
                
               
 
@@ -121,7 +121,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
         
         totalSolicitado: function(value,i) {
                 var ancho=GetValorRangos( value,1, maximoVol ,1,svgTooltipHeight*.4);
-                var barValue = formatNumber(value)+"T";              
+                var barValue = formatNumber(value)+" T";              
               
 
                 return '<div class="bar-container">' +
@@ -140,12 +140,12 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
       var columnsWithTotals = ['MasivosVol','totalSolicitado']; 
       var totalsColumnVisitors = {
                 'MasivosVol': function(value) { 
-                        var v = formatNumber(value)+"T";
+                        var v = formatNumber(value)+" T";
              
                         return v; 
                 },
                 'totalSolicitado': function(value) { 
-                        var v = formatNumber(value)+"T";
+                        var v = formatNumber(value)+" T";
              
                         return v; 
                 }
@@ -169,137 +169,3 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
 
 
 }
-    
-
-
-/*
-    
-    var toolText =  
-                "<span style='color:#fff600'><span style='color:#ffffff'>Masivos por Estado de "+entity.key+"</span></span> <br>"+               
-                "<svg id='svgTooltip'  style='pointer-events:none;'></svg> ";
-
-    $("#toolTip2").html(toolText);
-
-    d3.select("#toolTip2")                                     
-                .style("width", (svgTooltipWidth)+"px" );
-
-    d3.select("#svgTooltip")                     
-                .style("width", svgTooltipWidth )
-                .style("height", svgTooltipHeight )
-                ;   
-
-    d3.select("#svgTooltip")
-        .append("text")						
-        .attr("class","ventasDetail")
-        .style("fill","#8EBBFF")		
-        .style("font-family","Cabin")
-        .style("font-weight","bold")
-        .style("font-size",tamanioFuente)						
-        .style("text-anchor","start")
-        .style("opacity",1 )
-        .attr("transform"," translate("+String( svgTooltipWidth*.3  )+","+String( altura*.25+(tamanioFuente)   )+")  rotate("+(0)+") ")
-        .text("Volumen Masivos (k)")
-        .transition().delay(0).duration(i*50);
-
-    d3.select("#svgTooltip")
-        .append("text")						
-        .attr("class","ventasDetail")
-        .style("fill","#8EBBFF")		
-        .style("font-family","Cabin")
-        .style("font-weight","bold")
-        .style("font-size",tamanioFuente)						
-        .style("text-anchor","start")
-        .style("opacity",1 )
-        .attr("transform"," translate("+String( svgTooltipWidth*.7  )+","+String( altura*.25+(tamanioFuente)   )+")  rotate("+(0)+") ")
-        .text("Volumen Solicitado (%)")
-        .transition().delay(0).duration(i*50);
-
-    for(var i=0; i < arr.length; i++ ){
-
-        var ancho=GetValorRangos( arr[i].Masivos*1000,1, maximo ,1,svgTooltipWidth*.15 );
-
-        d3.select("#svgTooltip").append("rect")		    		
-                .attr("width",1 )
-                .attr("class","ossDetail")
-                .attr("x",marginLeft+(svgTooltipWidth*.4)    )
-                .attr("y", (altura*caso)+marginTop )
-                .attr("height",altura*.4)
-                .attr("fill","#ffffff")
-                .transition().delay(0).duration(1000)
-                .attr("width",ancho )	
-                ;
-
-       
-
-        d3.select("#svgTooltip")
-                .append("text")						
-                .attr("class","ossDetail")
-                .style("fill","#ffffff")		
-                .style("font-family","Cabin")
-                .style("font-weight","bold")
-                .style("font-size",tamanioFuente*.9)						
-                .style("text-anchor","start")
-                .style("opacity",0 )
-                .attr("transform"," translate("+String(    ancho+(marginLeft)+10+(svgTooltipWidth*.4) )+","+String( altura*caso+(tamanioFuente)+marginTop -(tamanioFuente*.3)  )+")  rotate("+(0)+") ")
-                .text(function(){
-
-                    return Math.round(arr[i].Masivos*1000)/10+" %";
-                     
-                    })
-                    .transition().delay(0).duration(i*50)
-					.style("opacity",1 )
-                  ;
-
-        var ancho2=GetValorRangos( arr[i].totalSolicitado ,1, maximoVol ,1,svgTooltipWidth*.15 );
-
-        d3.select("#svgTooltip").append("rect")		    		
-                .attr("width",1 )
-                .attr("class","ossDetail")
-                .attr("x",marginLeft  )
-                .attr("y", (altura*caso)+marginTop)
-                .attr("height",altura*.4)
-                .attr("fill","#FBFFBB")
-                .transition().delay(0).duration(1000)
-                .attr("width",ancho2 )	
-                ;
-
-       d3.select("#svgTooltip")
-                .append("text")						
-                .attr("class","ossDetail")
-                .style("fill","#FBFFBB")		
-                .style("font-family","Cabin")
-                .style("font-weight","bold")
-                .style("font-size",tamanioFuente*.9)						
-                .style("text-anchor","start")
-                .style("opacity",0 )
-                .attr("transform"," translate("+String( ancho2+(marginLeft)+10  )+","+String( altura*caso+(tamanioFuente)+marginTop -(tamanioFuente*.3)  )+")  rotate("+(0)+") ")
-                .text(function(){
-
-                    return Math.round(arr[i].totalSolicitado/1000)+" k";
-                     
-                    })
-                    .transition().delay(0).duration(i*50)
-					.style("opacity",1 )
-                  ;
-
-        d3.select("#svgTooltip")
-                .append("text")						
-                .attr("class","ossDetail")
-                .style("fill","#ffffff")		
-                .style("font-family","Cabin")
-                .style("font-weight","bold")
-                .style("font-size",tamanioFuente)	
-                .style("text-anchor","start")
-                .attr("transform"," translate("+String( 5  )+","+String( altura*caso+(tamanioFuente )+marginTop   )+")  rotate("+(0)+") ")
-                .text(function(){
-                
-                    return  arr[i].key;
-
-                });
-
-                  caso++;
-
-    }
-
-*/
-

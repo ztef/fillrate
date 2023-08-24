@@ -508,12 +508,12 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       ];
     
     
-       // DEFINE VISITORS PARA CADA COLUMNA
+         // DEFINE VISITORS PARA CADA COLUMNA
     
     
       var columnVisitors = {
         key: function(value) {
-            return `<div>${value}
+            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
             </div>`;
           },
     
@@ -694,14 +694,14 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
       ];
     
     
-       // DEFINE VISITORS PARA CADA COLUMNA
+        // DEFINE VISITORS PARA CADA COLUMNA
     
     
-      var columnVisitors = {
-        key: function(value) {
-            return `<div>${value}
-            </div>`;
-          },
+        var columnVisitors = {
+            key: function(value) {
+                return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
+                </div>`;
+              },
     
         VolumenPlan: function(value) {
           return vix_tt_formatNumber(value) + "T";
