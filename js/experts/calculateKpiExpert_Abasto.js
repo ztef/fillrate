@@ -96,12 +96,9 @@ calculateKpiExpert_Abasto.calculateKPI=function(entities){
                         return;
                     }
 
-                    entities=entities;
-
                     console.log("abasto",data.recordset);
 
                     var entities_coll={};
-
                     
                     for(var i=0;  i < entities.length; i++){ 
 
@@ -133,14 +130,14 @@ calculateKpiExpert_Abasto.calculateKPI=function(entities){
                                                            
 
                         }else{
-                            console.log("no existe entidad mencionada en abasto:",data.recordset[j].Agrupador);
+                            if(data.recordset[j].Agrupador!=null)
+                                console.log("no existe entidad mencionada en abasto:",data.recordset[j].Agrupador);
                         }     
                         
                         //Guarda todos los datos de abasto recibidos en el store sin agrupar por entidad, para poder crear ventana de detalle de U.N.
                         store.abasto.push(data.recordset[j]);
 
-                    }
-                                    
+                    }                                    
 
                     resolve();
 
@@ -156,10 +153,12 @@ calculateKpiExpert_Abasto.calculateKPI=function(entities){
 }
 
 
-calculateKpiExpert_Abasto.getTooltipDetail=function(entityId){    
+calculateKpiExpert_Abasto.getTooltipDetail=function(entityId){       
+
 
     for(var i=0;  i < entities.length; i++){
-       
+
+    
         if(entities[i].key.toLowerCase()==entityId.toLowerCase()){
 
             var abastoPer="Sin Dato";

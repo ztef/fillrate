@@ -52,10 +52,9 @@ filterControls.createDataFiltersControls=function(catalogs){
     
     setTimeout(()=>{
 
-       
         dataManager.ClusterObjects();
        
-    }, 2000);
+    }, 800);
 }
 
 var caso=0;

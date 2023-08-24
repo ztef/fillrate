@@ -252,7 +252,7 @@ color: yellow;
       
         <img id="cargando" src="images/preloader_7.gif" style="width:100px;position:fixed;float:left;left:50%;top:10%;pointer-events: none;z-index:100;visibility:hidden;padding:30px;opacity:.7"></img>
 
-        <div id="toolTip" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:0px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
+        <div id="toolTip" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: rgba(0, 0, 0,.6) 5px 10px 19px;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:0px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip2" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip3" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip4" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
@@ -272,7 +272,6 @@ color: yellow;
             <div class="tooltipIcon"><img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Cambiar Fechas</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Informe Final</div></div>
             
-
         </ul>
 
         <ul class="fa-ul" style="position:absolute;right:2px;top:-9px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;">
@@ -283,7 +282,7 @@ color: yellow;
 
         </ul>
 
-        <ul class="fa-ul" style="position:fixed;left:-12px;top:70px;color:rgb(255, 255, 255);z-index:9999999;font-family:Cabin;">
+        <ul class="fa-ul" style="position:fixed;left:-12px;top:70px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;">
             
             <div class="tooltipIcon"><img id="ordenVol" class="iconKPI" src="images/order1_.png" onclick="ordenRadares='Vol';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text">Ordenar por Volumen</div></div>
             <div class="tooltipIcon"><img id="ordenFR" class="iconKPI" src="images/order2.png" onclick="ordenRadares='FR';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text">Ordenar por FillRate</div></div>
@@ -374,9 +373,7 @@ color: yellow;
                         radar.radarInitStage();
 
                         if(elementosContextoMapa)
-                            elementosContextoMapa.DibujaUNs();
-
-                        
+                            elementosContextoMapa.DibujaUNs();                        
 
                     })
 
