@@ -152,6 +152,30 @@ hr {
   position:relative;
 }
 
+.detailContainer{
+  background-color: #0071bc;
+}
+
+.tooltipDetailElement{
+
+    padding:10px;
+   
+    background-color: black;
+    margin: 4px;
+    border-radius: 8px;
+    margin-top: 1px;
+
+
+}
+.tooltipHeader{
+    background-color: #16404f;
+    padding: 10px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #0071bc;
+    border-radius: 10px;
+}
+
 .hr {
   border: 0;
   height: 1px;
@@ -159,7 +183,10 @@ hr {
   background-image: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,.5), rgba(0,0,0,1));
 }
 
+select{
+  padding: 6px;
 
+}    
 .autocomplete {
   /*the container must be positioned relative:*/
   position: relative;
@@ -193,4 +220,20 @@ hr {
   /*when navigating through the items using the arrow keys:*/
   background-color: DodgerBlue !important;
   color: #ffffff;
+}
+
+
+#cargando:hover {
+  box-shadow: 0 0 15px #5571ff;
+}
+#iconFR:hover{
+  box-shadow: 0 0 15px #5571ff;
+}
+
+.iconKPI:hover{
+  box-shadow: 0 0 15px #222e6b;
+}
+
+#iconVenta:hover{
+  box-shadow: 0 0 15px #222e6b;
 }

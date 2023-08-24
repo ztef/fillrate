@@ -58,6 +58,41 @@ Stage.initStage=function(resolve, reject){
 		//$(".cesium-viewer-toolbar").css("bottom","0px");
 
 		handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+
+		handler.setInputAction(function(click) {
+
+		    var pickedObject = viewer.scene.pick(click.position);
+
+		    localizacion=undefined;
+
+		    if (Cesium.defined(pickedObject)) {
+
+		        	for(var e in ultimosEstadosDibujados){
+
+						if( ultimosEstadosDibujados[e] ){
+
+							if( ultimosEstadosDibujados[e][0]._id == pickedObject.id._id ){
+								Stage.FocusMapElement(e);
+							}
+
+						}
+					}
+
+					
+
+		    }else
+		    {
+		    	$("#toolTip").css("visibility","hidden");
+				
+				radar.CleanWindows();
+
+				$('#Controls').css("visibility","hidden");
+
+		    }	  
+
+
+		}, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+
 		handler.setInputAction(function(click) {
 
 		    var pickedObject = viewer.scene.pick(click.position);
@@ -188,8 +223,6 @@ Stage.initStage=function(resolve, reject){
 					;
 
 		resolve();
-
-
 		
 };
 
@@ -284,10 +317,8 @@ Stage.DrawMapObjects=function(entities){
 
 Stage.FocusMapElement=function(id){
 
-	console.log("FocusMapElement",id);
+	radar.CleanWindows();
 
-	
-	
 	for(var e in mapElements){
 
 		if(mapElements[e].key.toLowerCase()==id.toLowerCase()){
@@ -308,6 +339,8 @@ Stage.FocusMapElement=function(id){
 			$("#radarDiv").animate({scrollTop: mapElements[e].radarData.posY-200}, 1000);
 			mapElements[e].radarData.svgBack.attr("fill", "#9A9C9C").transition().delay(2000).duration(getRandomInt(0,2000))
 			.attr("fill", "black");
+
+			
 	
 			break;
 
@@ -315,6 +348,18 @@ Stage.FocusMapElement=function(id){
 		
 
 	}
+}
+
+Stage.ReorderLayout=function(){
+	windowWidth = window.innerWidth;
+	windowHeight = window.innerHeight;
+
+	if(store.fillRate){
+		kpiExpert_FR.DrawMainHeader();
+		kpiExpert_FR.DrawFilteredHeader();
+	}
+	
+	$("#titulo").css("width",((windowWidth*.9)-220)+"px");
 }
 
 
@@ -341,7 +386,7 @@ Stage.DrawFRLabels=function(){
 							 if(coord.x > 400 && coord.x < $(document).width()-50 && coord.y > 40 && coord.y < ($(document).height())){
 									if( entities[i].labelSVG){
 										entities[i].labelSVG.attr("x",coord.x+7 )
-											.attr("y", coord.y+3  ).style("opacity",1); 
+											.attr("y", coord.y+3  ).style("opacity",opacidadCesium/100); 
 									}							
 													 
 							 }

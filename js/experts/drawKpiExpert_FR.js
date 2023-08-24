@@ -207,7 +207,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         var marginTop=35;
 
         $("#toolTip3").css("visibility","visible");            
-        $("#toolTip3").css("right",20+"px");
+        $("#toolTip3").css("top",15+"%");
+        $("#toolTip3").css("left",64+"%");
 
 
 
@@ -265,7 +266,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         
         cant: function(value,i) {
                 var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.4);
-                var barValue = Math.round((arr[i].CantEntfinal/1000)*100)/100 +"k";
+                var barValue = formatNumber(value)+"T";
                
               
 
@@ -285,7 +286,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       var columnsWithTotals = ['cant']; 
       var totalsColumnVisitors = {
                 'cant': function(value) { 
-                        var v = Math.round((value/1000)*100)/100 +"k";
+                        var v = formatNumber(value)+"T";
              
                         return v; 
                 },
@@ -389,7 +390,8 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         var tamanioFuente=ancho*.8;   
     
         $("#toolTip2").css("visibility","visible");            
-        $("#toolTip2").css("left",(mouse_x+300)+"px");
+        $("#toolTip2").css("top",15+"%");
+        $("#toolTip2").css("left",24+"%");
            
       
         // ADD ON PARA USAR EL FORMATEADOR DE TOOLTIPS ---------------------------------------------------
@@ -554,6 +556,29 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 return  date.getDate()+" "+getMes(date.getMonth());
         
                                 });
+
+                //TITULOS
+                d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","ossDetail")
+                        .style("fill","#ffffff")		
+                        .style("font-family","Cabin")
+                        .style("font-weight","normal")
+                        .style("font-size",tamanioFuente)	
+                        .style("text-anchor","start")
+                        .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
+                        .text("Cantidad Entregada Final:"); 
+
+                d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","ossDetail")
+                        .style("fill","#ffffff")		
+                        .style("font-family","Cabin")
+                        .style("font-weight","normal")
+                        .style("font-size",tamanioFuente)	
+                        .style("text-anchor","start")
+                        .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.55  )+")  rotate("+(0)+") ")
+                        .text("FillRate y Tiempos:");
     
                         caso++;            
         }         
@@ -562,7 +587,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
     kpiExpert_FR.DrawMainHeader=function(){
 
-                kpiExpert_FR.ancho=windowWidth*.7;
+                kpiExpert_FR.ancho=windowWidth*.6;
 
                 kpiExpert_FR.offSetLeft=168;
                 kpiExpert_FR.offSetLeft2=350;
@@ -573,8 +598,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 var ancho=kpiExpert_FR.ancho;
                 var offSetLeft=kpiExpert_FR.offSetLeft;
                 var offSetTop=kpiExpert_FR.offSetTop;
-                ancho=kpiExpert_FR.ancho;
-
+              
                 var altura=kpiExpert_FR.altura;
                 
                 svgLines.selectAll(".encabezado").data([]).exit().remove();
@@ -699,7 +723,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                 // AZUL **********
                 
-                var ancho2 = GetValorRangos( vol1_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
+                var ancho2 = GetValorRangos( vol1_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho-355);
 
                 if(!ancho2)
                 ancho2=1;
@@ -726,7 +750,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 
                 // AMARILLO        
 
-                var ancho3 = GetValorRangos( vol2_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
+                var ancho3 = GetValorRangos( vol2_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho-355);
 
                 if(!ancho3)
                 ancho3=1;
@@ -751,7 +775,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                 // ROJO
 
-                var ancho4 = GetValorRangos( vol3_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho);
+                var ancho4 = GetValorRangos( vol3_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho-355);
 
                 if(!ancho4)
                 ancho4=1;

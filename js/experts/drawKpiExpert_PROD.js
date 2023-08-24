@@ -74,11 +74,9 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         var marginTop=svgTooltipHeight*.15;
 
         $("#toolTip2").css("visibility","visible");            
-        $("#toolTip2").css("left",(mouse_x+350)+"px");
-       
+        $("#toolTip2").css("top",15+"%");
+        $("#toolTip2").css("left",24+"%");
 
-        if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
-            $("#toolTip2").css("top",(windowHeight-(arr.length*altura)-150)+"px");
             
         var toolText =  
                     "<span style='color:#fff600'><span style='color:#ffffff'>Producción por Planta</span></span>"+               
@@ -94,18 +92,6 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
                     .style("height", svgTooltipHeight+50 )
                     ;
 
-        var posY=mouse_y-100;
-
-        if( $("#toolTip2").height()+mouse_y+50 > windowHeight ){
-            posY=windowHeight-($("#toolTip2").height()+20);
-        }
-
-        if( posY < 0 ){
-            posY=20;
-
-        }
-        $("#toolTip2").css("top",posY);
-        
         d3.select("#svgTooltip")
         .append("text")						
         .attr("class","ventasDetail")

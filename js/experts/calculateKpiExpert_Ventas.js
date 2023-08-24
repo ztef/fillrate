@@ -56,6 +56,9 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
 
             }
 
+
+            /*
+
              //FILTRO DE MASIVO
             if($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""){
 
@@ -70,6 +73,24 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
                     params+="&Masivos=Solo Masivos"; 
                     
             } 
+
+            */
+
+             
+            if(store.map_var==kpiExpert_FR){
+
+                    serviceName ="getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate";
+        
+            }else if(store.map_var==kpiExpert_OOS_Filiales){               
+            
+                    serviceName ="getSP/Generico?spname=VIS_Calcular_KPI_Venta_OOSFiliales";
+    
+            }else if(store.map_var==drawKpiExpert_VENTAS){               
+            
+                    serviceName ="getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate_TMP";
+    
+            }
+                        
 
             var URL=apiURL+"/"+serviceName+"&fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
             console.log(URL);
@@ -102,6 +123,7 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
 
                     } 
 
+                    store.ventas=[];
 
                     for(var j=0;  j < data.recordset.length; j++){
                         var entidad=entities_coll[data.recordset[j].Agrupador];
@@ -128,7 +150,9 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
                             console.log("no existe entidad mencionada en ventas:",data.recordset[j].Agrupador);
                         }
 
-                    }
+                        store.ventas.push(data.recordset[j]);
+
+                    }                
 
                     resolve();
 
@@ -142,10 +166,85 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
         } 
 
     });
-}  
+}
 
 
+calculateKpiExpert_Ventas.calculateFRPorEstado=function(estados){
 
+    console.log(estados);
+
+    for(var i=0;  i < estados.length; i++){ 
+
+            estados[i].ventas={VolumenPlan:0,VolumenReal:0,VolPlan_FR:0 ,VolReal_FR:0, ventas:undefined,values:[]};
+     
+            for(var j=0;  j < estados[i].values.length; j++){
+
+                estados[i].ventas.VolumenPlan+=Number(estados[i].values[j].VolumenPlan);
+                estados[i].ventas.VolumenReal+=Number(estados[i].values[j].VolumenReal);
+                estados[i].ventas.VolPlan_FR+=Number(estados[i].values[j].VolPlan_FR);
+                estados[i].ventas.VolReal_FR+=Number(estados[i].values[j].VolReal_FR);
+
+                estados[i].ventas.values.push(estados[i].values[j]);
+
+                if(estados[i].ventas.VolumenReal>0){
+                    estados[i].ventas.difPer=Math.round((estados[i].ventas.VolumenReal/estados[i].ventas.VolumenPlan)*100);
+                    estados[i].ventas.ventas=estados[i].ventas.difPer;
+                }
+
+            }
+
+            var color="#cccccc";
+            if(estados[i].ventas.ventas > 100){
+                color="#11EC00";
+            }else if(estados[i].ventas.ventas <= 100 && estados[i].ventas.ventas >= 95){
+                color="#94FF3F";
+            }else if(estados[i].ventas.ventas <= 95 && estados[i].ventas.ventas >= 90){
+                color="#FCED00";
+            }else if(estados[i].ventas.ventas < 90){
+                color="#FF0000";
+            }
+        
+            DibujaEstadoEspecifico(estados[i].key, color);
+
+    }
+
+}
+
+calculateKpiExpert_Ventas.filterByLevel=function(entities){
+
+    //Valida si hay filtro de ventas minimo  
+    var dataToDrawFiltered=[];
+
+    if($("#ventas_cb").val()!=""){         
+
+        var value=Number($("#ventas_cb").val());   
+
+        var entitiesFiltered=[];        
+
+        for(var i=0;  i < entities.length; i++){   
+
+            // SE FILTRAN SOLO AQUELLOS QUE CUMPLEN CON CRITERIO DE FILTRADO DE FILL RATE
+            if(entities[i].ventas.ventas<=value){
+                
+                entitiesFiltered.push(entities[i]);
+                
+                for(var j=0;  j < entities[i].values.length; j++){ 
+                    dataToDrawFiltered.push(entities[i].values[j]);
+                }
+            }            
+
+        }  
+       
+        entities=entitiesFiltered;
+        store.dataToDraw=dataToDrawFiltered;
+
+        return entities;
+
+    }else{
+        return entities;
+    }    
+
+}
 
 calculateKpiExpert_Ventas.getTooltipDetail=function(entityId){
 
@@ -160,8 +259,10 @@ calculateKpiExpert_Ventas.getTooltipDetail=function(entityId){
                 if(entities[i].ventas.ventas!=undefined)
                     prodPer=entities[i].ventas.ventas+"%";
 
-                var text=`<br><hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento Ventas: </span><br>
-                <span style='color:#fff600;font-size:15px;'>Diferencia: <span style='color:#ffffff'>${prodPer} <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].ventas.VolumenPlan/1000)}k , Real:${formatNumber(entities[i].ventas.VolumenReal/1000)}k)<br>
+                var text=`<div class="tooltipDetailElement"><img id="" src="images/ventas.png" style=""></img>
+                    <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento Ventas: </span><br>
+                    <span style='color:#fff60150;font-size:px;'>Diferencia:</span> <span style='color:#ffffff'>${prodPer} </span><span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].ventas.VolumenPlan/1000)}k , Real:${formatNumber(entities[i].ventas.VolumenReal/1000)}k)</span><br>
+                    </div>
                 `
 
                 return text;

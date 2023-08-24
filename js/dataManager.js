@@ -14,40 +14,38 @@ dataManager.CambiaModoKPI=function(modo){
         $("#iconFR").attr("src","images/mode1_.png");
         $("#logo").attr("src","images/logo1.png");
         dataManager.ClusterObjects();
+        
 
     }else if(modo =="OOS F"){
 
-        store.map_var=kpiExpert_OOS;
+        store.map_var=kpiExpert_OOS_Filiales;
         $("#iconOOSF").attr("src","images/mode2_.png");
         $("#logo").attr("src","images/logo2.png");
         dataManager.ClusterObjects();
+       
 
     }else if(modo =="Venta"){
 
+        store.map_var=drawKpiExpert_VENTAS;
         $("#iconVenta").attr("src","images/mode3_.png");
         $("#logo").attr("src","images/logo3.png");
-
-    }
-
-    
+        dataManager.ClusterObjects();
+      
+        
+    }    
 
 }
 
 //PROCESO QUE AGRUPA ELEMENTOS SEGUN EL NIVEL AL Q SE ENCUENTRA
 var entities;
-dataManager.ClusterObjects=function(){
+
+ dataManager.ClusterObjects= function(){
 
     dataLoader.HideLoadings();
 
     Stage.blockScreen.style("visibility","visible"); 
     
     Stage.EraseMapObjects();
-
-    if(svgRadar){
-        radar.CleanWindows();
-        svgRadar.selectAll(".radarElement").data([]).exit().remove();       
-    }      
-
     
     if(backInfoNav.length > 0){
         $("#back_btn").css("visibility","visible");
@@ -57,49 +55,44 @@ dataManager.ClusterObjects=function(){
     }  
 
     var agrupador="";
-
     
     for(var i=0; i < store.niveles.length; i++){    
        if( store.niveles[i].id == $("#nivel_cb").val() )
             agrupador=store.niveles[i].field;           
     }
 
-    if(!agrupador==""){
-        entities  = d3.nest()
-                        .key(function(d) { return  d[agrupador]; })                           
-                        .entries(store.dataToDraw);
-    }else{
-        entities = [{key:"Nacional" , values:store.dataToDraw}];
-    }   
+    entities=[];
+    dataLoader.AddLoadingTitle("Fillrate");
+    calculateKpiExpert_FR.calculateKPI().then(()=>{
+
+        dataLoader.DeleteLoadingTitle("Fillrate"); 
+
+        dataLoader.HideLoadings();
+
+        dataManager.ProcessEntities();
+    }); 
+
+}
+
+dataManager.ProcessEntities= function(){
+    
 
     console.log("entities",entities);
-
-    var estados  = d3.nest()
-        .key(function(d) { return  d["EstadoZTDem"]; })                           
-        .entries(store.dataToDraw);
-
-
-    // COLOREA ESTADOS SOLO SI SE ESTA VIENDO FILL RATE
-    if(store.map_var==kpiExpert_FR){
-
-        calculateKpiExpert_FR.calculateFRPorEstado(estados);
-
-    }else{
-        EliminaEstadosDibujados();
-    }
 
     // se HARCODEA EL TKPI DE DF solo para q apaarezca en el radar
     for(var j=0;  j < entities.length; j++){
         entities[j].df={df:0};
+        entities[j].estadias={estadias:0};
     }
     
+    // ****
     
     //Utiliza un timeout solo para q sea posible poner una pantalla de espera (negra)
     setTimeout(()=>{
 
         filterControls.showActiveFilters();
 
-        dataManager.CalculateKPIs(entities);
+        dataManager.CalculateKPIs();
         $('#Controls').css("visibility","hidden");
 
         //en casod e que exista un campo para busqueda de entidades lo llena
@@ -112,6 +105,11 @@ dataManager.ClusterObjects=function(){
             for(var j=0;  j < entities.length; j++){
                 arrAutoCompleteArr.push(entities[j].key);
             }
+
+            if(svgRadar){
+                radar.CleanWindows();
+                svgRadar.selectAll(".radarElement").data([]).exit().remove();       
+            } 
 
             autocomplete(document.getElementById("inputEnfoqueCamara"), arrAutoCompleteArr);
         }
@@ -126,7 +124,7 @@ dataManager.ClusterObjects=function(){
 var loadsCount=0;
 var loadsTarget=0;
 
-dataManager.CalculateKPIs=function(entities_){ 
+dataManager.CalculateKPIs=function(){ 
 
     console.log("CalculateKPIs");   
 
@@ -134,19 +132,10 @@ dataManager.CalculateKPIs=function(entities_){
 
     loadsTarget=0;
 
-    // 1
-    loadsTarget++;
-    dataLoader.AddLoadingTitle("Fillrate");
-    setTimeout(()=>{
-        entities = calculateKpiExpert_FR.calculateKPI(entities_,"fillRate",dataManager.checkAllLoads);   
-        dataLoader.DeleteLoadingTitle("Fillrate"); 
-    }, 500);    
+     
     
-    
-    
-
-    // 2   
-    if(calculateKpiExpert_OOS){
+     // 2   
+     if(calculateKpiExpert_OOS){
 
         loadsTarget++;
         dataLoader.AddLoadingTitle("SP OOS");
@@ -160,18 +149,16 @@ dataManager.CalculateKPIs=function(entities_){
 
         }, 500);   
 
-    }  
-
-   
+    }    
     
     // 3
-    if(store.map_var==kpiExpert_OOS){
+   if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
 
         if(calculateKpiExpert_OOSFiliales){
             loadsTarget++;
             dataLoader.AddLoadingTitle("SP OOS Filiales");
             setTimeout(()=>{
-                calculateKpiExpert_OOSFiliales.calculateKPI(entities).then(()=>{
+                calculateKpiExpert_OOSFiliales.calculateKPI().then(()=>{
                     loadsCount++;
                     dataLoader.DeleteLoadingTitle("SP OOS Filiales"); 
                     dataManager.checkAllLoads();
@@ -180,8 +167,10 @@ dataManager.CalculateKPIs=function(entities_){
        
 
         } 
-    }
+   }    
+    
 
+   
    
     // 4
     if(calculateKpiExpert_Ventas){
@@ -213,8 +202,7 @@ dataManager.CalculateKPIs=function(entities_){
         }, 500);
     }   
     
-    
-
+ 
     if(store.map_var==kpiExpert_FR){
 
             // 6
@@ -244,7 +232,6 @@ dataManager.CalculateKPIs=function(entities_){
     }
 
     
-    
 
     // 8
     if(calculateKpiExpert_Produccion && $("#nivel_cb").val()  ){
@@ -260,7 +247,6 @@ dataManager.CalculateKPIs=function(entities_){
     } 
     
     
-
 }
 
 dataManager.checkAllLoads=function(){ 
@@ -268,6 +254,13 @@ dataManager.checkAllLoads=function(){
     console.log("Cargas esperadas: "+loadsTarget,"Cargas completadas: "+loadsCount);
 
     if(loadsTarget==loadsCount){
+
+        //Segundo filtrado asociado a Selecciones de nivel:
+        console.log("Inicia filtros: ",entities);
+
+        entities = calculateKpiExpert_FR.filterByLevel(entities);        
+        entities = calculateKpiExpert_Ventas.filterByLevel(entities);
+        entities = calculateKpiExpert_OOSFiliales.filterByLevel(entities);
 
         dataLoader.HideLoadings();
 
@@ -279,7 +272,37 @@ dataManager.checkAllLoads=function(){
 
         kpiExpert_FR.DrawFilteredHeader();
 
-        
+        // COLOREA ESTADOS SOLO SI SE ESTA VIENDO FILL RATE O OOSF
+
+        EliminaEstadosDibujados();
+
+        if(store.map_var==kpiExpert_FR){
+
+            var estados  = d3.nest()
+                .key(function(d) { return  d["EstadoZTDem"]; })                           
+                .entries(store.dataToDraw);
+
+            calculateKpiExpert_FR.calculateFRPorEstado(estados);
+
+        }if(store.map_var==kpiExpert_OOS_Filiales){
+
+            var estados  = d3.nest()
+                .key(function(d) { return  d["EstadoDem"]; })                           
+                .entries(store.oosFiliales);
+
+            calculateKpiExpert_OOSFiliales.calculateFRPorEstado(estados);
+            
+
+        }if(store.map_var==drawKpiExpert_VENTAS){
+
+            var estados  = d3.nest()
+                .key(function(d) { return  d["EstadoDem"]; })                           
+                .entries(store.ventas);
+
+            calculateKpiExpert_Ventas.calculateFRPorEstado(estados);
+            
+
+        }
 
     }
 }
@@ -314,8 +337,10 @@ dataManager.getTooltipText=function(entity){
     nombre=nombre.replaceAll("undefined"," ");
 
 
-    var text=`
-        <span style='color:#00C6FF;font-size:15px;'><span style='color:#00C6FF'>${nombre}
+    var text=` <div class="detailContainer">
+         <div class="tooltipHeader">
+        <span style='color:#00C6FF;font-size:15px;'></span><span style='color:#00C6FF'>${nombre}</span>
+        </div>
         `
         if(calculateKpiExpert_Ventas.getTooltipDetail){
 
@@ -391,6 +416,7 @@ dataManager.getTooltipText=function(entity){
         } 
 
         
+        text+="</div>";
 
         return text;
 

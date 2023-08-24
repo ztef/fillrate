@@ -41,9 +41,7 @@ filterControls.createDataFiltersControls=function(catalogs){
                
                 arrAutoCompleteArr.push(arr[j].key);
 
-            }
-
-            
+            }            
 
             autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
         }
@@ -52,10 +50,9 @@ filterControls.createDataFiltersControls=function(catalogs){
     
     setTimeout(()=>{
 
-       
         dataManager.ClusterObjects();
        
-    }, 2000);
+    }, 800);
 }
 
 var caso=0;
@@ -205,20 +202,62 @@ filterControls.showActiveFilters=function(){
     }
 
     var nivel="";
+    var pedidosEntregados="Pedidos Entregados.";
+
     for(var i=0; i < store.niveles.length; i++){    
         if( store.niveles[i].id == $("#nivel_cb").val() )
             nivel+=store.niveles[i].label;           
     }    
 
-    if(store.map_var==kpiExpert_OOS){        
+    if(store.map_var==kpiExpert_OOS_Filiales){        
 
         var filtroPresentacion=" Granel " ;
         var filtroProducto="Cemento Gris, Blanco ";
 
-    }else if(store.map_var==kpiExpert_FR){
+
+    }else if(store.map_var==kpiExpert_FR || store.map_var==drawKpiExpert_VENTAS){
 
         var filtroPresentacion="Sacos y Granel";
         var filtroProducto="Cemento Gris, Mortero, Blanco, Especiales";
+
+    }
+
+    // visibilidad de filtros por nivel
+    if(store.map_var==kpiExpert_OOS_Filiales){        
+
+        $("#oosfil_filter").show();
+        $("#ventas_cb").hide();
+        $("#fillRate_cb ").hide();       
+        
+        $("#id_4").hide();
+        $("#id_5").hide();
+        $("#id_6").hide();
+
+    }else if(store.map_var==kpiExpert_FR ){
+
+        $("#oosfil_filter").hide();
+        $("#ventas_cb").hide();
+        $("#fillRate_cb").show();
+
+        $("#id_4").show();
+        $("#id_5").show();
+        $("#id_6").show();
+
+    }else if( store.map_var==drawKpiExpert_VENTAS){
+
+        $("#oosfil_filter").hide();
+        $("#ventas_cb").show();
+        $("#fillRate_cb").hide();
+
+        $("#id_4").hide();
+        $("#id_5").hide();
+        $("#id_6").hide();
+    }
+
+    if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
+
+        var pedidosEntregados="";
+       
     }
 
     if(filtrosAplicados["cat_producto"]){
@@ -230,7 +269,7 @@ filterControls.showActiveFilters=function(){
         filtroPresentacion=filtrosAplicados["cat_presentacion"];
     }
 
-    var titulo=`<div style="font-size:100%"> ${filtroProducto} | ${filtroPresentacion} | Pedidos Entregados. Nivel: ${nivel} 
+    var titulo=`<div style="font-size:100%"> ${filtroProducto} | ${filtroPresentacion} | ${pedidosEntregados} Nivel: ${nivel} 
     <span style="font-size:12px; color:white">
        Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;
@@ -268,7 +307,7 @@ filterControls.createHardCodedControls=function(){
         $("#Controls").append(
                 `
                 <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
-                    Nivel: <br> <br>                 
+                    Nivel de Lectura: <br> <br>                 
                     <select id="nivel_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
                          
                     </select>
@@ -280,7 +319,7 @@ filterControls.createHardCodedControls=function(){
 
         for(var i=0; i < store.niveles.length; i++){    
             $("#nivel_cb").append(
-                `<option value="${store.niveles[i].id}">${store.niveles[i].label}</option>   `); 
+                `<option id="id_${store.niveles[i].id}" value="${store.niveles[i].id}">${store.niveles[i].label}</option>   `); 
         }
 
         $("#nivel_cb").val(1);
@@ -336,6 +375,81 @@ filterControls.createHardCodedControls=function(){
                     }else{                
 
                         delete filtrosAplicados["niveles_fillrate"];                       
+
+                    }   
+
+                    filterControls.showActiveFilters();
+                    store.dataToDraw=[];
+                    filterControls.FilterData();
+    
+        });
+
+        // NIVELES DE OOS FILIALES
+        $("#Controls").append(
+            `
+            <div id="oosfil_filter" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
+                Niveles de OOS Filiales: <br> <br>                 
+                <select id="oosfil_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
+                <option value=""></option>
+                <option value="3">Mayores de 3</option>
+                <option value="5">Mayores de 5</option>
+                <option value="10">Mayores de 10</option>
+             
+                </select>
+
+            </div>                            
+            `
+        );
+
+       
+        d3.select("#oosfil_cb").on("change",function(){           
+
+                    if($("#oosfil_cb").val()!=""){           
+                     
+                        filtrosAplicados["niveles_oosFill"]="Mayores de "+$("#oosfil_cb").val()+"%";
+                        //dataManager.ClusterObjects();
+
+                    }else{                
+
+                        delete filtrosAplicados["niveles_oosFill"];                       
+
+                    }   
+
+                    filterControls.showActiveFilters();
+                    store.dataToDraw=[];
+                    filterControls.FilterData();
+    
+        });
+
+        // NIVELES DE  VENTA
+        $("#Controls").append(
+            `
+            <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
+                Niveles de Ventas: <br> <br>                 
+                <select id="ventas_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
+                <option value=""></option>
+                <option value="75">Menores de 75</option>
+                <option value="85">Menores de 85</option>
+                <option value="95">Menores de 95</option>
+             
+                </select>
+
+            </div>                            
+            `
+        );
+
+        
+
+        d3.select("#ventas_cb").on("change",function(){           
+
+                    if($("#ventas_cb").val()!=""){           
+                     
+                        filtrosAplicados["niveles_ventas"]="Menores de "+$("#ventas_cb").val()+"%";
+                        //dataManager.ClusterObjects();
+
+                    }else{                
+
+                        delete filtrosAplicados["niveles_ventas"];                       
 
                     }   
 

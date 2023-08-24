@@ -79,6 +79,8 @@ equivalenciasNombres["Michoacán"]="Michoacán de Ocampo";
 equivalenciasNombres["Veracruz"]="Veracruz Sur";
 equivalenciasNombres["Veracruz N"]="Veracruz Norte";
 
+
+
 function DibujaEstadoEspecifico(entity, color)
 {
 

@@ -25,9 +25,7 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                 diccionarioNombres=store.catlogsForFilters[i].diccNames;
                                 
                         }
-                }
-
-               
+                }               
 
                 for(var i=0; i < store.apiDataSources.length; i++){
           
@@ -137,14 +135,21 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                                         entidad.oos.values.push(data.recordset[j]);                                                   
                         
                                                 }else{
-                                                        console.log("no existe entidad mencionada en OOS:",data.recordset[j].Agrupador);
+                                                        if(data.recordset[j].Agrupador!=null)
+                                                                console.log("no existe entidad mencionada en OOS:",data.recordset[j].Agrupador);
                                                 }  
 
                                         }
 
                                         for(var i=0;  i < entities.length; i++){ 
-            
-                                                entities[i].oos.oos=Math.round(  (entities[i].oos.Numerador/entities[i].oos.Denominador)    *10000)/100;
+
+                                                if(entities[i].oos.Numerador>0){                                                      
+
+                                                        entities[i].oos.oos=Math.round(  (entities[i].oos.Numerador/entities[i].oos.Denominador)    *10000)/100;
+                                                }else{
+                                                        entities[i].oos.oos=0;
+                                                }
+                                               
                                                                                 
                                         }  
 
@@ -177,8 +182,10 @@ calculateKpiExpert_OOS.getTooltipDetail=function(entityId){
                         if(entities[i].oos.oos!=undefined)
                                 prodPer=entities[i].oos.oos+"%";
 
-                        var text=`<hr class="hr"><span style='color:#ffffff;font-size:${15*escalaTextos}px;'>OOS: </span><br>
-                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Total: <span style='color:#ffffff'>${ prodPer }
+                        var text=`<div class="tooltipDetailElement"><img id="" src="images/OOS.png" style=""></img>
+                        <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>OOS: </span><br>
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Total:</span> <span style='color:#ffffff'>${ prodPer }</span><br>
+                        </div>
                         `
                         return text;
 

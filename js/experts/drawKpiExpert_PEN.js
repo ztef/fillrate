@@ -81,20 +81,9 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
 
     $("#toolTip3").css("visibility","visible");            
-    $("#toolTip3").css("right",(svgTooltipWidth+10)+"px");
+    $("#toolTip3").css("top",15+"%");
+    $("#toolTip3").css("left",64+"%");
 
-
-    var posY=mouse_y-50;
-
-    if( $("#toolTip3").height()+mouse_y+50 > windowHeight ){
-            posY=windowHeight-($("#toolTip3").height()+20);
-    }
-
-    if( posY < 0 ){
-            posY=50;
-    }
-
-    $("#toolTip3").css("top",posY);
 
 
     // FORMATEA TOOL TIP :
@@ -204,29 +193,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
     var marginTop=svgTooltipHeight*.1;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",(200)+"px");
-   
-
-    if( (mouse_y-100)+(campos.length*altura) > windowHeight  )
-        $("#toolTip2").css("top",(windowHeight-(campos.length*altura)-150)+"px");
-        
-  
-
-    d3.select("#svgTooltip")                     
-                .style("height", svgTooltipHeight+50 )
-                ;
-
-    var posY=mouse_y-100;
-
-    if( $("#toolTip2").height()+mouse_y+50 > windowHeight ){
-        posY=windowHeight-($("#toolTip2").height()+20);
-    }
-
-    if( posY < 0 ){
-        posY=20;
-
-    }
-    $("#toolTip2").css("top",posY);
+    $("#toolTip2").css("top",15+"%");
+    $("#toolTip2").css("left",24+"%");
 
     vix_tt_formatToolTip("#toolTip2","Retrasados por Tipo de "+entity.key,svgTooltipWidth);
 
@@ -308,7 +276,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
                         .attr("transform"," translate("+String( ancho+(marginLeft)+10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
                         .text(function(){
                         
-                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])/1000)   *100)/100) ,true)+" k";
+                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])))))+" T";
                         })
                         .transition().delay(0).duration(1000)
                         .style("opacity",1 )

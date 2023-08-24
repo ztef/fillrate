@@ -1,5 +1,85 @@
 var kpiExpert_OOS_Filiales={};
 
+kpiExpert_OOS_Filiales.DrawElement=function(entity,i){      
+      
+    var altura1=GetValorRangos(entity.oosFiliales.oosFiliales,1 ,10 ,1 ,entity.altura );
+
+    if(altura1 < 0)
+        altura1=1;
+
+    if(altura1 == NaN || String(altura1) == "NaN" )
+        return;
+
+    if(altura1>entity.altura)
+        altura1=entity.altura;
+    
+    var color="#cccccc";
+    if(entity.oosFiliales.oosFiliales <= 8){
+        color="#28F100";
+    }else if(entity.oosFiliales.oosFiliales <= 10){
+        color="#FFF60C";
+    }else if(entity.oosFiliales.oosFiliales > 10){
+        color="#FF0000";
+    }
+
+    var geometry1= viewer.entities.add({
+            name : '',
+            position: Cesium.Cartesian3.fromDegrees( entity.lng , entity.lat , (altura1/2)  ),
+            cylinder : {
+                length : altura1,
+                topRadius : entity.radio*.9,
+                bottomRadius : entity.radio*.9,
+                material : Cesium.Color.fromCssColorString(color).withAlpha(1)              
+                
+            }
+    });
+
+    mapElementsArr.push(geometry1);						
+
+    //VASO EXTERIOR
+    var geometryExt= viewer.entities.add({
+        name : '',
+        position: Cesium.Cartesian3.fromDegrees( entity.lng , entity.lat , (entity.altura/2)  ),
+        cylinder : {
+                length : entity.altura+(entity.altura*.04),
+                topRadius : entity.radio,
+                bottomRadius : entity.radio,
+                material : Cesium.Color.fromCssColorString("#ffffff").withAlpha(.2)              
+                
+        }
+    });
+
+    entity.geometries=[geometry1,geometryExt];
+    mapElementsArr.push(geometryExt);
+    mapElements[geometryExt.id]=entity; 
+    
+    if(i < 100){
+
+            entity.labelSVG=svgLines.append("text")                            
+                    .attr("x",0 )
+                    .attr("y", 0   )
+                    .style("fill","#FFFFFF")
+                    .attr("filter","url(#dropshadowText)")
+                    .attr("class","entityLabel")                                    
+                    .style("font-family","Cabin")
+                    .style("text-anchor","middle")
+                    .style("font-weight","normal")
+                    .style("font-size",12)                                
+                    .text( function(d){
+                        
+                    return entity.oosFiliales.oosFiliales+"%";
+                    
+                    });
+
+    }
+
+    if(Stage.labelsInterval)        
+            clearInterval(Stage.labelsInterval);
+   
+    Stage.labelsInterval = setInterval(function(){ Stage.DrawFRLabels(); }, 50);
+
+}
+
 
 kpiExpert_OOS_Filiales.eraseChart=function(){ 
 
@@ -16,27 +96,27 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail=function(entity){
     d3.select("#svgTooltip").selectAll(".ossFilialesDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".ossFilialesDetail").data([]).exit().remove();
     
-    kpiExpert_OOS.DrawTooltipDetail_UN(entity);
-    kpiExpert_OOS.DrawTooltipDetail_Dia(entity);
+    kpiExpert_OOS_Filiales.DrawTooltipDetail_UN(entity);
+    kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia(entity);
 
 }
 
-kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){    
-
+kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){  
+    
     d3.select("#svgTooltip").selectAll(".ossFilialesDetail").data([]).exit().remove();
 
     var maximo=0;
     var maximoVolumen=0;   
 
-    for(var i=0; i < entity.oos.values.length; i++ ){
+    for(var i=0; i < entity.oosFiliales.values.length; i++ ){
 
-        entity.oos.values[i].grupo=entity.oos.values[i].DescrProducto+"_"+entity.oos.values[i].Destino;       
+        entity.oosFiliales.values[i].grupo=entity.oosFiliales.values[i].DescrProducto+"_"+entity.oosFiliales.values[i].Origen;       
 
     }
 
     var arr=d3.nest()
-            .key(function(d) { return d.Destino; })
-            .entries(entity.oos.values);            
+            .key(function(d) { return d.Origen; })
+            .entries(entity.oosFiliales.values);            
     
     for(var i=0; i < arr.length; i++ ){
 
@@ -48,7 +128,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
             
             arr[i].Numerador+=Number(arr[i].values[j].Numerador);
             arr[i].Denominador+=Number(arr[i].values[j].Denominador);
-            arr[i].CantEntFinal+=Number(arr[i].values[j].CantEntFinal);            
+            arr[i].CantEntFinal+=Number(arr[i].values[j].Fisico);            
 
             if(maximoVolumen < arr[i].CantEntFinal){
                 maximoVolumen=arr[i].CantEntFinal;
@@ -81,21 +161,21 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
 
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",(300)+"px");   
+    $("#toolTip2").css("top",15+"%");
+    $("#toolTip2").css("left",24+"%");  
   
-
-    var toolText =  
-                "<span style='color:#fff600'><span style='color:#ffffff'>OOS por U.N. y Producto de "+entity.key+"</span></span> <br>"+               
-                "<svg id='svgTooltip'  style='pointer-events:none;'></svg> ";
-
-    $("#toolTip2").html(toolText);
-
+   
     d3.select("#toolTip2")                                     
                 .style("width", (svgTooltipWidth)+"px" );
 
-    vix_tt_formatToolTip("#toolTip2","OOS por U.N. y Producto de "+entity.key,svgTooltipWidth);
+                $("#toolTip2").html("<svg id='svgTooltip'  style='pointer-events:none;'></svg> ");
+
+
+    vix_tt_formatToolTip("#toolTip2","OOS Filiales por Origen y Producto de "+entity.key,svgTooltipWidth);
 
     $("#toolTip2").css("top",(300)+"px");
+
+    
 
     var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
     d3.select("#toolTip2").append("div").html(svgElement);
@@ -130,7 +210,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
             .style("text-anchor","start")
             .style("opacity",1 )
             .attr("transform"," translate("+String( svgTooltipWidth*.55  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-            .text("OOS (%)")
+            .text("OOS F (%)")
             .transition().delay(0).duration(i*50);
     
     d3.select("#svgTooltip")
@@ -206,7 +286,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
                     .style("opacity",0 )
                     .attr("transform"," translate("+String( (svgTooltipWidth*.55)+anchoVol+10  )+","+String( altura*caso+(tamanioFuente)+marginTop -(tamanioFuente*.3)  )+")  rotate("+(0)+") ")
                     .text(function(){
-    
+                        return "";
                             return  arr[i].OOS+"%";
     
                         })
@@ -241,14 +321,14 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
                   .style("fill","#ffffff")		
                   .style("font-family","Cabin")
                   .style("font-weight","bold")
-                  .style("font-size",tamanioFuente)	
+                  .style("font-size",tamanioFuente*.85)	
                   .style("text-anchor","start")
                   .style("pointer-events","auto")
                   .attr("transform"," translate("+String( 5  )+","+String( altura*caso+(tamanioFuente )+marginTop   )+")  rotate("+(0)+") ")
                   .text(function(){
 
                         this.name=arr[i].key;
-                        return  arr[i].key;
+                        return  toTitleCase(arr[i].key);
 
                     })
                     .on("mouseover",function(){
@@ -290,7 +370,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia=function(entity){
                     }                        
     
             })
-            .entries(entity.oos.values);
+            .entries(entity.oosFiliales.values);
 
             for(var i=0; i < arr.length; i++ ){
 
@@ -339,15 +419,14 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia=function(entity){
             var tamanioFuente=ancho*.8;   
         
             $("#toolTip3").css("visibility","visible");            
-            $("#toolTip3").css("right",(svgTooltipWidth+30)+"px");        
+            $("#toolTip3").css("top",15+"%");
+            $("#toolTip3").css("left",64+"%");
         
-            $("#toolTip3").css("top","300px");
-        
-            var marginBottom=svgTooltipHeight*.04;
+            var marginBottom=svgTooltipHeight*.02;
 
             // FORMATEA TOOL TIP :
             
-            vix_tt_formatToolTip("#toolTip3","OOS por Día de "+entity.key,svgTooltipWidth);
+            vix_tt_formatToolTip("#toolTip3","OOS Filiales por Día de "+entity.key,svgTooltipWidth);
         
             // Agrega un div con un elemento svg :
         
@@ -442,6 +521,29 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia=function(entity){
                                     return  formatNumber(arr[i].Fisico/1000)+"k" ;
                 
                                 });
+
+               //TITULOS
+                d3.select("#svgTooltip3")
+                    .append("text")						
+                    .attr("class","ossDetail")
+                    .style("fill","#ffffff")		
+                    .style("font-family","Cabin")
+                    .style("font-weight","normal")
+                    .style("font-size",tamanioFuente)	
+                    .style("text-anchor","start")
+                    .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
+                    .text("Volumen Físico:"); 
+
+                d3.select("#svgTooltip3")
+                    .append("text")						
+                    .attr("class","ossDetail")
+                    .style("fill","#ffffff")		
+                    .style("font-family","Cabin")
+                    .style("font-weight","normal")
+                    .style("font-size",tamanioFuente)	
+                    .style("text-anchor","start")
+                    .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.55  )+")  rotate("+(0)+") ")
+                    .text("OOS Filiales:");
                 
 
             }

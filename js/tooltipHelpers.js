@@ -103,7 +103,7 @@
 // Crea contador global para z-order de los tooltips :
 
 
-var zIndexCounter = 1000;
+var zIndexCounter = 9999999;
 
 
 

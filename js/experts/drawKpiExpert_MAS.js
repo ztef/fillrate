@@ -1,3 +1,4 @@
+
 var kpiExpert_MAS={};
 
 
@@ -66,9 +67,113 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     var marginTop=30;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",(mouse_x+300)+"px");
+     $("#toolTip2").css("top",15+"%");
+    $("#toolTip2").css("left",34+"%");
+
+    // FORMATEA TOOL TIP :
+
+    vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+entity.key,svgTooltipWidth);
+
+    //Agrega div con un elemento svg :
+
+    // DATOS 
+
+    var data = arr.map(function(item) {
+        return {
+          key: item.key,
+          "MasivosVol": item.MasivosVol,      
+          "totalSolicitado": item.totalSolicitado
+        };
+        });
+
+    // DEFINE COLUMNAS
+      
+     var columns = [
+        { key: "key", header: "Estado", sortable: true, width: "100px" },
+        { key: "MasivosVol", header: "Volumen Masivos", sortable: true, width: "300px" },    
+        { key: "totalSolicitado", header: "Vol. Solicitado (%)", sortable: true, width: "300px" },
+        ];
+
+    // DEFINE VISITORS PARA CADA COLUMNA
+    
+    
+      var columnVisitors = {
+        key: function(value,i) {
+            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
+            </div>`;
+          },
+    
+        MasivosVol: function(value,i) {
+                var ancho=GetValorRangos( value,1, maximo ,1,svgTooltipHeight*.4);
+                var barValue = formatNumber(value)+"T";
+               
+              
+
+                return '<div class="bar-container">' +
+                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
+                '<span class="bar-value">' + barValue + '</span>' +
+                '</div>';
 
 
+
+                
+        },
+        
+        totalSolicitado: function(value,i) {
+                var ancho=GetValorRangos( value,1, maximoVol ,1,svgTooltipHeight*.4);
+                var barValue = formatNumber(value)+"T";              
+              
+
+                return '<div class="bar-container">' +
+                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: #FFFE97;"></rect></svg>' +
+                '<span class="bar-value">' + barValue + '</span>' +
+                '</div>';
+
+
+
+                
+        }
+      };
+
+      // COLUMNAS CON TOTALES :
+
+      var columnsWithTotals = ['MasivosVol','totalSolicitado']; 
+      var totalsColumnVisitors = {
+                'MasivosVol': function(value) { 
+                        var v = formatNumber(value)+"T";
+             
+                        return v; 
+                },
+                'totalSolicitado': function(value) { 
+                        var v = formatNumber(value)+"T";
+             
+                        return v; 
+                }
+                };
+
+    
+    
+      // FORMATEA DIV :
+    
+      vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+entity.key, 600);
+    
+      // CREA TABLA USANDO DATOS
+    
+      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
+      
+      
+      // APLICA TRANSICIONES 
+    
+      vix_tt_transitionRectWidth("toolTip2");
+      
+
+
+}
+    
+
+
+/*
+    
     var toolText =  
                 "<span style='color:#fff600'><span style='color:#ffffff'>Masivos por Estado de "+entity.key+"</span></span> <br>"+               
                 "<svg id='svgTooltip'  style='pointer-events:none;'></svg> ";
@@ -82,19 +187,6 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
                 .style("width", svgTooltipWidth )
                 .style("height", svgTooltipHeight )
                 ;   
-
-    var posY=mouse_y+50;
-
-    if( $("#toolTip2").height()+mouse_y+50 > windowHeight ){
-        posY=windowHeight-($("#toolTip2").height()+20);
-    }
-
-    if( posY < 0 ){
-        posY=20;
-
-    }
-    $("#toolTip2").css("top",posY);
-
 
     d3.select("#svgTooltip")
         .append("text")						
@@ -209,4 +301,5 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
 
     }
 
-}
+*/
+

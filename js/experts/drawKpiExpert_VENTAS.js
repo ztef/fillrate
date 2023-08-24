@@ -1,7 +1,87 @@
 var drawKpiExpert_VENTAS={};
 
 
+drawKpiExpert_VENTAS.DrawElement=function(entity,i){      
+      
+  var altura1=GetValorRangos(entity.ventas.ventas,1 ,100 ,1 ,entity.altura );
 
+  if(altura1 < 0)
+      altura1=1;
+
+  if(altura1 == NaN || String(altura1) == "NaN" )
+      return;
+
+  if(altura1>entity.altura)
+      altura1=entity.altura;
+
+  var color="#cccccc";
+  if(entity.ventas.ventas > 100){
+      color="#11EC00";
+  }else if(entity.ventas.ventas <= 100 && entity.ventas.ventas >= 95){
+      color="#94FF3F";
+  }else if(entity.ventas.ventas <= 95 && entity.ventas.ventas >= 90){
+    color="#FCED00";
+  }else if(entity.ventas.ventas < 90){
+      color="#FF0000";
+  }
+
+  var geometry1= viewer.entities.add({
+          name : '',
+          position: Cesium.Cartesian3.fromDegrees( entity.lng , entity.lat , (altura1/2)  ),
+          cylinder : {
+              length : altura1,
+              topRadius : entity.radio*.9,
+              bottomRadius : entity.radio*.9,
+              material : Cesium.Color.fromCssColorString(color).withAlpha(1)              
+              
+          }
+  });
+
+  mapElementsArr.push(geometry1);						
+
+  //VASO EXTERIOR
+  var geometryExt= viewer.entities.add({
+      name : '',
+      position: Cesium.Cartesian3.fromDegrees( entity.lng , entity.lat , (entity.altura/2)  ),
+      cylinder : {
+              length : entity.altura+(entity.altura*.04),
+              topRadius : entity.radio,
+              bottomRadius : entity.radio,
+              material : Cesium.Color.fromCssColorString("#FFFFFF").withAlpha(.2)              
+              
+      }
+  });
+
+  entity.geometries=[geometry1,geometryExt];
+  mapElementsArr.push(geometryExt);
+  mapElements[geometryExt.id]=entity; 
+  
+  if(i < 100){
+
+          entity.labelSVG=svgLines.append("text")                            
+                  .attr("x",0 )
+                  .attr("y", 0   )
+                  .style("fill","#FFFFFF")
+                  .attr("filter","url(#dropshadowText)")
+                  .attr("class","entityLabel")                                    
+                  .style("font-family","Cabin")
+                  .style("text-anchor","middle")
+                  .style("font-weight","normal")
+                  .style("font-size",12)                                
+                  .text( function(d){
+                      
+                  return entity.ventas.ventas+"%";
+                  
+                  });
+
+  }
+
+  if(Stage.labelsInterval)        
+          clearInterval(Stage.labelsInterval);
+ 
+  Stage.labelsInterval = setInterval(function(){ Stage.DrawFRLabels(); }, 50);
+
+}
 
 
 drawKpiExpert_VENTAS.eraseChart=function(){ 
@@ -87,7 +167,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     
 
     $("#toolTip3").css("visibility","visible");            
-    $("#toolTip3").css("right",(50)+"px");
+    $("#toolTip3").css("top",15+"%");
+    $("#toolTip3").css("left",62+"%");
     
     if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
         $("#toolTip3").css("top",(windowHeight-(arr.length*altura)-150)+"px");
@@ -124,9 +205,9 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
   
   var columns = [
     { key: "key", header: "Producto", sortable: true, width: "100px" },
-    { key: "VolumenPlan", header: "Vol Plan (k)", sortable: true, width: "100px" },
-    { key: "VolumenReal", header: "Vol Real (k)", sortable: true, width: "100px" },
-    { key: "DifK", header: "Dif (k)", sortable: true, width: "100px" },
+    { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
+    { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
+    { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
     { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
     { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
   ];
@@ -270,7 +351,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     var marginTop=35;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",(350)+"px");    
+    $("#toolTip2").css("top",15+"%");
+    $("#toolTip2").css("left",24+"%");
     
     if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
         $("#toolTip2").css("top",(windowHeight-(arr.length*altura)-150)+"px");
@@ -305,7 +387,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         { key: "key", header: "Estado", sortable: true, width: "100px" },
         { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (k)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
       ];

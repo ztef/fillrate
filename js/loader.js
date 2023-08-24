@@ -131,7 +131,7 @@ dataLoader.LoadData=function(def,cb){
         if(dia2 < 10)
         dia2="0"+String(dia2);
 
-    
+        
         var URL=def.apiURL+"/"+def.serviceName+"?";
 
         if(def.tableName){
@@ -143,6 +143,13 @@ dataLoader.LoadData=function(def,cb){
 
         if(def.useDateFilters){
             URL+="&fechaInicio="+dateInit_+"&fechaFin="+dateEnd_;
+        }
+
+        //AGRUPADOR
+        var agrupador=config.agrupadorInicial;
+
+        if(def.useGroup){
+            URL+="&agrupador="+agrupador;
         }
 
         if(def.where){
@@ -305,9 +312,11 @@ dataLoader.CheckIfComplete=function(){
         dataLoader.HideLoadings();
 
         for(var i=0; i < dataSourcesToLoad.length; i++){
+
             if(dataSourcesToLoad[i].varName==store.mainDataset){
              
                 store.dataToDraw=store[dataSourcesToLoad[i].varName];
+                
             }
         }
        

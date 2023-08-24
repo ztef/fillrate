@@ -15,12 +15,13 @@ var maximaCantidadRadaresDibujables=50;
 var minValueFR=0;
 var maxValueFR=0;
 var columnasRadar=1;
+var ordenRadares="Vol";
 
 radar.radarInitStage=function(){    
 
     var elemDiv = document.createElement('div');
     elemDiv.setAttribute("id", "radarDiv");
-    elemDiv.style.cssText = 'width:'+widthInit+'%;position:fixed;bottom:0px;top:90px;z-index:99999;pointer-events:auto;overflow-y:scroll;height:100%';
+    elemDiv.style.cssText = 'width:'+widthInit+'%;position:fixed;bottom:0px;top:120px;z-index:99999;pointer-events:auto;overflow-y:scroll;height:100%';
    
     document.body.appendChild(elemDiv);
 
@@ -30,6 +31,26 @@ radar.radarInitStage=function(){
                 .attr("width", "100%" )
                 .attr("height", "100%" )
                 ;   
+
+}
+
+radar.DecreaseRadars=function(){
+
+    if(columnasRadar > 1){
+        columnasRadar--;
+    }
+
+    radar.DrawEntities(entities);           
+
+}
+
+radar.IncreaseRadars=function(){
+
+    if(columnasRadar < 7){
+        columnasRadar++;
+    }
+
+    radar.DrawEntities(entities);           
 
 }
 
@@ -85,16 +106,17 @@ radar.CleanWindows=function(){
 
 radar.kpis=[
 
-    {label:"Cump Venta",color:"#4EFF00",var:"ventas",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"VENTA" ,unidad:"%",tooltipDetail:drawKpiExpert_VENTAS,calculateExpert:calculateKpiExpert_Ventas},
+    {label:"Cump Venta",color:"#00DEFF",var:"ventas",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"Venta" ,unidad:"%",tooltipDetail:drawKpiExpert_VENTAS,calculateExpert:calculateKpiExpert_Ventas},
     {label:"Fill Rate",color:"#E4FF00",var:"fillRate",minimoValor:50 ,valorEquilibrio:100,maximoValor:150, abreviacion:"FR",unidad:"%",tooltipDetail:kpiExpert_FR,calculateExpert:calculateKpiExpert_FR},
-    {label:"Pedidos Retrasados (Miles de Ton)",color:"#00F6FF",var:"pendientes",labelVar: "volumen",minimoValor:100,valorEquilibrio:0 ,maximoValor:-100, abreviacion:"RETRA",tooltipDetail:kpiExpert_PENDIENTES,unidad:"k",calculateExpert:calculateKpiExpert_Pendientes},
+    {label:"Pedidos Retrasados (Miles de Ton)",color:"#00F6FF",var:"pendientes",labelVar: "volumen",minimoValor:100,valorEquilibrio:0 ,maximoValor:-100, abreviacion:"Retra",tooltipDetail:kpiExpert_PENDIENTES,unidad:"k",calculateExpert:calculateKpiExpert_Pendientes},
     {label:"Pedidos Masivos",color:"#FF00F6",var:"masivos",minimoValor:50,valorEquilibrio:0 ,maximoValor:-50, abreviacion:"MAS",unidad:"%" ,tooltipDetail:kpiExpert_MAS,calculateExpert:calculateKpiExpert_Mas},
     
     {label:"Out of Stock Filiales",color:"#FCFF05",var:"oosFiliales",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS FIL",unidad:"%",tooltipDetail:kpiExpert_OOS_Filiales,calculateExpert:calculateKpiExpert_OOSFiliales},
-    {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS CED",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},    
-    {label:"Cump Abasto",color:"#E361FF", var:"abasto",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"ABAS",unidad:"%",tooltipDetail:kpiExpert_ABAS,calculateExpert:calculateKpiExpert_Abasto},
-    {label:"Cump Producción",color:"#FFFFFF",var:"produccion",minimoValor:60,valorEquilibrio:100 ,maximoValor:140, abreviacion:"PROD",unidad:"%",tooltipDetail:kpiExpert_PROD,calculateExpert:calculateKpiExpert_Produccion},
-    {label:"Déficit Flota",color:"#6CFF00",var:"df",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"DF",unidad:""}
+    {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS Ced",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},    
+    {label:"Cump Abasto",color:"#E361FF", var:"abasto",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"Abas",unidad:"%",tooltipDetail:kpiExpert_ABAS,calculateExpert:calculateKpiExpert_Abasto},
+    {label:"Cump Producción",color:"#FFFFFF",var:"produccion",minimoValor:60,valorEquilibrio:100 ,maximoValor:140, abreviacion:"Prod",unidad:"%",tooltipDetail:kpiExpert_PROD,calculateExpert:calculateKpiExpert_Produccion},
+    {label:"Déficit Flota",color:"#6CFF00",var:"df",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"DF",unidad:""},
+    {label:"Estadías",color:"#FF00DE",var:"estadias",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"EST",unidad:""}
 ];
 
 radar.DrawEntities=function(){  
@@ -102,13 +124,15 @@ radar.DrawEntities=function(){
     if(entities.length==0){
         alert("existe un problema con los datos básicos de Fill Rate");
         return;
-    }
-        
+    }        
 
     radar.config=[];
 
     for(var i=0; i < radar.kpis.length; i++){
-        if(radar.kpis[i].var=="fillRate" && store.map_var==kpiExpert_OOS){
+        if(radar.kpis[i].var=="fillRate" && store.map_var==kpiExpert_OOS_Filiales){
+            continue;
+        }
+        if(radar.kpis[i].var=="estadias" && store.map_var!=drawKpiExpert_VENTAS ){
             continue;
         }
         if(entities[0][radar.kpis[i].var]){
@@ -116,12 +140,40 @@ radar.DrawEntities=function(){
         }
        
     }
+
+    $("#ordenVol").attr("src","images/order1.png");
+    $("#ordenFR").attr("src","images/order2.png");
+    $("#ordenOOS").attr("src","images/order3.png");
+    $("#ordenVen").attr("src","images/order4.png");
+
+    //ORDEN DE RADARES
+    if(ordenRadares =="Vol"){
+
+        entities=entities.sort((a, b) =>   b.fillRate.totalVolumenEntregado - a.fillRate.totalVolumenEntregado );
+        $("#ordenVol").attr("src","images/order1_.png");
+
+    }else if(ordenRadares =="FR"){
+
+        entities=entities.sort((a, b) =>   b.fillRate.fillRate - a.fillRate.fillRate );
+        $("#ordenFR").attr("src","images/order2_.png");
+
+    }else if(ordenRadares =="OOS"){
+
+        entities=entities.sort((a, b) =>   b.oos.oos - a.oos.oos );
+        $("#ordenOOS").attr("src","images/order3_.png");
+
+    }else if(ordenRadares == "Ven"){
+
+        entities=entities.sort((a, b) =>   b.ventas.ventas - a.ventas.ventas );
+        $("#ordenVen").attr("src","images/order4_.png");
+
+    }    
     
     radar.rows=0;
 
     var anchoRadarDiv=windowWidth*(widthInit/100);
     
-    $("#radarDiv").css("width",((anchoRadarDiv*radar.escalado)*columnasRadar+(paddingTop*(columnasRadar-1))+100   )+"px");
+    $("#radarDiv").css("width",((anchoRadarDiv*radar.escalado)*columnasRadar+(paddingTop*(columnasRadar-1))+150   )+"px");
     $("#radarDiv").animate({scrollTop: 0}, 1000);
     $("#radarDiv").css("pointer-events","none");
 
@@ -450,48 +502,50 @@ radar.DrawEntityValues=function(entity){
 
     for(var i=0; i < radar.config.length; i++){
 
-        if( entity[radar.config[i].var] ){  
+       
+        if( entity[radar.config[i].var]!= null && entity[radar.config[i].var]!= undefined ){  
                 
-            if( entity[radar.config[i].var][radar.config[i].var] ){ 
+                if( entity[radar.config[i].var][radar.config[i].var]!= null && entity[radar.config[i].var][radar.config[i].var]!= undefined ){ 
 
-                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                   
 
-                var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.45 ,(radio/2)*.99]);
 
-                if(posicionMarcador < 0){ // Si se sale de radar mantiene en margenes
-                    posicionMarcador = 0;
+                        var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
+
+                        if(posicionMarcador < 0){ // Si se sale de radar mantiene en margenes
+                            posicionMarcador = 0;
+                        }
+
+                        if(posicionMarcador > (radio/2)*.97){ // Si se sale de radar mantiene en margenes
+                            posicionMarcador = (radio/2)*.97;
+                        }
+
+                        var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );
+
+                        puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+
+                }else{ 
+
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+
+                        var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
+
+                        var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );					
+        
+                        puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
                 }
-
-                if(posicionMarcador > (radio/2)*.97){ // Si se sale de radar mantiene en margenes
-                    posicionMarcador = (radio/2)*.97;
-                }
-
-                var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );
-
-
-                puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
-
-            }else{ 
-
-                     var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
-
-                    var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
-
-                    var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );					
-    
-                    puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
-            }
 
         }else{
-            var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
 
-            var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
 
-            var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );	
+                        var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
-           
+                        var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );	           
 
-            puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+                        puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
+
         }
     }
 
@@ -509,13 +563,13 @@ radar.DrawEntityValues=function(entity){
     
     for(var i=0; i < radar.config.length; i++){
            
-            if( entity[radar.config[i].var] ){  
+        if( entity[radar.config[i].var]!= null && entity[radar.config[i].var]!= undefined ){  
                 
-                if( entity[radar.config[i].var][radar.config[i].var] ){ 
+            if( entity[radar.config[i].var][radar.config[i].var]!= null && entity[radar.config[i].var][radar.config[i].var]!= undefined ){ 
               
                        // var posicionMarcador=GetValorRangos( entity[radar.config[i].var][radar.config[i].var] , radar.config[i].minimoValor , radar.config[i].maximoValor , 0+(radio*.16) , (radio/2)*.99 );
 
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.45 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
 
@@ -619,6 +673,23 @@ radar.DrawEntityValues=function(entity){
                                     }                               	    	
 
                                 })
+                                .append('title')
+                                    .text(function(d){
+                                        
+                                        var label = entity[radar.config[i].var][radar.config[i].var];
+
+                                        if(radar.config[i].labelVar)
+                                            label = entity[radar.config[i].var][radar.config[i].labelVar];                                    
+                                        
+                                        if(radar.config[i].unidad=="k"){
+
+                                            label = String( ( Math.round(Number(label)/10)/100 ) )+"k";
+                                            
+                                        } 
+
+                                        return radar.config[i].label+", "+label;
+
+                                    })
                                 ;
 
                         var anchor="start";
@@ -672,7 +743,7 @@ radar.DrawEntityValues=function(entity){
                                 
                 }else{ // Para dibujar circulo aun cuando no se tiene datos
 
-                    var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                    var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.4 ,(radio/2)*.99]);
 
                     var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
@@ -695,7 +766,7 @@ radar.DrawEntityValues=function(entity){
                 
             }else{ // Para dibujar circulo aun cuando no se tiene datos
 
-                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.4 ,(radio/2)*.99]);
 
                 var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 

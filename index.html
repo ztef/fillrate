@@ -140,6 +140,38 @@
             /* Other cell styling properties */
         }
 
+        .tooltipIcon {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 150px;
+            background-color: #1e1e29;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            font-size: 14px;
+            box-shadow: 5px 5px 10px #000000;
+            border-style: solid;
+            border-color: #1f3b45;
+            border-width: 1px;
+        }
+
+        .tooltipIcon:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
   
    </style>
 
@@ -168,7 +200,7 @@ color: yellow;
 
 </style>
 
-<body>
+<body onresize=" Stage.ReorderLayout();  " >
     <svg>
         <defs>
         
@@ -222,32 +254,42 @@ color: yellow;
       
         <img id="cargando" src="images/preloader_7.gif" style="width:100px;position:fixed;float:left;left:50%;top:10%;pointer-events: none;z-index:100;visibility:hidden;padding:30px;opacity:.7"></img>
 
-        <div id="toolTip" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
+        <div id="toolTip" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: rgba(0, 0, 0,.6) 5px 10px 19px;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:0px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip2" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip3" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip4" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip5" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
-        <div id="toolTipLoader" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
+        <div id="toolTipLoader" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: rgba(0, 0, 0,.4) 5px 15px 16px ;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden;"></div>
 
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
 
         <ul class="fa-ul" style="position:absolute;right:2px;top:38px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;">
+            <div class="tooltipIcon"><img id="cargando" src="images/hexagons_.png" onclick="radar.DecreaseRadars();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir Columnas</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/hexagons.png" onclick="radar.IncreaseRadars();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Aumentar Columnas</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/increase.png" onclick="radar.escalado=radar.escalado*(1.1);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Aumentar tamaño Radar</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/decrease.png" onclick="radar.escalado=radar.escalado*(.9);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir tamaño Radar</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/fontSize1.png" onclick="escalaTextos=escalaTextos*(1.1);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño texto</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/fontSize2.png" onclick="escalaTextos=escalaTextos*(.9);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño texto</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/chemical.png" onclick="$('#Controls').css('visibility','visible');" style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Filtros</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Cambiar Fechas</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Informe Final</div></div>
             
-            <img id="cargando" src="images/fontSize1.png" onclick="escalaTextos=escalaTextos*(1.1);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:18px ;float:left;margin:8px"></img>
-            <img id="cargando" src="images/fontSize2.png" onclick="escalaTextos=escalaTextos*(.9);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:18px ;float:left;margin:8px"></img>
-            <img id="cargando" src="images/chemical.png" onclick="$('#Controls').css('visibility','visible');" style="width:18px;float:left;margin:8px"></img>
-
-            <img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:18px ;float:left;margin:8px"></img>
-            <img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:18px;float:left;margin:8px"></img>
-            
-
         </ul>
 
         <ul class="fa-ul" style="position:absolute;right:2px;top:-9px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;">
             
-            <img id="iconFR" src="images/mode1_.png" onclick="dataManager.CambiaModoKPI('FR')" style="width:30px ;float:left;margin:8px" ></img>
-            <img id="iconOOSF" src="images/mode_2.png" onclick="dataManager.CambiaModoKPI('OOS F')" style="width:30px ;float:left;margin:8px"></img>
-            <img id="iconVenta" src="images/mode_3.png" onclick="dataManager.CambiaModoKPI('Venta')" style="width:30px;float:left;margin:8px"></img>
+            <div class="tooltipIcon"><img id="iconFR" class="iconKPI" src="images/mode1_.png" onclick="dataManager.CambiaModoKPI('FR')" style="width:30px ;float:left;margin:8px" ></img><div class="tooltip-text">Cambiar a Fillrate</div></div>
+            <div class="tooltipIcon"><img id="iconOOSF" class="iconKPI" src="images/mode_2.png" onclick="dataManager.CambiaModoKPI('OOS F')" style="width:30px ;float:left;margin:8px"></img><div class="tooltip-text">Cambiar a OOS Fliliales</div></div>
+            <div class="tooltipIcon"><img id="iconVenta" class="iconKPI" src="images/mode_3.png" onclick="dataManager.CambiaModoKPI('Venta')" style="width:30px;float:left;margin:8px"></img><div class="tooltip-text">Cambiar a Vengas</div></div>
+
+        </ul>
+
+        <ul class="fa-ul" style="position:fixed;left:-12px;top:70px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;">
+            
+            <div class="tooltipIcon"><img id="ordenVol" class="iconKPI" src="images/order1_.png" onclick="ordenRadares='Vol';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text">Ordenar por Volumen</div></div>
+            <div class="tooltipIcon"><img id="ordenFR" class="iconKPI" src="images/order2.png" onclick="ordenRadares='FR';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text">Ordenar por FillRate</div></div>
+            <div class="tooltipIcon"><img id="ordenOOS" class="iconKPI" src="images/order3.png" onclick="ordenRadares='OOS';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text">Ordenar por OOS CED</div></div>
+            <div class="tooltipIcon"><img id="ordenVen" class="iconKPI" src="images/order4.png" onclick="ordenRadares='Ven';radar.DrawEntities();" style="width:23px;float:left;margin:8px"></img><div class="tooltip-text">Ordenar por Ventas</div></div>
 
         </ul>
 
@@ -339,17 +381,17 @@ color: yellow;
         //Editor: Daniel Contreras Calderon
         // Comentarios de version: ""
 
-        var windowWidth = window.innerWidth,
-        windowHeight = window.innerHeight;
+        var windowWidth; 
+        var windowHeight; 
+
+        Stage.ReorderLayout();
 
         var escalaTextos=1;
 
         $(function() {
 
             $('#datepicker').datepicker({format: 'mm-dd-yyyy'});
-            $('#datepicker2').datepicker({format: 'mm-dd-yyyy'});
-
-            $("#titulo").css("width",(windowWidth*.7)+"px")
+            $('#datepicker2').datepicker({format: 'mm-dd-yyyy'});            
 
             $("#cargando").css("visibility","hidden");
 
@@ -361,10 +403,10 @@ color: yellow;
         
             });
 
-            $('#datepicker').val("07-01-2023");
-            $('#datepicker2').val("07-31-2023");
+            $('#datepicker').val("08-01-2023");
+            $('#datepicker2').val("08-22-2023");
 
-            setTimeout(()=>{$(".loginBtn").click()}, 1000);
+            //setTimeout(()=>{$(".loginBtn").click()}, 1000);
             
             $(".loginBtn").click(function(){
                
@@ -384,9 +426,7 @@ color: yellow;
                         radar.radarInitStage();
 
                         if(elementosContextoMapa)
-                            elementosContextoMapa.DibujaUNs();
-
-                        
+                            elementosContextoMapa.DibujaUNs();                        
 
                     })
 
@@ -405,6 +445,7 @@ color: yellow;
 
         });
 
+        var opacidadCesium=100;
 
     document.onkeydown = function(event) {
         console.log(event.keyCode);
@@ -412,24 +453,24 @@ color: yellow;
         switch (event.keyCode) {
          
             //MODIFICA TAMAÑO DE CILINDROS
-            case 37:   
+            case 39:   
                 escalado=escalado*(.7);
                 Stage.DrawMapObjects(currentEntities,store.mainDataset);
             break;
-            case 39:   
+            case 37:   
                 escalado=escalado*(1.3);
                 Stage.DrawMapObjects(currentEntities,store.mainDataset);
             break;
-            //MODIFICA TAMAÑO DE radar
+            //MODIFICA OPACIDAD DEL MAPA
             case 38:   
-                radar.escalado=radar.escalado*(1.1);
-                radar.DrawEntities(radar.lastRadarEntities);
+                opacidadCesium-=8;
+                $("#cesiumContainer").css("opacity",opacidadCesium/100);
             break;
             case 40:   
-                radar.escalado=radar.escalado*(.9);
-                radar.DrawEntities(radar.lastRadarEntities);
+                opacidadCesium+=8;
+                $("#cesiumContainer").css("opacity",opacidadCesium/100);
             break;
-            //MODIFICA TAMAÑO DE TEXTOS
+          
            
             case 87:   
 
@@ -461,6 +502,18 @@ color: yellow;
             case 52: 
 
                 columnasRadar=4;
+                radar.DrawEntities(entities);                  
+
+            break;
+            case 53: 
+
+                columnasRadar=5;
+                radar.DrawEntities(entities);                  
+
+            break;
+            case 54: 
+
+                columnasRadar=6;
                 radar.DrawEntities(entities);                  
 
             break;
