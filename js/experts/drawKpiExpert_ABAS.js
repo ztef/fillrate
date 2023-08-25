@@ -291,8 +291,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top",70,"%");
-    $("#toolTip2").css("left",23,"%");
+    $("#toolTip2").css("top","75%");
+    $("#toolTip2").css("left","23%");
     
     
     /* 
@@ -658,7 +658,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         }   
         
 
-        $("#toolTip4").append("<svg id='svgTooltip4'  style='pointer-events:none;'></svg> ");
+        $("#toolTip4").append("<svg id='svgTooltip4'  style='pointer-events:none; line-heigth:22px;'></svg> ");
     
     /* 
 
