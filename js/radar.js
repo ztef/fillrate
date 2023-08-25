@@ -10,7 +10,7 @@ radar.lastRadarEntities=[];
 radar.escalado=1;
 var radio;
 var radioInt;
-var radioInicialInidcador=8;
+var radioInicialInidcador=6;
 var maximaCantidadRadaresDibujables=50;
 var minValueFR=0;
 var maxValueFR=0;
@@ -456,6 +456,7 @@ radar.DrawBaseRadar=function(entity){
                 .style("font-weight","bold")
                 .style("font-size",15*radar.escalado)									
                 .style("text-anchor",anchor)
+                .attr("filter","url(#dropshadowText)")
                 .attr("transform"," translate("+String((posLabel.x+xOffset) )+","+String((posLabel.y)+yOffset )+")  rotate("+(0)+") ")
                 .text(function(){
                 

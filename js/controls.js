@@ -9,11 +9,10 @@ filterControls.createDataFiltersControls=function(catalogs){
         var catlog=store[catalogs[i].data];
 
         if(!catlog){
-            console.log("no se encuentra adta para catalogo: ",catalogs[i].data,catalogs[i].placeholder);
+            console.log("no se encuentra data para catalogo: ",catalogs[i].data,catalogs[i].placeholder);
             continue;
         }           
 
-       
         if(catalogs[i].type=="autoComplete"){
             
             $("#Controls").append(
@@ -53,6 +52,26 @@ filterControls.createDataFiltersControls=function(catalogs){
         dataManager.ClusterObjects();
        
     }, 800);
+}
+
+filterControls.creaCatalogoDeFrentesDesdeClientes=function(){
+
+    if(store.cat_cliente){
+
+            var arrTemp=[];  
+            
+            for(var i=0; i < store.cat_cliente.length; i++){
+
+                arrTemp[i]={...store.cat_cliente[i]};
+                arrTemp[i].ID=arrTemp[i].FrenteNum;
+                arrTemp[i].Nombre=arrTemp[i].Frente;
+            }
+
+            store.cat_frente=arrTemp;
+
+    }
+    
+
 }
 
 var caso=0;
@@ -330,19 +349,19 @@ filterControls.createHardCodedControls=function(){
             console.log("Cambia de nivelll");
 
             if($("#nivel_cb").val() > 4){
-                if($("#cat_region").val() == ""){
+                if($("#cat_region").val() == "" &&  $("#cat_estado").val() == "" && $("#cat_gerencia").val() == ""  && $("#cat_un").val() == ""){
 
                     if(posAnterior)
-                    $("#nivel_cb").val(posAnterior);
+                        $("#nivel_cb").val(posAnterior);
 
-                    alert("Seleccione una región para continuar con niveles de detalle altos");
+                    alert("Seleccione algun filtro para continuar con niveles de detalle altos");
 
                     return;
                 }
             }           
 
             posAnterior=$("#nivel_cb").val();
-
+            
             dataManager.ClusterObjects();
         })
 

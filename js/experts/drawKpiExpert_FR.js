@@ -373,7 +373,38 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         arr = arr.sort((a, b) => {                
                         return b.fecha - a.fecha;                                    
         
-        }); 
+        });
+
+        /*
+        
+        var arrTemp=[];
+
+        var dia=((1000*60)*60)*24;
+
+        for(var i=0; i < arr.length; i++ ){
+
+                arrTemp.push(arr[i]);
+                if(arr[i].fecha.getDay==5){
+                        arrTemp.push({
+                                CantEntfinal:0,
+                                fecha:new Date(arr[i].fecha+dia),
+                                totalSolicitado:0,
+
+                                vol1:0,
+                                vol2:0,
+                                vol3:0,
+
+                                por1:0,
+                                por2:0,
+                                por3:0
+                        });
+                }
+
+        }
+
+        arr=arrTemp;
+
+        */
         
         arr=arr.reverse();
 
@@ -560,7 +591,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 //TITULOS
                 d3.select("#svgTooltip")
                         .append("text")						
-                        .attr("class","ossDetail")
+                        .attr("class","frDetail")
                         .style("fill","#ffffff")		
                         .style("font-family","Cabin")
                         .style("font-weight","normal")
@@ -571,7 +602,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                 d3.select("#svgTooltip")
                         .append("text")						
-                        .attr("class","ossDetail")
+                        .attr("class","frDetail")
                         .style("fill","#ffffff")		
                         .style("font-family","Cabin")
                         .style("font-weight","normal")

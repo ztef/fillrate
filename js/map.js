@@ -109,8 +109,7 @@ Stage.initStage=function(resolve, reject){
 
 			        $("#chartContainer").css("visibility","visible");
 
-			        console.log(pickedObject.id._id);
-
+			      
 					if(mapElements[pickedObject.id._id]){						
 						Stage.FocusMapElement(mapElements[pickedObject.id._id].key);
 					}

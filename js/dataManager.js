@@ -134,6 +134,7 @@ dataManager.CalculateKPIs=function(){
 
      
     
+    
      // 2   
      if(calculateKpiExpert_OOS){
 
@@ -150,7 +151,7 @@ dataManager.CalculateKPIs=function(){
         }, 500);   
 
     }    
-    
+
     // 3
    if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
 
@@ -245,6 +246,8 @@ dataManager.CalculateKPIs=function(){
                                                              });
         }, 500);
     } 
+    
+
     
     
 }

@@ -406,7 +406,7 @@ color: yellow;
             $('#datepicker').val("08-01-2023");
             $('#datepicker2').val("08-22-2023");
 
-            //setTimeout(()=>{$(".loginBtn").click()}, 1000);
+            setTimeout(()=>{$(".loginBtn").click()}, 1000);
             
             $(".loginBtn").click(function(){
                
@@ -420,6 +420,8 @@ color: yellow;
                         DibujaRegiones();
 
                         DibujaEstados();
+
+                        filterControls.creaCatalogoDeFrentesDesdeClientes();
 
                         filterControls.createDataFiltersControls(store.catlogsForFilters);
                         filterControls.createHardCodedControls();

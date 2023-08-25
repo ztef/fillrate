@@ -62,7 +62,6 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
         }
 
     }
-
     
 
     for(var i=0; i < arr.length; i++ ){
@@ -75,211 +74,118 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
     arr = arr.sort((a, b) => b.OOS*1000 - a.OOS*1000);
 
     var altura=30;
-    var caso=0;
+   // var caso=0;
    
-    var svgTooltipHeight=(arr.length*altura)+50;
+    //var svgTooltipHeight=(arr.length*altura)+50;
     var svgTooltipWidth=600;
-    var marginLeft=svgTooltipWidth*.3;
+    //var marginLeft=svgTooltipWidth*.3;
     var tamanioFuente=altura*.5;
     if(tamanioFuente < 12)
     tamanioFuente=12;
 
-    var marginTop=30;
+    //var marginTop=30;
 
 
     $("#toolTip2").css("visibility","visible");            
     $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",24+"%"); 
   
+ /* 
 
-    var toolText =  
-                             
-                "<svg id='svgTooltip'  style='pointer-events:none;'></svg> ";
+        VIX_TT  : Prepara datos para el tool tip
 
-    $("#toolTip2").html(toolText);
+    */
 
-    d3.select("#toolTip2")                                     
-                .style("width", (svgTooltipWidth)+"px" );
 
-    vix_tt_formatToolTip("#toolTip2","OOS por U.N. y Producto de "+entity.key,svgTooltipWidth);
+    // DATOS 
 
+    var data = arr.map(function(item) {
+        return {
+          key: item.key,
+          "Numero": item.Numerador,
+          "OOS": item.OOS,
+          "Numera": item.CantEntFinal,
+        };
+        });
     
-    var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
-    d3.select("#toolTip2").append("div").html(svgElement);
-
-    d3.select("#svgTooltip")                     
-        .style("width", svgTooltipWidth )
-        .style("height", (svgTooltipHeight)+50 )
-                    ;
-
-
-
-    d3.select("#svgTooltip")
-            .append("text")						
-            .attr("class","ossDetail")
-            .style("fill","#8EBBFF")		
-            .style("font-family","Cabin")
-            .style("font-weight","bold")
-            .style("font-size",tamanioFuente)						
-            .style("text-anchor","start")
-            .style("opacity",1 )
-            .attr("transform"," translate("+String( svgTooltipWidth*.3  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
+    
+    
+        // DEFINE COLUMNAS
+      
+        var columns = [
+            { key: "key", header: "Producto", sortable: true, width: "100px" },
+            { key: "Numero", header: "# OOS", sortable: true, width: "100px" },
+            { key: "OOS", header: "% OOS", sortable: true, width: "100px" },
+            { key: "Numera", header: "Volumen Entregado", sortable: true, width: "100px" },
           
-            .text("# OOS")
-            .transition().delay(0).duration(i*50);
-
-    d3.select("#svgTooltip")
-            .append("text")						
-            .attr("class","ossDetail")
-            .style("fill","#8EBBFF")		
-            .style("font-family","Cabin")
-            .style("font-weight","bold")
-            .style("font-size",tamanioFuente)						
-            .style("text-anchor","start")
-            .style("opacity",1 )
-            .attr("transform"," translate("+String( svgTooltipWidth*.55  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-            .text("% OOS")
-            .transition().delay(0).duration(i*50);
-    
-    d3.select("#svgTooltip")
-            .append("text")						
-            .attr("class","ossDetail")
-            .style("fill","#8EBBFF")		
-            .style("font-family","Cabin")
-            .style("font-weight","bold")
-            .style("font-size",tamanioFuente)						
-            .style("text-anchor","start")
-            .style("opacity",1 )
-            .attr("transform"," translate("+String( svgTooltipWidth*.8  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-            .text("Volumen Entregado")
-            .transition().delay(0).duration(i*50);
-
-    for(var i=0; i < arr.length; i++ ){
-    
-        var ancho=GetValorRangos(arr[i].CantEntFinal,1, maximoVolumen ,1,svgTooltipWidth*.15 );
-
-        d3.select("#svgTooltip").append("rect")		    		
-                .attr("width",1 )
-                .attr("class","ossDetail")
-                .attr("x",svgTooltipWidth*.82   )
-                .attr("y", (altura*caso)+marginTop )
-                .attr("height",altura*.5)                
-                .attr("fill","#FFFE97")
-                .transition().delay(0).duration(1000)
-                .attr("width",ancho )	
-                ;
-
-        d3.select("#svgTooltip")
-                .append("text")						
-                .attr("class","ossDetail")                
-                .style("fill","#FFFE97")	
-                .style("font-family","Cabin")
-                .style("font-weight","bold")
-                .style("font-size",tamanioFuente*.8)						
-                .style("text-anchor","start")
-                .style("opacity",0 )
-                .attr("transform"," translate("+String( ancho+(svgTooltipWidth*.82)+4  )+","+String( altura*caso+(tamanioFuente)+marginTop -(tamanioFuente*.3)  )+")  rotate("+(0)+") ")
-                .text(function(){
-
-                    return formatNumber(Math.round(arr[i].CantEntFinal/1000));
-
-                    })
-                    .transition().delay(0).duration(1000)
-					.style("opacity",1 )
-                  ;
+          ];
         
-        // BARRA 2
-
-        var anchoVol=GetValorRangos(  arr[i].OOS*1000,1, maximo ,1,svgTooltipWidth*.13 );
-
-        d3.select("#svgTooltip").append("rect")		    		
-                    .attr("width",1 )
-                    .attr("class","ossDetail")
-                    .attr("x",(svgTooltipWidth*.55)   )
-                    .attr("y", (altura*caso)+marginTop )
-                    .attr("height",altura*.5)
-                    .attr("fill","#ffffff")
-                    .transition().delay(0).duration(1000)
-                    .attr("width",anchoVol)	
-                    ;
-
-        d3.select("#svgTooltip")
-                    .append("text")						
-                    .attr("class","ossDetail")
-                    .style("fill","#ffffff")		
-                    .style("font-family","Cabin")
-                    .style("font-weight","bold")
-                    .style("font-size",tamanioFuente*.8)						
-                    .style("text-anchor","start")
-                    .style("opacity",0 )
-                    .attr("transform"," translate("+String( (svgTooltipWidth*.55)+anchoVol+10  )+","+String( altura*caso+(tamanioFuente)+marginTop -(tamanioFuente*.3)  )+")  rotate("+(0)+") ")
-                    .text(function(){
+      
+       // DEFINE VISITORS PARA CADA COLUMNA
     
-                            return  arr[i].OOS+"%";
     
-                        })
-                        .transition().delay(0).duration(1000)
-                        .style("opacity",1 )
-                      ;       
+       var columnVisitors = {
+        key: function(value) {
+            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
+            </div>`;
+          },
+    
+          Numero: function(value) {
+          return vix_tt_formatNumber(value);
+        },
        
-
-                    
-        d3.select("#svgTooltip")
-                  .append("text")						
-                  .attr("class","ossDetail")
-                  .style("fill","#ffffff")		
-                  .style("font-family","Cabin")
-                  .style("font-weight","bold")
-                  .style("font-size",tamanioFuente)						
-                  .style("text-anchor","start")
-                  .style("opacity",0 )
-                  .attr("transform"," translate("+String(  marginLeft   )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
-                  .text(function(){
-                  
-                      return arr[i].Numerador;
-
-                  })
-                  .transition().delay(0).duration(i*50)
-                  .style("opacity",1 )
-                ;
-
-        d3.select("#svgTooltip")
-                  .append("text")						
-                  .attr("class","ossDetail")
-                  .style("fill","#ffffff")		
-                  .style("font-family","Cabin")
-                  .style("font-weight","bold")
-                  .style("font-size",tamanioFuente)	
-                  .style("text-anchor","start")
-                  .style("pointer-events","auto")
-                  .attr("transform"," translate("+String( 5  )+","+String( altura*caso+(tamanioFuente )+marginTop   )+")  rotate("+(0)+") ")
-                  .text(function(){
-
-                        this.name=arr[i].key;
-                        return  arr[i].key;
-
-                    })
-                    .on("mouseover",function(){
-                            d3.select(this).style("fill","#F0FF00");
-                        
-                    })
-                    .on("mouseout",function(){
-                            d3.select(this).style("fill","#FFFFFF");
-                            
-                    })
-                    .on("click",function(){
-                            
-                        radar.CleanWindows();
-
-                        if(filterControls){
-                                filterControls.lookForEntity(this.name);
-                        }
-                            
-                    });
-
-                    caso++;
+            OOS: function(value){
+      
+            var barWidth = value + '%';
+            var barValue = vix_tt_formatNumber(value)+'%   ';
         
-    }    
+            return '<div class="bar-container">' +
+            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
+            '<span class="bar-value">' + barValue + '</span>' +
+            '</div>';
+        },
+        Numera: function(value){
+      
+            var barWidth = (value/maximoVolumen)*100 + '%';
+            var barValue = vix_tt_formatNumber(value);
+       
+           return '<div class="bar-container">' +
+           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +  
+           '<span class="bar-value">' + barValue + '</span>' +    
+           '</div>';
+        }
+      };
+    
+
+      // FORMATEA DIV :
+    
+      vix_tt_formatToolTip("#toolTip2","OOS por U.N. y Producto de "+entity.key,svgTooltipWidth);
+    
+      
+            // COLUMNAS CON TOTALES :
+    
+            var columnsWithTotals = ['Numero','','Numera']; 
+            var totalsColumnVisitors = {
+                        'Numero': function(value) { 
+                        return vix_tt_formatNumber(value) + "T"; 
+                        },
+                        'Numera': function(value) { 
+                        return vix_tt_formatNumber(value) + "T";
+                        },
+                      
+                      
+                      };
+      
+ // CREA TABLA USANDO DATOS
+          
+ vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
+     
+      
+      
+ // APLICA TRANSICIONES 
+
+ vix_tt_transitionRectWidth("toolTip2");
+ 
 
 }
 
@@ -300,39 +206,85 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             })
             .entries(entity.oos.values);
 
+            var fechas={};
+
             for(var i=0; i < arr.length; i++ ){
 
-                arr[i].Numerador=0;
-                arr[i].Denominador=0;
-                arr[i].Fisico=0;
-                arr[i].fecha=arr[i].values[0].fecha.getTime();
-        
-                for(var j=0; j < arr[i].values.length; j++ ){
-        
-                    arr[i].Numerador+=Number(arr[i].values[j].Numerador);
-                    arr[i].Denominador+=Number(arr[i].values[j].Denominador);
-                    arr[i].Fisico+=Number(arr[i].values[j].Fisico);
+                    arr[i].Numerador=0;
+                    arr[i].Denominador=0;
+                    arr[i].Fisico=0;
+                    arr[i].fecha=arr[i].values[0].fecha.getTime();
 
-                }
+                    fechas[arr[i].values[0].fecha.getDate()+"_"+arr[i].values[0].fecha.getDay()]=true;
+            
+                    for(var j=0; j < arr[i].values.length; j++ ){
+            
+                        arr[i].Numerador+=Number(arr[i].values[j].Numerador);
+                        arr[i].Denominador+=Number(arr[i].values[j].Denominador);
+                        arr[i].Fisico+=Number(arr[i].values[j].Fisico);
 
-                if(maximo2 < arr[i].Fisico)
-                    maximo2 = arr[i].Fisico;
+                    }
+
+                    if(maximo2 < arr[i].Fisico)
+                        maximo2 = arr[i].Fisico;
         
             }
 
             for(var i=0; i < arr.length; i++ ){
-                arr[i].OOS=Math.round(  (arr[i].Numerador/arr[i].Denominador)*10000)/100;
-                
-                if(maximo < arr[i].OOS*1000){
-                    maximo=arr[i].OOS*1000;
-                }
+                    arr[i].OOS=Math.round(  (arr[i].Numerador/arr[i].Denominador)*10000)/100;
+                    
+                    if(maximo < arr[i].OOS*1000){
+                        maximo=arr[i].OOS*1000;
+                    }
             }           
 
             arr = arr.sort((a, b) => {                
                 return b.fecha - a.fecha;                                    
         
             }); 
-        
+
+            var arrTemp=[];
+
+            var dia=((1000*60)*60)*24;
+
+            for(var i=0; i < arr.length; i++ ){
+
+                    arrTemp.push(arr[i]);
+                    if(arr[i].fecha.getDay==5){
+
+                            var sabado=new Date(arr[i].values[0].fecha+dia);
+
+                            if(!fechas[sabado.getDate()+"_"+sabado.getDay()] ){
+
+                                    arrTemp.push({
+                                        Numerador:0,
+                                        Denominador:0,
+                                        Fisico:0,
+                                        fecha:new Date(arr[i].fecha+dia),
+                                        OOS:0
+                                    });
+
+                            }
+
+                            var domingo=new Date(arr[i].values[0].fecha+dia+dia);
+
+                            if(!fechas[domingo.getDate()+"_"+domingo.getDay()] ){
+
+                                    arrTemp.push({
+                                        Numerador:0,
+                                        Denominador:0,
+                                        Fisico:0,
+                                        fecha:new Date(arr[i].fecha+dia+dia),
+                                        OOS:0
+                                    });
+
+                            }
+                    }
+
+            }
+
+            arr=arrTemp;
+
             arr=arr.reverse();
         
             var ancho=20;

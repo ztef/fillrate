@@ -131,8 +131,10 @@ dataLoader.LoadData=function(def,cb){
         if(dia2 < 10)
         dia2="0"+String(dia2);
 
-        
-        var URL=def.apiURL+"/"+def.serviceName+"?";
+        var URL=def.apiURL+"/"+def.serviceName;
+        if(def.serviceName.indexOf("?") == -1){
+            var URL=def.apiURL+"/"+def.serviceName+"?";
+        }           
 
         if(def.tableName){
             URL+="table="+def.tableName;            
