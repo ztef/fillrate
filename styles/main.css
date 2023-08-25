@@ -36,6 +36,20 @@ html, body, #cesiumContainer {
         scrollbar-width: none;  /* Firefox */
       }
       
+          /* Clase para ocultar las barras de desplazamiento en navegadores WebKit */
+      .hide-scrollbar-webkit::-webkit-scrollbar {
+        display: none;
+      }
+
+          /* Clase para ocultar las barras de desplazamiento en Firefox */
+      .hide-scrollbar-firefox {
+        scrollbar-width: none;
+      }
+
+          /* Clase para ocultar las barras de desplazamiento en IE y Edge */
+      .hide-scrollbar-ie-edge {
+        -ms-overflow-style: none;
+      }
 
 #chart svg {
   height: 100%;

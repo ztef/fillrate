@@ -172,8 +172,20 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       backgroundColor: "rgba(0, 0, 0, 0.85)",
       boxShadow: "rgba(0, 0, 0, .5) 19px 15px 24px",
       width: width+"px", // You can adjust the width as needed
-
+      "max-height": "650px",
+      overflow:"auto",
+     
     });
+
+
+    // Para ocultar las barras de desplazamiento personalizadas en navegadores WebKit
+      $(divElement).addClass('hide-scrollbar-webkit');
+
+    // Para ocultar las barras de desplazamiento en Firefox
+      $(divElement).addClass('hide-scrollbar-firefox');
+
+    // Para ocultar las barras de desplazamiento en IE y Edge
+      $(divElement).addClass('hide-scrollbar-ie-edge');
 
 
 

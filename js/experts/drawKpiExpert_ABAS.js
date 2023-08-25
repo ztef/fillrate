@@ -291,8 +291,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top",70,"%");
-    $("#toolTip2").css("left",23,"%");
+    $("#toolTip2").css("top","75%");
+    $("#toolTip2").css("left","23%");
     
     
     /* 
@@ -508,12 +508,12 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       ];
     
     
-       // DEFINE VISITORS PARA CADA COLUMNA
+         // DEFINE VISITORS PARA CADA COLUMNA
     
     
       var columnVisitors = {
         key: function(value) {
-            return `<div>${value}
+            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
             </div>`;
           },
     
@@ -658,7 +658,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         }   
         
 
-        $("#toolTip4").append("<svg id='svgTooltip4'  style='pointer-events:none;'></svg> ");
+        $("#toolTip4").append("<svg id='svgTooltip4'  style='pointer-events:none; line-heigth:22px;'></svg> ");
     
     /* 
 
@@ -694,14 +694,14 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
       ];
     
     
-       // DEFINE VISITORS PARA CADA COLUMNA
+        // DEFINE VISITORS PARA CADA COLUMNA
     
     
-      var columnVisitors = {
-        key: function(value) {
-            return `<div>${value}
-            </div>`;
-          },
+        var columnVisitors = {
+            key: function(value) {
+                return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
+                </div>`;
+              },
     
         VolumenPlan: function(value) {
           return vix_tt_formatNumber(value) + "T";

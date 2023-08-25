@@ -78,240 +78,108 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         $("#toolTip2").css("left",24+"%");
 
             
-        var toolText =  
-                    "<span style='color:#fff600'><span style='color:#ffffff'>Producción por Planta</span></span>"+               
-                    "<svg id='svgTooltip'  style='pointer-events:none;'></svg> ";
+     // DATOS 
 
-        $("#toolTip2").html(toolText);
+    var data = arr.map(function(item) {
+        return {
 
-        d3.select("#toolTip2")                                     
-                    .style("width", (svgTooltipWidth)+"px" );
-
-        d3.select("#svgTooltip")                     
-                    .style("width", svgTooltipWidth )
-                    .style("height", svgTooltipHeight+50 )
-                    ;
-
-        d3.select("#svgTooltip")
-        .append("text")						
-        .attr("class","ventasDetail")
-        .style("fill","#8EBBFF")		
-        .style("font-family","Cabin")
-        .style("font-weight","bold")
-        .style("font-size",tamanioFuente)						
-        .style("text-anchor","start")
-        .style("opacity",1 )
-        .attr("transform"," translate("+String( svgTooltipWidth*.2  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-        .text("Vol. Plan")
-        .transition().delay(0).duration(i*50);
-
-        d3.select("#svgTooltip")
-        .append("text")						
-        .attr("class","ventasDetail")
-        .style("fill","#8EBBFF")		
-        .style("font-family","Cabin")
-        .style("font-weight","bold")
-        .style("font-size",tamanioFuente)						
-        .style("text-anchor","start")
-        .style("opacity",1 )
-        .attr("transform"," translate("+String( svgTooltipWidth*.4  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-        .text("Vol. Real")
-        .transition().delay(0).duration(i*50);
-
-
-        d3.select("#svgTooltip")
-        .append("text")						
-        .attr("class","ventasDetail")
-        .style("fill","#8EBBFF")		
-        .style("font-family","Cabin")
-        .style("font-weight","bold")
-        .style("font-size",tamanioFuente)						
-        .style("text-anchor","start")
-        .style("opacity",1 )
-        .attr("transform"," translate("+String( svgTooltipWidth*.55  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-        .text("Dif (k)")
-        .transition().delay(0).duration(i*50);
-
-        d3.select("#svgTooltip")
-        .append("text")						
-        .attr("class","ventasDetail")
-        .style("fill","#8EBBFF")		
-        .style("font-family","Cabin")
-        .style("font-weight","bold")
-        .style("font-size",tamanioFuente)						
-        .style("text-anchor","start")
-        .style("opacity",1 )
-        .attr("transform"," translate("+String( svgTooltipWidth*.7  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-        .text("Dif (%)")
-        .transition().delay(0).duration(i*50);
-
-        d3.select("#svgTooltip")
-        .append("text")						
-        .attr("class","ventasDetail")
-        .style("fill","#8EBBFF")		
-        .style("font-family","Cabin")
-        .style("font-weight","bold")
-        .style("font-size",tamanioFuente)						
-        .style("text-anchor","start")
-        .style("opacity",1 )
-        .attr("transform"," translate("+String( svgTooltipWidth*.9  )+","+String( altura*caso+(tamanioFuente)   )+")  rotate("+(0)+") ")
-        .text("Volumen Real")
-        .transition().delay(0).duration(i*50);    
-     
-        for(var i=0; i < arr.length; i++ ){
-
-            if(arr[i].VolVenta_Real==0)
-                continue;
-        
-            var ancho=GetValorRangos( arr[i].VolVenta_Real,1, maximo ,1,svgTooltipWidth*.11 );
-         
-            d3.select("#svgTooltip").append("rect")		    		
-    					.attr("width",1 )
-                        .attr("class","abasDetail")
-    					.attr("x",svgTooltipWidth*.9   )
-    					.attr("y", (altura*caso)+marginTop )
-    					.attr("height",altura*.4)
-    					.attr("fill","#FFFE97")
-                        .transition().delay(0).duration(1000)
-    					.attr("width",ancho )
-    					;
-
-          
-            //BARRA 2
-
-            var anchoVol=GetValorRangos( arr[i].DifPer*1000,1, maximo2 ,1,svgTooltipWidth*.11 );
-
-            d3.select("#svgTooltip").append("rect")		    		
-                        .attr("width",1 )
-                        .attr("class","prodDetail")
-                        .attr("x",svgTooltipWidth*.7   )
-                        .attr("y", (altura*caso)+marginTop )
-                        .attr("height",altura*.4)
-                        .attr("fill","#ffffff")
-                        .transition().delay(0).duration(1000)
-                        .attr("width",anchoVol)	
-                        ;       
-
-            d3.select("#svgTooltip")
-                      .append("text")						
-                      .attr("class","prodDetail")
-                      .style("fill","#ffffff")		
-                      .style("font-family","Cabin")
-                      .style("font-weight","bold")
-                      .style("font-size",tamanioFuente)						
-                      .style("text-anchor","start")
-                      .style("opacity",0 )
-                      .attr("transform"," translate("+String( (svgTooltipWidth*.7)+anchoVol+2  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
-                      .text(function(){
-                      
-                          return Math.round( arr[i].DifPer*1000)/10+"%";
-                      })
-                      .transition().delay(0).duration(1000)
-                      .style("opacity",1 )
-                    ;
-
-
-                        // SEPARADAS
-                        d3.select("#svgTooltip")
-                                .append("text")						
-                                .attr("class","prodDetail")
-                                .style("fill","#ffffff")		
-                                .style("font-family","Cabin")
-                                .style("font-weight","bold")
-                                .style("font-size",tamanioFuente)						
-                                .style("text-anchor","start")
-                                .style("opacity",0 )
-                                .attr("transform"," translate("+String( svgTooltipWidth*.2  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
-                                .text(function(){
-                                
-                                   
-                                    return (((Math.round( (arr[i].VolVenta_Plan*10)/1000  )/10)));
-
-                                })
-                                .transition().delay(0).duration(i*50)
-                                .style("opacity",1 )
-                            ;
-
-
-                        d3.select("#svgTooltip")
-                                .append("text")						
-                                .attr("class","prodDetail")
-                                .style("fill","#ffffff")		
-                                .style("font-family","Cabin")
-                                .style("font-weight","bold")
-                                .style("font-size",tamanioFuente)						
-                                .style("text-anchor","start")
-                                .style("opacity",0 )
-                                .attr("transform"," translate("+String( svgTooltipWidth*.4  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
-                                .text(function(){
-                                
-                                    return (((Math.round( (arr[i].VolVenta_Real*10)/1000  )/10)));
-
-                                })
-                                .transition().delay(0).duration(i*50)
-                                .style("opacity",1 )
-                            ;
-
-                            d3.select("#svgTooltip")
-                            .append("text")						
-                            .attr("class","prodDetail")
-                            .style("fill","#ffffff")		
-                            .style("font-family","Cabin")
-                            .style("font-weight","bold")
-                            .style("font-size",tamanioFuente)						
-                            .style("text-anchor","start")
-                            .style("opacity",0 )
-                            .attr("transform"," translate("+String( svgTooltipWidth*.55  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
-                            .text(function(){
-                            
-                                return (((Math.round( (arr[i].Dif*10)/1000  )/10)));
-            
-                            })
-                            .transition().delay(0).duration(i*50)
-                            .style("opacity",1 )
-                          ;
-
-                       
-
-            d3.select("#svgTooltip")
-                        .append("text")						
-                        .attr("class","prodDetail")
-                        .style("fill","#ffffff")		
-                        .style("font-family","Cabin")
-                        .style("font-weight","bold")
-                        .style("font-size",tamanioFuente)	
-                        .style("text-anchor","start")
-                        .style("pointer-events","auto")
-                        .attr("transform"," translate("+String( 5  )+","+String( altura*caso+(tamanioFuente )+marginTop   )+")  rotate("+(0)+") ")
-                        .text(function(){
-                            
-                            this.name=arr[i].key;
-                            return  arr[i].key;
-
-                        })
-                        .on("mouseover",function(){
-                            d3.select(this).style("fill","#F0FF00");
-                        
-                        })
-                        .on("mouseout",function(){
-                                d3.select(this).style("fill","#FFFFFF");
-                                
-                        })
-                        .on("click",function(){
-                                
-                            kpiExpert_PROD.eraseChart();
-
-                            if(filterControls){
-                                    filterControls.lookForEntity(this.name);
-                            }
-                                
-                        });
+          key: item.key,
+          "VolVenta_Plan": item.VolVenta_Plan,
+          "VolVenta_Real": item.VolVenta_Real,
+          "DifK": item.VolVenta_Real - item.VolVenta_Plan,
+          "DifP":  item.DifPer * 100,
+          "Peso": item.VolVenta_Real,
+        };
+        });
     
 
-                        caso++;
 
-            
-        }    
+      
+        // DEFINE COLUMNAS
+      
+      var columns = [
+        { key: "key", header: "Estado", sortable: true, width: "100px" },
+        { key: "VolVenta_Plan", header: "Vol Plan", sortable: true, width: "100px" },
+        { key: "VolVenta_Real", header: "Vol Real", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+      ];
+    
+    
+       // DEFINE VISITORS PARA CADA COLUMNA
+    
+    
+      var columnVisitors = {
+        key: function(value) {
+            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
+            </div>`;
+          },
+    
+          VolVenta_Plan: function(value) {
+          return vix_tt_formatNumber(value) + "T";
+        },
+        VolVenta_Real: function(value) {
+            return vix_tt_formatNumber(value) + "T";
+        },
+        DifK: function(value) {
+            return vix_tt_formatNumber(value) + "T";
+        },
+        DifP: function(value){
+      
+            var barWidth = value + '%';
+            var barValue = vix_tt_formatNumber(value)+'%';
+        
+            return '<div class="bar-container">' +
+            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
+            '<span class="bar-value">' + barValue + '</span>' +
+            '</div>';
+    
+        },
+        Peso: function(value){
+      
+
+           var barWidth = (value/maximo)*100 + '%';
+           var barValue = vix_tt_formatNumber(value)+'k';
+      
+          return '<div class="bar-container">' +
+          '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
+          
+          '</div>';
+
+    
+        }
+      };
+ // FORMATEA DIV :
+    
+ vix_tt_formatToolTip("#toolTip2","Producción por Planta",700);
+
+           // COLUMNAS CON TOTALES :
+
+           var columnsWithTotals = ['VolVenta_Plan','VolVenta_Real','DifK']; 
+           var totalsColumnVisitors = {
+                     'VolVenta_Plan': function(value) { 
+                       return vix_tt_formatNumber(value) + "T";
+                     },
+                     'VolVenta_Real': function(value) { 
+                       return vix_tt_formatNumber(value) + "T"; 
+                     },
+                     'DifK': function(value) { 
+                       return vix_tt_formatNumber(value) + "T"; 
+                     }
+                     };
+     
+         
+      // CREA TABLA USANDO DATOS
+    
+      
+      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
+      
+      
+      // APLICA TRANSICIONES 
+    
+      vix_tt_transitionRectWidth("toolTip2");
+      
 
     }
-
+     
