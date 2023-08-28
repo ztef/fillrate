@@ -424,11 +424,17 @@ color: yellow;
 
                         DibujaEstados();
 
-                        filterControls.creaCatalogoDeFrentesDesdeClientes();
+                        filterControls.creaCatalogoDeFrentesDesdeClientes();                       
 
                         filterControls.createDataFiltersControls(store.catlogsForFilters);
                         filterControls.createHardCodedControls();
                         radar.radarInitStage();
+
+                        setTimeout(()=>{
+
+                            dataManager.ClusterObjects();
+                           
+                        }, 800);
 
                         if(elementosContextoMapa)
                             elementosContextoMapa.DibujaUNs();                        

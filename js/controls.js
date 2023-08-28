@@ -1,8 +1,15 @@
 var filterControls={};
+var createdControls={};
+var controlsInit=false;
 
 filterControls.createDataFiltersControls=function(catalogs){
 
-    vix_tt_formatToolTip("#Controls",".",160);
+    if(!controlsInit){
+        controlsInit=true;
+        vix_tt_formatToolTip("#Controls",".",160);
+        $("#Controls").css("max-height","900px");
+    }
+    
     
     for(var i=0;  i < catalogs.length; i++){
 
@@ -11,47 +18,49 @@ filterControls.createDataFiltersControls=function(catalogs){
         if(!catlog){
             console.log("no se encuentra data para catalogo: ",catalogs[i].data,catalogs[i].placeholder);
             continue;
-        }           
+        }         
+        
+        if(!createdControls[catalogs[i].id]){
 
-        if(catalogs[i].type=="autoComplete"){
-            
-            $("#Controls").append(
-                `<div class="autocomplete loginBtn" style="width: 100%;margin-top:15px;" >
-                    <input class="inputs" id="${catalogs[i].id}" type="text" style="border-color:${catalogs[i].color};" name="" placeholder="${ catalogs[i].placeholder }">
-                </div>`
-            );           
+            if(catalogs[i].type=="autoComplete"){
+                
+                $("#Controls").append(
+                    `<div class="autocomplete loginBtn" style="width: 100%;margin-top:15px;" >
+                        <input class="inputs" id="${catalogs[i].id}" type="text" style="border-color:${catalogs[i].color};" name="" placeholder="${ catalogs[i].placeholder }">
+                    </div>`
+                ); 
+                
+                createdControls[catalogs[i].id]=true;
 
-            
-            var arr=d3.nest()
-                        .key(function(d) { return d[catalogs[i].fieldInCatlog]; })
-                        .entries(catlog);
+                
+                var arr=d3.nest()
+                            .key(function(d) { return d[catalogs[i].fieldInCatlog]; })
+                            .entries(catlog);
 
-            var arrAutoCompleteArr=[];   
-            
-            catalogs[i].diccNames={};
-            
-            for(var j=0;  j < arr.length; j++){
+                var arrAutoCompleteArr=[];   
+                
+                catalogs[i].diccNames={};
+                
+                for(var j=0;  j < arr.length; j++){
 
-                if(arr[j].values[0].ID){
-                    catalogs[i].diccNames[arr[j].key]=arr[j].values[0].ID;
-                }else{
-                    catalogs[i].diccNames[arr[j].key]=arr[j].key;
-                }
-               
-                arrAutoCompleteArr.push(arr[j].key);
+                    if(arr[j].values[0].ID){
+                        catalogs[i].diccNames[arr[j].key]=arr[j].values[0].ID;
+                    }else{
+                        catalogs[i].diccNames[arr[j].key]=arr[j].key;
+                    }
+                
+                    arrAutoCompleteArr.push(arr[j].key);
 
-            }            
+                }            
 
-            autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
+                autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
+            }
+
         }
 
-    }
-    
-    setTimeout(()=>{
+    }   
 
-        dataManager.ClusterObjects();
-       
-    }, 800);
+
 }
 
 filterControls.creaCatalogoDeFrentesDesdeClientes=function(){

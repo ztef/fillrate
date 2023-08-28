@@ -307,6 +307,8 @@ dataManager.checkAllLoads=function(){
 
         }
 
+        filterControls.createDataFiltersControls(store.catlogsForFilters);
+
     }
 }
 
