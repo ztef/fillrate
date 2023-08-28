@@ -18,13 +18,14 @@ calculateKpiExpert_Mas.calculateKPI=function(entities,cb){
         entities[i].masivos={masivos:0,cantidad:0,values:[],totalSolicitado:0  };
 
         for(var j=0;  j < entities[i].values.length; j++){ 
-      
-                if( entities[i].values[j].TipoPedido == "Masivo" ){                     
+            
+                if( entities[i].values[j].TipoPedido == "Masivo" ){    
+
                     cuantos++;
-                    entities[i].masivos.cantidad+=Number(entities[i].values[j].CantSolfinal);                    
+                    entities[i].masivos.cantidad+=Number(entities[i].values[j].CantSolFinal);                    
 
                 }
-                entities[i].masivos.totalSolicitado+=Number(entities[i].values[j].CantSolfinal);
+                entities[i].masivos.totalSolicitado+=Number(entities[i].values[j].CantSolFinal);
                 entities[i].masivos.values.push(entities[i].values[j]);
 
         }

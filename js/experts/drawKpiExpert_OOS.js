@@ -216,7 +216,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                     arr[i].fecha=arr[i].values[0].fecha.getTime();
 
                     fechas[arr[i].values[0].fecha.getDate()+"_"+arr[i].values[0].fecha.getDay()]=true;
-            
+               
                     for(var j=0; j < arr[i].values.length; j++ ){
             
                         arr[i].Numerador+=Number(arr[i].values[j].Numerador);
@@ -245,37 +245,53 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
             var arrTemp=[];
 
-            var dia=((1000*60)*60)*24;
+            var dia=((1000*60)*60)*23.9;
+
+            arr=arr.reverse();
+
+            console.log(fechas);
 
             for(var i=0; i < arr.length; i++ ){
 
                     arrTemp.push(arr[i]);
-                    if(arr[i].fecha.getDay==5){
+                   
+                    var date_=new Date(arr[i].fecha);
 
-                            var sabado=new Date(arr[i].values[0].fecha+dia);
+                    if(date_.getDay()==5){
 
+                            var sabado=new Date(arr[i].fecha+dia);
+                          
                             if(!fechas[sabado.getDate()+"_"+sabado.getDay()] ){
-
+                               
                                     arrTemp.push({
                                         Numerador:0,
                                         Denominador:0,
                                         Fisico:0,
                                         fecha:new Date(arr[i].fecha+dia),
-                                        OOS:0
+                                        OOS:0,
+                                        agregado:true,
+                                        key:arr[i].fecha+dia
                                     });
 
                             }
 
-                            var domingo=new Date(arr[i].values[0].fecha+dia+dia);
+                    }
 
+                    console.log("dia",date_.getDay());
+                    if(date_.getDay()==6){
+                       
+                            var domingo=new Date(arr[i].fecha+dia+dia );
+                            console.log("domingooo",domingo.getDate(),domingo.getDay());
                             if(!fechas[domingo.getDate()+"_"+domingo.getDay()] ){
-
+                                console.log("insertaa",date_.getDay());
                                     arrTemp.push({
                                         Numerador:0,
                                         Denominador:0,
                                         Fisico:0,
                                         fecha:new Date(arr[i].fecha+dia+dia),
-                                        OOS:0
+                                        OOS:0,
+                                        agregado:true,
+                                        key:arr[i].fecha+dia+dia
                                     });
 
                             }
@@ -283,9 +299,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
             }
 
-            arr=arrTemp;
-
-            arr=arr.reverse();
+            arr=arrTemp;            
         
             var ancho=20;
             
@@ -357,7 +371,17 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                 d3.select("#svgTooltip3")
                                 .append("text")						
                                 .attr("class","ossDetail")
-                                .style("fill","#ffffff")		
+                                .style("fill",function(d){
+                                    
+                                    var color ="#FFFFFF";
+
+                                    if(arr[i].agregado){
+                                        color ="#5C5C5C";
+                                    }
+                                    
+                                    return color;
+                                    
+                                })		
                                 .style("font-family","Cabin")
                                 .style("font-weight","bold")
                                 .style("font-size",tamanioFuente)	
@@ -372,7 +396,17 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                 d3.select("#svgTooltip3")
                                 .append("text")						
                                 .attr("class","ossDetail")
-                                .style("fill","#ffffff")		
+                                .style("fill",function(d){
+                                    
+                                    var color ="#FFFFFF";
+
+                                    if(arr[i].agregado){
+                                        color ="#5C5C5C";
+                                    }
+                                    
+                                    return color;
+                                    
+                                })		
                                 .style("font-family","Cabin")
                                 .style("font-weight","bold")
                                 .style("font-size",tamanioFuente)	

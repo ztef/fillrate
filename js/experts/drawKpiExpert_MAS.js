@@ -32,11 +32,11 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
             
             if( arr[i].values[j].TipoPedido == "Masivo" ){
 
-                arr[i].MasivosVol+=Number(arr[i].values[j].CantSolfinal);
+                arr[i].MasivosVol+=Number(arr[i].values[j].CantSolFinal);
           
             }
 
-            arr[i].totalSolicitado+=Number(arr[i].values[j].CantSolfinal);            
+            arr[i].totalSolicitado+=Number(arr[i].values[j].CantSolFinal);            
 
         }
 
