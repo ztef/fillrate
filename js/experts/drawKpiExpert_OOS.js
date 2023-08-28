@@ -249,7 +249,6 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
             arr=arr.reverse();
 
-            console.log(fechas);
 
             for(var i=0; i < arr.length; i++ ){
 

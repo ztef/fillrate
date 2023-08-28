@@ -403,8 +403,11 @@ color: yellow;
         
             });
 
-            $('#datepicker').val("08-01-2023");
-            $('#datepicker2').val("08-22-2023");
+            var fechaActual=new Date();
+            var ayer=new Date(fechaActual.getTime()-((1000*60)*60)*24);
+
+            $('#datepicker').val((ayer.getMonth()+1)+"-01-2023");
+            $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
 
             //setTimeout(()=>{$(".loginBtn").click()}, 1000);
             

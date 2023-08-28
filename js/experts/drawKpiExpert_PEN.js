@@ -36,7 +36,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
             })
             .entries(entity.pendientes.allRecords);
 
-            
+    var fechas={};        
 
     for(var i=0; i < arr.length; i++ ){
 
@@ -44,6 +44,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
         arr[i].Libre_Retrasado=0;
         arr[i].Total=0;
         arr[i].fecha=arr[i].values[0].fecha.getTime();
+
+        fechas[arr[i].values[0].fecha.getDate()+"_"+arr[i].values[0].fecha.getDay()]=true;
 
         for(var j=0; j < arr[i].values.length; j++ ){
 
@@ -63,8 +65,64 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
         return b.fecha - a.fecha;                                    
 
     }); 
+    
 
     arr=arr.reverse();
+
+    var arrTemp=[];
+
+    var dia=((1000*60)*60)*24;
+    console.log("fechas",fechas);
+    for(var i=0; i < arr.length; i++ ){
+
+        arrTemp.push(arr[i]);
+        
+            var date_=new Date(arr[i].fecha);
+            console.log("dia en curso",date_);
+            if(date_.getDay()==5){
+
+                    var sabado=new Date(arr[i].fecha+dia);
+                    console.log("sabado",sabado.getDate(),sabado.getDay());
+                    if(!fechas[sabado.getDate()+"_"+sabado.getDay()] ){
+                    
+                            arrTemp.push({
+                                Libre_Pendiente_Hoy:0,
+                                Libre_Retrasado:0,
+                             
+                                fecha:new Date(arr[i].fecha+dia+dia),
+                                Total:0,
+                                agregado:true,
+                                key:arr[i].fecha+dia
+                            });
+
+                    }
+
+            }
+
+           
+            if(date_.getDay()==6){
+            
+                    var domingo=new Date(arr[i].fecha+dia+dia );
+                    console.log("domingooo",domingo.getDate(),domingo.getDay());
+                    if(!fechas[domingo.getDate()+"_"+domingo.getDay()] ){
+                        console.log("insertaa",date_.getDay());
+                            arrTemp.push({
+                                Libre_Pendiente_Hoy:0,
+                                Libre_Retrasado:0,
+                             
+                                fecha:new Date(arr[i].fecha+dia+dia),
+                                Total:0,
+                                agregado:true,
+                                key:arr[i].fecha+dia+dia
+                            });
+
+                    }
+            }
+
+    }
+
+    arr=arrTemp; 
+
 
     var ancho=20;
 
@@ -133,7 +191,17 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
         d3.select("#svgTooltip3")
                 .append("text")						
                 .attr("class","penDetail")
-                .style("fill","#ffffff")		
+                .style("fill",function(d){
+                                    
+                    var color ="#FFFFFF";
+
+                    if(arr[i].agregado){
+                        color ="#5C5C5C";
+                    }
+                    
+                    return color;
+                    
+                })		
                 .style("font-family","Cabin")
                 .style("font-weight","bold")
                 .style("font-size",tamanioFuente)	
@@ -148,7 +216,17 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
         d3.select("#svgTooltip3")
                 .append("text")						
                 .attr("class","penDetail")
-                .style("fill","#ffffff")		
+                .style("fill",function(d){
+                                    
+                    var color ="#FFFFFF";
+
+                    if(arr[i].agregado){
+                        color ="#5C5C5C";
+                    }
+                    
+                    return color;
+                    
+                })		
                 .style("font-family","Cabin")
                 .style("font-weight","bold")
                 .style("font-size",tamanioFuente)	

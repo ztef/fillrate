@@ -1,4 +1,4 @@
-const _bkserver = "https://uscldv3dwad01.azurewebsites.net/";
+const _bkserver = "https://uscldv3dwad01.azurewebsites.net";
 //const _bkserver = "http://10.26.83.135:8080";
 
 var store={
@@ -28,7 +28,8 @@ var store={
             //{apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatZT" ,varName:"cat_zt",onInitLoad:true,useDateFilters:false},
             //{sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true}, 
             {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetFrentes_FillRate",varName:"cat_cliente",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",onInitLoad:true,useDateFilters:true},            
-            
+            //Catalogos PRODUCTO y PRESENTACION 
+            //{apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_producto",onInitLoad:true,useDateFilters:true},
   
     ],
 
@@ -44,7 +45,6 @@ var store={
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate",varName:"ventas",onInitLoad:false,useDateFilters:true},
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_PedidosPendientes",varName:"pendientes",onInitLoad:false,useDateFilters:true},
        
-
     ],
 
     catlogsForFilters:[         

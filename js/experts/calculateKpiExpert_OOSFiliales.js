@@ -54,9 +54,7 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(cb){
              
                              }
              
-                         }
-
-                         
+                         }                         
 
                         //FILTRO DE MASIVO
                         if($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""){
@@ -73,7 +71,7 @@ calculateKpiExpert_OOSFiliales.calculateKPI=function(cb){
                                 
                         } 
                         
-
+                        
                        
                          var URL=apiURL+"/"+serviceName+"?fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
                          console.log(URL);  
