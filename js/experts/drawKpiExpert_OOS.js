@@ -113,10 +113,10 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
         // DEFINE COLUMNAS
       
         var columns = [
-            { key: "key", header: "Producto", sortable: true, width: "100px" },
-            { key: "Numero", header: "# OOS", sortable: true, width: "100px" },
-            { key: "OOS", header: "% OOS", sortable: true, width: "100px" },
-            { key: "Numera", header: "Volumen Entregado", sortable: true, width: "100px" },
+            { key: "key", header: "Producto", sortable: true, width: "150px" },
+            { key: "Numero", header: "# OOS", sortable: true, width: "150px" },
+            { key: "OOS", header: "% OOS", sortable: true, width: "150px" },
+            { key: "Numera", header: "Volumen Entregado", sortable: true, width: "150px" },
           
           ];
         
@@ -444,7 +444,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                     .style("font-size",tamanioFuente)	
                     .style("text-anchor","start")
                     .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
-                    .text("Volumen Físico:"); 
+                    .text("Inventario:"); 
 
                 d3.select("#svgTooltip3")
                     .append("text")						
@@ -455,7 +455,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                     .style("font-size",tamanioFuente)	
                     .style("text-anchor","start")
                     .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.55  )+")  rotate("+(0)+") ")
-                    .text("OOS CED:");
+                    .text("Procentaje %");
                 
 
             }
