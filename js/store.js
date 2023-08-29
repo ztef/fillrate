@@ -12,8 +12,6 @@ var store={
     
             //DATA LOCAL
 
- 
-
             //CATALOGOS
             //{sourceName:"regionSource",varName:"cat_region",onInitLoad:true},
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatRegion" ,varName:"cat_region",onInitLoad:true,useDateFilters:false},

@@ -464,20 +464,20 @@ color: yellow;
         switch (event.keyCode) {
          
             //MODIFICA TAMAÑO DE CILINDROS
-            case 39:   
+            case 37:   
                 escalado=escalado*(.7);
                 Stage.DrawMapObjects(currentEntities,store.mainDataset);
             break;
-            case 37:   
+            case 39:   
                 escalado=escalado*(1.3);
                 Stage.DrawMapObjects(currentEntities,store.mainDataset);
             break;
             //MODIFICA OPACIDAD DEL MAPA
-            case 38:   
+            case 40:   
                 opacidadCesium-=8;
                 $("#cesiumContainer").css("opacity",opacidadCesium/100);
             break;
-            case 40:   
+            case 38:   
                 opacidadCesium+=8;
                 $("#cesiumContainer").css("opacity",opacidadCesium/100);
             break;

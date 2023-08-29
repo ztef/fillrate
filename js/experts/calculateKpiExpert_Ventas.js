@@ -261,7 +261,7 @@ calculateKpiExpert_Ventas.getTooltipDetail=function(entityId){
 
                 var text=`<div class="tooltipDetailElement"><img id="" src="images/ventas.png" style=""></img>
                     <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento Ventas: </span><br>
-                    <span style='color:#fff60150;font-size:px;'>Diferencia:</span> <span style='color:#ffffff'>${prodPer} </span><span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].ventas.VolumenPlan/1000)}k , Real:${formatNumber(entities[i].ventas.VolumenReal/1000)}k)</span><br>
+                    <span style='color:#fff60150;font-size:px;'></span> <span style='color:#ffffff'>${prodPer} </span><span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].ventas.VolumenPlan/1000)}k , Real:${formatNumber(entities[i].ventas.VolumenReal/1000)}k)</span><br>
                     </div>
                 `
 

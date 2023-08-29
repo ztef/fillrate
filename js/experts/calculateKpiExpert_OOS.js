@@ -97,9 +97,11 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 
                                         for(var i=0;  i < entities.length; i++){ 
             
-                                            entities[i].oos={oos:0,Numerador:0,Denominador:0,values:[]};
+                                            entities[i].oos={oos:0,Numerador:0,Denominador:0,oos_lastDate:{Numerador:0,Denominador:0,oos:undefined},values:[]};
                                             entities_coll[entities[i].key]=entities[i];                                 
                                         }  
+
+                                        var maxDate=0;
 
                                         for(var j=0;  j < data.recordset.length; j++){
 
@@ -119,7 +121,9 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                                         }                   
                                         
                                                         data.recordset[j].fecha= new Date(Number(fechaSplit[0]),Number(fechaSplit[1])-1 ,Number(fechaSplit[2])); 
-                        
+                                                        
+                                                        if(maxDate < data.recordset[j].fecha.getTime())
+                                                                maxDate = data.recordset[j].fecha.getTime();
                                                 }
 
                                                 var entidad=entities_coll[data.recordset[j].Agrupador];
@@ -141,6 +145,33 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 
                                         }
 
+                                        for(var i=0;  i < entities.length; i++){ 
+
+                                                
+                                                for(var j=0;  j < data.recordset.length; j++){                                                        
+
+                                                        var entidad=entities_coll[data.recordset[j].Agrupador];
+
+                                                        if(entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ]] && !entidad){
+                                                                entidad=entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ]];
+                                                        }
+
+                                                        if( entidad ){
+
+                                                                if( data.recordset[j].fecha.getTime() == maxDate ){
+                                                                        entidad.oos.oos_lastDate.Numerador+=Number(data.recordset[j].Numerador); 
+                                                                        entidad.oos.oos_lastDate.Denominador+=Number(data.recordset[j].Denominador); 
+                                                                        entidad.oos.oos_lastDate.oos=Math.round(  (entidad.oos.oos_lastDate.Numerador/entidad.oos.oos_lastDate.Denominador)    *10000)/100;
+
+                                                                }                                              
+                                
+                                                        }
+        
+                                                }
+
+                                        }                                       
+
+                                        
                                         for(var i=0;  i < entities.length; i++){ 
 
                                                 if(entities[i].oos.Numerador>0){                                                      
@@ -185,6 +216,7 @@ calculateKpiExpert_OOS.getTooltipDetail=function(entityId){
                         var text=`<div class="tooltipDetailElement"><img id="" src="images/OOS.png" style=""></img>
                         <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>OOS: </span><br>
                         <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Total:</span> <span style='color:#ffffff'>${ prodPer }</span><br>
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>OOS Ultima Fecha:</span> <span style='color:#ffffff'>${ entities[i].oos.oos_lastDate.oos }%</span><br>
                         </div>
                         `
                         return text;
