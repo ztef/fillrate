@@ -50,7 +50,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
         for(var j=0; j < arr[i].values.length; j++ ){
 
             arr[i].Libre_Retrasado+=Number(arr[i].values[j].Libre_Retrasado);
-            arr[i].Libre_Pendiente_Hoy+=Number(arr[i].values[j].Libre_Retrasado);
+            arr[i].Libre_Pendiente_Hoy+=Number(arr[i].values[j].Libre_Pendiente_Hoy);
             arr[i].Total+=arr[i].Libre_Retrasado+arr[i].Libre_Pendiente_Hoy;
 
         }

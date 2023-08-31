@@ -7,8 +7,27 @@ filterControls.createDataFiltersControls=function(catalogs){
     if(!controlsInit){
         controlsInit=true;
         vix_tt_formatToolTip("#Controls",".",160);
-        $("#Controls").css("max-height","1500px");
-        $("#Controls").css("height","800px");
+        $("#Controls").css("max-height","600px");
+        $("#Controls").css("height","500px");
+        $("#Controls").css("width","341px");
+
+        $("#Controls").append(`
+
+        <div id="ControlsBlocks" style="display: flex;">
+
+                <div id="ControlsFields"></div>  
+                
+                <div style="width:90%;position:absolute;bottom:19px;display: flex;">
+                            <button class="filters" onclick="filterControls.CleanFields();" style="margin: 3px;color:black">Limpiar</button> 
+                            <button class="filters" onclick="filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
+                    </div>
+
+                <div id="ControlsFieldsCustom">                    
+
+                </div>
+        </div>
+
+        `);
     }
     
     
@@ -25,7 +44,7 @@ filterControls.createDataFiltersControls=function(catalogs){
 
             if(catalogs[i].type=="autoComplete"){
                 
-                $("#Controls").append(
+                $("#ControlsFields").append(
                     `<div class="autocomplete loginBtn" style="width: 100%;margin-top:15px;" >
                         <input class="inputs" id="${catalogs[i].id}" type="text" style="border-color:${catalogs[i].color};" name="" placeholder="${ catalogs[i].placeholder }">
                     </div>`
@@ -59,8 +78,37 @@ filterControls.createDataFiltersControls=function(catalogs){
 
         }
 
-    }   
+    } 
 
+
+}
+
+
+filterControls.CleanFields=function(){
+
+    for(var e in createdControls){
+
+        if(e == "nivel_cb"){
+
+            $("#nivel_cb").val(1);
+
+        } else if(e == "masivos_cb"){
+
+            $("#masivos_cb").val("Todos");
+
+        }else{
+
+            $("#"+e).val("");
+
+        }
+       
+    }
+
+    setTimeout(()=>{ 
+
+        filterControls.FilterData();
+    
+    }, 100);
 
 }
 
@@ -88,7 +136,7 @@ var caso=0;
 var filtrosAplicados={};
 filterControls.FilterData=function(e,val){
 
-console.log("FilterData",e);
+    console.log("FilterData",e,val);
 
     if(e){
         
@@ -102,6 +150,7 @@ console.log("FilterData",e);
 
      //Valida si hay valores en los formControls
      caso=0;
+     
      for(var i=0; i < store.catlogsForFilters.length; i++){
          
              if($("#"+store.catlogsForFilters[i].id).val() != "" && $("#"+store.catlogsForFilters[i].id).val() != undefined ){
@@ -114,6 +163,9 @@ console.log("FilterData",e);
      }  
 
     //valida , si no ha cmabiado nada no procede con el filtrado
+    if(!store[store.mainDataset])
+    return;
+
     if( caso==0 && (store[store.mainDataset].length==store.dataToDraw.length) ){
 
         return;
@@ -189,14 +241,57 @@ filterControls.FilterSpecificDataSet=function(Rows,fieldsNames){
        }else{
             no_visibles.push(Rows[i]);    
        }        
-    }    
-   
+    } 
 
     return visibles;    
 
 }
 
 filterControls.showActiveFilters=function(){
+
+    // visibilidad de filtros por nivel
+    if(store.map_var==kpiExpert_OOS_Filiales){        
+
+        $("#oosfil_filter").show();
+        $("#ventas_cb").hide();
+        $("#fillRate_cb ").hide();       
+        
+        $("#id_4").hide();
+        $("#id_5").hide();
+        $("#id_6").hide();
+
+        if($("#nivel_cb").val() > 3 ){
+            $("#nivel_cb").val("3");
+            alert("Se cambia el nivel a Gerencia, No existen niveles mas bajos");
+        }
+            
+
+    }else if(store.map_var==kpiExpert_FR ){
+
+        $("#oosfil_filter").hide();
+        $("#ventas_cb").hide();
+        $("#fillRate_cb").show();
+
+        $("#id_4").show();
+        $("#id_5").show();
+        $("#id_6").show();
+
+    }else if( store.map_var==drawKpiExpert_VENTAS){
+
+        $("#oosfil_filter").hide();
+        $("#ventas_cb").show();
+        $("#fillRate_cb").hide();
+
+        $("#id_4").hide();
+        $("#id_5").hide();
+        $("#id_6").hide();
+
+        if($("#nivel_cb").val() > 3 ){
+            $("#nivel_cb").val("3");
+            alert("Se cambia el nivel a Gerencia, No existen niveles mas bajos");
+        }
+
+    }
 
     svgLines.selectAll(".filters").data([]).exit().remove();
 
@@ -235,7 +330,7 @@ filterControls.showActiveFilters=function(){
 
     for(var i=0; i < store.niveles.length; i++){    
         if( store.niveles[i].id == $("#nivel_cb").val() )
-            nivel+=store.niveles[i].label;           
+            nivel+=store.niveles[i].label;        
     }    
 
     if(store.map_var==kpiExpert_OOS_Filiales){        
@@ -249,39 +344,7 @@ filterControls.showActiveFilters=function(){
         var filtroPresentacion="Sacos y Granel";
         var filtroProducto="Cemento Gris, Mortero, Blanco, Especiales";
 
-    }
-
-    // visibilidad de filtros por nivel
-    if(store.map_var==kpiExpert_OOS_Filiales){        
-
-        $("#oosfil_filter").show();
-        $("#ventas_cb").hide();
-        $("#fillRate_cb ").hide();       
-        
-        $("#id_4").hide();
-        $("#id_5").hide();
-        $("#id_6").hide();
-
-    }else if(store.map_var==kpiExpert_FR ){
-
-        $("#oosfil_filter").hide();
-        $("#ventas_cb").hide();
-        $("#fillRate_cb").show();
-
-        $("#id_4").show();
-        $("#id_5").show();
-        $("#id_6").show();
-
-    }else if( store.map_var==drawKpiExpert_VENTAS){
-
-        $("#oosfil_filter").hide();
-        $("#ventas_cb").show();
-        $("#fillRate_cb").hide();
-
-        $("#id_4").hide();
-        $("#id_5").hide();
-        $("#id_6").hide();
-    }
+    }    
 
     if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
 
@@ -303,9 +366,7 @@ filterControls.showActiveFilters=function(){
        Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;
 
-    $("#titulo").html(titulo);
-
-       
+    $("#titulo").html(titulo);       
 
     svgLines.append("text")						
                     .attr("class","filters")
@@ -333,7 +394,7 @@ var posAnterior;
 filterControls.createHardCodedControls=function(){
 
         // NIVELES DE AGRUPACIÓN
-        $("#Controls").append(
+        $("#ControlsFieldsCustom").append(
                 `
                 <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
                     Nivel de Lectura: <br> <br>                 
@@ -341,8 +402,7 @@ filterControls.createHardCodedControls=function(){
                          
                     </select>
 
-                </div>
-                                
+                </div>                                
                 `
             );
 
@@ -356,10 +416,9 @@ filterControls.createHardCodedControls=function(){
         posAnterior=1;
       
         $("#nivel_cb").change(function(){
-            console.log("Cambia de nivelll");
 
             if($("#nivel_cb").val() > 4){
-                if($("#cat_region").val() == "" &&  $("#cat_estado").val() == "" && $("#cat_gerencia").val() == ""  && $("#cat_un").val() == ""){
+                if($("#cat_cliente").val() == "" && $("#cat_region").val() == "" &&  $("#cat_estado").val() == "" && $("#cat_gerencia").val() == ""  && $("#cat_un").val() == ""){
 
                     if(posAnterior)
                         $("#nivel_cb").val(posAnterior);
@@ -370,13 +429,12 @@ filterControls.createHardCodedControls=function(){
                 }
             }           
 
-            posAnterior=$("#nivel_cb").val();
+            posAnterior=$("#nivel_cb").val();            
             
-            dataManager.ClusterObjects();
         })
 
         // NIVELES DE FILLRATE
-        $("#Controls").append(
+        $("#ControlsFieldsCustom").append(
             `
             <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
                 Niveles de FillRate: <br> <br>                 
@@ -394,12 +452,14 @@ filterControls.createHardCodedControls=function(){
             `
         );
 
+        createdControls["fillRate_cb"]=true;
+
         d3.select("#fillRate_cb").on("change",function(){           
 
                     if($("#fillRate_cb").val()!=""){           
                      
                         filtrosAplicados["niveles_fillrate"]="Menores de "+$("#fillRate_cb").val()+"%";
-                        //dataManager.ClusterObjects();
+                      
 
                     }else{                
 
@@ -414,7 +474,7 @@ filterControls.createHardCodedControls=function(){
         });
 
         // NIVELES DE OOS FILIALES
-        $("#Controls").append(
+        $("#ControlsFieldsCustom").append(
             `
             <div id="oosfil_filter" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
                 Niveles de OOS Filiales: <br> <br>                 
@@ -429,6 +489,8 @@ filterControls.createHardCodedControls=function(){
             </div>                            
             `
         );
+
+        createdControls["oosfil_cb"]=true;
 
        
         d3.select("#oosfil_cb").on("change",function(){           
@@ -451,7 +513,7 @@ filterControls.createHardCodedControls=function(){
         });
 
         // NIVELES DE  VENTA
-        $("#Controls").append(
+        $("#ControlsFieldsCustom").append(
             `
             <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
                 Niveles de Ventas: <br> <br>                 
@@ -467,7 +529,7 @@ filterControls.createHardCodedControls=function(){
             `
         );
 
-        
+        createdControls["ventas_cb"]=true;
 
         d3.select("#ventas_cb").on("change",function(){           
 
@@ -489,15 +551,17 @@ filterControls.createHardCodedControls=function(){
         });
 
         //BUSQUEDA DE ELEMENTOS EN MAPA
-        $("#Controls").append(
+        $("#ControlsFieldsCustom").append(
             `<div class="autocomplete loginBtn" style="width: 100%;margin-top:15px;" >
                 <input class="inputs" id="inputEnfoqueCamara" type="text" style="border-color:#ffffff;" name="" placeholder="Enfocar">
             </div>`
         );
 
+        createdControls["inputEnfoqueCamara"]=true;
+
 
          // FILTRO DE PEDIDOS MASIVOS
-         $("#Controls").append(
+         $("#ControlsFieldsCustom").append(
             `
             <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
                 Pedidos Masivos: <br> <br>                 
@@ -511,6 +575,8 @@ filterControls.createHardCodedControls=function(){
             </div>                            
             `
         );
+
+        createdControls["masivos_cb"]=true;
 
         d3.select("#masivos_cb").on("change",function(){
 

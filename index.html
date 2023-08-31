@@ -154,7 +154,7 @@
             border-radius: 5px;
             padding: 5px;
             position: absolute;
-            z-index: 1;
+            z-index: 999999;
             bottom: -100%;
             left: 50%;
             transform: translateX(-50%);
@@ -270,8 +270,8 @@ color: yellow;
             <div class="tooltipIcon"><img id="cargando" src="images/decrease.png" onclick="radar.escalado=radar.escalado*(.9);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir tamaño Radar</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/fontSize1.png" onclick="escalaTextos=escalaTextos*(1.1);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño texto</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/fontSize2.png" onclick="escalaTextos=escalaTextos*(.9);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño texto</div></div>
-            <div class="tooltipIcon"><img id="cargando" src="images/chemical.png" onclick="$('#Controls').css('visibility','visible');" style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Filtros</div></div>
-            <div class="tooltipIcon"><img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Cambiar Fechas</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/chemical.png" onclick="if(store.fillRate){$('#Controls').css('visibility','visible');}" style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Filtros</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/calendar.png" onclick=" $('.loginContainer').css('visibility','visible');$('#Controls').css('visibility','hidden');" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Cambiar Fechas</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Informe Final</div></div>
             
         </ul>
@@ -319,12 +319,11 @@ color: yellow;
         </div>
 
         <ul id="Controls" class="fa-ul" style="width:150px;float:left;position:fixed;top:120px;font-family:Cabin;box-shadow: 5px 5px 20px #000000;right:10px;font-size:11px;z-index:9999999;opacity:1;line-height: 8px;margin:0px;text-transform:uppercase;border-style:solid;border-color:#254650;border-width:1px;color:#000000;background-color:rgba(0,0,0,.9);padding:20px;border-radius:9px;">
+
         </ul>
         
 
-    </body> 
-
-    
+    </body>     
   
 
     <script>
@@ -410,6 +409,34 @@ color: yellow;
             $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
 
             //setTimeout(()=>{$(".loginBtn").click()}, 1000);
+
+            $(function() { 
+
+                dateInit=new Date($('#datepicker').val());
+                dateEnd=new Date($('#datepicker2').val());
+
+                dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){                    
+
+                    DibujaRegiones();
+
+                    DibujaEstados();
+
+                    filterControls.creaCatalogoDeFrentesDesdeClientes();                       
+
+                    filterControls.createDataFiltersControls(store.catlogsForFilters);
+                    filterControls.createHardCodedControls();
+                    radar.radarInitStage();
+
+                    if(elementosContextoMapa)
+                        elementosContextoMapa.DibujaUNs(); 
+                        
+                    $('.loginContainer').css('visibility','visible');
+
+                    $('#Controls').css('visibility','hidden');
+
+                })
+
+             });
             
             $(".loginBtn").click(function(){
                
@@ -418,30 +445,11 @@ color: yellow;
                     dateInit=new Date($('#datepicker').val());
                     dateEnd=new Date($('#datepicker2').val());
 
-                    dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){
-
-                        DibujaRegiones();
-
-                        DibujaEstados();
-
-                        filterControls.creaCatalogoDeFrentesDesdeClientes();                       
-
-                        filterControls.createDataFiltersControls(store.catlogsForFilters);
-                        filterControls.createHardCodedControls();
-                        radar.radarInitStage();
-
-                        setTimeout(()=>{
-
-                            dataManager.ClusterObjects();
-                           
-                        }, 800);
-
-                        if(elementosContextoMapa)
-                            elementosContextoMapa.DibujaUNs();                        
-
-                    })
+                    initialized=false;
 
                     $('.loginContainer').css('visibility','hidden');
+
+                    dataManager.ClusterObjects();                      
 
                 }else{
                     alert('Seleccione fechas');
@@ -451,7 +459,7 @@ color: yellow;
 
 
             new Promise(Stage.initStage).then(
-                $('.loginContainer').css('visibility','visible')
+                
             );
 
         });

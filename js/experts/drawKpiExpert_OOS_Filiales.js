@@ -14,11 +14,11 @@ kpiExpert_OOS_Filiales.DrawElement=function(entity,i){
         altura1=entity.altura;
     
     var color="#cccccc";
-    if(entity.oosFiliales.oosFiliales <= 8){
+    if(entity.oosFiliales.oosFiliales <= 3){
         color="#28F100";
-    }else if(entity.oosFiliales.oosFiliales <= 10){
+    }else if(entity.oosFiliales.oosFiliales <= 5){
         color="#FFF60C";
-    }else if(entity.oosFiliales.oosFiliales > 10){
+    }else if(entity.oosFiliales.oosFiliales > 5){
         color="#FF0000";
     }
 
@@ -188,9 +188,8 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
       
         var columns = [
             { key: "key", header: "Filiales", sortable: true, width: "200px" },
-            { key: "Numero", header: "# OOS", sortable: true, width: "200px"},
-           
-            { key: "OOS", header: "% OOS", sortable: true, width: "200px"},
+            { key: "Numero", header: "# OOS F.", sortable: true, width: "200px"},           
+            { key: "OOS", header: "% OOS F.", sortable: true, width: "200px"},
            
           
           ];
@@ -632,7 +631,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia=function(entity){
                     .style("font-size",tamanioFuente)	
                     .style("text-anchor","start")
                     .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
-                    .text("Inventario:"); 
+                    .text("Inventario (TM):"); 
 
                 d3.select("#svgTooltip3")
                     .append("text")						
@@ -643,7 +642,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia=function(entity){
                     .style("font-size",tamanioFuente)	
                     .style("text-anchor","start")
                     .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.55  )+")  rotate("+(0)+") ")
-                    .text("Porcentaje %");
+                    .text("Porcentaje (%):");
                 
 
             }
