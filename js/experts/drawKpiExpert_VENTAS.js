@@ -237,8 +237,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
         var barValue = vix_tt_formatNumber(value)+'%   ';
     
         return '<div class="bar-container">' +
-        '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
-        '<span class="bar-value">' + barValue + '</span>' +
+        '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
         '</div>';
     },
     Peso: function(value){
@@ -417,9 +417,9 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%';
         
             return '<div class="bar-container">' +
-            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
-            '<span class="bar-value">' + barValue + '</span>' +
-            '</div>';
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
+        '</div>';
     
         },
         Peso: function(value){
