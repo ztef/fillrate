@@ -171,7 +171,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       borderRadius: "7px",
       backgroundColor: "rgba(0, 0, 0, 0.85)",
       boxShadow: "rgba(0, 0, 0, .5) 19px 15px 24px",
-      width: width+"px", // You can adjust the width as needed
+      width: width+"px", 
       "max-height": "650px",
       overflow:"auto",
      
@@ -237,6 +237,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
         css: {
           float: "right",
           cursor: "pointer",
+          color: "white",
           backgroundColor: "transparent",
           border: "none",
         },
@@ -255,14 +256,87 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
     });
 
 
-   
-
-
-
-
   }
 
 
+
+  function vix_tt_formatBottomBar(divElement, exportHandler) {
+    // Create a spacer element for space before the bottomBar
+    var spacer = $("<div>", {
+      css: {
+        height: "20px", // Adjust the height for the desired space
+      },
+    });
+  
+    // Create bottom bar
+    var bottomBar = $("<div>", {
+      class: "bottom-bar",
+      css: {
+        padding: "5px",
+        height: "20px",
+        backgroundColor: "#1f2e39",
+        borderTopLeftRadius: "0px",
+        borderTopRightRadius: "0px",
+      },
+    });
+  
+    // Create download button with an icon
+    var downloadButton = $("<button>", {
+      class: "download-button",
+      css: {
+        float: "right",
+        cursor: "pointer",
+        backgroundColor: "transparent",
+        border: "none",
+        color: "white",
+      },
+    }).append('<i class="fas fa-download"></i>');
+  
+    bottomBar.append(downloadButton);
+  
+    // Add spacer before the bottomBar
+    $(divElement).append(spacer);
+  
+    // Add bottom bar to the div
+    $(divElement).append(bottomBar);
+  
+    // Add click event for downloading in Excel format
+    downloadButton.on("click", function () {
+      exportHandler(); // Call the provided export handler
+    });
+  }
+  
+
+// Export handler function to download data in Excel format
+function exportToExcel(data, filename) {
+  var wb = XLSX.utils.book_new();
+  var ws = XLSX.utils.json_to_sheet(data);
+  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+  // Convert workbook to binary format
+  var wbout = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
+
+  // Convert binary string to Blob
+  var blob = new Blob([s2ab(wbout)], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  // Create a download link and trigger click event
+  var downloadLink = document.createElement("a");
+  downloadLink.href = URL.createObjectURL(blob);
+  downloadLink.download = filename + ".xlsx";
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+}
+
+// Utility function to convert s to array buffer
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
+  return buf;
+}
   
   
   /*
