@@ -86,8 +86,8 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
       
      var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "MasivosVol", header: "Volumen Masivos", sortable: true, width: "300px" },    
-        { key: "totalSolicitado", header: "Vol. Solicitado (%)", sortable: true, width: "300px" },
+        { key: "MasivosVol", header: "Volumen Masivos", sortable: true, width: "150px" },    
+        { key: "totalSolicitado", header: "Vol. Solicitado (%)", sortable: true, width: "150px" },
         ];
 
     // DEFINE VISITORS PARA CADA COLUMNA
@@ -106,7 +106,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
               
 
                 return '<div class="bar-container">' +
-                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
+               
                 '<span class="bar-value">' + barValue + '</span>' +
                 '</div>';
 
@@ -121,7 +121,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
               
 
                 return '<div class="bar-container">' +
-                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
+              
                 '<span class="bar-value">' + barValue + '</span>' +
                 '</div>';
 

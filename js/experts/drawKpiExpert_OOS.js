@@ -140,9 +140,9 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
             return '<div class="bar-container">' +
-            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
-            '<span class="bar-value">' + barValue + '</span>' +
-            '</div>';
+                    '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+                    + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
+                   '</div>';
         },
         Numera: function(value){
       
@@ -150,9 +150,9 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
             var barValue = vix_tt_formatNumber(value);
        
            return '<div class="bar-container">' +
-           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +  
-           '<span class="bar-value">' + barValue + '</span>' +    
-           '</div>';
+                    '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+                    + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
+                  '</div>';
         }
       };
     
@@ -328,6 +328,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             d3.select("#svgTooltip3")                     
                 .style("width", svgTooltipWidth )
                 .style("height", (svgTooltipHeight)+50 )
+                
                             ;
 
             for(var i=0; i < arr.length; i++ ){   

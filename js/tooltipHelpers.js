@@ -239,6 +239,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
           cursor: "pointer",
           backgroundColor: "transparent",
           border: "none",
+          color: "#ffffff",
         },
       }).append('<i class="fas fa-times"></i>'); 
 

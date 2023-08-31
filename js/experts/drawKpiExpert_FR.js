@@ -271,8 +271,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
               
 
                 return '<div class="bar-container">' +
-                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
                 '<span class="bar-value">' + barValue + '</span>' +
+                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
                 '</div>';
 
 

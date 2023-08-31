@@ -103,7 +103,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         { key: "VolVenta_Real", header: "Vol Real", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
-        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+        { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
     
@@ -131,9 +131,9 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%';
         
             return '<div class="bar-container">' +
-            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
-            '<span class="bar-value">' + barValue + '</span>' +
-            '</div>';
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
+        '</div>';
     
         },
         Peso: function(value){

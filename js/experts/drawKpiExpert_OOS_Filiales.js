@@ -209,8 +209,8 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
       
     
         return '<div class="bar-container">' +
-        '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
-        '<span class="bar-value">' + barValue + '</span>' +
+        '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
         '</div>';
     },
    
@@ -220,8 +220,8 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
         var barValue = vix_tt_formatNumber(value)+'%   ';
     
         return '<div class="bar-container">' +
-        '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>'+
-        '<span class="bar-value">' + barValue + '</span>' +
+        '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
         '</div>';
     },
       
