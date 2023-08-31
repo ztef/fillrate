@@ -72,7 +72,8 @@ Stage.initStage=function(resolve, reject){
 						if( ultimosEstadosDibujados[e] ){
 
 							if( ultimosEstadosDibujados[e][0]._id == pickedObject.id._id ){
-								Stage.FocusMapElement(e);
+								//Stage.FocusMapElement(e);
+								filterControls.lookForEntity(e,"cat_estado");
 							}
 
 						}

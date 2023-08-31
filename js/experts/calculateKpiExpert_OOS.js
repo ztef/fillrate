@@ -216,7 +216,7 @@ calculateKpiExpert_OOS.getTooltipDetail=function(entityId){
                         var text=`<div class="tooltipDetailElement"><img id="" src="images/OOS.png" style=""></img>
                         <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>OOS: </span><br>
                         <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Total:</span> <span style='color:#ffffff'>${ prodPer }</span><br>
-                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>OOS Ultima Fecha:</span> <span style='color:#ffffff'>${ entities[i].oos.oos_lastDate.oos }%</span><br>
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>OOS Ultima Fecha:</span> <span style='color:#ffffff'>${ entities[i].oos.oos_lastDate.oos }% <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Num: ${entities[i].oos.oos_lastDate.Numerador})</span></span><br>
                         </div>
                         `
                         return text;

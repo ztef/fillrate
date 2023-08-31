@@ -212,7 +212,7 @@ radar.DrawEntities=function(){
                     
                 }
                 
-                svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length)+100 );
+                svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length)+200 );
 
                 entities[i].radarData={};
 

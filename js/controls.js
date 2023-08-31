@@ -5,10 +5,11 @@ var controlsInit=false;
 filterControls.createDataFiltersControls=function(catalogs){
 
     if(!controlsInit){
+
         controlsInit=true;
         vix_tt_formatToolTip("#Controls",".",160);
         $("#Controls").css("max-height","600px");
-        $("#Controls").css("height","500px");
+        $("#Controls").css("height","540px");
         $("#Controls").css("width","341px");
 
         $("#Controls").append(`
@@ -28,6 +29,8 @@ filterControls.createDataFiltersControls=function(catalogs){
         </div>
 
         `);
+
+        filterControls.creaCatalogosDerivadorDeClientes();    
     }
     
     
@@ -112,28 +115,90 @@ filterControls.CleanFields=function(){
 
 }
 
-filterControls.creaCatalogoDeFrentesDesdeClientes=function(){
+// SE CREAN CATALOGOS A PARTIR DE UNA UNICA CONSULTA 
+filterControls.creaCatalogosDerivadorDeClientes=function(){
 
     if(store.cat_cliente){
 
+            // FRENTES
+
             var arrTemp=[];  
+
+            var idCreados={};
+
+            var caso=0;
             
             for(var i=0; i < store.cat_cliente.length; i++){
 
-                arrTemp[i]={...store.cat_cliente[i]};
-                arrTemp[i].ID=arrTemp[i].FrenteNum;
-                arrTemp[i].Nombre=arrTemp[i].Frente;
+                if(!idCreados[store.cat_cliente[i].FrenteNum]){
+                    arrTemp[caso]={...store.cat_cliente[i]};
+                    arrTemp[caso].ID=arrTemp[caso].FrenteNum;
+                    arrTemp[caso].Nombre=arrTemp[caso].Frente;
+                    idCreados[arrTemp[caso].FrenteNum]=true;
+                    caso++;
+                }              
+
             }
 
             store.cat_frente=arrTemp;
 
-    }
-    
+            // SUCURSALES            
+
+            var arrTemp=[]; 
+            
+            var idCreados={};
+
+            var caso=0;
+            
+            for(var i=0; i < store.cat_cliente.length; i++){
+
+                if(store.cat_cliente[i].Destino == store.cat_cliente[i].Frente){
+
+                    if(!idCreados[store.cat_cliente[i].DestinoNum]){
+
+                        arrTemp[caso]={...store.cat_cliente[i]};
+                        arrTemp[caso].ID=arrTemp[caso].DestinoNum;
+                        arrTemp[caso].Nombre=arrTemp[caso].Destino;                  
+                        idCreados[arrTemp[caso].DestinoNum]=true;
+                        caso++;
+
+                    }
+                }
+
+            }
+
+            store.cat_sucursal=arrTemp;
+
+            // CLIENTES  HOLDINGS            
+
+            var arrTemp=[]; 
+            
+            var idCreados={};
+
+            var caso=0;
+            
+            for(var i=0; i < store.cat_cliente.length; i++){               
+
+                    if(!idCreados[store.cat_cliente[i].HoldingNum]){
+
+                        arrTemp[caso]={...store.cat_cliente[i]};                    
+                        idCreados[arrTemp[caso].HoldingNum]=true;
+                        caso++;
+
+                    }               
+
+            }
+
+            store.cat_cliente=arrTemp;
+
+    }    
 
 }
 
 var caso=0;
 var filtrosAplicados={};
+var nivelLecturaActual;
+
 filterControls.FilterData=function(e,val){
 
     console.log("FilterData",e,val);
@@ -150,7 +215,7 @@ filterControls.FilterData=function(e,val){
 
      //Valida si hay valores en los formControls
      caso=0;
-     
+
      for(var i=0; i < store.catlogsForFilters.length; i++){
          
              if($("#"+store.catlogsForFilters[i].id).val() != "" && $("#"+store.catlogsForFilters[i].id).val() != undefined ){
@@ -160,7 +225,14 @@ filterControls.FilterData=function(e,val){
                 delete filtrosAplicados[store.catlogsForFilters[i].id];
              }
          
-     }  
+     } 
+
+     if($("#nivel_cb").val()!=nivelLecturaActual){
+            nivelLecturaActual=$("#nivel_cb").val();
+            caso++;
+     }     
+
+     console.log("caso",caso);
 
     //valida , si no ha cmabiado nada no procede con el filtrado
     if(!store[store.mainDataset])
@@ -412,6 +484,7 @@ filterControls.createHardCodedControls=function(){
         }
 
         $("#nivel_cb").val(1);
+        nivelLecturaActual=1;
 
         posAnterior=1;
       
@@ -741,12 +814,12 @@ filterControls.lookForEntity=function(name, catlog){
                         if(store.niveles[j].coordinatesSource){
                             
                             if(store.niveles[j].coordinatesSource==e){
-
+                                console.log(String($("#nivel_cb").val()) , String(store.niveles[j].id));
                                 if( String($("#nivel_cb").val()) != String(store.niveles[j].id) ){
                                     $("#nivel_cb").val(store.niveles[j].id);
                                     backInfoNav.push({entity:name , catlog:e});
                                     waitingToFocus=name;
-                                    $("#nivel_cb").change();
+                                    filterControls.FilterData();
                                 }else{
                                     Stage.FocusMapElement(name);
                                 }                 

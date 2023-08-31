@@ -32,9 +32,8 @@ dataManager.CambiaModoKPI=function(modo){
         dataManager.ClusterObjects();
       
         
-    }   
+    }     
     
-    radar.CleanWindows();
 
 }
 
