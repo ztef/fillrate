@@ -192,7 +192,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip5","Abasto por U.N. como Origen",700);
+      vix_tt_formatToolTip("#toolTip5","Abasto por U.N. como Origen " ,700);
     
       
             // COLUMNAS CON TOTALES :
@@ -651,11 +651,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         $("#toolTip4").css("left",23+"%");
         $("#toolTip4").css("top",5+"%");      
         
-        if( 4 == $("#nivel_cb").val() ){
-            vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+" Entrega Final",700);
-        }else{
-            vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia U.N. Entrega Final",700);
-        }   
+         
         
 
         $("#toolTip4").append("<svg id='svgTooltip4'  style='pointer-events:none; line-heigth:22px;'></svg> ");
@@ -733,11 +729,12 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         }
       };
     
-    
-      // FORMATEA DIV :
-    
-      vix_tt_formatToolTip("#toolTip4","Detalle de Ventas por Producto y Presentación",700);
-    
+      if( 4 == $("#nivel_cb").val() ){
+        vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",700);
+      }else{
+          vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia U.N. Entrega Final",700);
+      } 
+   
       
             // COLUMNAS CON TOTALES :
     

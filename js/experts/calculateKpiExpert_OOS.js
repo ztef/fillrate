@@ -103,6 +103,8 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 
                                         var maxDate=0;
 
+                                        console.log(entities_coll,entities);
+
                                         for(var j=0;  j < data.recordset.length; j++){
 
                                                 if(data.recordset[j].Fecha!=""){
@@ -179,8 +181,7 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                                         entities[i].oos.oos=Math.round(  (entities[i].oos.Numerador/entities[i].oos.Denominador)    *10000)/100;
                                                 }else{
                                                         entities[i].oos.oos=0;
-                                                }
-                                               
+                                                }                                               
                                                                                 
                                         }  
 
@@ -197,7 +198,6 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 
         });
 }
-
 
 
 calculateKpiExpert_OOS.getTooltipDetail=function(entityId){    

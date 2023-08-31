@@ -430,7 +430,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                                 .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight*.5)-altura2-marginBottom-3   )+")  rotate("+(-90)+") ")
                                 .text(function(){
                                 
-                                    return  formatNumber(arr[i].Fisico)+"T" ;
+                                    return  formatNumber(arr[i].Fisico) ;
                 
                                 });
 
@@ -444,7 +444,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                     .style("font-size",tamanioFuente)	
                     .style("text-anchor","start")
                     .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
-                    .text("Inventario:"); 
+                    .text("Inventario (TM):"); 
 
                 d3.select("#svgTooltip3")
                     .append("text")						
@@ -455,7 +455,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                     .style("font-size",tamanioFuente)	
                     .style("text-anchor","start")
                     .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.55  )+")  rotate("+(0)+") ")
-                    .text("Procentaje %");
+                    .text("Porcentaje (%):");
                 
 
             }

@@ -69,9 +69,6 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",34+"%");
 
-    // FORMATEA TOOL TIP :
-
-    vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+entity.key,svgTooltipWidth);
 
     //Agrega div con un elemento svg :
 
@@ -154,7 +151,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip2","Masivos por estado de"+entity.key+ 600);
+      vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+entity.key, 600);
     
       // CREA TABLA USANDO DATOS
     
