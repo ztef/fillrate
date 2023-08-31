@@ -103,6 +103,8 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 
                                         var maxDate=0;
 
+                                        console.log(entities_coll,entities);
+
                                         for(var j=0;  j < data.recordset.length; j++){
 
                                                 if(data.recordset[j].Fecha!=""){
@@ -179,8 +181,7 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                                         entities[i].oos.oos=Math.round(  (entities[i].oos.Numerador/entities[i].oos.Denominador)    *10000)/100;
                                                 }else{
                                                         entities[i].oos.oos=0;
-                                                }
-                                               
+                                                }                                               
                                                                                 
                                         }  
 
@@ -199,7 +200,6 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 }
 
 
-
 calculateKpiExpert_OOS.getTooltipDetail=function(entityId){    
 
         for(var i=0;  i < entities.length; i++){                
@@ -216,7 +216,7 @@ calculateKpiExpert_OOS.getTooltipDetail=function(entityId){
                         var text=`<div class="tooltipDetailElement"><img id="" src="images/OOS.png" style=""></img>
                         <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>OOS: </span><br>
                         <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Total:</span> <span style='color:#ffffff'>${ prodPer }</span><br>
-                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>OOS Ultima Fecha:</span> <span style='color:#ffffff'>${ entities[i].oos.oos_lastDate.oos }%</span><br>
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>OOS Ultima Fecha:</span> <span style='color:#ffffff'>${ entities[i].oos.oos_lastDate.oos }% <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Num: ${entities[i].oos.oos_lastDate.Numerador})</span></span><br>
                         </div>
                         `
                         return text;

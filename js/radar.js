@@ -102,21 +102,25 @@ radar.CleanWindows=function(){
         
     }
 
+    dataLoader.HideLoadings();
+
+    $('.loginContainer').css('visibility','hidden');
+
 }
 
 radar.kpis=[
 
     {label:"Cump Venta",color:"#00DEFF",var:"ventas",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"Venta" ,unidad:"%",tooltipDetail:drawKpiExpert_VENTAS,calculateExpert:calculateKpiExpert_Ventas},
-    {label:"Fill Rate",color:"#E4FF00",var:"fillRate",minimoValor:50 ,valorEquilibrio:100,maximoValor:150, abreviacion:"FR",unidad:"%",tooltipDetail:kpiExpert_FR,calculateExpert:calculateKpiExpert_FR},
+    {label:"Fill Rate",color:"#E4FF00",var:"fillRate",minimoValor:50 ,valorEquilibrio:100,maximoValor:150, abreviacion:"FillRate",unidad:"%",tooltipDetail:kpiExpert_FR,calculateExpert:calculateKpiExpert_FR},
     {label:"Pedidos Retrasados (Miles de Ton)",color:"#00F6FF",var:"pendientes",labelVar: "volumen",minimoValor:100,valorEquilibrio:0 ,maximoValor:-100, abreviacion:"Retra",tooltipDetail:kpiExpert_PENDIENTES,unidad:"k",calculateExpert:calculateKpiExpert_Pendientes},
-    {label:"Pedidos Masivos",color:"#FF00F6",var:"masivos",minimoValor:50,valorEquilibrio:0 ,maximoValor:-50, abreviacion:"MAS",unidad:"%" ,tooltipDetail:kpiExpert_MAS,calculateExpert:calculateKpiExpert_Mas},
+    {label:"Pedidos Masivos",color:"#FF00F6",var:"masivos",minimoValor:50,valorEquilibrio:0 ,maximoValor:-50, abreviacion:"Masiv",unidad:"%" ,tooltipDetail:kpiExpert_MAS,calculateExpert:calculateKpiExpert_Mas},
     
     {label:"Out of Stock Filiales",color:"#FCFF05",var:"oosFiliales",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS FIL",unidad:"%",tooltipDetail:kpiExpert_OOS_Filiales,calculateExpert:calculateKpiExpert_OOSFiliales},
-    {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS Ced",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},    
-    {label:"Cump Abasto",color:"#E361FF", var:"abasto",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"Abas",unidad:"%",tooltipDetail:kpiExpert_ABAS,calculateExpert:calculateKpiExpert_Abasto},
+    {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS Cedis",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},    
+    {label:"Cump Abasto",color:"#E361FF", var:"abasto",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"Abasto",unidad:"%",tooltipDetail:kpiExpert_ABAS,calculateExpert:calculateKpiExpert_Abasto},
     {label:"Cump Producción",color:"#FFFFFF",var:"produccion",minimoValor:60,valorEquilibrio:100 ,maximoValor:140, abreviacion:"Prod",unidad:"%",tooltipDetail:kpiExpert_PROD,calculateExpert:calculateKpiExpert_Produccion},
     {label:"Déficit Flota",color:"#6CFF00",var:"df",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"Flota",unidad:""},
-    {label:"Estadías",color:"#FF00DE",var:"estadias",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"EST",unidad:""}
+    {label:"Estadías",color:"#FF00DE",var:"estadias",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"T. Recogido",unidad:""}
 ];
 
 radar.DrawEntities=function(){  
@@ -208,7 +212,7 @@ radar.DrawEntities=function(){
                     
                 }
                 
-                svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length)+100 );
+                svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length)+200 );
 
                 entities[i].radarData={};
 
@@ -506,11 +510,9 @@ radar.DrawEntityValues=function(entity){
        
         if( entity[radar.config[i].var]!= null && entity[radar.config[i].var]!= undefined ){  
                 
-                if( entity[radar.config[i].var][radar.config[i].var]!= null && entity[radar.config[i].var][radar.config[i].var]!= undefined ){ 
+                if( entity[radar.config[i].var][radar.config[i].var]!= null && entity[radar.config[i].var][radar.config[i].var]!= undefined ){                    
 
-                   
-
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.45 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.20) , radio*.4 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
 
@@ -528,7 +530,7 @@ radar.DrawEntityValues=function(entity){
 
                 }else{ 
 
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.20), radio*.4 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
@@ -539,7 +541,7 @@ radar.DrawEntityValues=function(entity){
 
         }else{
 
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.20), radio*.4 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
@@ -570,7 +572,7 @@ radar.DrawEntityValues=function(entity){
               
                        // var posicionMarcador=GetValorRangos( entity[radar.config[i].var][radar.config[i].var] , radar.config[i].minimoValor , radar.config[i].maximoValor , 0+(radio*.16) , (radio/2)*.99 );
 
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.45 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.20), radio*.4 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
 
@@ -744,7 +746,7 @@ radar.DrawEntityValues=function(entity){
                                 
                 }else{ // Para dibujar circulo aun cuando no se tiene datos
 
-                    var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                    var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.20), radio*.4 ,(radio/2)*.99]);
 
                     var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
@@ -767,7 +769,7 @@ radar.DrawEntityValues=function(entity){
                 
             }else{ // Para dibujar circulo aun cuando no se tiene datos
 
-                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.16), radio*.4 ,(radio/2)*.99]);
+                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.20), radio*.4 ,(radio/2)*.99]);
 
                 var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 

@@ -72,7 +72,8 @@ Stage.initStage=function(resolve, reject){
 						if( ultimosEstadosDibujados[e] ){
 
 							if( ultimosEstadosDibujados[e][0]._id == pickedObject.id._id ){
-								Stage.FocusMapElement(e);
+								//Stage.FocusMapElement(e);
+								filterControls.lookForEntity(e,"cat_estado");
 							}
 
 						}
@@ -229,6 +230,17 @@ var mapElements={};
 var mapElementsArr=[];
 var escalado=1;
 var currentEntities;
+
+Stage.GoHome=function(){
+	viewer.camera.flyTo({
+		destination : Cesium.Cartesian3.fromDegrees(-101.777344, 8.121772, 2500000.0),
+		orientation : {
+			heading : Cesium.Math.toRadians(0),
+			pitch : Cesium.Math.toRadians(-58.0),
+			roll : 0.0
+		}
+	});
+}
 
 Stage.EraseMapObjects=function(){
 

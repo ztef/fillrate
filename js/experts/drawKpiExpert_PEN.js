@@ -50,7 +50,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
         for(var j=0; j < arr[i].values.length; j++ ){
 
             arr[i].Libre_Retrasado+=Number(arr[i].values[j].Libre_Retrasado);
-            arr[i].Libre_Pendiente_Hoy+=Number(arr[i].values[j].Libre_Retrasado);
+            arr[i].Libre_Pendiente_Hoy+=Number(arr[i].values[j].Libre_Pendiente_Hoy);
             arr[i].Total+=arr[i].Libre_Retrasado+arr[i].Libre_Pendiente_Hoy;
 
         }
@@ -313,6 +313,24 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
 
             var ancho=GetValorRangos(  Number(dataElement[campos[i]]) ,1, maximo ,1,svgTooltipWidth*.4);
         
+            d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","penDetail")
+                        .style("fill",colores[caso])		
+                        .style("font-family","Cabin")
+                        .style("font-weight","bold")
+                        .style("font-size",tamanioFuente*.8)
+                        .style("text-anchor","start")
+                        .style("opacity",0 )
+                        .attr("transform"," translate("+String( ancho+(marginLeft)+10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
+                        .text(function(){
+            
+                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])))))+" T";
+            })
+            .transition().delay(0).duration(1000)
+            .style("opacity",1 )
+        ;                  
+           
             d3.select("#svgTooltip").append("rect")		    		
                         .attr("width",1 )
                         .attr("class","penDetail")
@@ -323,6 +341,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
                         .transition().delay(0).duration(1000)
                         .attr("width",ancho )
                         ;
+
+            
 
             d3.select("#svgTooltip")
                         .append("text")						
@@ -342,23 +362,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
                         .style("opacity",1 )
                     ;
 
-            d3.select("#svgTooltip")
-                        .append("text")						
-                        .attr("class","penDetail")
-                        .style("fill",colores[caso])		
-                        .style("font-family","Cabin")
-                        .style("font-weight","bold")
-                        .style("font-size",tamanioFuente*.8)						
-                        .style("text-anchor","start")
-                        .style("opacity",0 )
-                        .attr("transform"," translate("+String( ancho+(marginLeft)+10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
-                        .text(function(){
-                        
-                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])))))+" T";
-                        })
-                        .transition().delay(0).duration(1000)
-                        .style("opacity",1 )
-                    ;                  
+          
 
         }
         caso++;

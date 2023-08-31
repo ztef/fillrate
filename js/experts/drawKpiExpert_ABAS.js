@@ -111,8 +111,8 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     var marginTop=35;
     
     $("#toolTip5").css("visibility","visible");            
-    $("#toolTip5").css("left",10+"%");
-    $("#toolTip5").css("top",5+"%");
+    $("#toolTip5").css("left",23+"%");
+    $("#toolTip5").css("top",16+"%");
 
        
     /* 
@@ -146,7 +146,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
         { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
-        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+        { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
     
@@ -174,8 +174,8 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
             return '<div class="bar-container">' +
-            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
-            '<span class="bar-value">' + barValue + '</span>' +
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+            + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
             '</div>';
         },
         Peso: function(value){
@@ -192,7 +192,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip5","Abasto por U.N. como Origen",700);
+      vix_tt_formatToolTip("#toolTip5","Abasto por U.N. como Origen " ,700);
     
       
             // COLUMNAS CON TOTALES :
@@ -326,7 +326,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
-        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+        { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
     
@@ -354,8 +354,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
             return '<div class="bar-container">' +
-            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
-            '<span class="bar-value">' + barValue + '</span>' +
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+            + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
             '</div>';
         },
         Peso: function(value){
@@ -469,7 +469,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         var marginTop=35;
 
         $("#toolTip3").css("visibility","visible");            
-        $("#toolTip3").css("left",62+"%");
+        $("#toolTip3").css("left",23+"%");
         $("#toolTip3").css("top",5+"%");      
 
             
@@ -504,7 +504,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
-        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+        { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
     
@@ -531,10 +531,9 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             var barWidth = value + '%';
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
-            return '<div class="bar-container">' +
-            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
-            '<span class="bar-value">' + barValue + '</span>' +
-            '</div>';
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
+        '</div>';
         },
         Peso: function(value){
       
@@ -648,14 +647,10 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         var marginTop=35;
 
         $("#toolTip4").css("visibility","visible");    
-        $("#toolTip4").css("left",23+"%");
-        $("#toolTip4").css("top",5+"%");      
+        $("#toolTip4").css("left",62+"%");
+        $("#toolTip4").css("top",16+"%");      
         
-        if( 4 == $("#nivel_cb").val() ){
-            vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+" Entrega Final",700);
-        }else{
-            vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia U.N. Entrega Final",700);
-        }   
+         
         
 
         $("#toolTip4").append("<svg id='svgTooltip4'  style='pointer-events:none; line-heigth:22px;'></svg> ");
@@ -690,7 +685,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
-        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+        { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
     
@@ -718,9 +713,9 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
             return '<div class="bar-container">' +
-            '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +
-            '<span class="bar-value">' + barValue + '</span>' +
-            '</div>';
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
+        '</div>';
         },
         Peso: function(value){
       
@@ -733,11 +728,12 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         }
       };
     
-    
-      // FORMATEA DIV :
-    
-      vix_tt_formatToolTip("#toolTip4","Detalle de Ventas por Producto y Presentación",700);
-    
+      if( 4 == $("#nivel_cb").val() ){
+        vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",700);
+      }else{
+          vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia U.N. Entrega Final",700);
+      } 
+   
       
             // COLUMNAS CON TOTALES :
     

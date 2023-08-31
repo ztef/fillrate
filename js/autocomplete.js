@@ -12,7 +12,7 @@ function autocomplete(inp, arr) {
        
         setTimeout(()=>{ 
           
-          filterControls.FilterData(); 
+          //filterControls.FilterData(); 
         
         }, 100);
       }
@@ -39,8 +39,17 @@ function autocomplete(inp, arr) {
               b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
               inp.value = this.getElementsByTagName("input")[0].value;
+                console.log(this.getElementsByTagName("input")[0]);
+              setTimeout(()=>{ 
 
-              setTimeout(()=>{ filterControls.FilterData(this.getElementsByTagName("input")[0].parentElement.parentElement.id,inp.value); }, 100);
+                if(this.getElementsByTagName("input")[0].parentElement){
+                
+                    if(this.getElementsByTagName("input")[0].parentElement.parentElement.id.toLowerCase().indexOf("enfoque") > -1 ){
+                      filterControls.FilterData(this.getElementsByTagName("input")[0].parentElement.parentElement.id,inp.value); 
+                    }
+                }
+              
+              }, 100);
               
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
@@ -50,6 +59,7 @@ function autocomplete(inp, arr) {
         }
       }
   });
+  
   /*execute a function presses a key on the keyboard:*/
   inp.addEventListener("keydown", function(e) {
       var x = document.getElementById(this.id + "autocomplete-list");

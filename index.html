@@ -266,14 +266,17 @@ color: yellow;
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
 
         <ul class="fa-ul" style="position:absolute;right:2px;top:38px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;">
+            <div class="tooltipIcon"><img id="cargando" src="images/Home.png" onclick=" $('#nivel_cb').val(1); Stage.GoHome(); filterControls.CleanFields();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Limpiar Filtros y Ubicar Mapa</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/SizeIncrease.png" onclick="escalado=escalado*(1.3);Stage.DrawMapObjects(currentEntities,store.mainDataset);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño barras</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/Sizedecrease.png" onclick="escalado=escalado*(.7);Stage.DrawMapObjects(currentEntities,store.mainDataset);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño barras</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/hexagons_.png" onclick="radar.DecreaseRadars();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir Columnas</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/hexagons.png" onclick="radar.IncreaseRadars();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Aumentar Columnas</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/increase.png" onclick="radar.escalado=radar.escalado*(1.1);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Aumentar tamaño Radar</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/decrease.png" onclick="radar.escalado=radar.escalado*(.9);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir tamaño Radar</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/fontSize1.png" onclick="escalaTextos=escalaTextos*(1.1);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño texto</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/fontSize2.png" onclick="escalaTextos=escalaTextos*(.9);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño texto</div></div>
-            <div class="tooltipIcon"><img id="cargando" src="images/chemical.png" onclick="$('#Controls').css('visibility','visible');" style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Filtros</div></div>
-            <div class="tooltipIcon"><img id="cargando" src="images/calendar.png" onclick="location.reload()" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Cambiar Fechas</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/chemical.png" onclick="if(store.fillRate){$('#Controls').css('visibility','visible');}" style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Filtros</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/calendar.png" onclick=" $('.loginContainer').css('visibility','visible');$('#Controls').css('visibility','hidden');" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Cambiar Fechas</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Informe Final</div></div>
             
         </ul>
@@ -286,7 +289,7 @@ color: yellow;
 
         </ul>
 
-        <ul class="fa-ul" style="position:fixed;left:-12px;top:70px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;">
+        <ul class="fa-ul" style="position:fixed;left:-12px;top:70px;color:rgb(255, 255, 255);z-index:999999;font-family:Cabin;">
             
             <div class="tooltipIcon"><img id="ordenVol" class="iconKPI" src="images/order1_.png" onclick="ordenRadares='Vol';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text">Ordenar por Volumen</div></div>
             <div class="tooltipIcon"><img id="ordenFR" class="iconKPI" src="images/order2.png" onclick="ordenRadares='FR';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text">Ordenar por FillRate</div></div>
@@ -321,12 +324,11 @@ color: yellow;
         </div>
 
         <ul id="Controls" class="fa-ul" style="width:150px;float:left;position:fixed;top:120px;font-family:Cabin;box-shadow: 5px 5px 20px #000000;right:10px;font-size:11px;z-index:9999999;opacity:1;line-height: 8px;margin:0px;text-transform:uppercase;border-style:solid;border-color:#254650;border-width:1px;color:#000000;background-color:rgba(0,0,0,.9);padding:20px;border-radius:9px;">
+
         </ul>
         
 
-    </body> 
-
-    
+    </body>     
   
 
     <script>
@@ -412,6 +414,32 @@ color: yellow;
             $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
 
             //setTimeout(()=>{$(".loginBtn").click()}, 1000);
+
+            $(function() { 
+
+                dateInit=new Date($('#datepicker').val());
+                dateEnd=new Date($('#datepicker2').val());
+
+                dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){                    
+
+                    DibujaRegiones();
+
+                    DibujaEstados();                                       
+
+                    filterControls.createDataFiltersControls(store.catlogsForFilters);
+                    filterControls.createHardCodedControls();
+                    radar.radarInitStage();
+
+                    if(elementosContextoMapa)
+                        elementosContextoMapa.DibujaUNs(); 
+                        
+                    $('.loginContainer').css('visibility','visible');
+
+                    $('#Controls').css('visibility','hidden');
+
+                })
+
+             });
             
             $(".loginBtn").click(function(){
                
@@ -420,30 +448,11 @@ color: yellow;
                     dateInit=new Date($('#datepicker').val());
                     dateEnd=new Date($('#datepicker2').val());
 
-                    dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){
-
-                        DibujaRegiones();
-
-                        DibujaEstados();
-
-                        filterControls.creaCatalogoDeFrentesDesdeClientes();                       
-
-                        filterControls.createDataFiltersControls(store.catlogsForFilters);
-                        filterControls.createHardCodedControls();
-                        radar.radarInitStage();
-
-                        setTimeout(()=>{
-
-                            dataManager.ClusterObjects();
-                           
-                        }, 800);
-
-                        if(elementosContextoMapa)
-                            elementosContextoMapa.DibujaUNs();                        
-
-                    })
+                    initialized=false;
 
                     $('.loginContainer').css('visibility','hidden');
+
+                    dataManager.ClusterObjects();                      
 
                 }else{
                     alert('Seleccione fechas');
@@ -453,7 +462,7 @@ color: yellow;
 
 
             new Promise(Stage.initStage).then(
-                $('.loginContainer').css('visibility','visible')
+                
             );
 
         });

@@ -207,11 +207,11 @@ calculateKpiExpert_OOSFiliales.calculateFRPorEstado=function(estados){
 
          
                 var color="#cccccc";
-                if(estados[i].oosFiliales <= 8){
+                if(estados[i].oosFiliales <= 3){
                     color="#28F100";
-                }else if(estados[i].oosFiliales <= 10){
+                }else if(estados[i].oosFiliales <= 5){
                     color="#FFF60C";
-                }else if(estados[i].oosFiliales > 10){
+                }else if(estados[i].oosFiliales > 5){
                     color="#FF0000";
                 }
             

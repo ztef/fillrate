@@ -111,6 +111,11 @@ calculateKpiExpert_FR.calculateKPI=function(){
 
                             console.log("fillRate",data.recordset); 
 
+                            if(data.recordset.length == 0){
+                                alert("No hay data de FillRate obtenida, revisar filtros");
+                                return;
+                            }
+
                             entities  = d3.nest()
                                 .key(function(d) { return  d.Agrupador; })                           
                                 .entries(data.recordset);
@@ -128,6 +133,17 @@ calculateKpiExpert_FR.calculateKPI=function(){
                             if(!initialized){
 
                                 initialized=true;
+
+                                totalCanEnt_ref=0;
+                                totalCanSol_ref=0;
+
+                                 vol1_ref=0;
+                                 vol2_ref=0;
+                                 vol3_ref=0;
+
+                                 por1_ref=0;
+                                 por2_ref=0;
+                                 por3_ref=0;
 
                                 for(var j=0;  j < data.recordset.length; j++){
 
@@ -324,9 +340,9 @@ calculateKpiExpert_FR.getTooltipDetail=function(entityId,varName){
 
             var text=`<div class="tooltipDetailElement"><img id="" src="images/fillrate.png" style=""></img>
             <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>FillRate: </span><br>
-            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>A Tiempo:</span><span style='color:#00EAFF'>${fillRateEntities[i][varName].por1}% </span><span style='color:#00EAFF;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol1)})</span><br>
-            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>1 a 2 días:</span> <span style='color:#FFCC00'>${fillRateEntities[i][varName].por2}% </span><span style='color:#FFCC00;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol2)})</span><br>
-            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Más de 3 días:</span> <span style='color:#FF0000'>${fillRateEntities[i][varName].por3}% </span><span style='color:#FF0000;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol3)})</span><br><br>
+            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>A Tiempo: </span><span style='color:#00EAFF'>${fillRateEntities[i][varName].por1}% </span><span style='color:#00EAFF;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol1)})</span><br>
+            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>1 a 2 días: </span> <span style='color:#FFCC00'>${fillRateEntities[i][varName].por2}% </span><span style='color:#FFCC00;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol2)})</span><br>
+            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Más de 3 días: </span> <span style='color:#FF0000'>${fillRateEntities[i][varName].por3}% </span><span style='color:#FF0000;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol3)})</span><br><br>
 
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Entregado:</span> <span style='color:#ffffff'>${Math.round((fillRateEntities[i][varName].totalVolumenEntregado/fillRateEntities[i][varName].totalSolicitado)*100)}% </span><span style='color:#ffffff;font-size:${12*escalaTextos}px;'>${formatNumber(fillRateEntities[i][varName].totalVolumenEntregado)}k</span><br>
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Solicitado:</span> <span style='color:#ffffff'>${formatNumber(fillRateEntities[i][varName].totalSolicitado)}</span><br>

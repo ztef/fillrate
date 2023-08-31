@@ -271,8 +271,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
               
 
                 return '<div class="bar-container">' +
-                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
                 '<span class="bar-value">' + barValue + '</span>' +
+                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
                 '</div>';
 
 
@@ -364,9 +364,9 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 maximo=arr[i].CantEntfinal;
                         } 
                         
-                        arr[i].por1=Math.round((arr[i].vol1/arr[i].totalSolicitado)*100);
-                        arr[i].por2=Math.round((arr[i].vol2/arr[i].totalSolicitado)*100);
-                        arr[i].por3=Math.round((arr[i].vol3/arr[i].totalSolicitado)*100);            
+                        arr[i].por1=Math.round((arr[i].vol1/arr[i].CantEntfinal)*100);
+                        arr[i].por2=Math.round((arr[i].vol2/arr[i].CantEntfinal)*100);
+                        arr[i].por3=Math.round((arr[i].vol3/arr[i].CantEntfinal)*100);            
 
         } 
         
@@ -375,36 +375,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         
         });
 
-        /*
         
-        var arrTemp=[];
-
-        var dia=((1000*60)*60)*24;
-
-        for(var i=0; i < arr.length; i++ ){
-
-                arrTemp.push(arr[i]);
-                if(arr[i].fecha.getDay==5){
-                        arrTemp.push({
-                                CantEntfinal:0,
-                                fecha:new Date(arr[i].fecha+dia),
-                                totalSolicitado:0,
-
-                                vol1:0,
-                                vol2:0,
-                                vol3:0,
-
-                                por1:0,
-                                por2:0,
-                                por3:0
-                        });
-                }
-
-        }
-
-        arr=arrTemp;
-
-        */
         
         arr=arr.reverse();
 
@@ -545,7 +516,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+3  )+","+String( ((svgTooltipHeight*.6))-marginBottom-alturaVolumen  )+")  rotate("+(-90)+") ")
                         .text(function(){
                         
-                            return  Math.round((arr[i].CantEntfinal/1000)*100)/100 +"k";
+                            return  formatNumber(arr[i].CantEntfinal);
     
                         })
                         .transition().delay(0).duration(i*50)

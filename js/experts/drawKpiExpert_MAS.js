@@ -69,9 +69,6 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",34+"%");
 
-    // FORMATEA TOOL TIP :
-
-    vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+entity.key,svgTooltipWidth);
 
     //Agrega div con un elemento svg :
 
@@ -89,8 +86,8 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
       
      var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "MasivosVol", header: "Volumen Masivos", sortable: true, width: "300px" },    
-        { key: "totalSolicitado", header: "Vol. Solicitado (%)", sortable: true, width: "300px" },
+        { key: "MasivosVol", header: "Volumen Masivos", sortable: true, width: "150px" },    
+        { key: "totalSolicitado", header: "Vol. Solicitado (%)", sortable: true, width: "150px" },
         ];
 
     // DEFINE VISITORS PARA CADA COLUMNA
@@ -109,7 +106,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
               
 
                 return '<div class="bar-container">' +
-                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
+               
                 '<span class="bar-value">' + barValue + '</span>' +
                 '</div>';
 
@@ -124,7 +121,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
               
 
                 return '<div class="bar-container">' +
-                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
+              
                 '<span class="bar-value">' + barValue + '</span>' +
                 '</div>';
 
@@ -154,7 +151,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip2","Masivos por estado de"+entity.key+ 600);
+      vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+entity.key, 600);
     
       // CREA TABLA USANDO DATOS
     

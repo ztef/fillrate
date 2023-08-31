@@ -32,7 +32,8 @@ dataManager.CambiaModoKPI=function(modo){
         dataManager.ClusterObjects();
       
         
-    }    
+    }     
+    
 
 }
 
@@ -42,6 +43,8 @@ var entities;
  dataManager.ClusterObjects= function(){
 
     dataLoader.HideLoadings();
+
+    filterControls.showActiveFilters();
 
     Stage.blockScreen.style("visibility","visible"); 
     
@@ -54,14 +57,10 @@ var entities;
         $("#back_btn").css("visibility","hidden");
     }  
 
-    var agrupador="";
-    
-    for(var i=0; i < store.niveles.length; i++){    
-       if( store.niveles[i].id == $("#nivel_cb").val() )
-            agrupador=store.niveles[i].field;           
-    }
+    radar.CleanWindows();
 
     entities=[];
+
     dataLoader.AddLoadingTitle("Fillrate");
     calculateKpiExpert_FR.calculateKPI().then(()=>{
 
@@ -86,11 +85,11 @@ dataManager.ProcessEntities= function(){
     }
     
     // ****
+
+    radar.CleanWindows();
     
     //Utiliza un timeout solo para q sea posible poner una pantalla de espera (negra)
-    setTimeout(()=>{
-
-        filterControls.showActiveFilters();
+    setTimeout(()=>{        
 
         dataManager.CalculateKPIs();
         $('#Controls').css("visibility","hidden");
@@ -107,7 +106,7 @@ dataManager.ProcessEntities= function(){
             }
 
             if(svgRadar){
-                radar.CleanWindows();
+                
                 svgRadar.selectAll(".radarElement").data([]).exit().remove();       
             } 
 
@@ -130,9 +129,7 @@ dataManager.CalculateKPIs=function(){
 
     loadsCount=0;
 
-    loadsTarget=0;
-
-     
+    loadsTarget=0;     
     
     
      // 2   
@@ -150,7 +147,9 @@ dataManager.CalculateKPIs=function(){
 
         }, 500);   
 
-    }    
+    }   
+    
+    
 
     // 3
    if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
@@ -246,8 +245,6 @@ dataManager.CalculateKPIs=function(){
                                                              });
         }, 500);
     } 
-    
-
     
     
 }

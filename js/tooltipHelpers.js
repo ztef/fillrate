@@ -240,6 +240,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
           color: "white",
           backgroundColor: "transparent",
           border: "none",
+          color: "#ffffff",
         },
       }).append('<i class="fas fa-times"></i>'); 
 
