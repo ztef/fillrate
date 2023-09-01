@@ -7,27 +7,27 @@ filterControls.createDataFiltersControls=function(catalogs){
     if(!controlsInit){
 
         controlsInit=true;
-        vix_tt_formatToolTip("#Controls",".",160);
+        vix_tt_formatMenu("#Controls",".",160);
         //$("#Controls").css("max-height","600px");
         $("#Controls").css("height","550px");
-       $("#Controls").css("width","400px");
+        $("#Controls").css("width","400px");
 
 
         $("#Controls").append(`
 
-        <div id="ControlsBlocks" style="display: flex;">
+            <div id="ControlsBlocks" style="display: flex;">
 
-                <div id="ControlsFields"></div>  
-                
-                <div style="width:90%;position:absolute;bottom:19px;display: flex;">
-                            <button class="filters" onclick="filterControls.CleanFields();" style="margin: 3px;color:black">Limpiar</button> 
-                            <button class="filters" onclick="filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
+                    <div id="ControlsFields"></div>  
+                    
+                    <div style="width:90%;position:absolute;bottom:19px;display: flex;">
+                                <button class="filters" onclick="filterControls.CleanFields();" style="margin: 3px;color:black">Limpiar</button> 
+                                <button class="filters" onclick="filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
+                        </div>
+
+                    <div id="ControlsFieldsCustom">                    
+
                     </div>
-
-                <div id="ControlsFieldsCustom">                    
-
-                </div>
-        </div>
+            </div>
 
         `);
 
@@ -55,11 +55,12 @@ filterControls.createDataFiltersControls=function(catalogs){
                 ); 
                 
                 createdControls[catalogs[i].id]=true;
-
                 
                 var arr=d3.nest()
                             .key(function(d) { return d[catalogs[i].fieldInCatlog]; })
                             .entries(catlog);
+
+                            
 
                 var arrAutoCompleteArr=[];   
                 
@@ -78,6 +79,8 @@ filterControls.createDataFiltersControls=function(catalogs){
                 }            
 
                 autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
+
+                
             }
 
         }
@@ -445,7 +448,9 @@ filterControls.showActiveFilters=function(){
        Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;
 
-    $("#titulo").html(titulo);       
+    $("#titulo").html(titulo);   
+    
+    $("#titulo").css("width","70%");   
 
     svgLines.append("text")						
                     .attr("class","filters")
@@ -490,10 +495,10 @@ filterControls.createHardCodedControls=function(){
                 `<option id="id_${store.niveles[i].id}" value="${store.niveles[i].id}">${store.niveles[i].label}</option>   `); 
         }
 
-        $("#nivel_cb").val(1);
-        nivelLecturaActual=1;
+        $("#nivel_cb").val(0);
+        nivelLecturaActual=0;
 
-        posAnterior=1;
+        posAnterior=0;
       
         $("#nivel_cb").change(function(){
 
