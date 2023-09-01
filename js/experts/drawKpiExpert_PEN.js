@@ -150,7 +150,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
     // Agrega un div con un elemento svg :
 
-    var svgElement = `<img id="simbologia" src="images/simb FR libre.png" style="width:366px;position:absolute;float:left;right:7px;top:48px;pointer-events: none;z-index:99999;visibility:visible;"></img><svg id='svgTooltip3' style='pointer-events:none;'></svg>`;
+    var svgElement = `<img id="simbologia" src="images/simb FR libre.png" style="width:366px;position:absolute;float:left;right:7px;top:556px;pointer-events: none;z-index:99999;visibility:visible;"></img><svg id='svgTooltip3' style='pointer-events:none;'></svg>`;
     d3.select("#toolTip3").append("div").html(svgElement);
 
     d3.select("#svgTooltip3")                     

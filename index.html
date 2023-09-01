@@ -167,13 +167,38 @@
             border-style: solid;
             border-color: #1f3b45;
             border-width: 1px;
+            right:5px;
         }
-
+        .tooltip-text2 {
+            visibility: hidden;
+            width: 150px;
+            background-color: #1e1e29;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: -100%;
+            left: 150%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            font-size: 14px;
+            box-shadow: 5px 5px 10px #000000;
+            border-style: solid;
+            border-color: #1f3b45;
+            border-width: 1px;
+            right:5px;
+        }
         .tooltipIcon:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
         }
-
+        .tooltipIcon:hover .tooltip-text2 {
+            visibility: visible;
+            opacity: 1;
+        }
   
    </style>
 
@@ -295,10 +320,10 @@ color: yellow;
 
         <ul class="fa-ul" style="position:fixed;left:-12px;top:70px;color:rgb(255, 255, 255);z-index:999999;font-family:Cabin;">
             
-            <div class="tooltipIcon"><img id="ordenVol" class="iconKPI" src="images/order1_.png" onclick="ordenRadares='Vol';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text">Ordenar por Volumen</div></div>
-            <div class="tooltipIcon"><img id="ordenFR" class="iconKPI" src="images/order2.png" onclick="ordenRadares='FR';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text">Ordenar por FillRate</div></div>
-            <div class="tooltipIcon"><img id="ordenOOS" class="iconKPI" src="images/order3.png" onclick="ordenRadares='OOS';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text">Ordenar por OOS CED</div></div>
-            <div class="tooltipIcon"><img id="ordenVen" class="iconKPI" src="images/order4.png" onclick="ordenRadares='Ven';radar.DrawEntities();" style="width:23px;float:left;margin:8px"></img><div class="tooltip-text">Ordenar por Ventas</div></div>
+            <div class="tooltipIcon"><img id="ordenVol" class="iconKPI" src="images/order1_.png" onclick="ordenRadares='Vol';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text2">Ordenar por Volumen</div></div>
+            <div class="tooltipIcon"><img id="ordenFR" class="iconKPI" src="images/order2.png" onclick="ordenRadares='FR';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text2">Ordenar por FillRate</div></div>
+            <div class="tooltipIcon"><img id="ordenOOS" class="iconKPI" src="images/order3.png" onclick="ordenRadares='OOS';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por OOS CED</div></div>
+            <div class="tooltipIcon"><img id="ordenVen" class="iconKPI" src="images/order4.png" onclick="ordenRadares='Ven';radar.DrawEntities();" style="width:23px;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por Ventas</div></div>
 
         </ul>
 

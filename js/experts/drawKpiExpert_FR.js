@@ -236,7 +236,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
         { key: "por1", header: "Fill Rate", sortable: true, width: "220px" },    
-        { key: "cant", header: "Vol. Entregado", sortable: true, width: "220px" },
+        { key: "cant", header: "Volumen Entregado (TM)", sortable: true, width: "220px" },
         ];
     
     
@@ -286,7 +286,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       var columnsWithTotals = ['cant']; 
       var totalsColumnVisitors = {
                 'cant': function(value) { 
-                        var v = formatNumber(value)+"T";
+                        var v = formatNumber(value)+"TM";
              
                         return v; 
                 },
@@ -297,7 +297,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip3","FillRate por Estado",600);
+      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado",600);
     
       // CREA TABLA USANDO DATOS
     
@@ -401,7 +401,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
         // FORMATEA TOOL TIP :
     
-        vix_tt_formatToolTip("#toolTip2","Detalle de Días de FR de "+entity.key,svgTooltipWidth);
+        vix_tt_formatToolTip("#toolTip2","Cantidad entragada de Fill Rate de "+entity.key,svgTooltipWidth);
 
         // Agrega un div con un elemento svg :
 
@@ -580,7 +580,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("font-size",tamanioFuente)	
                         .style("text-anchor","start")
                         .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.55  )+")  rotate("+(0)+") ")
-                        .text("FillRate y Tiempos:");
+                        .text("Fill Rate y Tiempos:");
     
                         caso++;            
         }         
@@ -654,7 +654,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.attr("y", offSetTop+20 )
 			.text(function(){
 
-				return "Nacional Entregado: "+Math.round((totalCanEnt_ref/totalCanSol_ref)*100)+"%, "+formatNumber(Math.round(totalCanEnt_ref/1000) )+" k  ";
+				return "Nacional Entregado: "+Math.round((totalCanEnt_ref/totalCanSol_ref)*100)+"%, "+formatNumber(Math.round(totalCanEnt_ref/1000) )+" TM  ";
 
 			})
                         .transition().delay(0).duration(1000)
@@ -674,7 +674,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.attr("y", offSetTop+20 )
 			.text(function(){
 
-				return "Solicitado: "+formatNumber(Math.round(totalCanSol_ref/1000) )+" k ";
+				return "Solicitado: "+formatNumber(Math.round(totalCanSol_ref/1000) )+" TM ";
 
 			}).transition().delay(0).duration(1000)
                         .style("opacity",1 );
