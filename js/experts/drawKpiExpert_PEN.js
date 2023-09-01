@@ -72,17 +72,17 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
     var arrTemp=[];
 
     var dia=((1000*60)*60)*24;
-    console.log("fechas",fechas);
+   
     for(var i=0; i < arr.length; i++ ){
 
         arrTemp.push(arr[i]);
         
             var date_=new Date(arr[i].fecha);
-            console.log("dia en curso",date_);
+            
             if(date_.getDay()==5){
 
                     var sabado=new Date(arr[i].fecha+dia);
-                    console.log("sabado",sabado.getDate(),sabado.getDay());
+                    
                     if(!fechas[sabado.getDate()+"_"+sabado.getDay()] ){
                     
                             arrTemp.push({
@@ -103,9 +103,9 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
             if(date_.getDay()==6){
             
                     var domingo=new Date(arr[i].fecha+dia+dia );
-                    console.log("domingooo",domingo.getDate(),domingo.getDay());
+                   
                     if(!fechas[domingo.getDate()+"_"+domingo.getDay()] ){
-                        console.log("insertaa",date_.getDay());
+                       
                             arrTemp.push({
                                 Libre_Pendiente_Hoy:0,
                                 Libre_Retrasado:0,

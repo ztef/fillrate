@@ -31,7 +31,7 @@ dataManager.CambiaModoKPI=function(modo){
         store.map_var=drawKpiExpert_VENTAS;
         $("#iconVenta").attr("src","images/mode3_.png");
         $("#logo").attr("src","images/logo3.png");
-        dataManager.ClusterObjects();ç
+        dataManager.ClusterObjects();
         $("#simbologia").attr("src","images/Simbolog¡a Ventas.png");
       
         
