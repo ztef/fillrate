@@ -7,7 +7,7 @@ filterControls.createDataFiltersControls=function(catalogs){
     if(!controlsInit){
 
         controlsInit=true;
-        vix_tt_formatToolTip("#Controls",".",160);
+        vix_tt_formatMenu("#Controls",".",160);
         //$("#Controls").css("max-height","600px");
         $("#Controls").css("height","550px");
        $("#Controls").css("width","400px");

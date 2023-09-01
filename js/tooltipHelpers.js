@@ -331,11 +331,164 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
     }
   });
 
+  }
+
+
+  // Esta funcion formatea un DIV como menu (No hay boton de colapso, solo drag y hide)
+
+  function vix_tt_formatMenu(divElement, titulo, width,  initialHeight) {
+
+
+    $(divElement).html("");
+
+    var tooltipHeight = initialHeight || "auto";
+
+    // Ajusta Estilo
+    $(divElement).css({
+      position: "absolute",
+
+      border: "1px solid #6e647b",
+      borderRadius: "7px",
+      backgroundColor: "rgba(0, 0, 0, 0.85)",
+      boxShadow: "rgba(0, 0, 0, .5) 19px 15px 24px",
+      width: width+"px", 
+      height: tooltipHeight,
+      maxHeight: "850px",
+      overflow:"auto",
+     
+    });
+
+
+    // Para ocultar las barras de desplazamiento personalizadas en navegadores WebKit
+      $(divElement).addClass('hide-scrollbar-webkit');
+
+    // Para ocultar las barras de desplazamiento en Firefox
+      $(divElement).addClass('hide-scrollbar-firefox');
+
+    // Para ocultar las barras de desplazamiento en IE y Edge
+      $(divElement).addClass('hide-scrollbar-ie-edge');
+
+
+
+    $(divElement).on("mousedown", function () {
+      // Incrementa el contador global z-index 
+      zIndexCounter++;
+  
+      // Setea el z-index 
+      $(divElement).css({
+        
+        zIndex: zIndexCounter,
+      });
+
+    });
+
+
+    
+
+    // Agrega capacidad de dragg al div
+   // $(divElement).draggable();
+   
+
+    // Crea barra superior
+    var topBar = $("<div>", {
+      class: "top-bar",
+      css: {
+        padding: "5px",
+        backgroundColor: "#1f2e39",
+        borderTopLeftRadius: "0px",
+
+        borderTopRightRadius: "0px",
+        cursor: "move",
+      },
+    });
+
+    // Crea la zona de drag
+    var dragHandle = $("<span>", {
+      class: "drag-handle",
+      text: titulo,
+      
+      css: {
+        cursor: "move",
+        fontSize: "18px",
+      },
+    });
+
+
+
+    
+
+    // Crea boton de cerrado
+    var closeButton = $("<button>", {
+        class: "close-button",
+        css: {
+          float: "right",
+          cursor: "pointer",
+          color: "white",
+          backgroundColor: "transparent",
+          border: "none",
+          color: "#998383",
+        },
+      }).append('<i class="fas fa-times"></i>'); 
+
+    // A la barra le agrega la zona de cerrado y el boton de cerrado
+    topBar.append(dragHandle);
+   
+    topBar.append(closeButton);
+
+    // Agrega la barra superior al div
+    $(divElement).prepend(topBar);
+    
+
+   
+
+    // Asocia evento de cerrado : OJO , Usa el CSS, no el visible del DOM
+    closeButton.on("click", function () {
+      $(divElement).css("visibility","hidden");
+    });
+
+    
+
+
+    // Manejo de DRAG de forma manual para permitir scroll
+
+  var isDragging = false;
+  var offsetX, offsetY;
+
+  // Asigna evento mousedown solo al topBAR
+  topBar.on("mousedown", function (e) {
+    isDragging = true;
+
+    // Calcula el offset del mouse a la parte superior izquierda del tooltip como referencia
+    var tooltipOffset = $(divElement).offset();
+    offsetX = e.pageX - tooltipOffset.left;
+    offsetY = e.pageY - tooltipOffset.top;
+  });
+
+  // El mouseup cancela el drag
+  $(document).on("mouseup", function () {
+    isDragging = false;
+  });
+
+  // Responde al mousemove si esta en modo de drag solamente
+  $(document).on("mousemove", function (e) {
+    if (isDragging) {
+      // Calcula la posicion y realiza el drag
+      $(divElement).css({
+        left: e.pageX - offsetX,
+        top: e.pageY - offsetY,
+      });
+    }
+  });
+
 
 
 
 
   }
+
+
+
+
 
 
   // Crea una barra inferior con un icono para descargar
