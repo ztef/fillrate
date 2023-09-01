@@ -141,7 +141,7 @@ function vix_tt_transitionRectWidth(containerID) {
         // Applica transicion :
         .transition()
         .duration(1000) // mil milisegundos
-        .attr("width", originalWidth);  // with final (original)
+        .attr("width", originalWidth);  
     });
   }
 
@@ -158,10 +158,12 @@ function vix_tt_transitionRectWidth(containerID) {
 */
 
 
-function vix_tt_formatToolTip(divElement, titulo, width) {
+function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
 
     $(divElement).html("");
+
+    var tooltipHeight = initialHeight || "auto";
 
     // Ajusta Estilo
     $(divElement).css({
@@ -171,8 +173,9 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       borderRadius: "7px",
       backgroundColor: "rgba(0, 0, 0, 0.85)",
       boxShadow: "rgba(0, 0, 0, .5) 19px 15px 24px",
-      width: width+"px", // You can adjust the width as needed
-      "max-height": "650px",
+      width: width+"px", 
+      height: tooltipHeight,
+      maxHeight: "850px",
       overflow:"auto",
      
     });
@@ -193,7 +196,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       // Incrementa el contador global z-index 
       zIndexCounter++;
   
-      // Adjust the z-index and make the tooltip visible
+      // Setea el z-index 
       $(divElement).css({
         
         zIndex: zIndexCounter,
@@ -231,12 +234,27 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       },
     });
 
+
+
+    var collapseButton = $("<button>", {
+      class: "collapse-button",
+      css: {
+        float: "right",
+        cursor: "pointer",
+        color: "white",
+        backgroundColor: "transparent",
+        border: "none",
+        color: "#ffffff",
+      },
+    }).append('<i class="fas fa-minus"></i>');
+
     // Crea boton de cerrado
     var closeButton = $("<button>", {
         class: "close-button",
         css: {
           float: "right",
           cursor: "pointer",
+          color: "white",
           backgroundColor: "transparent",
           border: "none",
           color: "#ffffff",
@@ -245,6 +263,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
 
     // A la barra le agrega la zona de cerrado y el boton de cerrado
     topBar.append(dragHandle);
+    topBar.append(collapseButton);
     topBar.append(closeButton);
 
     // Agrega la barra superior al div
@@ -255,15 +274,134 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       $(divElement).css("visibility","hidden");
     });
 
+    var isCollapsed = false;
 
-   
+    
+    var originalHeight = $(divElement).css("height");
+  
+    // Crea el evento para colapsar o expander la ventana
+    collapseButton.on("click", function () {
+      if (isCollapsed) {
+        $(divElement).css({ height: originalHeight, maxHeight: "650px", visibility: "visible" });
+        collapseButton.find("i").removeClass("fa-plus").addClass("fa-minus"); // Cambia el icono a menos  -
+        isCollapsed = false;
+      } else {
 
-
+        originalHeight = $(divElement).css("height");
+        $(divElement).css({ height: "30px", maxHeight: "30px", visibility: "visible" });
+        collapseButton.find("i").removeClass("fa-minus").addClass("fa-plus"); // Cambia el icono a +
+        isCollapsed = true;
+      }
+    });
 
 
   }
 
 
+  // Crea una barra inferior con un icono para descargar
+
+  function vix_tt_formatBottomBar(divElement, exportHandler) {
+    // Crea un espacio para que la barra no se pegue
+    var spacer = $("<div>", {
+      css: {
+        height: "20px",  
+      },
+    });
+  
+    // Crea la barra inferior
+    var bottomBar = $("<div>", {
+      class: "bottom-bar",
+      css: {
+        padding: "5px",
+        height: "20px",
+        backgroundColor: "#1f2e39",
+        borderTopLeftRadius: "0px",
+        borderTopRightRadius: "0px",
+      },
+    });
+  
+    // Crea el boton de descarga
+    var downloadButton = $("<button>", {
+      class: "download-button",
+      css: {
+        float: "right",
+        cursor: "pointer",
+        backgroundColor: "transparent",
+        border: "none",
+        color: "white",
+      },
+    }).append('<i class="fas fa-download"></i>');
+  
+    bottomBar.append(downloadButton);
+  
+    // agrega el espacio
+    $(divElement).append(spacer);
+  
+    // Agrega la barra
+    $(divElement).append(bottomBar);
+  
+    // Agrega el evento on Click
+    downloadButton.on("click", function () {
+      exportHandler(); // LLama a la funcion que recibe como parametro
+    });
+  }
+  
+
+  // Funcion auxiliar que formatea los datos para descargar en excel (Pone los nombres de las columnas)
+
+  function formatDataForExport(data, columns) {
+    var formattedData = [];
+    
+    // Agrega la fila con los nombres
+    var headerRow = columns.map(function(column) {
+      return column.header;
+    });
+    formattedData.push(headerRow);
+  
+    // Agrega las filas de datos
+    data.forEach(function(row) {
+      var rowData = columns.map(function(column) {
+        return row[column.key];
+      });
+      formattedData.push(rowData);
+    });
+  
+    return formattedData;
+  }
+  
+
+
+
+// Realiza la descarga en Excel
+function exportToExcel(data, filename) {
+  var wb = XLSX.utils.book_new();
+  var ws = XLSX.utils.json_to_sheet(data);
+  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+  // Especifica el formato como binario
+  var wbout = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
+
+  // Convierte un string en Blob
+  var blob = new Blob([s2ab(wbout)], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+
+  // Crea un link para la descarga
+  var downloadLink = document.createElement("a");
+  downloadLink.href = URL.createObjectURL(blob);
+  downloadLink.download = filename + ".xlsx";
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+}
+
+// Convierte el string s en un array buffer
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
+  return buf;
+}
   
   
   /*
