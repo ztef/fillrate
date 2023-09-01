@@ -339,8 +339,8 @@ dataManager.getTooltipText=function(entity){
     nombre=nombre.replaceAll("undefined"," ");
 
 
-    var text=` <div class="detailContainer">
-         <div class="tooltipHeader">
+    var text=` <div class="detailContainer" style="width:530px;">
+         <div class="tooltipHeader" style="display:flex;">
         <span style='color:#00C6FF;font-size:15px;'></span><span style='color:#00C6FF'>${nombre}</span>
         </div>
         `
