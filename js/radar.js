@@ -16,6 +16,8 @@ var minValueFR=0;
 var maxValueFR=0;
 var columnasRadar=1;
 var ordenRadares="Vol";
+var ordenAnterior="";
+var direccionOrder=false;
 
 radar.radarInitStage=function(){    
 
@@ -112,8 +114,10 @@ radar.kpis=[
 
     {label:"Cump Venta",color:"#00DEFF",var:"ventas",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"Venta" ,unidad:"%",tooltipDetail:drawKpiExpert_VENTAS,calculateExpert:calculateKpiExpert_Ventas},
     {label:"Fill Rate",color:"#E4FF00",var:"fillRate",minimoValor:50 ,valorEquilibrio:100,maximoValor:150, abreviacion:"FillRate",unidad:"%",tooltipDetail:kpiExpert_FR,calculateExpert:calculateKpiExpert_FR},
+
     {label:"Pedidos Retrasados (Miles de Ton)",color:"#00F6FF",var:"pendientes",labelVar: "volumen",minimoValor:100,valorEquilibrio:0 ,maximoValor:-100, abreviacion:"Retrasados",tooltipDetail:kpiExpert_PENDIENTES,unidad:"k",calculateExpert:calculateKpiExpert_Pendientes},
     {label:"Pedidos Masivos",color:"#FF00F6",var:"masivos",minimoValor:50,valorEquilibrio:0 ,maximoValor:-50, abreviacion:"Masivos",unidad:"%" ,tooltipDetail:kpiExpert_MAS,calculateExpert:calculateKpiExpert_Mas},
+
     
     {label:"Out of Stock Filiales",color:"#FCFF05",var:"oosFiliales",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS FIL",unidad:"%",tooltipDetail:kpiExpert_OOS_Filiales,calculateExpert:calculateKpiExpert_OOSFiliales},
     {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS Cedis",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},    
@@ -123,116 +127,125 @@ radar.kpis=[
     {label:"Estadías",color:"#FF00DE",var:"estadias",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"T. Recogido",unidad:""}
 ];
 
-radar.DrawEntities=function(){  
-    
-    if(entities.length==0){
-        alert("existe un problema con los datos básicos de Fill Rate");
-        return;
-    }        
+    radar.DrawEntities=function(){  
+        
+        if(entities.length==0){
+            alert("existe un problema con los datos básicos de Fill Rate");
+            return;
+        }        
 
-    radar.config=[];
+        radar.config=[];
 
-    for(var i=0; i < radar.kpis.length; i++){
-        if(radar.kpis[i].var=="fillRate" && store.map_var==kpiExpert_OOS_Filiales){
-            continue;
+        for(var i=0; i < radar.kpis.length; i++){
+            if(radar.kpis[i].var=="fillRate" && store.map_var==kpiExpert_OOS_Filiales){
+                continue;
+            }
+            if(radar.kpis[i].var=="estadias" && store.map_var!=drawKpiExpert_VENTAS ){
+                continue;
+            }
+            if(entities[0][radar.kpis[i].var]){
+                radar.config.push(radar.kpis[i]);
+            }
+        
         }
-        if(radar.kpis[i].var=="estadias" && store.map_var!=drawKpiExpert_VENTAS ){
-            continue;
+
+        $("#ordenVol").attr("src","images/order1.png");
+        $("#ordenFR").attr("src","images/order2.png");
+        $("#ordenOOS").attr("src","images/order3.png");
+        $("#ordenVen").attr("src","images/order4.png");
+
+        //ORDEN DE RADARES
+        if(ordenAnterior==ordenRadares){
+            direccionOrder=!direccionOrder;
         }
-        if(entities[0][radar.kpis[i].var]){
-            radar.config.push(radar.kpis[i]);
-        }
-       
-    }
+        ordenAnterior=ordenRadares;
 
-    $("#ordenVol").attr("src","images/order1.png");
-    $("#ordenFR").attr("src","images/order2.png");
-    $("#ordenOOS").attr("src","images/order3.png");
-    $("#ordenVen").attr("src","images/order4.png");
+        if(ordenRadares =="Vol"){
 
-    //ORDEN DE RADARES
-    if(ordenRadares =="Vol"){
+            entities=entities.sort((a, b) =>   b.fillRate.totalVolumenEntregado - a.fillRate.totalVolumenEntregado );
+            $("#ordenVol").attr("src","images/order1_.png");
+        
 
-        entities=entities.sort((a, b) =>   b.fillRate.totalVolumenEntregado - a.fillRate.totalVolumenEntregado );
-        $("#ordenVol").attr("src","images/order1_.png");
+        }else if(ordenRadares =="FR"){
 
-    }else if(ordenRadares =="FR"){
+            entities=entities.sort((a, b) =>   b.fillRate.fillRate - a.fillRate.fillRate );
+            $("#ordenFR").attr("src","images/order2_.png");
 
-        entities=entities.sort((a, b) =>   b.fillRate.fillRate - a.fillRate.fillRate );
-        $("#ordenFR").attr("src","images/order2_.png");
+        }else if(ordenRadares =="OOS"){
 
-    }else if(ordenRadares =="OOS"){
+            entities=entities.sort((a, b) =>   b.oos.oos - a.oos.oos );
+            $("#ordenOOS").attr("src","images/order3_.png");
 
-        entities=entities.sort((a, b) =>   b.oos.oos - a.oos.oos );
-        $("#ordenOOS").attr("src","images/order3_.png");
+        }else if(ordenRadares == "Ven"){
 
-    }else if(ordenRadares == "Ven"){
+            entities=entities.sort((a, b) =>   b.ventas.ventas - a.ventas.ventas );
+            $("#ordenVen").attr("src","images/order4_.png");
 
-        entities=entities.sort((a, b) =>   b.ventas.ventas - a.ventas.ventas );
-        $("#ordenVen").attr("src","images/order4_.png");
+        }   
+        
+        if(direccionOrder)
+            entities.reverse();
+        
+        radar.rows=0;
 
-    }    
-    
-    radar.rows=0;
+        var anchoRadarDiv=windowWidth*(widthInit/100);
+        
+        $("#radarDiv").css("width",((anchoRadarDiv*radar.escalado)*columnasRadar+(paddingTop*(columnasRadar-1))+150   )+"px");
+        $("#radarDiv").animate({scrollTop: 0}, 1000);
+        $("#radarDiv").css("pointer-events","none");
 
-    var anchoRadarDiv=windowWidth*(widthInit/100);
-    
-    $("#radarDiv").css("width",((anchoRadarDiv*radar.escalado)*columnasRadar+(paddingTop*(columnasRadar-1))+150   )+"px");
-    $("#radarDiv").animate({scrollTop: 0}, 1000);
-    $("#radarDiv").css("pointer-events","none");
+        radar.CleanWindows();
 
-    radar.CleanWindows();
+        maxValueFR = 0;
 
-    maxValueFR = 0;
+        svgRadar.selectAll(".radarElement").data([]).exit().remove();
+        
+        radar.lastRadarEntities=[];
 
-    svgRadar.selectAll(".radarElement").data([]).exit().remove();
-    
-    radar.lastRadarEntities=[];
+        radio=((window.innerWidth*(widthInit/100))*radar.escalado) *.9;
 
-    radio=((window.innerWidth*(widthInit/100))*radar.escalado) *.9;
+        for(var i=0; i < entities.length; i++){
 
-    for(var i=0; i < entities.length; i++){
+            if(maxValueFR < entities[i].fillRate.totalSolicitado)
+                maxValueFR = entities[i].fillRate.totalSolicitado;
 
-        if(maxValueFR < entities[i].fillRate.totalSolicitado)
-            maxValueFR = entities[i].fillRate.totalSolicitado;
+        }   
 
-    }   
+        var caso=0;
 
-    var caso=0;
+        for(var i=0; i < entities.length; i++){
 
-    for(var i=0; i < entities.length; i++){
+                    //Evita dibujar demasiados radares
+                    if(i > maximaCantidadRadaresDibujables && !entities[i].radarData ){                    
+                        continue;
+                    }
 
-                //Evita dibujar demasiados radares
-                if(i > maximaCantidadRadaresDibujables && !entities[i].radarData ){                    
-                    continue;
-                }
-
-                if(caso%columnasRadar==0){
-                    radar.rows++;                   
+                    if(caso%columnasRadar==0){
+                        radar.rows++;                   
+                        
+                    }
                     
-                }
-                
-                svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length)+200 );
+                    svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length)+200 );
 
-                entities[i].radarData={};
+                    entities[i].radarData={};
 
-                var offSetLeft=50;
+                    var offSetLeft=50;
 
-                entities[i].radarData.posX=((caso%columnasRadar)*radio)+(offSetLeft*(caso%columnasRadar)); 
-                
-                entities[i].radarData.posY=(radio*(radar.rows-1) )+offSetTop+(paddingTop*(radar.rows-1));
+                    entities[i].radarData.posX=((caso%columnasRadar)*radio)+(offSetLeft*(caso%columnasRadar)); 
+                    
+                    entities[i].radarData.posY=(radio*(radar.rows-1) )+offSetTop+(paddingTop*(radar.rows-1));
 
-                entities[i].radarData.kpis={};
+                    entities[i].radarData.kpis={};
 
-                radar.DrawBaseRadar(entities[i]);                 
+                    radar.DrawBaseRadar(entities[i]);                 
 
-                radar.lastRadarEntities.push(entities[i]);
+                    radar.lastRadarEntities.push(entities[i]);
 
-                caso++;
+                    caso++;
+
+        }
 
     }
-
-}
 
 radar.AddNewRadar=function(entity){ 
     

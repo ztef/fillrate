@@ -122,6 +122,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
         arr[i].VolumenReal=0;
         arr[i].VolumenPlan=0;
         arr[i].PctReal_FR=0;
+        arr[i].Peso=0;
 
         for(var j=0; j < arr[i].values.length; j++ ){
 
@@ -129,6 +130,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
             arr[i].VolPlan_FR+=Number(arr[i].values[j].VolPlan_FR);
             arr[i].VolReal_FR+=Number(arr[i].values[j].VolReal_FR);
+            arr[i].Peso+=Number(arr[i].values[j].VolReal_FR);
             
         }
 
@@ -145,8 +147,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
             maximo=arr[i].difPer;
         }
 
-        if(maximoVolumen < arr[i].VolumenReal){
-            maximoVolumen=arr[i].VolumenReal;
+        if(maximoVolumen < arr[i].Peso){
+            maximoVolumen=arr[i].Peso;
         }
 
 
@@ -194,7 +196,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
       "VolumenReal": item.VolumenReal,
       "DifK": item.VolumenReal - item.VolumenPlan,
       "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
-      "Peso": item.VolumenReal,
+      "Peso": item.Peso,
     };
     });
 
@@ -317,6 +319,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         arr[i].VolumenReal=0;
         arr[i].VolumenPlan=0;
         arr[i].PctReal_FR=0;
+        arr[i].Peso=0;
 
         for(var j=0; j < arr[i].values.length; j++ ){
 
@@ -324,6 +327,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
             arr[i].VolPlan_FR+=Number(arr[i].values[j].VolPlan_FR);
             arr[i].VolReal_FR+=Number(arr[i].values[j].VolReal_FR);
+            arr[i].Peso+=Number(arr[i].values[j].VolReal_FR);
             
         }       
 
@@ -340,8 +344,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         if(maximo < arr[i].difPer){
             maximo=arr[i].difPer;
         }
-        if(maximoVolumen < arr[i].VolumenReal){
-            maximoVolumen=arr[i].VolumenReal;
+        if(maximoVolumen < arr[i].Peso){
+            maximoVolumen=arr[i].Peso;
         }
 
     }
@@ -383,7 +387,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
           "VolumenReal": item.VolumenReal,
           "DifK": item.VolumenReal - item.VolumenPlan,
           "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
-          "Peso": item.VolumenReal
+          "Peso": item.Peso
         };
         });
     
