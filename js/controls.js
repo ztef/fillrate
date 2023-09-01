@@ -8,9 +8,9 @@ filterControls.createDataFiltersControls=function(catalogs){
 
         controlsInit=true;
         vix_tt_formatToolTip("#Controls",".",160);
-        $("#Controls").css("max-height","600px");
-        $("#Controls").css("height","500px");
-        $("#Controls").css("width","400px");
+        //$("#Controls").css("max-height","600px");
+        $("#Controls").css("height","550px");
+       $("#Controls").css("width","400px");
 
 
         $("#Controls").append(`
@@ -192,7 +192,13 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             store.cat_cliente=arrTemp;
 
-    }    
+    }  
+    
+    if(store.cat_region){
+
+        store.cat_region_origen=[...store.cat_region];
+
+    }
 
 }
 
@@ -333,8 +339,8 @@ filterControls.showActiveFilters=function(){
         $("#id_5").hide();
         $("#id_6").hide();
 
-        if($("#nivel_cb").val() > 3 ){
-            $("#nivel_cb").val("3");
+        if($("#nivel_cb").val() > 4 ){
+            $("#nivel_cb").val("4");
             alert("Se cambia el nivel a Gerencia, No existen niveles mas bajos");
         }
             
@@ -359,8 +365,8 @@ filterControls.showActiveFilters=function(){
         $("#id_5").hide();
         $("#id_6").hide();
 
-        if($("#nivel_cb").val() > 3 ){
-            $("#nivel_cb").val("3");
+        if($("#nivel_cb").val() > 4 ){
+            $("#nivel_cb").val("4");
             alert("Se cambia el nivel a Gerencia, No existen niveles mas bajos");
         }
 
@@ -491,7 +497,7 @@ filterControls.createHardCodedControls=function(){
       
         $("#nivel_cb").change(function(){
 
-            if($("#nivel_cb").val() > 4){
+            if($("#nivel_cb").val() > 5){
                 if($("#cat_cliente").val() == "" && $("#cat_region").val() == "" &&  $("#cat_estado").val() == "" && $("#cat_gerencia").val() == ""  && $("#cat_un").val() == ""){
 
                     if(posAnterior)
