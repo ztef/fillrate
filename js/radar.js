@@ -113,7 +113,7 @@ radar.kpis=[
     {label:"Cump Venta",color:"#00DEFF",var:"ventas",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"Venta" ,unidad:"%",tooltipDetail:drawKpiExpert_VENTAS,calculateExpert:calculateKpiExpert_Ventas},
     {label:"Fill Rate",color:"#E4FF00",var:"fillRate",minimoValor:50 ,valorEquilibrio:100,maximoValor:150, abreviacion:"FillRate",unidad:"%",tooltipDetail:kpiExpert_FR,calculateExpert:calculateKpiExpert_FR},
     {label:"Pedidos Retrasados (Miles de Ton)",color:"#00F6FF",var:"pendientes",labelVar: "volumen",minimoValor:100,valorEquilibrio:0 ,maximoValor:-100, abreviacion:"Retra",tooltipDetail:kpiExpert_PENDIENTES,unidad:"k",calculateExpert:calculateKpiExpert_Pendientes},
-    {label:"Pedidos Masivos",color:"#FF00F6",var:"masivos",minimoValor:50,valorEquilibrio:0 ,maximoValor:-50, abreviacion:"Masiv",unidad:"%" ,tooltipDetail:kpiExpert_MAS,calculateExpert:calculateKpiExpert_Mas},
+    {label:"Pedidos Masivos",color:"#FF00F6",var:"masivos",minimoValor:50,valorEquilibrio:0 ,maximoValor:-50, abreviacion:"Masivo",unidad:"%" ,tooltipDetail:kpiExpert_MAS,calculateExpert:calculateKpiExpert_Mas},
     
     {label:"Out of Stock Filiales",color:"#FCFF05",var:"oosFiliales",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS FIL",unidad:"%",tooltipDetail:kpiExpert_OOS_Filiales,calculateExpert:calculateKpiExpert_OOSFiliales},
     {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS Cedis",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},    
