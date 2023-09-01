@@ -300,28 +300,30 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
 
 
-    var isDragging = false;
+    // Manejo de DRAG de forma manual para permitir scroll
+
+  var isDragging = false;
   var offsetX, offsetY;
 
-  // Attach mouse down event to the top bar for initiating dragging
+  // Asigna evento mousedown solo al topBAR
   topBar.on("mousedown", function (e) {
     isDragging = true;
 
-    // Calculate the offset from the mouse click to the top-left corner of the tooltip
+    // Calcula el offset del mouse a la parte superior izquierda del tooltip como referencia
     var tooltipOffset = $(divElement).offset();
     offsetX = e.pageX - tooltipOffset.left;
     offsetY = e.pageY - tooltipOffset.top;
   });
 
-  // Attach mouse up event to stop dragging
+  // El mouseup cancela el drag
   $(document).on("mouseup", function () {
     isDragging = false;
   });
 
-  // Attach mouse move event to move the tooltip if dragging is active
+  // Responde al mousemove si esta en modo de drag solamente
   $(document).on("mousemove", function (e) {
     if (isDragging) {
-      // Update the position of the tooltip based on mouse movement
+      // Calcula la posicion y realiza el drag
       $(divElement).css({
         left: e.pageX - offsetX,
         top: e.pageY - offsetY,
