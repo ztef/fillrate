@@ -269,7 +269,7 @@ color: yellow;
                 </filter>
         </defs>
         </svg>
-        <div id="version"  style="color:gray;opacity:.7;font-size: 9px;position:fixed;top:70px;left:10px;z-index:9999">V.10.2</div>
+        <div id="version"  style="color:gray;opacity:.7;font-size: 9px;position:fixed;top:70px;left:10px;z-index:9999">V.10.3</div>
 
         <div style="position:fixed;z-index:-10;float:left;top:0px;pointer-events:none;height:100%;width:100%;background:linear-gradient(#000000, #000000);"></div>
 
@@ -294,7 +294,7 @@ color: yellow;
 
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
 
-        <ul class="fa-ul" style="position:absolute;right:2px;top:38px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;">
+        <ul class="fa-ul" style="position:absolute;right:0px;top:-4px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;width: 233px;    direction: initial;    display: flow;">
             <div class="tooltipIcon"><img id="cargando" src="images/Home.png" onclick=" $('#nivel_cb').val(1); Stage.GoHome(); filterControls.CleanFields();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Limpiar Filtros y Ubicar Mapa</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/SizeIncrease.png" onclick="escalado=escalado*(1.3);Stage.DrawMapObjects(currentEntities,store.mainDataset);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño barras</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/Sizedecrease.png" onclick="escalado=escalado*(.7);Stage.DrawMapObjects(currentEntities,store.mainDataset);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño barras</div></div>
@@ -310,11 +310,11 @@ color: yellow;
             
         </ul>
 
-        <ul class="fa-ul" style="position:absolute;right:2px;top:-9px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;">
+        <ul class="fa-ul" style="position:absolute;right:2px;top:25px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:275px;">
             
             <div class="tooltipIcon"><img id="iconFR" class="iconKPI" src="images/mode1_.png" onclick="dataManager.CambiaModoKPI('FR')" style="width:30px ;float:left;margin:8px" ></img><div class="tooltip-text">Cambiar a Fillrate</div></div>
             <div class="tooltipIcon"><img id="iconOOSF" class="iconKPI" src="images/mode_2.png" onclick="dataManager.CambiaModoKPI('OOS F')" style="width:30px ;float:left;margin:8px"></img><div class="tooltip-text">Cambiar a OOS Fliliales</div></div>
-            <div class="tooltipIcon"><img id="iconVenta" class="iconKPI" src="images/mode_3.png" onclick="dataManager.CambiaModoKPI('Venta')" style="width:30px;float:left;margin:8px"></img><div class="tooltip-text">Cambiar a Vengas</div></div>
+            <div class="tooltipIcon"><img id="iconVenta" class="iconKPI" src="images/mode_3.png" onclick="dataManager.CambiaModoKPI('Venta')" style="width:30px;float:left;margin:8px"></img><div class="tooltip-text">Cambiar a Ventas</div></div>
 
         </ul>
 
