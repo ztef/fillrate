@@ -205,10 +205,11 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
     });
 
 
-
+    
 
     // Agrega capacidad de dragg al div
-    $(divElement).draggable();
+   // $(divElement).draggable();
+   
 
     // Crea barra superior
     var topBar = $("<div>", {
@@ -268,6 +269,9 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
     // Agrega la barra superior al div
     $(divElement).prepend(topBar);
+    
+
+   
 
     // Asocia evento de cerrado : OJO , Usa el CSS, no el visible del DOM
     closeButton.on("click", function () {
@@ -293,6 +297,40 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
         isCollapsed = true;
       }
     });
+
+
+
+    var isDragging = false;
+  var offsetX, offsetY;
+
+  // Attach mouse down event to the top bar for initiating dragging
+  topBar.on("mousedown", function (e) {
+    isDragging = true;
+
+    // Calculate the offset from the mouse click to the top-left corner of the tooltip
+    var tooltipOffset = $(divElement).offset();
+    offsetX = e.pageX - tooltipOffset.left;
+    offsetY = e.pageY - tooltipOffset.top;
+  });
+
+  // Attach mouse up event to stop dragging
+  $(document).on("mouseup", function () {
+    isDragging = false;
+  });
+
+  // Attach mouse move event to move the tooltip if dragging is active
+  $(document).on("mousemove", function (e) {
+    if (isDragging) {
+      // Update the position of the tooltip based on mouse movement
+      $(divElement).css({
+        left: e.pageX - offsetX,
+        top: e.pageY - offsetY,
+      });
+    }
+  });
+
+
+
 
 
   }
