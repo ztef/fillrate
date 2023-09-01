@@ -280,9 +280,9 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                     if(date_.getDay()==6){
                        
                             var domingo=new Date(arr[i].fecha+dia+dia );
-                            console.log("domingooo",domingo.getDate(),domingo.getDay());
+                         
                             if(!fechas[domingo.getDate()+"_"+domingo.getDay()] ){
-                                console.log("insertaa",date_.getDay());
+                                
                                     arrTemp.push({
                                         Numerador:0,
                                         Denominador:0,

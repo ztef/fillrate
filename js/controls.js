@@ -445,7 +445,9 @@ filterControls.showActiveFilters=function(){
        Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;
 
-    $("#titulo").html(titulo);       
+    $("#titulo").html(titulo);   
+    
+    $("#titulo").css("width","70%");   
 
     svgLines.append("text")						
                     .attr("class","filters")
@@ -490,10 +492,10 @@ filterControls.createHardCodedControls=function(){
                 `<option id="id_${store.niveles[i].id}" value="${store.niveles[i].id}">${store.niveles[i].label}</option>   `); 
         }
 
-        $("#nivel_cb").val(1);
-        nivelLecturaActual=1;
+        $("#nivel_cb").val(0);
+        nivelLecturaActual=0;
 
-        posAnterior=1;
+        posAnterior=0;
       
         $("#nivel_cb").change(function(){
 
