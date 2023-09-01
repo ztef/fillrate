@@ -10,24 +10,24 @@ filterControls.createDataFiltersControls=function(catalogs){
         vix_tt_formatToolTip("#Controls",".",160);
         //$("#Controls").css("max-height","600px");
         $("#Controls").css("height","550px");
-       $("#Controls").css("width","400px");
+        $("#Controls").css("width","400px");
 
 
         $("#Controls").append(`
 
-        <div id="ControlsBlocks" style="display: flex;">
+            <div id="ControlsBlocks" style="display: flex;">
 
-                <div id="ControlsFields"></div>  
-                
-                <div style="width:90%;position:absolute;bottom:19px;display: flex;">
-                            <button class="filters" onclick="filterControls.CleanFields();" style="margin: 3px;color:black">Limpiar</button> 
-                            <button class="filters" onclick="filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
+                    <div id="ControlsFields"></div>  
+                    
+                    <div style="width:90%;position:absolute;bottom:19px;display: flex;">
+                                <button class="filters" onclick="filterControls.CleanFields();" style="margin: 3px;color:black">Limpiar</button> 
+                                <button class="filters" onclick="filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
+                        </div>
+
+                    <div id="ControlsFieldsCustom">                    
+
                     </div>
-
-                <div id="ControlsFieldsCustom">                    
-
-                </div>
-        </div>
+            </div>
 
         `);
 
@@ -55,11 +55,12 @@ filterControls.createDataFiltersControls=function(catalogs){
                 ); 
                 
                 createdControls[catalogs[i].id]=true;
-
                 
                 var arr=d3.nest()
                             .key(function(d) { return d[catalogs[i].fieldInCatlog]; })
                             .entries(catlog);
+
+                            
 
                 var arrAutoCompleteArr=[];   
                 
@@ -78,6 +79,8 @@ filterControls.createDataFiltersControls=function(catalogs){
                 }            
 
                 autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
+
+                
             }
 
         }
