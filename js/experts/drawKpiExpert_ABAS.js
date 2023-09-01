@@ -147,7 +147,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
-        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
@@ -194,7 +194,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip5","Abasto por U.N. como Origen " ,700);
+      vix_tt_formatToolTip("#toolTip5","Abasto de "+entity.key,svgTooltipWidth+"hacia otras UN" ,700);
     
       
             // COLUMNAS CON TOTALES :
@@ -329,7 +329,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
-        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
@@ -509,7 +509,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
-        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
@@ -544,7 +544,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
 
             var barWidth = value + '%';
             var barValue = vix_tt_formatNumber(value)+'%   ';
-        
+
+            return '<div class="bar-container">' +
             '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
         + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
         '</div>';
@@ -566,7 +567,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip3","Abasto por U.N. Entrega Final",700);
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,svgTooltipWidth,700);
     
       
             // COLUMNAS CON TOTALES :
@@ -704,7 +705,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
-        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
@@ -761,7 +762,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
       if( 5 == $("#nivel_cb").val() ){
         vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",700);
       }else{
-          vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia U.N. Entrega Final",700);
+          vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden "+toTitleCase(entity.key)+"",700);
       } 
    
       
