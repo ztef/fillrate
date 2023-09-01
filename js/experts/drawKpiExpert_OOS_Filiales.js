@@ -242,7 +242,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
             var columnsWithTotals = ['Numera','','Numero']; 
             var totalsColumnVisitors = {
                         'Numera': function(value) { 
-                        return vix_tt_formatNumber(value/1000) + " T"; 
+                        return vix_tt_formatNumber(value/1000) + " TM"; 
                         },
                         'Numero': function(value) { 
                         return vix_tt_formatNumber(value);

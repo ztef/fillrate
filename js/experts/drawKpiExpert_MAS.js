@@ -101,7 +101,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     
         MasivosVol: function(value,i) {
                 var ancho=GetValorRangos( value,1, maximo ,1,svgTooltipHeight*.4);
-                var barValue = formatNumber(value)+"T";
+                var barValue = formatNumber(value)+" TM";
                
               
 
@@ -117,7 +117,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
         
         totalSolicitado: function(value,i) {
                 var ancho=GetValorRangos( value,1, maximoVol ,1,svgTooltipHeight*.4);
-                var barValue = formatNumber(value)+"T";              
+                var barValue = formatNumber(value)+" TM";              
               
 
                 return '<div class="bar-container">' +
@@ -136,12 +136,12 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
       var columnsWithTotals = ['MasivosVol','totalSolicitado']; 
       var totalsColumnVisitors = {
                 'MasivosVol': function(value) { 
-                        var v = formatNumber(value)+"T";
+                        var v = formatNumber(value)+" TM";
              
                         return v; 
                 },
                 'totalSolicitado': function(value) { 
-                        var v = formatNumber(value)+"T";
+                        var v = formatNumber(value)+" TM";
              
                         return v; 
                 }
