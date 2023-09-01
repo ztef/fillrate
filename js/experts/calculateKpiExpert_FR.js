@@ -111,6 +111,11 @@ calculateKpiExpert_FR.calculateKPI=function(){
 
                             console.log("fillRate",data.recordset); 
 
+                            if(data.recordset.length == 0){
+                                alert("No hay data de FillRate obtenida, revisar filtros");
+                                return;
+                            }
+
                             entities  = d3.nest()
                                 .key(function(d) { return  d.Agrupador; })                           
                                 .entries(data.recordset);

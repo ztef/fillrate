@@ -23,7 +23,6 @@ var store={
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_un",onInitLoad:true,useDateFilters:false},
             //{sourceName:"ztSource",varName:"cat_zt",onInitLoad:true},
             {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetZT_FillRate",varName:"cat_zt",idFieldInCatlog:"ID" ,onInitLoad:true,useDateFilters:true},            
-            //{apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatZT" ,varName:"cat_zt",onInitLoad:true,useDateFilters:false},
             //{sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true}, 
             {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetFrentes_FillRate",varName:"cat_cliente",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",onInitLoad:true,useDateFilters:true},            
             //Catalogos PRODUCTO y PRESENTACION 
@@ -56,6 +55,7 @@ var store={
             {data:"cat_cliente",placeholder:"Holding",fieldInCatlog:"Nombre",id:"cat_cliente",type:"autoComplete",nameOnFR:"Cliente",nameOnPendientes:"HoldingNum", color:"#12FF00",storeProcedureField:"Cliente"},
             {data:"fillRate",placeholder:"Segmento",fieldInCatlog:"Segmento",id:"cat_segmento",type:"autoComplete",nameOnFR:"Segmento",nameOnPendientes:"Segmento", color:"#12FF00",storeProcedureField:"Segmento"},
             {data:"cat_frente",placeholder:"Frente",fieldInCatlog:"Nombre",id:"cat_frente",type:"autoComplete",nameOnFR:"Frente",nameOnPendientes:"Frente", color:"#12FF00",storeProcedureField:"Frente"},
+            {data:"cat_sucursal",placeholder:"Sucursal",fieldInCatlog:"Nombre",id:"cat_sucursal",type:"autoComplete",nameOnFR:"",nameOnPendientes:"", color:"#12FF00",storeProcedureField:"Obra"},
 
             {data:"fillRate",placeholder:"AgrupProducto",fieldInCatlog:"AgrupProducto",id:"cat_producto",type:"autoComplete",nameOnFR:"AgrupProducto",nameOnPendientes:"TipoProducto", color:"#F716FF",storeProcedureField:"TipoProducto"},
             {data:"fillRate",placeholder:"Presentación",fieldInCatlog:"Presentacion",id:"cat_presentacion",type:"autoComplete",nameOnFR:"Presentacion",nameOnPendientes:"Presentacion", color:"#F716FF",storeProcedureField:"Presentacion"},
@@ -71,7 +71,8 @@ var store={
         {id:3,label:"Gerencia",field:"GerenciaUN",coordinatesSource:"cat_gerencia",storeProcedureField:"Gerencia",oosFlilialesField:"Gerencia"},
         {id:4,label:"Unidad de Negocio",field:"vc50_UN_Tact",coordinatesSource:"cat_un",storeProcedureField:"UnidadNegocio"},
         {id:5,label:"Zona de transporte",field:"ZonaTransporte",coordinatesSource:"cat_zt",storeProcedureField:"ZT"},       
-        {id:6,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},      
+        {id:6,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},    
+        {id:7,label:"Sucursal",field:"Obra",coordinatesSource:"cat_sucursal",storeProcedureField:"Sucursal"},   
 
     ]
 
