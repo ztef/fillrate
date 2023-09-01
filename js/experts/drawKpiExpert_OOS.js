@@ -167,10 +167,10 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
             var columnsWithTotals = ['Numero','','Numera']; 
             var totalsColumnVisitors = {
                         'Numero': function(value) { 
-                        return vix_tt_formatNumber(value) + "T"; 
+                        return vix_tt_formatNumber(value) + " TM"; 
                         },
                         'Numera': function(value) { 
-                        return vix_tt_formatNumber(value) + "T";
+                        return vix_tt_formatNumber(value) + " TM";
                         },
                       
                       
