@@ -101,7 +101,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         { key: "key", header: "Estado", sortable: true, width: "100px" },
         { key: "VolVenta_Plan", header: "Vol Plan", sortable: true, width: "100px" },
         { key: "VolVenta_Real", header: "Vol Real", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
@@ -117,13 +117,13 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
           },
     
           VolVenta_Plan: function(value) {
-          return vix_tt_formatNumber(value) + "T";
+          return vix_tt_formatNumber(value) + " TM";
         },
         VolVenta_Real: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + " TM";
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
       
@@ -140,7 +140,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
       
 
            var barWidth = (value/maximo)*100 + '%';
-           var barValue = vix_tt_formatNumber(value)+'k';
+           var barValue = vix_tt_formatNumber(value)+' TM';
       
           return '<div class="bar-container">' +
           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
@@ -159,13 +159,13 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
            var columnsWithTotals = ['VolVenta_Plan','VolVenta_Real','DifK']; 
            var totalsColumnVisitors = {
                      'VolVenta_Plan': function(value) { 
-                       return vix_tt_formatNumber(value) + "T";
+                       return vix_tt_formatNumber(value) + " TM";
                      },
                      'VolVenta_Real': function(value) { 
-                       return vix_tt_formatNumber(value) + "T"; 
+                       return vix_tt_formatNumber(value) + " TM"; 
                      },
                      'DifK': function(value) { 
-                       return vix_tt_formatNumber(value) + "T"; 
+                       return vix_tt_formatNumber(value) + " TM"; 
                      }
                      };
      

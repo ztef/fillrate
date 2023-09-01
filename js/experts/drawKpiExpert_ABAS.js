@@ -142,9 +142,9 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
       
       var columns = [
         { key: "key", header: "Producto", sortable: true, width: "100px" },
-        { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
@@ -160,13 +160,13 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
           },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + "T";
+          return vix_tt_formatNumber(value) + " TM";
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + " TM";
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
       
@@ -174,17 +174,17 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
             return '<div class="bar-container">' +
-            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
             + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
             '</div>';
         },
         Peso: function(value){
       
             var barWidth = (value/maximoVolumen)*100 + '%';
-            var barValue = vix_tt_formatNumber(value)+'k';
+            var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
-           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
+           '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
            '</div>';
         }
       };
@@ -200,13 +200,13 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
             var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
             var totalsColumnVisitors = {
                       'VolumenPlan': function(value) { 
-                        return vix_tt_formatNumber(value) + "T";
+                        return vix_tt_formatNumber(value) + " TM";
                       },
                       'VolumenReal': function(value) { 
-                        return vix_tt_formatNumber(value) + "T"; 
+                        return vix_tt_formatNumber(value) + " TM"; 
                       },
                       'DifK': function(value) { 
-                        return vix_tt_formatNumber(value) + "T"; 
+                        return vix_tt_formatNumber(value) + " TM"; 
                       }
                       };
       
@@ -322,9 +322,9 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       
       var columns = [
         { key: "key", header: "Producto", sortable: true, width: "100px" },
-        { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
@@ -340,13 +340,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + "T";
+          return vix_tt_formatNumber(value) + " TM";
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + " TM";
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
       
@@ -354,17 +354,17 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
             return '<div class="bar-container">' +
-            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
             + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
             '</div>';
         },
         Peso: function(value){
       
             var barWidth = (value/maximoVolumen)*100 + '%';
-            var barValue = vix_tt_formatNumber(value)+'k';
+            var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
-           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
+           '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
            '</div>';
         }
       };
@@ -380,13 +380,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
             var totalsColumnVisitors = {
                       'VolumenPlan': function(value) { 
-                        return vix_tt_formatNumber(value) + "T";
+                        return vix_tt_formatNumber(value) + " TM";
                       },
                       'VolumenReal': function(value) { 
-                        return vix_tt_formatNumber(value) + "T"; 
+                        return vix_tt_formatNumber(value) + " TM"; 
                       },
                       'DifK': function(value) { 
-                        return vix_tt_formatNumber(value) + "T"; 
+                        return vix_tt_formatNumber(value) + " TM"; 
                       }
                       };
       
@@ -500,9 +500,9 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       
       var columns = [
         { key: "key", header: "Producto", sortable: true, width: "100px" },
-        { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
@@ -518,30 +518,30 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + "T";
+          return vix_tt_formatNumber(value) + " TM";
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + " TM";
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
       
             var barWidth = value + '%';
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
-            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
         + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
         '</div>';
         },
         Peso: function(value){
       
             var barWidth = (value/maximoVolumen)*100 + '%';
-            var barValue = vix_tt_formatNumber(value)+'k';
+            var barValue = vix_tt_formatNumber(value)+'TM';
        
            return '<div class="bar-container">' +
-           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
+           '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
            '</div>';
         }
       };
@@ -557,13 +557,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
             var totalsColumnVisitors = {
                       'VolumenPlan': function(value) { 
-                        return vix_tt_formatNumber(value) + "T";
+                        return vix_tt_formatNumber(value) + " TM";
                       },
                       'VolumenReal': function(value) { 
-                        return vix_tt_formatNumber(value) + "T"; 
+                        return vix_tt_formatNumber(value) + " TM"; 
                       },
                       'DifK': function(value) { 
-                        return vix_tt_formatNumber(value) + "T"; 
+                        return vix_tt_formatNumber(value) + " TM"; 
                       }
                       };
       
@@ -681,9 +681,9 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
       
       var columns = [
         { key: "key", header: "Producto", sortable: true, width: "100px" },
-        { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
@@ -699,13 +699,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
               },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + "T";
+          return vix_tt_formatNumber(value) + " TM";
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + " TM";
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
       
@@ -713,17 +713,17 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
             return '<div class="bar-container">' +
-            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
         + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
         '</div>';
         },
         Peso: function(value){
       
-            var barWidth = (value/maximo)*100 + '%';
-            var barValue = vix_tt_formatNumber(value)+'k';
+            var barWidth = (value/maximo)*100 + ' %';
+            var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
-           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
+           '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
            '</div>';
         }
       };
@@ -740,13 +740,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
             var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
             var totalsColumnVisitors = {
                       'VolumenPlan': function(value) { 
-                        return vix_tt_formatNumber(value) + "T";
+                        return vix_tt_formatNumber(value) + " TM";
                       },
                       'VolumenReal': function(value) { 
-                        return vix_tt_formatNumber(value) + "T"; 
+                        return vix_tt_formatNumber(value) + " TM"; 
                       },
                       'DifK': function(value) { 
-                        return vix_tt_formatNumber(value) + "T"; 
+                        return vix_tt_formatNumber(value) + " TM"; 
                       }
                       };
       
