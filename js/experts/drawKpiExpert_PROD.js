@@ -32,14 +32,14 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
            
             arr[i].VolVenta_Real=0;
             arr[i].VolVenta_Plan=0;
-    
+            arr[i].Peso=0;
 
             for(var j=0; j < arr[i].values.length; j++ ){
 
              
                 arr[i].VolVenta_Real+=Number(arr[i].values[j].VolVenta_Real);
                 arr[i].VolVenta_Plan+=Number(arr[i].values[j].VolVenta_Plan);
-                
+                arr[i].Peso+=Number(arr[i].values[j].Peso);
 
             }
 
@@ -51,8 +51,8 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
                 arr[i].DifPer=0;
             }  
             
-            if(maximo < arr[i].VolVenta_Real){
-                maximo = arr[i].VolVenta_Real;
+            if(maximo < arr[i].Peso){
+                maximo = arr[i].Peso;
             }
 
             if(maximo2 < arr[i].DifPer*1000){
@@ -88,7 +88,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
           "VolVenta_Real": item.VolVenta_Real,
           "DifK": item.VolVenta_Real - item.VolVenta_Plan,
           "DifP":  item.DifPer * 100,
-          "Peso": item.VolVenta_Real,
+          "Peso": item.Peso,
         };
         });
     

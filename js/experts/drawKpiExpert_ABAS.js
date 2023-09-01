@@ -29,7 +29,7 @@ kpiExpert_ABAS.DrawTooltipDetail=function(entity){
 
     
     // VENTANA SE MUESTRA SI SE ESTA EN NIVEL DE UNIDAD DE NEGOCIO
-    if( 4 == $("#nivel_cb").val() ){
+    if( 5 == $("#nivel_cb").val() ){
         kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen(entity);  
     }else{
         kpiExpert_ABAS.DrawTooltipDetail_UN(entity);
@@ -64,11 +64,13 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
         arr[i].VolumenReal=0;
         arr[i].VolumenPlan=0;
+        arr[i].Peso=0;
     
         for(var j=0; j < arr[i].values.length; j++ ){
         
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
             arr[i].VolumenPlan+=Number(arr[i].values[j].VolumenPlan);
+            arr[i].Peso+=Number(arr[i].values[j].Peso);
 
         }         
 
@@ -83,8 +85,8 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
             arr[i].DifPer=0;
         }  
         
-        if(maximo < arr[i].VolumenReal){
-            maximo = arr[i].VolumenReal;
+        if(maximo < arr[i].Peso){
+            maximo = arr[i].Peso;
         }
 
         if(maximoVolumen < arr[i].DifPer*1000){
@@ -131,7 +133,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
           "VolumenReal": item.VolumenReal,
           "DifK": item.VolumenReal - item.VolumenPlan,
           "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
-          "Peso": item.VolumenReal,
+          "Peso": item.Peso,
         };
         });
     
@@ -180,7 +182,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
         },
         Peso: function(value){
       
-            var barWidth = (value/maximoVolumen)*100 + '%';
+            var barWidth = (value/Peso)*100 + '%';
             var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
@@ -240,12 +242,14 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         arr[i].Dif=0;
       
         arr[i].VolumenReal=0;
-        arr[i].VolumenPlan=0;      
+        arr[i].VolumenPlan=0; 
+        arr[i].Peso=0;      
 
         for(var j=0; j < arr[i].values.length; j++ ){
         
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
-            arr[i].VolumenPlan+=Number(arr[i].values[j].VolumenPlan);         
+            arr[i].VolumenPlan+=Number(arr[i].values[j].VolumenPlan); 
+            arr[i].Peso+=Number(arr[i].values[j].Peso);        
 
         }
         
@@ -257,8 +261,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             arr[i].DifPer=0;
         }  
         
-        if(maximo < arr[i].VolumenReal){
-            maximo = arr[i].VolumenReal;
+        if(maximo < arr[i].Peso){
+            maximo = arr[i].Peso;
         }
 
         if(maximoVolumen < arr[i].DifPer*1000){
@@ -311,7 +315,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           "VolumenReal": item.VolumenReal,
           "DifK": item.VolumenReal - item.VolumenPlan,
           "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
-          "Peso": item.VolumenReal,
+          "Peso": item.Peso,
         };
         });
     
@@ -360,7 +364,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         },
         Peso: function(value){
       
-            var barWidth = (value/maximoVolumen)*100 + '%';
+            var barWidth = (value/maximo)*100 + '%';
             var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
@@ -422,11 +426,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         
             arr[i].VolumenReal=0;
             arr[i].VolumenPlan=0;
+            arr[i].Peso=0;
         
             for(var j=0; j < arr[i].values.length; j++ ){
             
                 arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
                 arr[i].VolumenPlan+=Number(arr[i].values[j].VolumenPlan);
+                arr[i].Peso+=Number(arr[i].values[j].Peso);
 
             }         
 
@@ -441,8 +447,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
                 arr[i].DifPer=0;
             }  
             
-            if(maximo < arr[i].VolumenReal){
-                maximo = arr[i].VolumenReal;
+            if(maximo < arr[i].Peso){
+                maximo = arr[i].Peso;
             }
 
             if(maximoVolumen < arr[i].DifPer*1000){
@@ -489,7 +495,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           "VolumenReal": item.VolumenReal,
           "DifK": item.VolumenReal - item.VolumenPlan,
           "DifP":  item.DifPer * 100,
-          "Peso": item.VolumenReal,
+          "Peso": item.Peso,
         };
         });
     
@@ -527,7 +533,15 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
-      
+          
+          if(value<=0)
+           value=1;
+
+           if(value > 100)
+           value=100;
+
+           value=Math.round(value);
+
             var barWidth = value + '%';
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
@@ -536,8 +550,11 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         '</div>';
         },
         Peso: function(value){
-      
-            var barWidth = (value/maximoVolumen)*100 + '%';
+
+          if(value<=0)
+          value=1;
+
+            var barWidth = (value/maximo)*100 + '%';
             var barValue = vix_tt_formatNumber(value)+'TM';
        
            return '<div class="bar-container">' +
@@ -602,12 +619,14 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
             
             arr[i].VolumenReal=0;
             arr[i].VolumenPlan=0;
+            arr[i].Peso=0;
         
            
             for(var j=0; j < arr[i].values.length; j++ ){
             
                 arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
-                arr[i].VolumenPlan+=Number(arr[i].values[j].VolumenPlan);               
+                arr[i].VolumenPlan+=Number(arr[i].values[j].VolumenPlan);   
+                arr[i].Peso+=Number(arr[i].values[j].Peso);                
                 
             }
           
@@ -619,8 +638,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
                 arr[i].DifPer=0;
             }  
             
-            if(maximo < arr[i].VolumenReal){
-                maximo = arr[i].VolumenReal;
+            if(maximo < arr[i].Peso){
+                maximo = arr[i].Peso;
             }
 
             if(maximoVolumen < arr[i].DifPer*1000){
@@ -631,6 +650,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         
         arr = arr.sort((a, b) => b.Dif - a.Dif);    
         arr.reverse();
+
+      
 
         var altura=30;
         var caso=0;
@@ -661,7 +682,6 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
 
     */
 
-
     // DATOS 
 
     var data = arr.map(function(item) {
@@ -671,7 +691,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
           "VolumenReal": item.VolumenReal,
           "DifK": item.VolumenReal - item.VolumenPlan,
           "DifP":  item.DifPer * 100,
-          "Peso": item.VolumenReal,
+          "Peso": item.Peso,
         };
         });   
     
@@ -719,7 +739,17 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         },
         Peso: function(value){
       
-            var barWidth = (value/maximo)*100 + ' %';
+            if(value==0)
+              value=1;
+
+            var barWidth = (value/maximo)*100;
+           
+            if(barWidth<= 0){
+            
+              barWidth=1;
+            }
+            barWidth=barWidth+'%';
+          
             var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
@@ -728,37 +758,39 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         }
       };
     
-      if( 4 == $("#nivel_cb").val() ){
+      if( 5 == $("#nivel_cb").val() ){
         vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",700);
       }else{
           vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia U.N. Entrega Final",700);
       } 
    
       
-            // COLUMNAS CON TOTALES :
-    
-            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
-            var totalsColumnVisitors = {
-                      'VolumenPlan': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM";
-                      },
-                      'VolumenReal': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      },
-                      'DifK': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      }
-                      };
+      // COLUMNAS CON TOTALES :
+
+      var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
+      var totalsColumnVisitors = {
+                'VolumenPlan': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM";
+                },
+                'VolumenReal': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                },
+                'DifK': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                }
+                };
       
           
           
-           
-          
+                console.log("kjkjjk");
+
+
+            
       // CREA TABLA USANDO DATOS
           
-            vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip4", columnsWithTotals );
+       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip4", columnsWithTotals );
      
-      
+      return;
       
       // APLICA TRANSICIONES 
     
