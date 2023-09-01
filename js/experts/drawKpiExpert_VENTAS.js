@@ -122,6 +122,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
         arr[i].VolumenReal=0;
         arr[i].VolumenPlan=0;
         arr[i].PctReal_FR=0;
+        arr[i].Peso=0;
 
         for(var j=0; j < arr[i].values.length; j++ ){
 
@@ -129,6 +130,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
             arr[i].VolPlan_FR+=Number(arr[i].values[j].VolPlan_FR);
             arr[i].VolReal_FR+=Number(arr[i].values[j].VolReal_FR);
+            arr[i].Peso+=Number(arr[i].values[j].VolReal_FR);
             
         }
 
@@ -145,8 +147,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
             maximo=arr[i].difPer;
         }
 
-        if(maximoVolumen < arr[i].VolumenReal){
-            maximoVolumen=arr[i].VolumenReal;
+        if(maximoVolumen < arr[i].Peso){
+            maximoVolumen=arr[i].Peso;
         }
 
 
@@ -194,7 +196,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
       "VolumenReal": item.VolumenReal,
       "DifK": item.VolumenReal - item.VolumenPlan,
       "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
-      "Peso": item.VolumenReal,
+      "Peso": item.Peso,
     };
     });
 
@@ -205,9 +207,9 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
   
   var columns = [
     { key: "key", header: "Producto", sortable: true, width: "100px" },
-    { key: "VolumenPlan", header: "Vol Plan (T)", sortable: true, width: "100px" },
-    { key: "VolumenReal", header: "Vol Real (T)", sortable: true, width: "100px" },
-    { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+    { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
+    { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
+    { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
     { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
     { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
   ];
@@ -223,13 +225,13 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
       },
 
     VolumenPlan: function(value) {
-      return vix_tt_formatNumber(value) + "T";
+      return vix_tt_formatNumber(value) + "TM";
     },
     VolumenReal: function(value) {
-        return vix_tt_formatNumber(value) + "T";
+        return vix_tt_formatNumber(value) + "TM";
     },
     DifK: function(value) {
-        return vix_tt_formatNumber(value) + "T";
+        return vix_tt_formatNumber(value) + "TM";
     },
     DifP: function(value){
   
@@ -244,7 +246,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     Peso: function(value){
   
         var barWidth = (value/maximoVolumen)*100 + '%';
-        var barValue = vix_tt_formatNumber(value)+'k';
+        var barValue = vix_tt_formatNumber(value)+'TM';
    
        return '<div class="bar-container">' +
        '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
@@ -317,6 +319,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         arr[i].VolumenReal=0;
         arr[i].VolumenPlan=0;
         arr[i].PctReal_FR=0;
+        arr[i].Peso=0;
 
         for(var j=0; j < arr[i].values.length; j++ ){
 
@@ -324,6 +327,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
             arr[i].VolPlan_FR+=Number(arr[i].values[j].VolPlan_FR);
             arr[i].VolReal_FR+=Number(arr[i].values[j].VolReal_FR);
+            arr[i].Peso+=Number(arr[i].values[j].VolReal_FR);
             
         }       
 
@@ -340,8 +344,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         if(maximo < arr[i].difPer){
             maximo=arr[i].difPer;
         }
-        if(maximoVolumen < arr[i].VolumenReal){
-            maximoVolumen=arr[i].VolumenReal;
+        if(maximoVolumen < arr[i].Peso){
+            maximoVolumen=arr[i].Peso;
         }
 
     }
@@ -383,7 +387,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
           "VolumenReal": item.VolumenReal,
           "DifK": item.VolumenReal - item.VolumenPlan,
           "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
-          "Peso": item.VolumenReal
+          "Peso": item.Peso
         };
         });
     
@@ -396,7 +400,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         { key: "key", header: "Estado", sortable: true, width: "100px" },
         { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (T)", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
       ];
@@ -412,13 +416,13 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
           },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + "T";
+          return vix_tt_formatNumber(value) + "TM";
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + "TM";
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + "T";
+            return vix_tt_formatNumber(value) + "TM";
         },
         DifP: function(value){
       
@@ -435,7 +439,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
       
 
            var barWidth = (value/maximoVolumen)*100 + '%';
-           var barValue = vix_tt_formatNumber(value)+'k';
+           var barValue = vix_tt_formatNumber(value)+'TM';
       
           return '<div class="bar-container">' +
           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +

@@ -5,7 +5,7 @@ var config={
     oosSource:"docs/OOS_Mayo_GS.csv",
     pendientesSource:"docs/Pedidos_Pendientes_Mayo_GS.csv",
 
-    agrupadorInicial:"Region",
+    agrupadorInicial:"Nacional",
 
     //CATALOGOS
     regionSource:"docs/catalogos/RegionZT.csv",
@@ -19,10 +19,10 @@ var config={
 
     //DIMENSIONES DE ELEMENTOS GRAFICOS
 
-    radiosMinimos:[110,110,110,110,110,110,110],
-    radiosMaximos:[50000,50000,30000,18000,9500,4000,4000],
-    alturas:[300000,300000,110000,90000,50000,5000,6000],
-    offSetCamaraParaEnfocar:[-3,-3,-1,-1,-.7,-.09,-.09],
+    radiosMinimos:[110,110,110,110,110,110,110,110],
+    radiosMaximos:[50000,50000,50000,30000,18000,9500,4000,4000],
+    alturas:[300000,300000,300000,110000,90000,50000,5000,6000],
+    offSetCamaraParaEnfocar:[-3,-3,-3,-1,-1,-.7,-.09,-.09],
 
     labels:{
         "Libre_RecAutf":"Libre Recogido"

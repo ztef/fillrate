@@ -14,6 +14,7 @@ dataManager.CambiaModoKPI=function(modo){
         $("#iconFR").attr("src","images/mode1_.png");
         $("#logo").attr("src","images/logo1.png");
         dataManager.ClusterObjects();
+        $("#simbologia").attr("src","images/simbologia FR.png");
         
 
     }else if(modo =="OOS F"){
@@ -22,6 +23,7 @@ dataManager.CambiaModoKPI=function(modo){
         $("#iconOOSF").attr("src","images/mode2_.png");
         $("#logo").attr("src","images/logo2.png");
         dataManager.ClusterObjects();
+        $("#simbologia").attr("src","images/Simbolog¡a OOS Filiales.png");
        
 
     }else if(modo =="Venta"){
@@ -30,6 +32,7 @@ dataManager.CambiaModoKPI=function(modo){
         $("#iconVenta").attr("src","images/mode3_.png");
         $("#logo").attr("src","images/logo3.png");
         dataManager.ClusterObjects();
+        $("#simbologia").attr("src","images/Simbolog¡a Ventas.png");
       
         
     }     

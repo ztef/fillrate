@@ -66,16 +66,17 @@ Stage.initStage=function(resolve, reject){
 		    localizacion=undefined;
 
 		    if (Cesium.defined(pickedObject)) {
+				console.log(pickedObject.id._id);
+		        	for(var e in ultimosEstadosDibujados){					
+						for(var j=0; j < ultimosEstadosDibujados[e].length; j++ ){
 
-		        	for(var e in ultimosEstadosDibujados){
-
-						if( ultimosEstadosDibujados[e] ){
-
-							if( ultimosEstadosDibujados[e][0]._id == pickedObject.id._id ){
+							if( ultimosEstadosDibujados[e][j]._id == pickedObject.id._id ){
 								//Stage.FocusMapElement(e);
+								console.log(e);
 								filterControls.lookForEntity(e,"cat_estado");
-							}
-
+								break;
+							}	
+							
 						}
 					}
 

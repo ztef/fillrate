@@ -235,8 +235,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       
       var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "por1", header: "Fill Rate", sortable: true, width: "200px" },    
-        { key: "cant", header: "Vol. Entregado", sortable: true, width: "200px" },
+        { key: "por1", header: "Fill Rate", sortable: true, width: "220px" },    
+        { key: "cant", header: "Vol. Entregado", sortable: true, width: "220px" },
         ];
     
     
@@ -266,13 +266,13 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         
         cant: function(value,i) {
                 var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.4);
-                var barValue = formatNumber(value)+"T";
+                var barValue = formatNumber(value)+" TM";
                
               
 
                 return '<div class="bar-container">' +
-                '<span class="bar-value">' + barValue + '</span>' +
-                '<svg width="100%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
+                '<span class="bar-value" style="width:80px">' + barValue + '</span>' +
+                '<svg width="90%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
                 '</div>';
 
 
@@ -589,7 +589,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
     kpiExpert_FR.DrawMainHeader=function(){
 
-                kpiExpert_FR.ancho=windowWidth*.6;
+                kpiExpert_FR.ancho=windowWidth*.52;
 
                 kpiExpert_FR.offSetLeft=168;
                 kpiExpert_FR.offSetLeft2=350;

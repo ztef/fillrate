@@ -167,10 +167,10 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
             var columnsWithTotals = ['Numero','','Numera']; 
             var totalsColumnVisitors = {
                         'Numero': function(value) { 
-                        return vix_tt_formatNumber(value) + "T"; 
+                        return vix_tt_formatNumber(value) + " TM"; 
                         },
                         'Numera': function(value) { 
-                        return vix_tt_formatNumber(value) + "T";
+                        return vix_tt_formatNumber(value) + " TM";
                         },
                       
                       
@@ -276,13 +276,13 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
                     }
 
-                    console.log("dia",date_.getDay());
+                   
                     if(date_.getDay()==6){
                        
                             var domingo=new Date(arr[i].fecha+dia+dia );
-                            console.log("domingooo",domingo.getDate(),domingo.getDay());
+                         
                             if(!fechas[domingo.getDate()+"_"+domingo.getDay()] ){
-                                console.log("insertaa",date_.getDay());
+                                
                                     arrTemp.push({
                                         Numerador:0,
                                         Denominador:0,

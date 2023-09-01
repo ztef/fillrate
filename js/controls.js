@@ -8,9 +8,10 @@ filterControls.createDataFiltersControls=function(catalogs){
 
         controlsInit=true;
         vix_tt_formatToolTip("#Controls",".",160);
-        $("#Controls").css("max-height","600px");
-        $("#Controls").css("height","540px");
-        $("#Controls").css("width","341px");
+        //$("#Controls").css("max-height","600px");
+        $("#Controls").css("height","550px");
+       $("#Controls").css("width","400px");
+
 
         $("#Controls").append(`
 
@@ -191,7 +192,13 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             store.cat_cliente=arrTemp;
 
-    }    
+    }  
+    
+    if(store.cat_region){
+
+        store.cat_region_origen=[...store.cat_region];
+
+    }
 
 }
 
@@ -332,8 +339,8 @@ filterControls.showActiveFilters=function(){
         $("#id_5").hide();
         $("#id_6").hide();
 
-        if($("#nivel_cb").val() > 3 ){
-            $("#nivel_cb").val("3");
+        if($("#nivel_cb").val() > 4 ){
+            $("#nivel_cb").val("4");
             alert("Se cambia el nivel a Gerencia, No existen niveles mas bajos");
         }
             
@@ -358,8 +365,8 @@ filterControls.showActiveFilters=function(){
         $("#id_5").hide();
         $("#id_6").hide();
 
-        if($("#nivel_cb").val() > 3 ){
-            $("#nivel_cb").val("3");
+        if($("#nivel_cb").val() > 4 ){
+            $("#nivel_cb").val("4");
             alert("Se cambia el nivel a Gerencia, No existen niveles mas bajos");
         }
 
@@ -438,7 +445,9 @@ filterControls.showActiveFilters=function(){
        Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;
 
-    $("#titulo").html(titulo);       
+    $("#titulo").html(titulo);   
+    
+    $("#titulo").css("width","70%");   
 
     svgLines.append("text")						
                     .attr("class","filters")
@@ -483,14 +492,14 @@ filterControls.createHardCodedControls=function(){
                 `<option id="id_${store.niveles[i].id}" value="${store.niveles[i].id}">${store.niveles[i].label}</option>   `); 
         }
 
-        $("#nivel_cb").val(1);
-        nivelLecturaActual=1;
+        $("#nivel_cb").val(0);
+        nivelLecturaActual=0;
 
-        posAnterior=1;
+        posAnterior=0;
       
         $("#nivel_cb").change(function(){
 
-            if($("#nivel_cb").val() > 4){
+            if($("#nivel_cb").val() > 5){
                 if($("#cat_cliente").val() == "" && $("#cat_region").val() == "" &&  $("#cat_estado").val() == "" && $("#cat_gerencia").val() == ""  && $("#cat_un").val() == ""){
 
                     if(posAnterior)

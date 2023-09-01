@@ -72,17 +72,17 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
     var arrTemp=[];
 
     var dia=((1000*60)*60)*24;
-    console.log("fechas",fechas);
+   
     for(var i=0; i < arr.length; i++ ){
 
         arrTemp.push(arr[i]);
         
             var date_=new Date(arr[i].fecha);
-            console.log("dia en curso",date_);
+            
             if(date_.getDay()==5){
 
                     var sabado=new Date(arr[i].fecha+dia);
-                    console.log("sabado",sabado.getDate(),sabado.getDay());
+                    
                     if(!fechas[sabado.getDate()+"_"+sabado.getDay()] ){
                     
                             arrTemp.push({
@@ -103,9 +103,9 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
             if(date_.getDay()==6){
             
                     var domingo=new Date(arr[i].fecha+dia+dia );
-                    console.log("domingooo",domingo.getDate(),domingo.getDay());
+                   
                     if(!fechas[domingo.getDate()+"_"+domingo.getDay()] ){
-                        console.log("insertaa",date_.getDay());
+                       
                             arrTemp.push({
                                 Libre_Pendiente_Hoy:0,
                                 Libre_Retrasado:0,
@@ -146,11 +146,11 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
     // FORMATEA TOOL TIP :
     
-    vix_tt_formatToolTip("#toolTip3","Retrasados por Día de "+entity.key,svgTooltipWidth);
+    vix_tt_formatToolTip("#toolTip3","Pedidos Pendientes de "+entity.key,svgTooltipWidth);
 
     // Agrega un div con un elemento svg :
 
-    var svgElement = "<svg id='svgTooltip3' style='pointer-events:none;'></svg>";
+    var svgElement = `<img id="simbologia" src="images/simb FR libre.png" style="width:366px;position:absolute;float:left;right:7px;top:48px;pointer-events: none;z-index:99999;visibility:visible;"></img><svg id='svgTooltip3' style='pointer-events:none;'></svg>`;
     d3.select("#toolTip3").append("div").html(svgElement);
 
     d3.select("#svgTooltip3")                     
@@ -274,7 +274,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
     $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",24+"%");
 
-    vix_tt_formatToolTip("#toolTip2","Retrasados por Tipo de "+entity.key,svgTooltipWidth);
+    vix_tt_formatToolTip("#toolTip2","Pedidos Pendientes por Tipo de "+entity.key,svgTooltipWidth);
 
     var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
     d3.select("#toolTip2").append("div").html(svgElement);
@@ -325,7 +325,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
                         .attr("transform"," translate("+String( ancho+(marginLeft)+10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
                         .text(function(){
             
-                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])))))+" T";
+                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])))))+" TM";
             })
             .transition().delay(0).duration(1000)
             .style("opacity",1 )
