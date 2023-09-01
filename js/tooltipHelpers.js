@@ -141,7 +141,7 @@ function vix_tt_transitionRectWidth(containerID) {
         // Applica transicion :
         .transition()
         .duration(1000) // mil milisegundos
-        .attr("width", originalWidth);  // with final (original)
+        .attr("width", originalWidth);  
     });
   }
 
@@ -158,10 +158,12 @@ function vix_tt_transitionRectWidth(containerID) {
 */
 
 
-function vix_tt_formatToolTip(divElement, titulo, width) {
+function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
 
     $(divElement).html("");
+
+    var tooltipHeight = initialHeight || "auto";
 
     // Ajusta Estilo
     $(divElement).css({
@@ -172,7 +174,8 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       backgroundColor: "rgba(0, 0, 0, 0.85)",
       boxShadow: "rgba(0, 0, 0, .5) 19px 15px 24px",
       width: width+"px", 
-      "max-height": "650px",
+      height: tooltipHeight,
+      maxHeight: "850px",
       overflow:"auto",
      
     });
@@ -193,7 +196,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       // Incrementa el contador global z-index 
       zIndexCounter++;
   
-      // Adjust the z-index and make the tooltip visible
+      // Setea el z-index 
       $(divElement).css({
         
         zIndex: zIndexCounter,
@@ -231,6 +234,20 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       },
     });
 
+
+
+    var collapseButton = $("<button>", {
+      class: "collapse-button",
+      css: {
+        float: "right",
+        cursor: "pointer",
+        color: "white",
+        backgroundColor: "transparent",
+        border: "none",
+        color: "#ffffff",
+      },
+    }).append('<i class="fas fa-minus"></i>');
+
     // Crea boton de cerrado
     var closeButton = $("<button>", {
         class: "close-button",
@@ -246,6 +263,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
 
     // A la barra le agrega la zona de cerrado y el boton de cerrado
     topBar.append(dragHandle);
+    topBar.append(collapseButton);
     topBar.append(closeButton);
 
     // Agrega la barra superior al div
@@ -256,20 +274,41 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       $(divElement).css("visibility","hidden");
     });
 
+    var isCollapsed = false;
+
+    
+    var originalHeight = $(divElement).css("height");
+  
+    // Crea el evento para colapsar o expander la ventana
+    collapseButton.on("click", function () {
+      if (isCollapsed) {
+        $(divElement).css({ height: originalHeight, maxHeight: "650px", visibility: "visible" });
+        collapseButton.find("i").removeClass("fa-plus").addClass("fa-minus"); // Cambia el icono a menos  -
+        isCollapsed = false;
+      } else {
+
+        originalHeight = $(divElement).css("height");
+        $(divElement).css({ height: "30px", maxHeight: "30px", visibility: "visible" });
+        collapseButton.find("i").removeClass("fa-minus").addClass("fa-plus"); // Cambia el icono a +
+        isCollapsed = true;
+      }
+    });
+
 
   }
 
 
+  // Crea una barra inferior con un icono para descargar
 
   function vix_tt_formatBottomBar(divElement, exportHandler) {
-    // Create a spacer element for space before the bottomBar
+    // Crea un espacio para que la barra no se pegue
     var spacer = $("<div>", {
       css: {
-        height: "20px", // Adjust the height for the desired space
+        height: "20px",  
       },
     });
   
-    // Create bottom bar
+    // Crea la barra inferior
     var bottomBar = $("<div>", {
       class: "bottom-bar",
       css: {
@@ -281,7 +320,7 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
       },
     });
   
-    // Create download button with an icon
+    // Crea el boton de descarga
     var downloadButton = $("<button>", {
       class: "download-button",
       css: {
@@ -295,34 +334,59 @@ function vix_tt_formatToolTip(divElement, titulo, width) {
   
     bottomBar.append(downloadButton);
   
-    // Add spacer before the bottomBar
+    // agrega el espacio
     $(divElement).append(spacer);
   
-    // Add bottom bar to the div
+    // Agrega la barra
     $(divElement).append(bottomBar);
   
-    // Add click event for downloading in Excel format
+    // Agrega el evento on Click
     downloadButton.on("click", function () {
-      exportHandler(); // Call the provided export handler
+      exportHandler(); // LLama a la funcion que recibe como parametro
     });
   }
   
 
-// Export handler function to download data in Excel format
+  // Funcion auxiliar que formatea los datos para descargar en excel (Pone los nombres de las columnas)
+
+  function formatDataForExport(data, columns) {
+    var formattedData = [];
+    
+    // Agrega la fila con los nombres
+    var headerRow = columns.map(function(column) {
+      return column.header;
+    });
+    formattedData.push(headerRow);
+  
+    // Agrega las filas de datos
+    data.forEach(function(row) {
+      var rowData = columns.map(function(column) {
+        return row[column.key];
+      });
+      formattedData.push(rowData);
+    });
+  
+    return formattedData;
+  }
+  
+
+
+
+// Realiza la descarga en Excel
 function exportToExcel(data, filename) {
   var wb = XLSX.utils.book_new();
   var ws = XLSX.utils.json_to_sheet(data);
   XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
-  // Convert workbook to binary format
+  // Especifica el formato como binario
   var wbout = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
 
-  // Convert binary string to Blob
+  // Convierte un string en Blob
   var blob = new Blob([s2ab(wbout)], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   });
 
-  // Create a download link and trigger click event
+  // Crea un link para la descarga
   var downloadLink = document.createElement("a");
   downloadLink.href = URL.createObjectURL(blob);
   downloadLink.download = filename + ".xlsx";
@@ -331,7 +395,7 @@ function exportToExcel(data, filename) {
   document.body.removeChild(downloadLink);
 }
 
-// Utility function to convert s to array buffer
+// Convierte el string s en un array buffer
 function s2ab(s) {
   var buf = new ArrayBuffer(s.length);
   var view = new Uint8Array(buf);

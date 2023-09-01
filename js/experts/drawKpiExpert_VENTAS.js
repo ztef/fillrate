@@ -283,13 +283,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
         
 
+        // Crea una barra inferior y pasa una funcion de exportacion de datos
         vix_tt_formatBottomBar("#toolTip3", function () {
-          var dataToExport = [
-            1,2,3
-          ];
-        
-          var filename = "exported_data"; // Provide a filename for the Excel file
-          exportToExcel(data, filename);
+          var dataToExport = formatDataForExport(data, columns);
+          var filename = "exported_data";
+          exportToExcel(dataToExport, filename);
         });
  
   
