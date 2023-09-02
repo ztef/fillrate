@@ -159,7 +159,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip2","OOS por U.N. y Producto de "+entity.key,svgTooltipWidth);
+      vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,svgTooltipWidth);
     
       
             // COLUMNAS CON TOTALES :
@@ -167,7 +167,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
             var columnsWithTotals = ['Numero','','Numera']; 
             var totalsColumnVisitors = {
                         'Numero': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
+                        return vix_tt_formatNumber(value) ; 
                         },
                         'Numera': function(value) { 
                         return vix_tt_formatNumber(value) + " TM";
@@ -318,7 +318,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
             // FORMATEA TOOL TIP :
             
-            vix_tt_formatToolTip("#toolTip3","OOS por Día de "+entity.key,svgTooltipWidth);
+            vix_tt_formatToolTip("#toolTip3","Out of Stock por Día de "+entity.key,svgTooltipWidth);
         
             // Agrega un div con un elemento svg :
         

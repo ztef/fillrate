@@ -78,7 +78,8 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
         return {
           key: item.key,
           "MasivosVol": item.MasivosVol,      
-          "totalSolicitado": item.totalSolicitado
+          "totalSolicitado": item.totalSolicitado,
+          "DifP": ((item.MasivosVol / item.totalSolicitado)) *100
         };
         });
 
@@ -87,7 +88,8 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
      var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
         { key: "MasivosVol", header: "Volumen Masivos", sortable: true, width: "150px" },    
-        { key: "totalSolicitado", header: "Vol. Solicitado (%)", sortable: true, width: "150px" },
+        { key: "totalSolicitado", header: "Vol. Solicitado", sortable: true, width: "150px" },
+        { key: "DifP", header: "Procentaje", sortable: true, width: "150px" },
         ];
 
     // DEFINE VISITORS PARA CADA COLUMNA
@@ -128,12 +130,26 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
 
 
                 
-        }
+        }, 
+        DifP: function(value,i) {
+            var ancho=GetValorRangos( value,1, maximoVol ,1,svgTooltipHeight*.4);
+            var barValue = formatNumber(value)+" %";              
+          
+
+            return '<div class="bar-container">' +
+          
+            '<span class="bar-value">' + barValue + '</span>' +
+            '</div>';
+
+
+
+            
+    }
       };
 
       // COLUMNAS CON TOTALES :
 
-      var columnsWithTotals = ['MasivosVol','totalSolicitado']; 
+      var columnsWithTotals = ['MasivosVol','totalSolicitado','DifP']; 
       var totalsColumnVisitors = {
                 'MasivosVol': function(value) { 
                         var v = formatNumber(value)+" TM";
@@ -145,6 +161,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
              
                         return v; 
                 }
+               
                 };
 
     

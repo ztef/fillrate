@@ -102,7 +102,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         { key: "VolVenta_Plan", header: "Vol Plan", sortable: true, width: "100px" },
         { key: "VolVenta_Real", header: "Vol Real", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
-        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "120px" },
+        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
@@ -131,7 +131,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%';
         
             return '<div class="bar-container">' +
-            '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
+            '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
         + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
         '</div>';
     
@@ -143,7 +143,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
            var barValue = vix_tt_formatNumber(value)+' TM';
       
           return '<div class="bar-container">' +
-          '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
+          '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
           
           '</div>';
 
