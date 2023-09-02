@@ -32,14 +32,15 @@ calculateKpiExpert_FR.calculateKPI=function(){
         var agrupador="";
 
         for(var i=0; i < store.niveles.length; i++){    
-
+     
             if( store.niveles[i].id == $("#nivel_cb").val() ){
-
+                
                     agrupador=store.niveles[i].storeProcedureField; 
                    
             }                        
         }
 
+        
         for(var i=0; i < store.apiDataSources.length; i++){
           
             if(store.apiDataSources[i].varName=="fillRate"){

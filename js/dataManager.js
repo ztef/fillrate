@@ -44,7 +44,7 @@ dataManager.CambiaModoKPI=function(modo){
 var entities;
 
  dataManager.ClusterObjects= function(){
-
+    
     dataLoader.HideLoadings();
 
     filterControls.showActiveFilters();
@@ -192,7 +192,7 @@ dataManager.CalculateKPIs=function(){
     
     
     // 5
-    if(calculateKpiExpert_Abasto && $("#nivel_cb").val() ){
+    if(calculateKpiExpert_Abasto  ){
 
         loadsTarget++;
         dataLoader.AddLoadingTitle("SP Abasto");
@@ -209,7 +209,7 @@ dataManager.CalculateKPIs=function(){
     if(store.map_var==kpiExpert_FR){
 
             // 6
-            if(calculateKpiExpert_Pendientes && $("#nivel_cb").val() ){
+            if(calculateKpiExpert_Pendientes  ){
                 loadsTarget++;
                 dataLoader.AddLoadingTitle("SP Pendientes");
                 setTimeout(()=>{
@@ -237,13 +237,27 @@ dataManager.CalculateKPIs=function(){
     
 
     // 8
-    if(calculateKpiExpert_Produccion && $("#nivel_cb").val()  ){
+    if(calculateKpiExpert_Produccion   ){
         loadsTarget++;
         dataLoader.AddLoadingTitle("SP Produccion");
         setTimeout(()=>{
             calculateKpiExpert_Produccion.calculateKPI(entities).then(()=>{
                                                                 loadsCount++;
                                                                 dataLoader.DeleteLoadingTitle("SP Produccion"); 
+                                                                dataManager.checkAllLoads();
+                                                             });
+        }, 500);
+    } 
+
+
+    // 9
+    if(calculateKpiExpert_Flota   ){
+        loadsTarget++;
+        dataLoader.AddLoadingTitle("SP Déficit Flota");
+        setTimeout(()=>{
+            calculateKpiExpert_Flota.calculateKPI(entities).then(()=>{
+                                                                loadsCount++;
+                                                                dataLoader.DeleteLoadingTitle("SP Déficit Flota"); 
                                                                 dataManager.checkAllLoads();
                                                              });
         }, 500);
@@ -416,6 +430,15 @@ dataManager.getTooltipText=function(entity){
             if(calculateKpiExpert_Produccion.getTooltipDetail(entity.key)!=undefined){
                 if(entity.produccion)
                     text+=calculateKpiExpert_Produccion.getTooltipDetail(entity.key);
+            }
+
+        } 
+
+        if(calculateKpiExpert_Flota.getTooltipDetail){
+
+            if(calculateKpiExpert_Flota.getTooltipDetail(entity.key)!=undefined){
+                if(entity.flota)
+                    text+=calculateKpiExpert_Flota.getTooltipDetail(entity.key);
             }
 
         } 

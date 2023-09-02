@@ -39,6 +39,7 @@
     <script src="js/experts/calculateKpiExpert_Produccion.js"></script>
     <script src="js/experts/drawKpiExpert_ABAS.js"></script>
     <script src="js/experts/reportExpert.js"></script>
+    <script src="js/experts/calculateKpiExpert_Flota.js"></script>
 
     <script src="js/experts/drawKpiExpert_FR.js"></script>
     <script src="js/experts/drawKpiExpert_OOS.js"></script>
@@ -416,15 +417,20 @@ color: yellow;
             $('#datepicker').val((ayer.getMonth()+1)+"-01-2023");
             $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
 
-            //setTimeout(()=>{$(".loginBtn").click()}, 1000);
+
+            $('#datepicker').val("08-01-2023"); $('#datepicker2').val("08-31-2023");          
+
+
+            
 
             $(function() { 
 
                 dateInit=new Date($('#datepicker').val());
                 dateEnd=new Date($('#datepicker2').val());
 
-                dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){                    
-
+                dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){ 
+                    
+                    
                     DibujaRegiones();
 
                     DibujaEstados();                                       
@@ -439,8 +445,10 @@ color: yellow;
                     $('.loginContainer').css('visibility','visible');
 
                     $('#Controls').css('visibility','hidden');
+                    
+                    setTimeout(()=>{$(".loginBtn").click()}, 500); // Se debe asegurar haber cargado catalogos basicos antes de disparra las consultas
 
-                })
+                })               
 
              });
             

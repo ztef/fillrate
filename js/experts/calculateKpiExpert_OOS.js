@@ -103,8 +103,7 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 
                                         var maxDate=0;
 
-                                        console.log(entities_coll,entities);
-
+                                       
                                         for(var j=0;  j < data.recordset.length; j++){
 
                                                 if(data.recordset[j].Fecha!=""){

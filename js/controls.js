@@ -722,8 +722,10 @@ filterControls.createHardCodedControls=function(){
                     store.dataToDraw=dataTemp;
                 }
 
-                if(!onlyFilterData)
-                    dataManager.ClusterObjects();                           
+                if(!onlyFilterData){
+                    
+                    dataManager.ClusterObjects();
+                }                                             
                 
 
         }
