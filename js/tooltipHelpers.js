@@ -348,6 +348,12 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
   function vix_tt_formatMenu(divElement, titulo, width,  initialHeight) {
 
 
+    var currentTop = parseInt($(divElement).css("top"));
+
+   
+    
+
+
     $(divElement).html("");
 
     var tooltipHeight = initialHeight || "auto";
@@ -366,6 +372,12 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       overflow:"auto",
      
     });
+
+
+    if (currentTop < 10) {
+    
+      $(divElement).css({top: 50});
+    }
 
 
     // Para ocultar las barras de desplazamiento personalizadas en navegadores WebKit

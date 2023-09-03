@@ -366,9 +366,12 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     $("#toolTip2").css("visibility","visible");            
     $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",24+"%");
+
+
+   // Daniel, quite estas 2 lineas que estaban colocando la ventana muy arriba :
     
-    if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
-        $("#toolTip2").css("top",(windowHeight-(arr.length*altura)-150)+"px");
+   // if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
+      //  $("#toolTip2").css("top",(windowHeight-(arr.length*altura)-150)+"px");
 
     var toolText =  
         "<span style='color:#fff600'><span style='color:#ffffff'>Detalle Ventas por Estado</span></span>"+               
