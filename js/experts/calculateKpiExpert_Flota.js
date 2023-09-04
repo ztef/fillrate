@@ -174,7 +174,7 @@ calculateKpiExpert_Flota.getTooltipDetail=function(entityId){
                     if(entities[i].oos.oos!=undefined)
                             prodPer=entities[i].flota.flota+"";
 
-                    var text=`<div class="tooltipDetailElement"><img id="" src="images/OOS.png" style=""></img>
+                    var text=`<div class="tooltipDetailElement"><img id="" src="images/ico deficit de flota.png" style=""></img>
                     <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Déficil de Flota: </span><br>
                     <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Total:</span> <span style='color:#ffffff'>${ prodPer }</span><br>
                    

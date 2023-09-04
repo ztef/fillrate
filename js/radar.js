@@ -750,7 +750,11 @@ radar.DrawEntityValues=function(entity){
 
                                         label = String( ( Math.round(Number(label)/10)/100 ) )+"k";
                                         
-                                    }                                    
+                                    }else{
+
+                                        label = String( ( formatNumber(Number(label)/10)/100 ) );
+                                        
+                                    }                               
 
                                     return label;
 
