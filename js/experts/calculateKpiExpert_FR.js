@@ -30,13 +30,14 @@ calculateKpiExpert_FR.calculateKPI=function(){
         var serviceName;
         var apiURL;
         var agrupador="";
+        var cuentaFiltros=0;
 
         for(var i=0; i < store.niveles.length; i++){    
      
             if( store.niveles[i].id == $("#nivel_cb").val() ){
                 
                     agrupador=store.niveles[i].storeProcedureField; 
-                   
+
             }                        
         }
 
@@ -60,14 +61,14 @@ calculateKpiExpert_FR.calculateKPI=function(){
         }
 
         // FILTROS****
-        var params="";
+        var params="";       
                        
         for(var j=0; j < store.catlogsForFilters.length; j++){
 
             if($("#"+store.catlogsForFilters[j].id).val() != "" && $("#"+store.catlogsForFilters[j].id).val() != undefined ){
 
                 params+="&"+store.catlogsForFilters[j].storeProcedureField+"="+store.catlogsForFilters[j].diccNames[ $("#"+store.catlogsForFilters[j].id).val() ];
-
+                cuentaFiltros++;
             }
 
         }
@@ -87,6 +88,10 @@ calculateKpiExpert_FR.calculateKPI=function(){
 
                         params+="&Masivos=Solo Masivos"; 
                         
+                }
+
+                if(!initialized){
+                    params+="&AgrupProducto=Gris"
                 }
 
                 var URL=apiURL+"/"+serviceName+"?fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
@@ -131,7 +136,7 @@ calculateKpiExpert_FR.calculateKPI=function(){
                             fillRateEntities=entities;
                             calculateKpiExpert_FR.max=0;
 
-                            if(!initialized){
+                            if( !initialized || (cuentaFiltros==0 && ($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == "")) ){
 
                                 initialized=true;
 
@@ -169,6 +174,8 @@ calculateKpiExpert_FR.calculateKPI=function(){
                                 store.fillRate=data.recordset;
 
                             }
+
+                           
 
                             for(var i=0;  i < entities.length; i++){ 
 
@@ -318,9 +325,9 @@ calculateKpiExpert_FR.calculateFRPorEstado=function(estados){
             estados[i].por1=Math.round((estados[i].vol1/estados[i].totalSolicitado)*100);
 
             var color="#ffffff";
-            if(estados[i].por1 >= 90){
+            if(estados[i].por1 >= 91){
                 color="#18CC00";
-            }else if(estados[i].por1 <= 70){
+            }else if(estados[i].por1 <= 75){
                 color="#FF0000";
             }else{
                 color="#F0FF00";

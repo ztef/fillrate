@@ -21,7 +21,7 @@ filterControls.createDataFiltersControls=function(catalogs){
                     
                     <div style="width:90%;position:absolute;bottom:19px;display: flex;">
                                 <button class="filters" onclick="filterControls.CleanFields();" style="margin: 3px;color:black">Limpiar</button> 
-                                <button class="filters" onclick="filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
+                                <button class="filters" onclick="forzarFiltrado=true;filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
                         </div>
 
                     <div id="ControlsFieldsCustom">                    
@@ -31,7 +31,7 @@ filterControls.createDataFiltersControls=function(catalogs){
 
         `);
 
-        filterControls.creaCatalogosDerivadorDeClientes();    
+        filterControls.creaCatalogosDerivadorDeClientes();   
     }
     
     
@@ -77,11 +77,11 @@ filterControls.createDataFiltersControls=function(catalogs){
                     arrAutoCompleteArr.push(arr[j].key);
 
                 }    
-                
-                console.log("Crea catalogo",catalogs[i].id,arrAutoCompleteArr);
 
                 autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
 
+                if(catalogs[i].default)
+                    $("#"+catalogs[i].id).val(catalogs[i].default);
                 
             }
 
@@ -210,6 +210,7 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 var caso=0;
 var filtrosAplicados={};
 var nivelLecturaActual;
+var forzarFiltrado=false;
 
 filterControls.FilterData=function(e,val){
 
@@ -250,11 +251,13 @@ filterControls.FilterData=function(e,val){
     if(!store[store.mainDataset])
     return;
 
-    if( caso==0 && (store[store.mainDataset].length==store.dataToDraw.length) ){
+    if( caso==0 && (store[store.mainDataset].length==store.dataToDraw.length) && forzarFiltrado==false ){
 
         return;
 
     }else{
+
+        forzarFiltrado=false;
 
         store.dataToDraw=filterControls.FilterSpecificDataSet(store[store.mainDataset],"nameOnFR");
 
@@ -332,6 +335,17 @@ filterControls.FilterSpecificDataSet=function(Rows,fieldsNames){
 }
 
 filterControls.showActiveFilters=function(){
+
+    for(var i=0; i < store.catlogsForFilters.length; i++){
+         
+        if($("#"+store.catlogsForFilters[i].id).val() != "" && $("#"+store.catlogsForFilters[i].id).val() != undefined ){
+           filtrosAplicados[store.catlogsForFilters[i].id]=$("#"+store.catlogsForFilters[i].id).val();
+            caso++;
+        }else{
+           delete filtrosAplicados[store.catlogsForFilters[i].id];
+        }
+    
+}
 
     // visibilidad de filtros por nivel
     if(store.map_var==kpiExpert_OOS_Filiales){        

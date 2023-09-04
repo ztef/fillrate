@@ -130,7 +130,10 @@
         .bar-value {
              margin-left: 1px; /* Add some spacing between the bar and value */
              margin-right: 8px;
-         }
+             text-align: left;
+             min-width: 30px;
+
+        }
 
          .tooltip-table {
             border-collapse: collapse;
@@ -270,7 +273,7 @@ color: yellow;
                 </filter>
         </defs>
         </svg>
-        <div id="version"  style="color:gray;opacity:.7;font-size: 9px;position:fixed;top:70px;left:10px;z-index:9999">V.10.5</div>
+        <div id="version"  style="color:gray;opacity:.7;font-size: 9px;position:fixed;top:70px;left:10px;z-index:9999">V.10.8</div>
 
         <div style="position:fixed;z-index:-10;float:left;top:0px;pointer-events:none;height:100%;width:100%;background:linear-gradient(#000000, #000000);"></div>
 
@@ -278,7 +281,7 @@ color: yellow;
 
         <div id="cesiumContainer" style="position:fixed;top:0px;z-index:1;background-color: black"></div>
         
-        <img id="logo" src="images/logo1.png" style="position:fixed;z-index:9999999;width:140px;float:left;left:10px;top:11px;pointer-events: none;visibility:visible;"></img>
+        <img id="logo" src="images/logo1.png" style="position:fixed;z-index:999999;width:140px;float:left;left:10px;top:11px;pointer-events: none;visibility:visible;"></img>
 
       
         <img id="simbologia" src="images/simbologia FR.png" style="width:366px;position:fixed;float:left;right:38px;bottom:2px;pointer-events: none;z-index:99999;visibility:visible;"></img>
@@ -301,8 +304,8 @@ color: yellow;
             <div class="tooltipIcon"><img id="cargando" src="images/Sizedecrease.png" onclick="escalado=escalado*(.7);Stage.DrawMapObjects(currentEntities,store.mainDataset);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño barras</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/hexagons_.png" onclick="radar.DecreaseRadars();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir Columnas</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/hexagons.png" onclick="radar.IncreaseRadars();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Aumentar Columnas</div></div>
-            <div class="tooltipIcon"><img id="cargando" src="images/increase.png" onclick="radar.escalado=radar.escalado*(1.1);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Aumentar tamaño Radar</div></div>
-            <div class="tooltipIcon"><img id="cargando" src="images/decrease.png" onclick="radar.escalado=radar.escalado*(.9);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir tamaño Radar</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/increase.png" onclick="radar.escalado=radar.escalado*(1.1);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Aumentar tamaño Araña</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/decrease.png" onclick="radar.escalado=radar.escalado*(.9);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir tamaño Araña</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/fontSize1.png" onclick="escalaTextos=escalaTextos*(1.1);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño texto</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/fontSize2.png" onclick="escalaTextos=escalaTextos*(.9);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño texto</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/chemical.png" onclick="if(store.fillRate){$('#Controls').css('visibility','visible');}" style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Filtros</div></div>
@@ -411,7 +414,7 @@ color: yellow;
 
     <script>
 
-        // Versión: 1.0.0 
+        
         //Editor: Daniel Contreras Calderon
 
         var windowWidth; 
@@ -484,7 +487,9 @@ color: yellow;
 
                     $('.loginContainer').css('visibility','hidden');
 
-                    dataManager.ClusterObjects();                      
+                    dataManager.ClusterObjects(); 
+                    
+                    
 
                 }else{
                     alert('Seleccione fechas');
