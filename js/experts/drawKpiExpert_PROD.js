@@ -151,7 +151,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         }
       };
  // FORMATEA DIV :
- var alturaVentana=700;
+ var alturaVentana=500;
  $("#toolTip2").css("top",15+"%");
 
  vix_tt_formatToolTip("#toolTip2","Producción por Planta",700);
