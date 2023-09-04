@@ -358,7 +358,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             var barValue = vix_tt_formatNumber(value)+'%   ';
         
             return '<div class="bar-container">' +
-            '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
+           
+            '<span class="bar-value" style="width:60px">'  + barValue + '</span>' + '<svg width="90%" height="10">'  
             + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
             '</div>';
         },
@@ -368,6 +369,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
+           '<span class="bar-value" style="width:30px"></span>' +
            '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
            '</div>';
         }
@@ -509,7 +511,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
-        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
+        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "220px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
@@ -542,13 +544,20 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
 
            value=Math.round(value);
 
-            var barWidth = value + '%';
+            var barWidth = value / 2 + '%';
             var barValue = vix_tt_formatNumber(value)+'%   ';
 
+            //var fixedWidth = '60px';
+
             return '<div class="bar-container">' +
-            '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
-        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
-        '</div>';
+            '<span class="bar-value" style="width:60px">' + barValue + '</span>' +
+            '<svg width="90%" height="10">'  +
+            '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
+            '</div>';
+
+        
+
+      
         },
         Peso: function(value){
 
@@ -559,6 +568,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             var barValue = vix_tt_formatNumber(value)+'TM';
        
            return '<div class="bar-container">' +
+           '<span class="bar-value" style="width:30px"></span>' +
            '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
            '</div>';
         }
@@ -567,7 +577,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,svgTooltipWidth);
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,svgTooltipWidth+100);
     
       
             // COLUMNAS CON TOTALES :
@@ -729,14 +739,21 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
             return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
+
+          value=Math.round(value);
       
-            var barWidth = value + '%';
+            var barWidth = value/2 + '%';
             var barValue = vix_tt_formatNumber(value)+'%   ';
-        
-            return '<div class="bar-container">' +
-            '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
+
+           
+
+          var barWidth = value + '%';
+          var barValue = vix_tt_formatNumber(value)+'%   ';
+      
+          return '<div class="bar-container">' +
+          '<span class="bar-value" style="width:60px">' + barValue + '</span>' + '<svg width="90%" height="10">'  
         + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
-        '</div>';
+          '</div>';
         },
         Peso: function(value){
       
@@ -754,6 +771,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
             var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
+           '<span class="bar-value" style="width:30px"></span>' +
            '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
            '</div>';
         }
