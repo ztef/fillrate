@@ -46,8 +46,7 @@ var entities;
  dataManager.ClusterObjects= function(){
     
     dataLoader.HideLoadings();
-
-    filterControls.showActiveFilters();
+    
 
     Stage.blockScreen.style("visibility","visible"); 
     
@@ -322,6 +321,8 @@ dataManager.checkAllLoads=function(){
         }
 
         filterControls.createDataFiltersControls(store.catlogsForFilters);
+
+        filterControls.showActiveFilters();
 
     }
 }

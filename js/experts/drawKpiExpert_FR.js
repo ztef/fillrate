@@ -686,8 +686,8 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                 svgLines.selectAll(".encabezadoFiltered").data([]).exit().remove();
 
-                if( (store.fillRate.length==store.dataToDraw.length) )
-                return;
+                //if( (store.fillRate.length==store.dataToDraw.length) )
+                //return;
 
                 var altura=kpiExpert_FR.altura;
 
@@ -739,7 +739,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .attr("filter","url(#glow)")
                         .attr("class","encabezadoFiltered")			
                         .style("opacity",1 )
-                        .attr("rx",4)
+                        .attr("rx",2)
                         .attr("width",1 )
                         .attr("height",(altura*.4) )
                         .attr("x",kpiExpert_FR.offSetLeft+6+kpiExpert_FR.offSetLeft2)
@@ -766,7 +766,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .attr("filter","url(#glow)")
                         .attr("class","encabezadoFiltered")                       
                         .style("opacity",1 )
-                        .attr("rx",4)
+                        .attr("rx",2)
                         .attr("width",1 )
                         .attr("height",(altura*.4) )
                         .attr("x",kpiExpert_FR.offSetLeft+ancho2+6+kpiExpert_FR.offSetLeft2 )
@@ -791,7 +791,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .attr("filter","url(#glow)")
                         .attr("class","encabezadoFiltered")                        
                         .style("opacity",1 )
-                        .attr("rx",4)
+                        .attr("rx",2)
                         .attr("width",1 )
                         .attr("height",(altura*.4) )
                         .attr("x",kpiExpert_FR.offSetLeft+ancho2+ancho3+6+kpiExpert_FR.offSetLeft2)
@@ -838,7 +838,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .text(function(){
                                 
                                 //return "Muestra Solicitado: "+formatNumber(Math.round(totalCanSol_filtered/1000) )+" k Ton - Entregado: "+formatNumber(Math.round(totalCanEnt_filtered/1000) )+" k Ton ("+ Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100) +"%)";
-                                return "Muestra Entregado: "+Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100)+"% , "+formatNumber(Math.round(totalCanEnt_filtered/1000) )+" k  - Solictidado: "+formatNumber(Math.round(totalCanSol_filtered/1000) )+" k  ";
+                                return "Muestra Entregado: "+Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100)+"% , "+formatNumber(Math.round(totalCanEnt_filtered/1000) )+" TM  - Solictidado: "+formatNumber(Math.round(totalCanSol_filtered/1000) )+" TM  ";
 
                         })
                         .transition().delay(0).duration(1000)
