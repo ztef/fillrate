@@ -194,7 +194,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip5","Abasto de "+entity.key,svgTooltipWidth+"hacia otras UN" ,700);
+      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key,svgTooltipWidth+"hacia otras UN" ,700);
     
       
             // COLUMNAS CON TOTALES :
