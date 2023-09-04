@@ -752,7 +752,8 @@ radar.DrawEntityValues=function(entity){
                                         
                                     }else if(radar.config[i].unidad=="1dec"){
 
-                                        label =  formatNumber( Math.round(Number(label)*10)/10 ) ;
+                                        label =  ((Number(label)*10)/10 ) ;
+                                      
                                         
                                     }                               
 
