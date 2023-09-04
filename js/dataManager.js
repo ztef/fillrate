@@ -357,12 +357,16 @@ dataManager.getTooltipText=function(entity){
     nombre=nombre.replaceAll("undefined"," ");
 
 
-    var text=` <div class="detailContainer" style="display: flex;">
+    var text=` <div class="detailContainer" style="">
         
-        <div class="detail1" style="">
-        <div class="tooltipHeader" style="display:flex;">
-        <span style='color:#00C6FF;font-size:15px;'></span><span style='color:#00C6FF'>${nombre}</span>
+        <div>
+            <div class="tooltipHeader" style="display:flex;">
+                <span style='color:#00C6FF;font-size:15px;'></span><span style='color:#00C6FF'>${nombre}</span>
+            </div>
         </div>
+        <div style="display: flex;">
+        <div class="detail1" style="">
+               
         `
         if(calculateKpiExpert_Ventas.getTooltipDetail){
 
@@ -450,7 +454,7 @@ dataManager.getTooltipText=function(entity){
 
         } 
 
-        text+="</div></div>";
+        text+="</div></div></div>";
 
         return text;
 

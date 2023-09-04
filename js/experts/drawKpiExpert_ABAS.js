@@ -193,10 +193,12 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
     
       // FORMATEA DIV :
+
       var alturaVentana=700;
       $("#toolTip5").css("top",16+"%");
 
       vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key,svgTooltipWidth+"hacia otras UN",700);
+
     
       if(alturaVentana+(windowHeight*.16) > windowHeight ){
         alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
@@ -584,15 +586,20 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
     
       // FORMATEA DIV :
+
+
       var alturaVentana=700;
       $("#toolTip3").css("top",16+"%");
 
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,svgTooltipWidth,700);
-    
       if(alturaVentana+(windowHeight*.16) > windowHeight ){
         alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
+       
       }
-      $("#toolTip3").css("height",alturaVentana+"px")
+     
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key);
+      $("#toolTip3").css("height",alturaVentana+"px");
+      
+
             // COLUMNAS CON TOTALES :
     
             var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 

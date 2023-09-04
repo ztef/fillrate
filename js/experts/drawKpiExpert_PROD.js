@@ -142,6 +142,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
            var barValue = vix_tt_formatNumber(value)+' TM';
       
           return '<div class="bar-container">' +
+          '<span class="bar-value" style="width:30px"></span>' +
           '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
           
           '</div>';
