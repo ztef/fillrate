@@ -130,7 +130,10 @@
         .bar-value {
              margin-left: 1px; /* Add some spacing between the bar and value */
              margin-right: 8px;
-         }
+             text-align: left;
+             min-width: 30px;
+
+        }
 
          .tooltip-table {
             border-collapse: collapse;
@@ -278,7 +281,7 @@ color: yellow;
 
         <div id="cesiumContainer" style="position:fixed;top:0px;z-index:1;background-color: black"></div>
         
-        <img id="logo" src="images/logo1.png" style="position:fixed;z-index:9999999;width:140px;float:left;left:10px;top:11px;pointer-events: none;visibility:visible;"></img>
+        <img id="logo" src="images/logo1.png" style="position:fixed;z-index:999999;width:140px;float:left;left:10px;top:11px;pointer-events: none;visibility:visible;"></img>
 
       
         <img id="simbologia" src="images/simbologia FR.png" style="width:366px;position:fixed;float:left;right:38px;bottom:2px;pointer-events: none;z-index:99999;visibility:visible;"></img>
@@ -484,7 +487,9 @@ color: yellow;
 
                     $('.loginContainer').css('visibility','hidden');
 
-                    dataManager.ClusterObjects();                      
+                    dataManager.ClusterObjects(); 
+                    
+                    
 
                 }else{
                     alert('Seleccione fechas');
