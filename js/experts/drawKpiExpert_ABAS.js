@@ -537,8 +537,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           if(value<=0)
            value=1;
 
-           if(value > 100)
-           value=100;
+           if(value > 200)
+           value=200;
 
            value=Math.round(value);
 

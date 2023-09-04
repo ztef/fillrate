@@ -49,9 +49,9 @@ var store={
            
             {data:"cat_un",placeholder:"Unidad Negocio",fieldInCatlog:"Nombre",id:"cat_un",type:"autoComplete",nameOnFR:"vc50_UN_Tact",nameOnPendientes:"Unidad", color:"#3733E7",storeProcedureField:"vc50_UN_Tact"},
             {data:"cat_gerencia",placeholder:"Gerencia",fieldInCatlog:"Nombre",id:"cat_gerencia",type:"autoComplete",nameOnFR:"GerenciaUN",nameOnPendientes:"Gerencia", color:"#3733E7",storeProcedureField:"GerenciaUN"},
-            
+            {data:"cat_region_origen",placeholder:"Region Origen",fieldInCatlog:"Nombre" , id:"cat_region_origen",type:"autoComplete",nameOnFR:"RegionZTDem",nameOnPendientes:"Region", color:"#3733E7",storeProcedureField:"vc50_Region_UN"},
             {data:"cat_region",placeholder:"Region Destino",fieldInCatlog:"Nombre" , id:"cat_region",type:"autoComplete",nameOnFR:"RegionZTDem",nameOnPendientes:"Region", color:"#12FF00",storeProcedureField:"RegionZTDem"},
-            {data:"cat_region_origen",placeholder:"Region Origen",fieldInCatlog:"Nombre" , id:"cat_region_origen",type:"autoComplete",nameOnFR:"RegionZTDem",nameOnPendientes:"Region", color:"#12FF00",storeProcedureField:"vc50_Region_UN"},
+            
 
             {data:"cat_estado",placeholder:"Estado",fieldInCatlog:"Nombre",id:"cat_estado",type:"autoComplete",nameOnFR:"EstadoZTDem",nameOnPendientes:"Estado", color:"#12FF00",storeProcedureField:"EstadoZTDem"},
             {data:"cat_zt",placeholder:"Zona Transporte",fieldInCatlog:"Nombre",id:"cat_zt",type:"autoComplete",nameOnFR:"ZonaTransporte",nameOnPendientes:"Zona_de_Entrega", color:"#12FF00",storeProcedureField:"Zona_de_Entrega"},
@@ -62,7 +62,7 @@ var store={
 
             {data:"fillRate",placeholder:"AgrupProducto",fieldInCatlog:"AgrupProducto",id:"cat_producto",type:"autoComplete",nameOnFR:"AgrupProducto",nameOnPendientes:"TipoProducto", color:"#F716FF",storeProcedureField:"AgrupProducto",default:"Gris"},
             {data:"fillRate",placeholder:"Presentación",fieldInCatlog:"Presentacion",id:"cat_presentacion",type:"autoComplete",nameOnFR:"Presentacion",nameOnPendientes:"Presentacion", color:"#F716FF",storeProcedureField:"Presentacion"},
-            {data:"fillRate",placeholder:"Material",fieldInCatlog:"Producto_Tactician",id:"cat_material",type:"autoComplete",nameOnFR:"Producto_Tactician",nameOnPendientes:"Descripcion", color:"#F716FF",storeProcedureField:"Descripcion"},
+            {data:"fillRate",placeholder:"Material",fieldInCatlog:"Producto_Tactician",id:"cat_material",type:"autoComplete",nameOnFR:"Producto_Tactician",nameOnPendientes:"Descripcion", color:"#F716FF",storeProcedureField:"Producto_Tactician"},
                
         ],
     
@@ -76,7 +76,7 @@ var store={
         {id:5,label:"Unidad de Negocio",field:"vc50_UN_Tact",coordinatesSource:"cat_un",storeProcedureField:"UnidadNegocio"},
         {id:6,label:"Zona de transporte",field:"ZonaTransporte",coordinatesSource:"cat_zt",storeProcedureField:"ZT"},       
         {id:7,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},    
-        {id:8,label:"Sucursal",field:"Obra",coordinatesSource:"cat_sucursal",storeProcedureField:"Sucursal"},   
+        {id:8,label:"Sucursal",field:"Obra",coordinatesSource:"cat_sucursal",storeProcedureField:"Obra"},   
 
     ]
 
