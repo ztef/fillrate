@@ -346,14 +346,14 @@ calculateKpiExpert_FR.getTooltipDetail=function(entityId,varName){
        
         if(fillRateEntities[i].key.toLowerCase()==entityId.toLowerCase()){
 
-            var text=`<div class="tooltipDetailElement"><img id="" src="images/fillrate.png" style=""></img>
+            var text=`<div class="tooltipDetailElement"><img id="" src="images/fillrate.png" style="padding-top:20px"></img>
             <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>FillRate: </span><br>
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>A Tiempo: </span><span style='color:#00EAFF'>${fillRateEntities[i][varName].por1}% </span><span style='color:#00EAFF;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol1)} TM) </span><br>
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>1 a 2 días: </span> <span style='color:#FFCC00'>${fillRateEntities[i][varName].por2}% </span><span style='color:#FFCC00;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol2)} TM)</span><br>
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Más de 3 días: </span> <span style='color:#FF0000'>${fillRateEntities[i][varName].por3}% </span><span style='color:#FF0000;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol3)} TM)</span><br><br>
 
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Entregado:</span> <span style='color:#ffffff'>${Math.round((fillRateEntities[i][varName].totalVolumenEntregado/fillRateEntities[i][varName].totalSolicitado)*100)}% </span><span style='color:#ffffff;font-size:${12*escalaTextos}px;'>${formatNumber(fillRateEntities[i][varName].totalVolumenEntregado)}TM</span><br>
-            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Solicitado:</span> <span style='color:#ffffff'>${formatNumber(fillRateEntities[i][varName].totalSolicitado)} TM</span><br>
+            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Solicitado:</span> <span style='color:#ffffff'>${formatNumber(fillRateEntities[i][varName].totalSolicitado)} TM</span><br><br>
             </div>
             `
             return text;
