@@ -550,7 +550,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             //var fixedWidth = '60px';
 
             return '<div class="bar-container">' +
-            '<span class="bar-value" style="width:60px">' + barValue + '</span>' +
+            '<span class="bar-value">' + barValue + '</span>' +
             '<svg width="90%" height="10">'  +
             '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
             '</div>';
