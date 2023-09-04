@@ -66,7 +66,6 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     var marginTop=30;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",34+"%");
 
 
@@ -167,9 +166,16 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     
     
       // FORMATEA DIV :
-    
+
+      var alturaVentana=700;
+      $("#toolTip2").css("top",15+"%");
+
       vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+entity.key, 600);
     
+      if(alturaVentana+(windowHeight*.16) > windowHeight ){
+        alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
+       }
+        $("#toolTip2").css("height",alturaVentana+"px");
       // CREA TABLA USANDO DATOS
     
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );

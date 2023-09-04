@@ -172,8 +172,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     $("#toolTip3").css("top",15+"%");
     $("#toolTip3").css("left",62+"%");
     
-    if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
-        $("#toolTip3").css("top",(windowHeight-(arr.length*altura)-150)+"px");
+   
         
   d3.select("#toolTip3")                                     
     .style("width", (svgTooltipWidth)+"px" );
@@ -364,7 +363,6 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     var marginTop=35;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",24+"%");
 
 
@@ -477,8 +475,15 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     
       // FORMATEA DIV :
     
+      var alturaVentana=700;
+      $("#toolTip2").css("top",15+"%");
+
       vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado",700);
     
+      if(alturaVentana+(windowHeight*.16) > windowHeight ){
+        alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
+      }
+      $("#toolTip2").css("height",alturaVentana+"px");
     
       // CREA TABLA USANDO DATOS
     

@@ -114,7 +114,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
     $("#toolTip5").css("visibility","visible");            
     $("#toolTip5").css("left",23+"%");
-    $("#toolTip5").css("top",16+"%");
+    
 
        
     /* 
@@ -193,10 +193,18 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
     
       // FORMATEA DIV :
+      var alturaVentana=700;
+      $("#toolTip5").css("top",16+"%");
+
+      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key,svgTooltipWidth+"hacia otras UN",700);
     
-      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key,svgTooltipWidth+"hacia otras UN" ,700);
-    
-      
+      if(alturaVentana+(windowHeight*.16) > windowHeight ){
+        alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
+       
+      }
+
+      $("#toolTip5").css("height",alturaVentana+"px")
+
             // COLUMNAS CON TOTALES :
     
             var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
@@ -478,7 +486,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
 
         $("#toolTip3").css("visibility","visible");            
         $("#toolTip3").css("left",23+"%");
-        $("#toolTip3").css("top",5+"%");      
+              
 
             
     /* 
@@ -576,10 +584,15 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
     
       // FORMATEA DIV :
+      var alturaVentana=700;
+      $("#toolTip3").css("top",16+"%");
+
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,svgTooltipWidth,700);
     
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,svgTooltipWidth+100);
-    
-      
+      if(alturaVentana+(windowHeight*.16) > windowHeight ){
+        alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
+      }
+      $("#toolTip3").css("height",alturaVentana+"px")
             // COLUMNAS CON TOTALES :
     
             var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
@@ -680,7 +693,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
 
         $("#toolTip4").css("visibility","visible");    
         $("#toolTip4").css("left",62+"%");
-        $("#toolTip4").css("top",16+"%");      
+             
         
          
         
@@ -776,13 +789,21 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
            '</div>';
         }
       };
-    
+
+      var alturaVentana=700;
+      $("#toolTip4").css("top",16+"%"); 
+
       if( 5 == $("#nivel_cb").val() ){
         vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",700);
       }else{
           vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden "+toTitleCase(entity.key)+"",700);
       } 
    
+      if(alturaVentana+(windowHeight*.16) > windowHeight ){
+        alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
+       
+      }
+      $("#toolTip4").css("height",alturaVentana+"px");
       
       // COLUMNAS CON TOTALES :
 
