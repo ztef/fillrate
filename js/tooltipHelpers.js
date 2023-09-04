@@ -324,9 +324,18 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
   $(document).on("mousemove", function (e) {
     if (isDragging) {
       // Calcula la posicion y realiza el drag
+
+      var newTop = e.pageY - offsetY;
+
+      if(newTop < 0){
+        newTop = 0;
+      }
+
+
+
       $(divElement).css({
         left: e.pageX - offsetX,
-        top: e.pageY - offsetY,
+        top:  newTop,
       });
     }
   });
