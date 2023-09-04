@@ -324,9 +324,18 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
   $(document).on("mousemove", function (e) {
     if (isDragging) {
       // Calcula la posicion y realiza el drag
+
+      var newTop = e.pageY - offsetY;
+
+      if(newTop < 0){
+        newTop = 0;
+      }
+
+
+
       $(divElement).css({
         left: e.pageX - offsetX,
-        top: e.pageY - offsetY,
+        top:  newTop,
       });
     }
   });
@@ -337,6 +346,12 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
   // Esta funcion formatea un DIV como menu (No hay boton de colapso, solo drag y hide)
 
   function vix_tt_formatMenu(divElement, titulo, width,  initialHeight) {
+
+
+    var currentTop = parseInt($(divElement).css("top"));
+
+   
+    
 
 
     $(divElement).html("");
@@ -357,6 +372,12 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       overflow:"auto",
      
     });
+
+
+    if (currentTop < 10) {
+    
+      $(divElement).css({top: 50});
+    }
 
 
     // Para ocultar las barras de desplazamiento personalizadas en navegadores WebKit

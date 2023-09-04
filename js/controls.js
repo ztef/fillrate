@@ -76,10 +76,12 @@ filterControls.createDataFiltersControls=function(catalogs){
                 
                     arrAutoCompleteArr.push(arr[j].key);
 
-                }            
+                }    
 
                 autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
 
+                if(catalogs[i].default)
+                    $("#"+catalogs[i].id).val(catalogs[i].default);
                 
             }
 
@@ -722,8 +724,10 @@ filterControls.createHardCodedControls=function(){
                     store.dataToDraw=dataTemp;
                 }
 
-                if(!onlyFilterData)
-                    dataManager.ClusterObjects();                           
+                if(!onlyFilterData){
+                    
+                    dataManager.ClusterObjects();
+                }                                             
                 
 
         }

@@ -39,6 +39,7 @@
     <script src="js/experts/calculateKpiExpert_Produccion.js"></script>
     <script src="js/experts/drawKpiExpert_ABAS.js"></script>
     <script src="js/experts/reportExpert.js"></script>
+    <script src="js/experts/calculateKpiExpert_Flota.js"></script>
 
     <script src="js/experts/drawKpiExpert_FR.js"></script>
     <script src="js/experts/drawKpiExpert_OOS.js"></script>
@@ -269,7 +270,7 @@ color: yellow;
                 </filter>
         </defs>
         </svg>
-        <div id="version"  style="color:gray;opacity:.7;font-size: 9px;position:fixed;top:70px;left:10px;z-index:9999">V.10.4</div>
+        <div id="version"  style="color:gray;opacity:.7;font-size: 9px;position:fixed;top:70px;left:10px;z-index:9999">V.10.5</div>
 
         <div style="position:fixed;z-index:-10;float:left;top:0px;pointer-events:none;height:100%;width:100%;background:linear-gradient(#000000, #000000);"></div>
 
@@ -300,8 +301,8 @@ color: yellow;
             <div class="tooltipIcon"><img id="cargando" src="images/Sizedecrease.png" onclick="escalado=escalado*(.7);Stage.DrawMapObjects(currentEntities,store.mainDataset);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño barras</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/hexagons_.png" onclick="radar.DecreaseRadars();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir Columnas</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/hexagons.png" onclick="radar.IncreaseRadars();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Aumentar Columnas</div></div>
-            <div class="tooltipIcon"><img id="cargando" src="images/increase.png" onclick="radar.escalado=radar.escalado*(1.1);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Aumentar tamaño Radar</div></div>
-            <div class="tooltipIcon"><img id="cargando" src="images/decrease.png" onclick="radar.escalado=radar.escalado*(.9);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir tamaño Radar</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/increase.png" onclick="radar.escalado=radar.escalado*(1.1);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Aumentar tamaño Araña</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/decrease.png" onclick="radar.escalado=radar.escalado*(.9);radar.DrawEntities(radar.lastRadarEntities);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir tamaño Araña</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/fontSize1.png" onclick="escalaTextos=escalaTextos*(1.1);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño texto</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/fontSize2.png" onclick="escalaTextos=escalaTextos*(.9);if(kpiExpert_FR){kpiExpert_FR.DrawMainHeader(); kpiExpert_FR.DrawFilteredHeader();filterControls.showActiveFilters();}" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño texto</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/chemical.png" onclick="if(store.fillRate){$('#Controls').css('visibility','visible');}" style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Filtros</div></div>
@@ -332,9 +333,9 @@ color: yellow;
         </div>
 
 
-        <ul class="fa-ul" style="position:absolute;right:143px;top:-15px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
+        <ul class="fa-ul" style="position:absolute;right:230px;top:-15px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin">   
             
-            <img id="back_btn" src="images/back_icon.png" onclick="filterControls.back()" style="width:43px;float:left;margin:8px;visibility:hidden"></img>
+            <img id="back_btn" src="images/back_icon.png" onclick="filterControls.back()" style="width:37px;float:left;margin:8px;visibility:hidden"></img>
 
         </ul>
 
@@ -412,7 +413,6 @@ color: yellow;
 
         // Versión: 1.0.0 
         //Editor: Daniel Contreras Calderon
-        // Comentarios de version: ""
 
         var windowWidth; 
         var windowHeight; 
@@ -442,15 +442,16 @@ color: yellow;
             $('#datepicker').val((ayer.getMonth()+1)+"-01-2023");
             $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
 
-            //setTimeout(()=>{$(".loginBtn").click()}, 1000);
+
+            $('#datepicker').val("08-01-2023"); $('#datepicker2').val("08-31-2023");       
 
             $(function() { 
 
                 dateInit=new Date($('#datepicker').val());
                 dateEnd=new Date($('#datepicker2').val());
 
-                dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){                    
-
+                dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){                     
+                    
                     DibujaRegiones();
 
                     DibujaEstados();                                       
@@ -465,8 +466,10 @@ color: yellow;
                     $('.loginContainer').css('visibility','visible');
 
                     $('#Controls').css('visibility','hidden');
+                    
+                    setTimeout(()=>{$(".loginBtn").click()}, 500); // Se debe asegurar haber cargado catalogos basicos antes de disparra las consultas
 
-                })
+                })               
 
              });
             

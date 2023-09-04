@@ -32,14 +32,15 @@ calculateKpiExpert_FR.calculateKPI=function(){
         var agrupador="";
 
         for(var i=0; i < store.niveles.length; i++){    
-
+     
             if( store.niveles[i].id == $("#nivel_cb").val() ){
-
+                
                     agrupador=store.niveles[i].storeProcedureField; 
                    
             }                        
         }
 
+        
         for(var i=0; i < store.apiDataSources.length; i++){
           
             if(store.apiDataSources[i].varName=="fillRate"){
@@ -86,6 +87,10 @@ calculateKpiExpert_FR.calculateKPI=function(){
 
                         params+="&Masivos=Solo Masivos"; 
                         
+                }
+
+                if(!initialized){
+                    params+="&AgrupProducto=Gris"
                 }
 
                 var URL=apiURL+"/"+serviceName+"?fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;

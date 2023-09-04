@@ -194,7 +194,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip5","Abasto de "+entity.key,svgTooltipWidth+"hacia otras UN" ,700);
+      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key,svgTooltipWidth+"hacia otras UN" ,700);
     
       
             // COLUMNAS CON TOTALES :
@@ -537,8 +537,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           if(value<=0)
            value=1;
 
-           if(value > 100)
-           value=100;
+           if(value > 200)
+           value=200;
 
            value=Math.round(value);
 
@@ -567,7 +567,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,svgTooltipWidth,700);
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,svgTooltipWidth);
     
       
             // COLUMNAS CON TOTALES :
