@@ -170,7 +170,7 @@ calculateKpiExpert_Abasto.getTooltipDetail=function(entityId){
                 
                 var text=`<div class="tooltipDetailElement"><img id="" src="images/cump_abasto.png" style=""></img>
                 <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento de Abasto: </span><br>
-                <span style='color:#fff600;font-size:${15*escalaTextos}px;'></span> <span style='color:#ffffff'>${abastoPer} <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].abasto.VolumenPlan/1000)}k , Real:${formatNumber(entities[i].abasto.VolumenReal/1000)}k)</span>
+                <span style='color:#fff600;font-size:${15*escalaTextos}px;'></span> <span style='color:#ffffff'>${abastoPer} <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].abasto.VolumenPlan/1000)} TM , Real:${formatNumber(entities[i].abasto.VolumenReal/1000)} TM)</span>
                 </div>`
 
                 return text;

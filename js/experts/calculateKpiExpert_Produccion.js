@@ -160,7 +160,7 @@ calculateKpiExpert_Produccion.getTooltipDetail=function(entityId){
                 
                 var text=`<div class="tooltipDetailElement"><img id="" src="images/cump_prod.png" style=""></img>
                 <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento de Producción: </span><br>
-                <span style='color:#fff600;font-size:${15*escalaTextos}px;'> <span style='color:#ffffff'>${prodPer}</span> <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].produccion.VolVenta_Plan/1000)}k , Real:${formatNumber(entities[i].produccion.VolVenta_Real/1000)}k)</span><br>
+                <span style='color:#fff600;font-size:${15*escalaTextos}px;'> <span style='color:#ffffff'>${prodPer}</span> <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].produccion.VolVenta_Plan/1000)} TM , Real:${formatNumber(entities[i].produccion.VolVenta_Real/1000)} TM)</span><br>
                 </div>
                 `
 

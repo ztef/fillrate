@@ -52,7 +52,7 @@ calculateKpiExpert_Mas.getTooltipDetail=function(entityId){
 
             var text=`<div class="tooltipDetailElement"><img id="" src="images/masivos.png" style=""></img>
             <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Masivos: </span><br>
-            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Entregado:</span> <span style='color:#ffffff'>${MasivosEntities[i].masivos.masivos}% <span style='color:#ffffff;font-size:${12*escalaTextos}px;'>(${formatNumber(MasivosEntities[i].masivos.cantidad)}K)</span><br>
+            <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Volumen Entregado:</span> <span style='color:#ffffff'>${MasivosEntities[i].masivos.masivos}% <span style='color:#ffffff;font-size:${12*escalaTextos}px;'>(${formatNumber(MasivosEntities[i].masivos.cantidad)} TM)</span><br>
             </div>
             `
 
