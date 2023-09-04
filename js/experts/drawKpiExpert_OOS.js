@@ -87,7 +87,6 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",24+"%"); 
   
  /* 
@@ -158,9 +157,15 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
     
 
       // FORMATEA DIV :
-    
+      var alturaVentana=700;
+      $("#toolTip2").css("top",15+"%");
+
       vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,svgTooltipWidth);
-    
+      if(alturaVentana+(windowHeight*.16) > windowHeight ){
+        alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
+       
+      }
+        $("#toolTip2").css("height",alturaVentana+"px");
       
             // COLUMNAS CON TOTALES :
     
