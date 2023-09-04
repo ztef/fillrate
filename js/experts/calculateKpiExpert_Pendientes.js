@@ -179,12 +179,12 @@ calculateKpiExpert_Pendientes.getTooltipDetail=function(entityId){
 
             if(entities[i].pendientes){
 
-                    if(entities[i].pendientes.pendientes!=undefined)
-                        prodPer=formatNumber(Math.round(entities[i].pendientes.pendientes*100)/100)+"";
+                    if(entities[i].pendientes.volumen!=undefined)
+                        prodPer=formatNumber(Math.round(entities[i].pendientes.volumen*100)/100)+"";
                 
                 var text=`<div class="tooltipDetailElement"><img id="" src="images/retrasados.png" style=""></img>
                 <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Retrasados: </span><br>
-                <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Con Compromiso Vencido:</span> <span style='color:#ffffff'>${ prodPer }</span><br>
+                <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Con Compromiso Vencido:</span> <span style='color:#ffffff'>${ prodPer } TM</span><br>
                 </div>
 
                 `
