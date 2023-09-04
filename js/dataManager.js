@@ -357,8 +357,10 @@ dataManager.getTooltipText=function(entity){
     nombre=nombre.replaceAll("undefined"," ");
 
 
-    var text=` <div class="detailContainer" style="width:530px;">
-         <div class="tooltipHeader" style="display:flex;">
+    var text=` <div class="detailContainer" style="display: flex;">
+        
+        <div class="detail1" style="">
+        <div class="tooltipHeader" style="display:flex;">
         <span style='color:#00C6FF;font-size:15px;'></span><span style='color:#00C6FF'>${nombre}</span>
         </div>
         `
@@ -390,6 +392,10 @@ dataManager.getTooltipText=function(entity){
         }
 
         
+        
+
+        text+="</div> <div class='detail2' style='top: 0px;position: relative;'>";
+
         if(calculateKpiExpert_Mas.getTooltipDetail){
 
             if(calculateKpiExpert_Mas.getTooltipDetail(entity.key)!=undefined){
@@ -444,8 +450,7 @@ dataManager.getTooltipText=function(entity){
 
         } 
 
-        
-        text+="</div>";
+        text+="</div></div>";
 
         return text;
 
