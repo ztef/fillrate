@@ -175,7 +175,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       boxShadow: "rgba(0, 0, 0, .5) 19px 15px 24px",
       width: width+"px", 
       height: tooltipHeight,
-      maxHeight: "800px",
+      maxHeight: "70%",
       overflow:"auto",
      
     });

@@ -365,7 +365,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
 
     $("#toolTip2").css("visibility","visible");            
     $("#toolTip2").css("left",24+"%");
-
+    $("#toolTip2").css("top",15+"%");
 
    // Daniel, quite estas 2 lineas que estaban colocando la ventana muy arriba :
     
@@ -477,15 +477,12 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     
       // FORMATEA DIV :
     
-      var alturaVentana=700;
-      $("#toolTip2").css("top",15+"%");
+      
+      
 
       vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado",700);
     
-      if(alturaVentana+(windowHeight*.16) > windowHeight ){
-        alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
-      }
-      $("#toolTip2").css("height",alturaVentana+"px");
+      
     
       // CREA TABLA USANDO DATOS
     

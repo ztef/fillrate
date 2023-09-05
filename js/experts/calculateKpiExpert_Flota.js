@@ -134,7 +134,8 @@ calculateKpiExpert_Flota.calculateKPI=function(entities){
 
                         if( entidad ){
 
-                            entidad.flota.flota+=Number(data.recordset[j].Deficit);  
+                          //  entidad.flota.flota+=Number(data.recordset[j].Deficit);
+                          entidad.flota.flota+=Number(data.recordset[j].Deficit);  
                             entidad.flota.values.push(data.recordset[j]);                                                              
 
                         }else{
