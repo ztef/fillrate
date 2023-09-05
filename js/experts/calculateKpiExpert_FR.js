@@ -66,7 +66,7 @@ calculateKpiExpert_FR.calculateKPI=function(){
         for(var j=0; j < store.catlogsForFilters.length; j++){
 
             if($("#"+store.catlogsForFilters[j].id).val() != "" && $("#"+store.catlogsForFilters[j].id).val() != undefined ){
-
+                console.log(store.catlogsForFilters[j].id,$("#"+store.catlogsForFilters[j].id).val());
                 params+="&"+store.catlogsForFilters[j].storeProcedureField+"="+store.catlogsForFilters[j].diccNames[ $("#"+store.catlogsForFilters[j].id).val() ];
                 cuentaFiltros++;
             }

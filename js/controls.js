@@ -79,7 +79,13 @@ filterControls.createDataFiltersControls=function(catalogs){
                 }
                 
                 if(catalogs[i].hardcodedData){
+
                     autocomplete(document.getElementById(catalogs[i].id), catalogs[i].hardcodedData);
+
+                    for(var j=0;  j < catalogs[i].hardcodedData.length; j++){
+                        catalogs[i].diccNames[catalogs[i].hardcodedData[j]]=catalogs[i].hardcodedData[j];
+                    }
+
                 }else{
                     autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
                 }               
