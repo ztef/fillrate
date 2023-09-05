@@ -114,7 +114,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
     $("#toolTip5").css("visibility","visible");            
     $("#toolTip5").css("left",23+"%");
-    
+    $("#toolTip5").css("top",16+"%");
 
        
     /* 
@@ -194,18 +194,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
 
-      var alturaVentana=700;
-      $("#toolTip5").css("top",16+"%");
-
       vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key,svgTooltipWidth+"hacia otras UN",700);
-
-    
-      if(alturaVentana+(windowHeight*.16) > windowHeight ){
-        alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
-       
-      }
-
-      $("#toolTip5").css("height",alturaVentana+"px")
 
             // COLUMNAS CON TOTALES :
     
@@ -488,7 +477,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
 
         $("#toolTip3").css("visibility","visible");            
         $("#toolTip3").css("left",23+"%");
-              
+        $("#toolTip3").css("top",16+"%");
 
             
     /* 
@@ -586,20 +575,9 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
     
       // FORMATEA DIV :
-
-
-      var alturaVentana=700;
-      $("#toolTip3").css("top",16+"%");
-
-      if(alturaVentana+(windowHeight*.16) > windowHeight ){
-        alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
-       
-      }
      
       vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key);
-      $("#toolTip3").css("height",alturaVentana+"px");
-      
-
+    
             // COLUMNAS CON TOTALES :
     
             var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
