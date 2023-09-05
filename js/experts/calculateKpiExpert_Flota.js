@@ -119,7 +119,7 @@ calculateKpiExpert_Flota.calculateKPI=function(entities){
 
                     for(var i=0;  i < entities.length; i++){ 
             
-                        entities[i].flota={flota:0,values:[]};
+                        entities[i].flota={flota:0,values:[],deficit:0};
                         entities_coll[entities[i].key]=entities[i];      
 
                     } 
@@ -134,7 +134,9 @@ calculateKpiExpert_Flota.calculateKPI=function(entities){
 
                         if( entidad ){
 
-                            entidad.flota.flota+=Number(data.recordset[j].Deficit);  
+                            entidad.flota.flota+=Number(data.recordset[j].Pct_Radar)*100; 
+                            entidad.flota.deficit+=Number(data.recordset[j].Deficit); 
+                          
                             entidad.flota.values.push(data.recordset[j]);                                                              
 
                         }else{
