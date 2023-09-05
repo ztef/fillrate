@@ -142,6 +142,7 @@ calculateKpiExpert_Pendientes.calculateKPI=function(entities){
                                     if( data.recordset[j].fecha.getTime() == ultimaFecha ){          
                                        
                                             entidad.pendientes.pendientes += Math.round(Number( data.recordset[j].Pct_Radar)*1000)/10;
+                                           
                                             entidad.pendientes.volumen += Number( data.recordset[j].Libre_Retrasado );
                                             entidad.pendientes.values.push( data.recordset[j] );                                           
                             

@@ -64,7 +64,10 @@ var entities;
     entities=[];
 
     dataLoader.AddLoadingTitle("Fillrate");
+
     calculateKpiExpert_FR.calculateKPI().then(()=>{
+
+        filterControls.createDataFiltersControls(store.catlogsForFilters);
 
         dataLoader.DeleteLoadingTitle("Fillrate"); 
 

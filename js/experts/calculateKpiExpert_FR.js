@@ -91,7 +91,7 @@ calculateKpiExpert_FR.calculateKPI=function(){
                 }
 
                 if(!initialized){
-                    params+="&AgrupProducto=Gris"
+                    params+="&AgrupProducto=Gris";
                 }
 
                 var URL=apiURL+"/"+serviceName+"?fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
