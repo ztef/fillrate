@@ -7,6 +7,7 @@ dataManager.CambiaModoKPI=function(modo){
     $("#iconFR").attr("src","images/mode_1.png");
     $("#iconOOSF").attr("src","images/mode_2.png");
     $("#iconVenta").attr("src","images/mode_3.png");
+    ordenRadares="Vol";
 
     if(modo =="FR"){
 
@@ -15,6 +16,7 @@ dataManager.CambiaModoKPI=function(modo){
         $("#logo").attr("src","images/logo1.png");
         dataManager.ClusterObjects();
         $("#simbologia").attr("src","images/simbologia FR.png");
+       
         
 
     }else if(modo =="OOS F"){

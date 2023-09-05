@@ -152,7 +152,7 @@ radar.kpis=[
         $("#ordenVol").attr("src","images/order1.png");
         $("#ordenFR").attr("src","images/order2.png");
         $("#ordenOOS").attr("src","images/order3.png");
-        $("#ordenOOSF").attr("src","images/order3.png");
+        $("#ordenOOSF").attr("src","images/order5.png");
         $("#ordenVen").attr("src","images/order4.png");
 
         //ORDEN DE RADARES
@@ -178,9 +178,9 @@ radar.kpis=[
             $("#ordenOOS").attr("src","images/order3_.png");
 
         }else if(ordenRadares =="OOSF"){
-
+            
             entities=entities.sort((a, b) =>   b.oosFiliales.oosFiliales - a.oosFiliales.oosFiliales );
-            $("#ordenOOSF").attr("src","images/order3_.png");
+            $("#ordenOOSF").attr("src","images/order5_.png");
 
         }else if(ordenRadares == "Ven"){
 
