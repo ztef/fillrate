@@ -653,7 +653,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.attr("y", offSetTop+20 )
 			.text(function(){
 
-				return "Nacional Entregado: "+Math.round((totalCanEnt_ref/totalCanSol_ref)*100)+"%, "+formatNumber(Math.round(totalCanEnt_ref/1000) )+" TM  ";
+				return "Nacional Entregado: "+formatNumber((totalCanEnt_ref/totalCanSol_ref)*100)+"%, "+formatNumber((totalCanEnt_ref/1000) )+" TM  ";
 
 			})
                         .transition().delay(0).duration(1000)
@@ -673,7 +673,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.attr("y", offSetTop+20 )
 			.text(function(){
 
-				return "Solicitado: "+formatNumber(Math.round(totalCanSol_ref/1000) )+" TM ";
+				return "Solicitado: "+formatNumber((totalCanSol_ref/1000) )+" TM ";
 
 			}).transition().delay(0).duration(1000)
                         .style("opacity",1 );

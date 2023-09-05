@@ -152,6 +152,7 @@ radar.kpis=[
         $("#ordenVol").attr("src","images/order1.png");
         $("#ordenFR").attr("src","images/order2.png");
         $("#ordenOOS").attr("src","images/order3.png");
+        $("#ordenOOSF").attr("src","images/order3.png");
         $("#ordenVen").attr("src","images/order4.png");
 
         //ORDEN DE RADARES
@@ -175,6 +176,11 @@ radar.kpis=[
 
             entities=entities.sort((a, b) =>   b.oos.oos - a.oos.oos );
             $("#ordenOOS").attr("src","images/order3_.png");
+
+        }else if(ordenRadares =="OOSF"){
+
+            entities=entities.sort((a, b) =>   b.oosFiliales.oosFiliales - a.oosFiliales.oosFiliales );
+            $("#ordenOOSF").attr("src","images/order3_.png");
 
         }else if(ordenRadares == "Ven"){
 
@@ -689,7 +695,8 @@ radar.DrawEntityValues=function(entity){
                                     }                               	    	
 
                                 })
-                                .append('title')
+                               /* .append('title')
+                                
                                     .text(function(d){
                                         
                                         var label = entity[radar.config[i].var][radar.config[i].var];
@@ -706,6 +713,7 @@ radar.DrawEntityValues=function(entity){
                                         return radar.config[i].label+", "+label;
 
                                     })
+                                    .style("text-anchor", "right")*/
                                 ;
 
                         var anchor="start";

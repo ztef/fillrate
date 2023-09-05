@@ -28,6 +28,9 @@
   box-sizing: border-box;
   font-size: 14px;
 }
+.datepicker {
+  z-index: 99999;
+}
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;

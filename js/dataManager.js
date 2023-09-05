@@ -379,7 +379,7 @@ dataManager.getTooltipText=function(entity){
 
         if(calculateKpiExpert_FR.getTooltipDetail){
 
-            if(store.map_var==kpiExpert_FR)
+            if(store.map_var==kpiExpert_FR || store.map_var==drawKpiExpert_VENTAS)
                 text+=calculateKpiExpert_FR.getTooltipDetail(entity.key,store.mainDataset);
             
         }

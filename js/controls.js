@@ -358,6 +358,7 @@ filterControls.showActiveFilters=function(){
 }
 
     // visibilidad de filtros por nivel
+    $("#ordenOOSF").hide();
     if(store.map_var==kpiExpert_OOS_Filiales){        
 
         $("#oosfil_filter").show();
@@ -372,7 +373,8 @@ filterControls.showActiveFilters=function(){
             $("#nivel_cb").val("4");
             alert("Se cambia el nivel a Gerencia, No existen niveles mas bajos");
         }
-            
+          
+        $("#ordenOOSF").show();
 
     }else if(store.map_var==kpiExpert_FR ){
 

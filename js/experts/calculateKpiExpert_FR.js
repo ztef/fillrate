@@ -346,7 +346,7 @@ calculateKpiExpert_FR.getTooltipDetail=function(entityId,varName){
        
         if(fillRateEntities[i].key.toLowerCase()==entityId.toLowerCase()){
 
-            var text=`<div class="tooltipDetailElement"><img id="" src="images/fillrate.png" style="padding-top:20px"></img>
+            var text=`<div class="tooltipDetailElement"><img id="" src="images/mode_1.png" style="width:30px;padding-top:20px"></img>
             <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>FillRate: </span><br>
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>A Tiempo: </span><span style='color:#00EAFF'>${fillRateEntities[i][varName].por1}% </span><span style='color:#00EAFF;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol1)} TM) </span><br>
             <span style='color:#fff600;font-size:${15*escalaTextos}px;'>1 a 2 días: </span> <span style='color:#FFCC00'>${fillRateEntities[i][varName].por2}% </span><span style='color:#FFCC00;font-size:${12*escalaTextos}px;'>(${formatNumber(fillRateEntities[i][varName].vol2)} TM)</span><br>
