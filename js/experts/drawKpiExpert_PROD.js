@@ -74,9 +74,8 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         var marginTop=svgTooltipHeight*.15;
 
         $("#toolTip2").css("visibility","visible");            
-        $("#toolTip2").css("top",15+"%");
         $("#toolTip2").css("left",24+"%");
-
+        $("#toolTip2").css("top",15+"%");
             
      // DATOS 
 
@@ -153,7 +152,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         }
       };
  // FORMATEA DIV :
-    
+ 
  vix_tt_formatToolTip("#toolTip2","Producción por Planta",700);
 
            // COLUMNAS CON TOTALES :

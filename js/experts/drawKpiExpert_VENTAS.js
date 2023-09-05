@@ -172,8 +172,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     $("#toolTip3").css("top",15+"%");
     $("#toolTip3").css("left",62+"%");
     
-    if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
-        $("#toolTip3").css("top",(windowHeight-(arr.length*altura)-150)+"px");
+   
         
   d3.select("#toolTip3")                                     
     .style("width", (svgTooltipWidth)+"px" );
@@ -365,9 +364,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     var marginTop=35;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",24+"%");
-
+    $("#toolTip2").css("top",15+"%");
 
    // Daniel, quite estas 2 lineas que estaban colocando la ventana muy arriba :
     
@@ -479,8 +477,12 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     
       // FORMATEA DIV :
     
+      
+      
+
       vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado",700);
     
+      
     
       // CREA TABLA USANDO DATOS
     

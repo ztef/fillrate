@@ -87,9 +87,8 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",24+"%"); 
-  
+    $("#toolTip2").css("top",15+"%");
  /* 
 
         VIX_TT  : Prepara datos para el tool tip
@@ -113,7 +112,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
         // DEFINE COLUMNAS
       
         var columns = [
-            { key: "key", header: "Producto", sortable: true, width: "150px" },
+            { key: "key", header: "Unidad de Negocio", sortable: true, width: "150px" },
             { key: "Numero", header: "# OOS", sortable: true, width: "150px" },
             { key: "OOS", header: "% OOS", sortable: true, width: "150px" },
             { key: "Numera", header: "Volumen Entregado", sortable: true, width: "150px" },
@@ -158,9 +157,8 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
     
 
       // FORMATEA DIV :
-    
+      
       vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,svgTooltipWidth);
-    
       
             // COLUMNAS CON TOTALES :
     

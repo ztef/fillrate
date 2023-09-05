@@ -207,9 +207,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         var marginTop=35;
 
         $("#toolTip3").css("visibility","visible");            
-        $("#toolTip3").css("top",15+"%");
         $("#toolTip3").css("left",64+"%");
-
+        $("#toolTip3").css("top",15+"%");
 
 
 
@@ -296,9 +295,9 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
     
       // FORMATEA DIV :
-    
+
       vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado",600);
-    
+
       // CREA TABLA USANDO DATOS
     
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );
@@ -401,7 +400,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
         // FORMATEA TOOL TIP :
     
-        vix_tt_formatToolTip("#toolTip2","Cantidad entragada de Fill Rate de "+entity.key,svgTooltipWidth);
+        vix_tt_formatToolTip("#toolTip2","Cantidad entragada de Fill Rate de "+entity.key,svgTooltipWidth,680);
 
         // Agrega un div con un elemento svg :
 

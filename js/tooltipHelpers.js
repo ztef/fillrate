@@ -175,13 +175,12 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       boxShadow: "rgba(0, 0, 0, .5) 19px 15px 24px",
       width: width+"px", 
       height: tooltipHeight,
-      maxHeight: "850px",
+      maxHeight: "70%",
       overflow:"auto",
      
     });
 
-
-    // Para ocultar las barras de desplazamiento personalizadas en navegadores WebKit
+        // Para ocultar las barras de desplazamiento personalizadas en navegadores WebKit
       $(divElement).addClass('hide-scrollbar-webkit');
 
     // Para ocultar las barras de desplazamiento en Firefox

@@ -66,9 +66,8 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     var marginTop=30;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top",15+"%");
     $("#toolTip2").css("left",34+"%");
-
+    $("#toolTip2").css("top",15+"%");
 
     //Agrega div con un elemento svg :
 
@@ -167,7 +166,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     
     
       // FORMATEA DIV :
-    
+
       vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+entity.key, 600);
     
       // CREA TABLA USANDO DATOS
