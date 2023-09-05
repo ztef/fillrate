@@ -130,7 +130,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
             arr[i].VolPlan_FR+=Number(arr[i].values[j].VolPlan_FR);
             arr[i].VolReal_FR+=Number(arr[i].values[j].VolReal_FR);
-            arr[i].Peso+=Number(arr[i].values[j].VolReal_FR);
+            arr[i].Peso+=Number(arr[i].values[j].Peso);
             
         }
 
@@ -327,7 +327,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
             arr[i].VolPlan_FR+=Number(arr[i].values[j].VolPlan_FR);
             arr[i].VolReal_FR+=Number(arr[i].values[j].VolReal_FR);
-            arr[i].Peso+=Number(arr[i].values[j].VolReal_FR);
+            arr[i].Peso+=Number(arr[i].values[j].Peso);
             
         }       
 

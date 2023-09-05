@@ -273,7 +273,7 @@ color: yellow;
                 </filter>
         </defs>
         </svg>
-        <div id="version"  style="color:gray;opacity:.7;font-size: 9px;position:fixed;top:70px;left:10px;z-index:9999">V.11.1</div>
+        <div id="version"  style="color:gray;opacity:.7;font-size: 9px;position:fixed;top:70px;left:10px;z-index:9999">V.11.2</div>
 
         <div style="position:fixed;z-index:-10;float:left;top:0px;pointer-events:none;height:100%;width:100%;background:linear-gradient(#000000, #000000);"></div>
 
@@ -327,7 +327,7 @@ color: yellow;
             <div class="tooltipIcon"><img id="ordenVol" class="iconKPI" src="images/order1_.png" onclick="ordenRadares='Vol';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text2">Ordenar por Volumen</div></div>
             <div class="tooltipIcon"><img id="ordenFR" class="iconKPI" src="images/order2.png" onclick="ordenRadares='FR';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text2">Ordenar por FillRate</div></div>
             <div class="tooltipIcon"><img id="ordenOOS" class="iconKPI" src="images/order3.png" onclick="ordenRadares='OOS';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por OOS CED</div></div>
-            <div class="tooltipIcon"><img id="ordenOOSF" class="iconKPI" src="images/order3.png" onclick="ordenRadares='OOSF';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por OOS Filiales</div></div>
+            <div class="tooltipIcon"><img id="ordenOOSF" class="iconKPI" src="images/order5.png" onclick="ordenRadares='OOSF';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por OOS Filiales</div></div>
             <div class="tooltipIcon"><img id="ordenVen" class="iconKPI" src="images/order4.png" onclick="ordenRadares='Ven';radar.DrawEntities();" style="width:23px;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por Ventas</div></div>
 
         </ul>
@@ -465,6 +465,7 @@ color: yellow;
 
                     filterControls.createDataFiltersControls(store.catlogsForFilters);
                     filterControls.createHardCodedControls();
+
                     radar.radarInitStage();
 
                     if(elementosContextoMapa)

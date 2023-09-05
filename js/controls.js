@@ -471,10 +471,14 @@ filterControls.showActiveFilters=function(){
         filtroPresentacion=filtrosAplicados["cat_presentacion"];
     }
 
+    console.log(nivel);
+
     var titulo=`<div style="font-size:100%"> ${filtroProducto} | ${filtroPresentacion} | ${pedidosEntregados} Nivel: ${nivel} 
     <span style="font-size:12px; color:white">
        Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;
+
+    console.log("titulo",titulo);
 
     $("#titulo").html(titulo);   
     

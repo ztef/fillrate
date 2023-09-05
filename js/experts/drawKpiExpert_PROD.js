@@ -185,9 +185,9 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
       if( createdControls["cat_producto"] ){
 
         if($("#cat_producto").val() == "Gris"){
-            $("#toolTip2").append(`<div id="titulo" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Gris, Impersem y Mortero </div>`);
+            $("#toolTip2").append(`<div id="" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Gris, Impersem y Mortero </div>`);
         } else if( $("#cat_producto").val() == "Gris" || $("#cat_producto").val() == "Blanco" ){
-          $("#toolTip2").append(`<div id="titulo" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Blanco y Especiales </div>`);
+          $("#toolTip2").append(`<div id="" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Blanco y Especiales </div>`);
         }      
 
       }   

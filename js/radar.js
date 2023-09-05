@@ -531,13 +531,14 @@ radar.DrawEntityValues=function(entity){
                 
                 if( entity[radar.config[i].var][radar.config[i].var]!= null && entity[radar.config[i].var][radar.config[i].var]!= undefined ){                    
 
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.20) , radio*.4 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([(radio*.1) , radio*.4 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
 
-                        if(posicionMarcador < 0){ // Si se sale de radar mantiene en margenes
-                            posicionMarcador = 0;
-                        }
+                        if(posicionMarcador < radio*.01 )
+                        posicionMarcador=radio*.01;
+
+                       
 
                         if(posicionMarcador > (radio/2)*.97){ // Si se sale de radar mantiene en margenes
                             posicionMarcador = (radio/2)*.97;
@@ -549,9 +550,12 @@ radar.DrawEntityValues=function(entity){
 
                 }else{ 
 
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.20), radio*.4 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.1), radio*.4 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
+
+                        if(posicionMarcador < radio*.01 )
+                        posicionMarcador=radio*.01;
 
                         var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );					
         
@@ -560,9 +564,12 @@ radar.DrawEntityValues=function(entity){
 
         }else{
 
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.20), radio*.4 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([0+(radio*.1), radio*.4 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
+
+                        if(posicionMarcador < radio*.01 )
+                        posicionMarcador=radio*.01;
 
                         var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );	           
 
@@ -591,13 +598,12 @@ radar.DrawEntityValues=function(entity){
               
                        // var posicionMarcador=GetValorRangos( entity[radar.config[i].var][radar.config[i].var] , radar.config[i].minimoValor , radar.config[i].maximoValor , 0+(radio*.16) , (radio/2)*.99 );
 
-                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.20), radio*.4 ,(radio/2)*.99]);
+                        var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([(radio*.1), radio*.4 ,(radio/2)*.99]);
 
                         var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
 
-                        if(posicionMarcador < 0){ // Si se sale de radar mantiene en margenes
-                            posicionMarcador = 0;
-                        }
+                        if(posicionMarcador < radio*.01 )
+                             posicionMarcador=radio*.01;
 
                         if(posicionMarcador > (radio/2)*.97){ // Si se sale de radar mantiene en margenes
                             posicionMarcador = (radio/2)*.97;
@@ -772,9 +778,12 @@ radar.DrawEntityValues=function(entity){
                                 
                 }else{ // Para dibujar circulo aun cuando no se tiene datos
 
-                    var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.20), radio*.4 ,(radio/2)*.99]);
+                    var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([(radio*.1), radio*.4 ,(radio/2)*.99]);
 
                     var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
+
+                    if(posicionMarcador < radio*.01 )
+                        posicionMarcador=radio*.01;
 
                     var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );					
     
@@ -795,9 +804,12 @@ radar.DrawEntityValues=function(entity){
                 
             }else{ // Para dibujar circulo aun cuando no se tiene datos
 
-                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([5+(radio*.20), radio*.4 ,(radio/2)*.99]);
+                var escalaPosicion=d3.scale.linear().domain([radar.config[i].minimoValor , radar.config[i].valorEquilibrio , radar.config[i].maximoValor]).range([(radio*.1), radio*.4 ,(radio/2)*.99]);
 
                 var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
+
+                if(posicionMarcador < radio*.01 )
+                posicionMarcador=radio*.01;
 
                 var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );	
 
