@@ -818,27 +818,31 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
               
 
                 // ENTREGADO **********
-        
-                svgLines.append("text")							
-                        //.attr("x",20 )
-                        //.attr("y", (alturaPorPeriodo*i)+margenSuperior+30  )
-                        .style("fill","white")		
-                        .attr("class","encabezadoFiltered")					
-                        .style("opacity",0)
-                        .style("font-family","Cabin")
-                        .style("font-weight","normal")
-                        .style("font-size",12*escalaTextos)						
-                        .style("text-anchor","middle")
-                        .attr("x", kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+44+kpiExpert_FR.offSetLeft2)
-                        .attr("y", kpiExpert_FR.offSetTop+35+(altura*.5))  
-                        .text(function(){
-                                
-                                //return "Muestra Solicitado: "+formatNumber(Math.round(totalCanSol_filtered/1000) )+" k Ton - Entregado: "+formatNumber(Math.round(totalCanEnt_filtered/1000) )+" k Ton ("+ Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100) +"%)";
-                                return "Muestra Entregado: "+Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100)+"% , "+formatNumber((totalCanEnt_filtered/1000) )+" TM  - Solictidado: "+formatNumber((totalCanSol_filtered/1000) )+" TM  ";
 
-                        })
-                        .transition().delay(0).duration(1000)
-                        .style("opacity",1 );
+                if( (store.fillRate.length!=store.dataToDraw.length) ){
+        
+                        svgLines.append("text")							
+                                //.attr("x",20 )
+                                //.attr("y", (alturaPorPeriodo*i)+margenSuperior+30  )
+                                .style("fill","white")		
+                                .attr("class","encabezadoFiltered")					
+                                .style("opacity",0)
+                                .style("font-family","Cabin")
+                                .style("font-weight","normal")
+                                .style("font-size",12*escalaTextos)						
+                                .style("text-anchor","middle")
+                                .attr("x", kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+44+kpiExpert_FR.offSetLeft2)
+                                .attr("y", kpiExpert_FR.offSetTop+50+(altura*.5))  
+                                .text(function(){
+                                        
+                                        //return "Muestra Solicitado: "+formatNumber(Math.round(totalCanSol_filtered/1000) )+" k Ton - Entregado: "+formatNumber(Math.round(totalCanEnt_filtered/1000) )+" k Ton ("+ Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100) +"%)";
+                                        return "Muestra Entregado: "+Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100)+"% , "+formatNumber((totalCanEnt_filtered/1000) )+" TM  - Solictidado: "+formatNumber((totalCanSol_filtered/1000) )+" TM  ";
+
+                                })
+                                .transition().delay(0).duration(1000)
+                                .style("opacity",1 );
+
+                }
 
                 
                 // TEXTO AZUL
@@ -850,9 +854,9 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("font-family","Cabin")
                         .style("font-weight","normal")
                         .style("font-size",12*escalaTextos)						
-                        .style("text-anchor","start")
-                        .attr("x", kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4-3+kpiExpert_FR.offSetLeft2 -(7*(escalaTextos*13) ))
-                        .attr("y", kpiExpert_FR.offSetTop+50+(altura*.5))  
+                        .style("text-anchor","middle")
+                        .attr("x", kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4-3+kpiExpert_FR.offSetLeft2 -(6*(escalaTextos*13) ))
+                        .attr("y", kpiExpert_FR.offSetTop+35+(altura*.5))  
                         .text(function(){
                                 
                                 return "A tiempo: "+por1_filtered+"%";
@@ -870,9 +874,9 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("font-family","Cabin")
                         .style("font-weight","normal")
                         .style("font-size",12*escalaTextos)						
-                        .style("text-anchor","start")
+                        .style("text-anchor","middle")
                         .attr("x", kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+kpiExpert_FR.offSetLeft2)
-                        .attr("y", kpiExpert_FR.offSetTop+50+(altura*.5))  
+                        .attr("y", kpiExpert_FR.offSetTop+35+(altura*.5))  
                         .text(function(){
                                 
                                 return "1 a 2 días: "+por2_filtered+"%";
@@ -890,9 +894,9 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("font-family","Cabin")
                         .style("font-weight","normal")
                         .style("font-size",12*escalaTextos)						
-                        .style("text-anchor","start")
+                        .style("text-anchor","middle")
                         .attr("x", kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+3+kpiExpert_FR.offSetLeft2+(7*(escalaTextos*13) ))
-                        .attr("y", kpiExpert_FR.offSetTop+50+(altura*.5))  
+                        .attr("y", kpiExpert_FR.offSetTop+35+(altura*.5))  
                         .text(function(){
                                 
                                 return "3 Días o mas: "+por3_filtered+"%";
