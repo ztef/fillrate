@@ -3,7 +3,6 @@ var kpiExpert_OOS={};
 kpiExpert_OOS.eraseChart=function(){ 
 
     d3.select("#svgTooltip").selectAll(".ossDetail").data([]).exit().remove();
-    console.log("elimnaaa");
     d3.select("#svgTooltip3").selectAll(".ossDetail").data([]).exit().remove();
 
     console.log();
@@ -89,15 +88,9 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
     $("#toolTip2").css("visibility","visible");            
     $("#toolTip2").css("left",24+"%"); 
     $("#toolTip2").css("top",15+"%");
- /* 
-
-        VIX_TT  : Prepara datos para el tool tip
-
-    */
 
 
     // DATOS 
-
     var data = arr.map(function(item) {
         return {
           key: item.key,
@@ -453,7 +446,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                     .style("font-weight","normal")
                     .style("font-size",tamanioFuente)	
                     .style("text-anchor","start")
-                    .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.55  )+")  rotate("+(0)+") ")
+                    .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.54  )+")  rotate("+(0)+") ")
                     .text("Porcentaje (%):");
                 
 

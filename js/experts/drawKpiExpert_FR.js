@@ -678,7 +678,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			}).transition().delay(0).duration(1000)
                         .style("opacity",1 );
 
-    }
+        }
 
 
         kpiExpert_FR.DrawFilteredHeader=function(){

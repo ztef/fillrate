@@ -424,6 +424,10 @@ function formatNumber(number,dec)
   }
 }
 
+function LastDayOfMonth(Year, Month) {
+    return new Date((new Date(Year, Month, 1)) - 1);
+  }
+
 d3.selection.prototype.moveToFront = function() {
   return this.each(function(){
     this.parentNode.appendChild(this);

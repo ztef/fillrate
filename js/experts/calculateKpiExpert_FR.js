@@ -73,6 +73,8 @@ calculateKpiExpert_FR.calculateKPI=function(){
 
         }
 
+        console.log("params ********",params);
+
         if(serviceName && apiURL){
 
                 //FILTRO DE MASIVO
@@ -90,7 +92,7 @@ calculateKpiExpert_FR.calculateKPI=function(){
                         
                 }
 
-                if(!initialized){
+                if(!initialized && params.indexOf("AgrupProducto") < 0){
                     params+="&AgrupProducto=Gris";
                 }
 
