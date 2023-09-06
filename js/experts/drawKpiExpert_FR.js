@@ -435,7 +435,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
        
         for(var i=0; i < arr.length; i++ ){        
                 
-                var altura=svgTooltipHeight*.3;
+                var altura=svgTooltipHeight*.25;
                 var altura1=GetValorRangos( arr[i].por1,1, 100 ,1,altura);
                 var altura2=GetValorRangos( arr[i].por2,1, 100 ,1,altura);
                 var altura3=GetValorRangos( arr[i].por3,1, 100 ,1,altura);
@@ -488,13 +488,13 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                             ;
 
 
-                var alturaVolumen=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.3);
+                var alturaVolumen=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.25);
 
                 d3.select("#svgTooltip").append("rect")		    		
                                         .attr("width",(ancho*.7) )
                                         .attr("class","frDetail")
                                         .attr("x", ancho*caso  )
-                                        .attr("y", (svgTooltipHeight*.4)-alturaVolumen-3  )
+                                        .attr("y", (svgTooltipHeight*.42)-alturaVolumen-3  )
                                         .attr("height",alturaVolumen)
                                         .attr("fill","#FFFFFF")                                     
                                         .transition().delay(0).duration(i*50)
@@ -504,7 +504,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                  d3.select("#svgTooltip").append("circle")
                                         .attr("class","frDetail")
                                         .attr("fill","#ffffff")
-                                        .attr("cx",(ancho*caso)+(ancho/2) )
+                                        .attr("cx",(ancho*caso)+(ancho/2)-2 )
                                         .attr("cy",(svgTooltipHeight*.9)-3-marginBottom-alturaVolumen)                   
                                         .attr("r",4);
         
@@ -518,7 +518,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("font-size",tamanioFuente*.8)						
                         .style("text-anchor","start")
                         .style("opacity",0 )
-                        .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.4))-alturaVolumen-6  )+")  rotate("+(-90)+") ")
+                        .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.42))-alturaVolumen-6  )+")  rotate("+(-90)+") ")
                         .text(function(){
                         
                             return  formatNumber(arr[i].CantEntfinal)+" TM";
@@ -556,7 +556,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 .style("font-weight","bold")
                                 .style("font-size",tamanioFuente*.7)	
                                 .style("text-anchor","end")
-                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight)-marginBottom+30  )+")  rotate("+(-90)+") ")
+                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight)-marginBottom+28  )+")  rotate("+(-90)+") ")
                                 .text(function(){
                                         
                                 var date=new Date( Number(arr[i].key) );
@@ -585,7 +585,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("font-weight","normal")
                         .style("font-size",tamanioFuente)	
                         .style("text-anchor","start")
-                        .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.45  )+")  rotate("+(0)+") ")
+                        .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.47  )+")  rotate("+(0)+") ")
                         .text("Fill Rate y Tiempos:");
     
                         caso++;            
