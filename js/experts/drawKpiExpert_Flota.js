@@ -96,7 +96,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
 
       // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,svgTooltipWidth);
+      vix_tt_formatToolTip("#toolTip2","Déficit de Flota por Origen "+entity.key,svgTooltipWidth);
       
             // COLUMNAS CON TOTALES :
     
@@ -108,12 +108,10 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
                       
                       
                       };
-
                       
         // CREA TABLA USANDO DATOS
                 
-        vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
-            
+        vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );           
             
             
         // APLICA TRANSICIONES 

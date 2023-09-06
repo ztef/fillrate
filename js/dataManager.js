@@ -361,7 +361,7 @@ dataManager.getTooltipText=function(entity){
     nombre=nombre.replaceAll("_"," ");
     nombre=nombre.replaceAll("undefined"," ");
 
-
+  
     var text=` <div class="detailContainer" style="">
         
         <div>
