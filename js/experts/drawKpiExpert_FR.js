@@ -837,7 +837,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .text(function(){
                                 
                                 //return "Muestra Solicitado: "+formatNumber(Math.round(totalCanSol_filtered/1000) )+" k Ton - Entregado: "+formatNumber(Math.round(totalCanEnt_filtered/1000) )+" k Ton ("+ Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100) +"%)";
-                                return "Muestra Entregado: "+Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100)+"% , "+formatNumber(Math.round(totalCanEnt_filtered/1000) )+" TM  - Solictidado: "+formatNumber(Math.round(totalCanSol_filtered/1000) )+" TM  ";
+                                return "Muestra Entregado: "+Math.round((totalCanEnt_filtered/totalCanSol_filtered)*100)+"% , "+formatNumber((totalCanEnt_filtered/1000) )+" TM  - Solictidado: "+formatNumber((totalCanSol_filtered/1000) )+" TM  ";
 
                         })
                         .transition().delay(0).duration(1000)

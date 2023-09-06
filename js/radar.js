@@ -123,7 +123,7 @@ radar.kpis=[
     {label:"Out of Stock",color:"#08D3FF",var:"oos",minimoValor:10,valorEquilibrio:0 ,maximoValor:-10, abreviacion:"OOS Cedis",unidad:"%",tooltipDetail:kpiExpert_OOS,calculateExpert:calculateKpiExpert_OOS},    
     {label:"Cump Abasto",color:"#E361FF", var:"abasto",minimoValor:60,valorEquilibrio:100 , maximoValor:140, abreviacion:"Abasto",unidad:"%",tooltipDetail:kpiExpert_ABAS,calculateExpert:calculateKpiExpert_Abasto},
     {label:"Cump Producción",color:"#FFFFFF",var:"produccion",minimoValor:60,valorEquilibrio:100 ,maximoValor:140, abreviacion:"Prod",unidad:"%",tooltipDetail:kpiExpert_PROD,calculateExpert:calculateKpiExpert_Produccion},
-    {label:"Déficit Flota",color:"#6CFF00",var:"flota",minimoValor:30 ,valorEquilibrio:0,maximoValor:0,labelVar: "deficit", abreviacion:"Flota",unidad:"1dec"},
+    {label:"Déficit Flota",color:"#6CFF00",var:"flota",minimoValor:50 ,valorEquilibrio:0,maximoValor:0,labelVar: "deficit", abreviacion:"Flota",unidad:"1dec"},
     {label:"Estadías",color:"#FF00DE",var:"estadias",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"T. Recogido",unidad:""}
 ];
 
@@ -535,8 +535,8 @@ radar.DrawEntityValues=function(entity){
 
                         var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
 
-                        if(posicionMarcador < radio*.01 )
-                        posicionMarcador=radio*.01;
+                        if(posicionMarcador < radio*.08 )
+                        posicionMarcador=radio*.08;
 
                        
 
@@ -554,8 +554,8 @@ radar.DrawEntityValues=function(entity){
 
                         var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
-                        if(posicionMarcador < radio*.01 )
-                        posicionMarcador=radio*.01;
+                        if(posicionMarcador < radio*.08 )
+                        posicionMarcador=radio*.08;
 
                         var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );					
         
@@ -568,8 +568,8 @@ radar.DrawEntityValues=function(entity){
 
                         var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
-                        if(posicionMarcador < radio*.01 )
-                        posicionMarcador=radio*.01;
+                        if(posicionMarcador < radio*.08 )
+                        posicionMarcador=radio*.08;
 
                         var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );	           
 
@@ -602,8 +602,8 @@ radar.DrawEntityValues=function(entity){
 
                         var posicionMarcador = escalaPosicion(entity[radar.config[i].var][radar.config[i].var]);
 
-                        if(posicionMarcador < radio*.01 )
-                             posicionMarcador=radio*.01;
+                        if(posicionMarcador < radio*.08 )
+                             posicionMarcador=radio*.08;
 
                         if(posicionMarcador > (radio/2)*.97){ // Si se sale de radar mantiene en margenes
                             posicionMarcador = (radio/2)*.97;
@@ -782,8 +782,8 @@ radar.DrawEntityValues=function(entity){
 
                     var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
-                    if(posicionMarcador < radio*.01 )
-                        posicionMarcador=radio*.01;
+                    if(posicionMarcador < radio*.08 )
+                        posicionMarcador=radio*.08;
 
                     var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );					
     
@@ -808,8 +808,8 @@ radar.DrawEntityValues=function(entity){
 
                 var posicionMarcador = escalaPosicion(radar.config[i].valorEquilibrio);
 
-                if(posicionMarcador < radio*.01 )
-                posicionMarcador=radio*.01;
+                if(posicionMarcador < radio*.08 )
+                posicionMarcador=radio*.08;
 
                 var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );	
 
