@@ -1,5 +1,7 @@
 var config={
 
+    modoSoloFillRate:false,
+
     //DATA OPERATIVA
     fillRateSource:"docs/FillRate_mayoGS.csv",
     oosSource:"docs/OOS_Mayo_GS.csv",

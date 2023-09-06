@@ -286,7 +286,7 @@ color: yellow;
       
         <img id="simbologia" src="images/simbologia FR.png" style="width:366px;position:fixed;float:left;right:38px;bottom:2px;pointer-events: none;z-index:99999;visibility:visible;"></img>
 
-        <img id="cargando" src="images/preloader_7.gif" style="width:100px;position:fixed;float:left;left:50%;top:10%;pointer-events: none;z-index:100;visibility:hidden;padding:30px;opacity:.7"></img>
+        <img id="cargando" src="images/preloader_7.gif" style="width:100px;position:fixed;float:left;left:50%;top:6%;pointer-events: none;z-index:100;visibility:hidden;padding:30px;opacity:1"></img>
 
 
         <div id="toolTip" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: rgba(0, 0, 0,.6) 5px 10px 19px;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:0px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
@@ -319,6 +319,8 @@ color: yellow;
             <div class="tooltipIcon"><img id="iconFR" class="iconKPI" src="images/mode1_.png" onclick="dataManager.CambiaModoKPI('FR')" style="width:30px ;float:left;margin:8px" ></img><div class="tooltip-text">Cambiar a Fillrate</div></div>
             <div class="tooltipIcon"><img id="iconOOSF" class="iconKPI" src="images/mode_2.png" onclick="dataManager.CambiaModoKPI('OOS F')" style="width:30px ;float:left;margin:8px"></img><div class="tooltip-text">Cambiar a OOS Fliliales</div></div>
             <div class="tooltipIcon"><img id="iconVenta" class="iconKPI" src="images/mode_3.png" onclick="dataManager.CambiaModoKPI('Venta')" style="width:30px;float:left;margin:8px"></img><div class="tooltip-text">Cambiar a Ventas</div></div>
+            <div class="tooltipIcon"><img id="iconOOSF_" class="iconKPI" src="images/mode_2.png" onclick="" style="width:30px ;float:left;margin:8px;opacity:.4"></img><div class="tooltip-text"></div></div>
+            <div class="tooltipIcon"><img id="iconVenta_" class="iconKPI" src="images/mode_3.png" onclick="" style="width:30px;float:left;margin:8px;opacity:.4"></img><div class="tooltip-text"></div></div>
 
         </ul>
 
@@ -407,8 +409,7 @@ color: yellow;
         processQueriesWithWorker(queries, processData);
 
 
-    </script>
-    
+    </script> 
    
 
 
@@ -424,6 +425,14 @@ color: yellow;
         Stage.ReorderLayout();
 
         var escalaTextos=1;
+
+        if(config.modoSoloFillRate){
+            $("#iconOOSF").hide();
+            $("#iconVenta").hide();
+        }else{
+            $("#iconOOSF_").hide();
+            $("#iconVenta_").hide();
+        }
 
         $(function() {
 
@@ -474,6 +483,8 @@ color: yellow;
                     $('.loginContainer').css('visibility','visible');
 
                     $('#Controls').css('visibility','hidden');
+
+                   
                     
                     setTimeout(()=>{$(".loginBtn").click()}, 500); // Se debe asegurar haber cargado catalogos basicos antes de disparra las consultas
 

@@ -611,7 +611,6 @@ radar.DrawEntityValues=function(entity){
 
                         var centroMarcador = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posicionMarcador  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );
 
-
                         svgRadar				
                                 .append("circle")
                                 .attr("class","radarElement")
@@ -721,11 +720,27 @@ radar.DrawEntityValues=function(entity){
                                     })
                                     .style("text-anchor", "right")*/
                                 ;
+                        //ETIQUETA *********
+                        var posLabel;
 
-                        var anchor="start";
+                        if(posicionMarcador < radio*.2 ){ 
+
+                            posLabel=posicionMarcador+27;
+
+                        }else { 
+
+                            posLabel=posicionMarcador-27;
+
+                        }
+                       
+                        var centroMarcadorLabel = CreaCoordenada( entity.radarData.kpis[radar.config[i].var].angulo  , posLabel  , {x:entity.radarData.posX+(radio/2) , y:entity.radarData.posY+(radio/2) }  );
+
+                        var anchor="middle";
+
+                       
                         var xOffset=10;
                         var yOffset=0;
-                
+                             /*
                         if(entity.radarData.kpis[radar.config[i].var].angulo   > 0 && entity.radarData.kpis[radar.config[i].var].angulo  < 91){
                             //yOffset=-5;
                         }if(entity.radarData.kpis[radar.config[i].var].angulo   > 260 ){
@@ -741,6 +756,7 @@ radar.DrawEntityValues=function(entity){
                         }else{
 
                         }
+                        */
 
                         svgRadar
                                 .append("text")						
@@ -752,7 +768,7 @@ radar.DrawEntityValues=function(entity){
                                 .style("pointer-events","none")						
                                 .style("text-anchor",anchor)
                                 .attr("filter","url(#dropshadowText)")
-                                .attr("transform"," translate("+String((centroMarcador.x+xOffset) )+","+String( centroMarcador.y  )+")  rotate("+(0)+") ")
+                                .attr("transform"," translate("+String((centroMarcadorLabel.x) )+","+String( centroMarcadorLabel.y  )+")  rotate("+(0)+") ")
                                 .text(function(){
                                     
                                     var label = entity[radar.config[i].var][radar.config[i].var];
@@ -828,9 +844,7 @@ radar.DrawEntityValues=function(entity){
 
             }
 
-
     }
-
    
 
 }
