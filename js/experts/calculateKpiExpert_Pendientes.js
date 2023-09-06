@@ -96,7 +96,7 @@ calculateKpiExpert_Pendientes.calculateKPI=function(entities){
 
                             for(var i=0;  i < entities.length; i++){ 
 
-                                entities[i].pendientes={pendientes:0,volumen:0,values:[],allRecords:[]};
+                                entities[i].pendientes={pendientes:0,volumen:0,Libre_Pendiente_Hoy:0,values:[],allRecords:[]};
                                 entities_coll[entities[i].key]=entities[i];                                 
                             }    
                             
@@ -142,7 +142,7 @@ calculateKpiExpert_Pendientes.calculateKPI=function(entities){
                                     if( data.recordset[j].fecha.getTime() == ultimaFecha ){          
                                        
                                             entidad.pendientes.pendientes += Math.round(Number( data.recordset[j].Pct_Radar)*1000)/10;
-                                           
+                                            entidad.pendientes.Libre_Pendiente_Hoy+= Number( data.recordset[j].Libre_Pendiente_Hoy );
                                             entidad.pendientes.volumen += Number( data.recordset[j].Libre_Retrasado );
                                             entidad.pendientes.values.push( data.recordset[j] );                                           
                             
@@ -185,7 +185,8 @@ calculateKpiExpert_Pendientes.getTooltipDetail=function(entityId){
                 
                 var text=`<div class="tooltipDetailElement"><img id="" src="images/retrasados.png" style=""></img>
                 <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Retrasados: </span><br>
-                <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Con Compromiso Vencido:</span> <span style='color:#ffffff'>${ prodPer } TM</span><br>
+                <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Con Compromiso Vencido:</span> <span style='color:#ffffff'>${ prodPer } TM</span><br><span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Libre Pendiente Hoy: ${formatNumber(entities[i].pendientes.Libre_Pendiente_Hoy)} TM )</span><br>
+                
                 </div>
 
                 `

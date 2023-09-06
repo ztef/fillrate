@@ -386,7 +386,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         if(svgTooltipWidth < 80)
         svgTooltipWidth=80;
     
-        var svgTooltipHeight=500;
+        var svgTooltipHeight=550;
         var marginBottom=svgTooltipHeight*.11;
         var tamanioFuente=ancho*.8;   
     
@@ -445,7 +445,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                             .attr("width",ancho )
                                             .attr("class","frDetail")
                                             .attr("x",ancho*caso  )
-                                            .attr("y", (svgTooltipHeight)-altura-3-marginBottom  )
+                                            .attr("y", (svgTooltipHeight*.9)-altura-3-marginBottom  )
                                             .attr("height",1)
                                             .attr("fill","none")
                                             .style("stroke-width",1)
@@ -458,7 +458,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                             .attr("width",ancho*.6 )
                                             .attr("class","frDetail")
                                             .attr("x",(ancho*caso)+(ancho*.1)  )
-                                            .attr("y", (svgTooltipHeight)-altura1-3-marginBottom  )
+                                            .attr("y", (svgTooltipHeight*.9)-altura1-3-marginBottom  )
                                             .attr("height",1)
                                             .attr("fill","#00A8FF")
                                             .transition().delay(0).duration(i*50)
@@ -469,7 +469,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                             .attr("width",ancho*.6 )
                                             .attr("class","frDetail")
                                             .attr("x",(ancho*caso)+(ancho*.1)  )
-                                            .attr("y", (svgTooltipHeight)-altura1-altura2-3-marginBottom  )
+                                            .attr("y", (svgTooltipHeight*.9)-altura1-altura2-3-marginBottom  )
                                             .attr("height",1)
                                             .attr("fill","#EAFF00")
                                             .transition().delay(0).duration(i*50)
@@ -480,7 +480,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                             .attr("width",ancho*.6 )
                                             .attr("class","frDetail")
                                             .attr("x",(ancho*caso)+(ancho*.1)  )
-                                            .attr("y", (svgTooltipHeight)-altura1-altura2-altura3-3-marginBottom  )
+                                            .attr("y", (svgTooltipHeight*.9)-altura1-altura2-altura3-3-marginBottom  )
                                             .attr("height",1)
                                             .attr("fill","#FF0000")
                                             .transition().delay(0).duration(i*50)
@@ -494,13 +494,19 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                         .attr("width",(ancho*.7) )
                                         .attr("class","frDetail")
                                         .attr("x", ancho*caso  )
-                                        .attr("y", (svgTooltipHeight*.5)-alturaVolumen-3  )
+                                        .attr("y", (svgTooltipHeight*.4)-alturaVolumen-3  )
                                         .attr("height",alturaVolumen)
                                         .attr("fill","#FFFFFF")                                     
                                         .transition().delay(0).duration(i*50)
                                         .style("height",alturaVolumen )	
                                         ;
 
+                 d3.select("#svgTooltip").append("circle")
+                                        .attr("class","frDetail")
+                                        .attr("fill","#ffffff")
+                                        .attr("cx",(ancho*caso)+(ancho/2) )
+                                        .attr("cy",(svgTooltipHeight*.9)-3-marginBottom-alturaVolumen)                   
+                                        .attr("r",4);
         
     
                 d3.select("#svgTooltip")
@@ -512,10 +518,10 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("font-size",tamanioFuente*.8)						
                         .style("text-anchor","start")
                         .style("opacity",0 )
-                        .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+3  )+","+String( ((svgTooltipHeight*.6))-marginBottom-alturaVolumen  )+")  rotate("+(-90)+") ")
+                        .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.4))-alturaVolumen-6  )+")  rotate("+(-90)+") ")
                         .text(function(){
                         
-                            return  formatNumber(arr[i].CantEntfinal);
+                            return  formatNumber(arr[i].CantEntfinal)+" TM";
     
                         })
                         .transition().delay(0).duration(i*50)
@@ -531,10 +537,11 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                       .style("font-size",tamanioFuente*.84)						
                       .style("text-anchor","start")
                       .style("opacity",0 )
-                      .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.8)+1  )+","+String( (svgTooltipHeight-50)-marginBottom )+")  rotate("+(-90)+") ")
+                      .attr("filter","url(#dropshadowRadar)")
+                      .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.8)+1  )+","+String( (svgTooltipHeight*.9)-marginBottom+70 )+")  rotate("+(-90)+") ")
                       .text(function(){
                       
-                          return  arr[i].por1+"%";
+                          return  "FR: "+arr[i].por1+"%";
   
                       })
                       .transition().delay(0).duration(i*50)
@@ -549,7 +556,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 .style("font-weight","bold")
                                 .style("font-size",tamanioFuente*.7)	
                                 .style("text-anchor","end")
-                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight)-marginBottom+10  )+")  rotate("+(-90)+") ")
+                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight)-marginBottom+30  )+")  rotate("+(-90)+") ")
                                 .text(function(){
                                         
                                 var date=new Date( Number(arr[i].key) );
@@ -578,7 +585,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("font-weight","normal")
                         .style("font-size",tamanioFuente)	
                         .style("text-anchor","start")
-                        .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.55  )+")  rotate("+(0)+") ")
+                        .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.45  )+")  rotate("+(0)+") ")
                         .text("Fill Rate y Tiempos:");
     
                         caso++;            
@@ -808,17 +815,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .attr("cx",kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+3+kpiExpert_FR.offSetLeft2 )
                         .attr("cy",kpiExpert_FR.offSetTop+11+(altura*.18))                   
                         .attr("r",3);
-                /*
-                svgLines.append("line")
-                        .style("stroke","#ffffff" )
-                        .attr("class","encabezadoFiltered ")
-                        .style("stroke-width", 1 )
-                        .style("stroke-opacity", 1 )
-                        .attr("x1",kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+3 )
-                        .attr("y1",kpiExpert_FR.offSetTop+15+(altura*.4))
-                        .attr("x2",kpiExpert_FR.offSetLeft+ancho2+ancho3+ancho4+3 )
-                        .attr("y2",kpiExpert_FR.offSetTop+45+(altura*.4));
-*/
+              
 
                 // ENTREGADO **********
         
