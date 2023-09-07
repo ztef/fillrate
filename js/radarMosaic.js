@@ -18,6 +18,7 @@ radarMosaic.EraseMosaic=function(){
 
     svgLines.selectAll(".mosaicElement").data([]).exit().remove();
     
+    svgLines.selectAll(".labelMosaic").data([]).exit().remove();
 
     $("#radarDiv").css("visibility","visible");
 
