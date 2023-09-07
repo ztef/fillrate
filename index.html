@@ -59,6 +59,7 @@
     <script src="js/controls.js"></script>
     <script src="js/dataManager.js"></script>
     <script src="js/radar.js"></script>
+    <script src="js/radarMosaic.js"></script>
     <script src="js/elementosContexo.js"></script>
 
     <script src="js/tooltipHelpers.js"></script>
@@ -312,6 +313,7 @@ color: yellow;
             <div class="tooltipIcon"><img id="cargando" src="images/chemical.png" onclick="if(store.fillRate){$('#Controls').css('visibility','visible');}" style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Filtros</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/calendar.png" onclick=" $('.loginContainer').css('visibility','visible');$('#Controls').css('visibility','hidden');$('#dateSelect').val('')" style="width:13px ;float:left;margin:8px"></img><div class="tooltip-text">Cambiar Fechas</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/analyticsx.png" onclick='$("#toolTip4").css("visibility")=="visible"? reportExpert.EraseReport()  : reportExpert.DrawReport(entities)' style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Informe Final</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/mosaic.png" onclick='radarMosaic.toogle();' style="width:13px;float:left;margin:8px"></img><div class="tooltip-text">Vista Mosaico Radares</div></div>
             
         </ul>
 
@@ -636,6 +638,12 @@ color: yellow;
 
                 columnasRadar=6;
                 radar.DrawEntities(entities);                  
+
+            break;
+
+            case 32: 
+
+            radarMosaic.toogle();          
 
             break;
     

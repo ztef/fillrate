@@ -134,6 +134,8 @@ radar.CleanWindows=function(){
 
     $('.loginContainer').css('visibility','hidden');
 
+    radarMosaic.EraseMosaic();
+
 }
 
 radar.kpis=[
@@ -153,7 +155,7 @@ radar.kpis=[
     {label:"Estadías",color:"#FF00DE",var:"estadias",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"T. Recogido",unidad:""}
 ];
 
-    radar.DrawEntities=function(){  
+   radar.DrawEntities=function(){  
         
         if(entities.length==0){
             alert("existe un problema con los datos básicos de Fill Rate");
