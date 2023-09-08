@@ -209,8 +209,9 @@ radarMosaic.DrawRadars=function(){
         
                                 if(posicionMarcador < radio*.08 )
                                     posicionMarcador=radio*.08;
+
         
-                                var centroMarcador = CreaCoordenada( entities[j].radarData.kpis[radar.config[j].var].angulo  , posicionMarcador  , {x:posX+(radio/2) , y:posY+(radio/2) }  );					
+                                var centroMarcador = CreaCoordenada( entities[i].radarData.kpis[radar.config[j].var].angulo  , posicionMarcador  , {x:posX+(radio/2) , y:posY+(radio/2) }  );					
                 
                                 puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
 
