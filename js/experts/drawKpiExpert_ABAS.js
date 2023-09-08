@@ -116,13 +116,6 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     $("#toolTip5").css("left",23+"%");
     $("#toolTip5").css("top",16+"%");
 
-       
-    /* 
-
-        VIX_TT  : Prepara datos para el tool tip
-
-    */
-
 
     // DATOS 
 
@@ -194,7 +187,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key,svgTooltipWidth+"hacia otras UN",700);
+      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key+" hacia otras UN",700);
 
             // COLUMNAS CON TOTALES :
     

@@ -4,8 +4,10 @@ kpiExpert_PENDIENTES.eraseChart=function(){
 
     d3.select("#svgTooltip").selectAll(".prodDetail").data([]).exit().remove();   
     d3.select("#svgTooltip3").selectAll(".penDetail").data([]).exit().remove();
+    d3.select("#svgTooltip4").selectAll(".penDetail").data([]).exit().remove();
     $("#toolTip2").css("visibility","hidden");
     $("#toolTip3").css("visibility","hidden");
+    $("#toolTip4").css("visibility","hidden");
 
 }
 
@@ -14,9 +16,243 @@ kpiExpert_PENDIENTES.DrawTooltipDetail=function(entity){
     
     d3.select("#svgTooltip").selectAll(".penDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".penDetail").data([]).exit().remove();
+    d3.select("#svgTooltip4").selectAll(".penDetail").data([]).exit().remove();
 
     kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo(entity);  
-    kpiExpert_PENDIENTES.DrawTooltipDetail_Dia(entity);  
+    kpiExpert_PENDIENTES.DrawTooltipDetail_Dia(entity);
+    kpiExpert_PENDIENTES.DrawTooltipDetail_Estado(entity);  
+
+}
+
+kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){    
+
+            $("#cargando").css("visibility","visible");
+
+            var serviceName;
+            var apiURL;
+            var agrupador="";
+            var nombreCatalogoParaDiccionario;
+            var diccionarioNombres=[];
+
+            for(var i=0; i < store.niveles.length; i++){    
+
+                    if( store.niveles[i].id == $("#nivel_cb").val() ){
+                            agrupador=store.niveles[i].storeProcedureField; 
+                            nombreCatalogoParaDiccionario=store.niveles[i].coordinatesSource;
+                    }                        
+            }
+
+            for( var i=0; i < store.catlogsForFilters.length; i++ ){    
+                    if(store.catlogsForFilters[i].data==nombreCatalogoParaDiccionario){
+                            diccionarioNombres=store.catlogsForFilters[i].diccNames;
+                            
+                    }
+            } 
+            
+            for(var i=0; i < store.apiDataSources.length; i++){
+          
+                if(store.apiDataSources[i].varName=="pendientesEstado"){
+                        
+                        serviceName=store.apiDataSources[i].serviceName;
+                        apiURL=store.apiDataSources[i].apiURL;
+                }
+
+            }
+
+            if(serviceName && apiURL){
+
+                var dateInit_=dateInit.getFullYear()+"-"+String(Number(dateInit.getMonth())+1)+"-"+dateInit.getDate();
+                var dateEnd_=dateEnd.getFullYear()+"-"+String(Number(dateEnd.getMonth())+1)+"-"+dateEnd.getDate();
+                       
+                // FILTROS****
+                var params="";
+                       
+                for(var j=0; j < store.catlogsForFilters.length; j++){
+    
+                    if($("#"+store.catlogsForFilters[j].id).val() != "" && $("#"+store.catlogsForFilters[j].id).val() != undefined ){
+    
+                        params+="&"+store.catlogsForFilters[j].storeProcedureField+"="+store.catlogsForFilters[j].diccNames[ $("#"+store.catlogsForFilters[j].id).val() ];
+    
+                    }
+    
+                }
+
+                //FILTRO DE MASIVO
+                if($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""){
+
+                        params+="&masivos=Todos";               
+
+                }else if($("#masivos_cb").val() == "SinMasivos"){
+
+                        params+="&masivos=Sin Masivos"; 
+
+                }else if($("#masivos_cb").val() == "SoloMasivos"){
+
+                        params+="&masivos=Solo Masivos"; 
+                        
+                }
+
+                //ID de entidad
+                params+="&idSpider="+entity.key;
+
+                var URL=apiURL+"/"+serviceName+"?fechaInicio="+dateInit_+"&fechaFin="+dateEnd_+"&agrupador="+agrupador+""+params;
+                console.log(URL);  
+
+                if(URL.indexOf("undefined" < 0)){
+
+                    dataLoader.AddLoadingTitle("Pendientes por Estado");
+
+                    d3.json(URL, function (error, data) {
+
+                                    dataLoader.DeleteLoadingTitle("Fillrate"); 
+
+                                    dataLoader.HideLoadings();
+
+                                    $("#cargando").css("visibility","hidden");
+
+                                    if(error){
+                                        alert("Error API Pendientes Estados",error);
+                                        resolve();
+                                        return;
+                                    }
+
+                                    if(data.error){
+                                        alert("Error API Pendientes Estados",data.error);
+                                        resolve();
+                                        return;
+                                    }
+
+                                    console.log("Pendientes Estados",data.recordset); 
+
+                                    var maximo1=0;
+                                    var maximo2=0;
+
+                                    var arrTemp=[];
+
+                                    var arr=d3.nest()
+                                        .key(function(d) { return d.EstadoDem; })
+                                        .entries(data.recordset);  
+
+                                    for(var i=0; i < arr.length; i++ ){
+
+                                        arr[i].Libre_Pendiente_Hoy=0;
+                                        arr[i].Libre_Retrasado=0;
+
+                                        for(var j=0; j < arr[i].values.length; j++ ){        
+                                        
+                                            arr[i].Libre_Pendiente_Hoy+=Number(arr[i].values[j].Libre_Pendiente_Hoy);
+                                            arr[i].Libre_Retrasado+=Number(arr[i].values[j].Libre_Retrasado);
+                                
+                                        }
+
+                                        if(maximo1 < arr[i].Libre_Pendiente_Hoy){
+                                            maximo1 = arr[i].Libre_Pendiente_Hoy;
+                                        }
+                                
+                                        if(maximo2 < arr[i].Libre_Retrasado){
+                                            maximo2= arr[i].Libre_Retrasado;
+                                        }
+
+                                    }
+
+                                    arr = arr.sort((a, b) => b.Libre_Pendiente_Hoy - a.Libre_Pendiente_Hoy);    
+                                    //arr.reverse();
+
+                                    var altura=30;
+                                    var caso=0;
+
+                                    var svgTooltipHeight=arr.length*altura;
+
+                                    if(svgTooltipHeight<100)
+                                        svgTooltipHeight=100;
+
+                                    var svgTooltipWidth=400;
+                                    var marginLeft=svgTooltipWidth*.2;
+                                    var tamanioFuente=altura*.4;
+                                    var marginTop=35;
+
+                                    $("#toolTip4").css("visibility","visible");            
+                                    $("#toolTip4").css("left",13+"%");
+                                    $("#toolTip4").css("top",16+"%");
+
+                                    // DATOS 
+                                    var data = arr.map(function(item) {
+                                        return {
+                                        key: item.key,
+                                        "Libre_Pendiente_Hoy": item.Libre_Pendiente_Hoy,
+                                        "Libre_Retrasado": item.Libre_Retrasado,
+                                       
+                                        };
+                                        });
+
+
+                                    // DEFINE COLUMNAS      
+                                    var columns = [
+                                        { key: "key", header: "Estado", sortable: true, width: "100px" },
+                                        { key: "Libre_Pendiente_Hoy", header: "Libre Pendiente Hoy (TM)", sortable: true, width: "150px" },
+                                        { key: "Libre_Retrasado", header: "Libre Retrasado (TM)", sortable: true, width: "150px" },
+                                      
+                                    ];
+
+                                    // DEFINE VISITORS PARA CADA COLUMNA   
+                                    var columnVisitors = {
+                                        key: function(value) {
+                                            return `<div>${value}
+                                            </div>`;
+                                        },                                   
+                                       
+                                        Libre_Pendiente_Hoy: function(value){
+                                    
+                                            var barWidth = (value/maximo1)*100 + '%';
+                                            var barValue = vix_tt_formatNumber(value)+'%   ';
+                                        
+                                            return '<div class="bar-container">' +
+                                            '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
+                                            + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: #0096E3;"></rect></svg>' +        
+                                            '</div>';
+                                        },
+                                        Libre_Retrasado: function(value){
+                                    
+                                            var barWidth = (value/maximo1)*100 + '%';
+                                            var barValue = vix_tt_formatNumber(value)+'TM   ';
+                                    
+                                        return '<div class="bar-container">' +
+                                        '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
+                                        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: #0096E3;"></rect></svg>' +        
+                                        '</div>';
+                                        }
+                                    };
+
+                                    // FORMATEA DIV :
+                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+entity.key,400);
+
+                                    // COLUMNAS CON TOTALES :
+                                    var columnsWithTotals = ['Libre_Pendiente_Hoy','Libre_Retrasado']; 
+                                    var totalsColumnVisitors = {
+                                                'Libre_Pendiente_Hoy': function(value) { 
+                                                return vix_tt_formatNumber(value) + " TM";
+                                                },
+                                                'Libre_Retrasado': function(value) { 
+                                                return vix_tt_formatNumber(value) + " TM"; 
+                                                }
+                                                };   
+    
+     
+    
+                                    // CREA TABLA USANDO DATOS                                        
+                                    vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip4", columnsWithTotals );
+
+                                    // APLICA TRANSICIONES
+                                    vix_tt_transitionRectWidth("toolTip4");
+
+
+                    });
+                }                
+
+            }else{
+                alert("Error al encontrar URL API Pendienetes por Estado");
+                
+            }
 
 }
 

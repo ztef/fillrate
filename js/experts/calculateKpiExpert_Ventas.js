@@ -54,10 +54,7 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
 
                 }
 
-            }
-
-
-            
+            }            
 
              //FILTRO DE MASIVO
             if($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""){

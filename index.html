@@ -243,6 +243,7 @@ color: yellow;
                   <feMerge><feMergeNode/> <!-- this contains the offset blurred image -->
                   <feMergeNode in='SourceGraphic'/> <!-- this contains the element that the filter is applied to --></feMerge>
               </filter>
+
               <filter id='dropshadowRadar' height='140%' width='140%'>
                 <feGaussianBlur in='SourceAlpha' stdDeviation='10'/> <!-- stdDeviation is how much to blur -->
                 <feOffset dx='0' dy='6' result='offsetblur'/> <!-- how much to offset -->
@@ -275,7 +276,7 @@ color: yellow;
                 </filter>
         </defs>
         </svg>
-        <div id="version"  style="color:gray;opacity:.7;font-size: 9px;position:fixed;top:70px;left:10px;z-index:9999">V.11.3</div>
+        <div id="version"  style="color:gray;opacity:.7;font-size: 9px;position:fixed;top:70px;left:10px;z-index:9999">V.11.6</div>
 
         <div style="position:fixed;z-index:-10;float:left;top:0px;pointer-events:none;height:100%;width:100%;background:linear-gradient(#000000, #000000);"></div>
 
@@ -284,6 +285,8 @@ color: yellow;
         <div id="cesiumContainer" style="position:fixed;top:0px;z-index:1;background-color: black"></div>
         
         <img id="logo" src="images/logo1.png" style="position:fixed;z-index:999999;width:140px;float:left;left:10px;top:11px;pointer-events: none;visibility:visible;"></img>
+        
+        <div class="tooltipIcon" style="position:fixed;z-index:999999;width:31px;float:left;right:5px;bottom:37px;pointer-events: auto;visibility:visible;"><img id="" src="images/info.png" style="width:31px;"></img><div class="tooltip-text">Guia de uso del visualizador</div></div>
 
       
         <img id="simbologia" src="images/simbologia FR.png" style="width:366px;position:fixed;float:left;right:38px;bottom:2px;pointer-events: none;z-index:99999;visibility:visible;"></img>
@@ -296,7 +299,7 @@ color: yellow;
         <div id="toolTip3" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.8);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip4" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
         <div id="toolTip5" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: 5px 5px 10px #000000;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden"></div>
-        <div id="toolTipLoader" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: rgba(0, 0, 0,.4) 5px 15px 16px ;color:white;font-size:19px;font-weight:normal;z-index:999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden;"></div>
+        <div id="toolTipLoader" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: rgba(0, 0, 0,.4) 5px 15px 16px ;color:white;font-size:19px;font-weight:normal;z-index:9999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden;"></div>
 
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
 
