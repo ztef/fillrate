@@ -370,6 +370,11 @@ Stage.ReorderLayout=function(){
 		kpiExpert_FR.DrawMainHeader();
 		kpiExpert_FR.DrawFilteredHeader();
 	}
+
+	$("#svgLines").css("height",windowHeight+"px");
+	
+	if(svgLines)
+		svgLines.attr("height",windowHeight+"px");
 	
 	$("#titulo").css("width",((windowWidth*.9)-220)+"px");
 }

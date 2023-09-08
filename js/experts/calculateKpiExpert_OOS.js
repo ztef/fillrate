@@ -58,15 +58,15 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                         //FILTRO DE MASIVO
                         if($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""){
 
-                                params+="&Masivos=Todos";               
+                                params+="&masivos=Todos";               
 
                         }else if($("#masivos_cb").val() == "SinMasivos"){
 
-                                params+="&Masivos=Sin Masivos"; 
+                                params+="&masivos=Sin Masivos"; 
 
                         }else if($("#masivos_cb").val() == "SoloMasivos"){
 
-                                params+="&Masivos=Solo Masivos"; 
+                                params+="&masivos=Solo Masivos"; 
                                 
                         } 
             

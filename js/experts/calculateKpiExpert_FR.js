@@ -80,15 +80,15 @@ calculateKpiExpert_FR.calculateKPI=function(){
                 //FILTRO DE MASIVO
                 if($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""){
 
-                        params+="&Segmento=Todos";               
+                        params+="&masivos=Todos";               
 
                 }else if($("#masivos_cb").val() == "SinMasivos"){
 
-                        params+="&Segmento=Sin Masivos"; 
+                        params+="&masivos=Sin Masivos"; 
 
                 }else if($("#masivos_cb").val() == "SoloMasivos"){
 
-                        params+="&Segmento=Solo Masivos"; 
+                        params+="&masivos=Solo Masivos"; 
                         
                 }
 
