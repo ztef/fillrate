@@ -449,33 +449,39 @@ color: yellow;
         function setDates(sel)
         {
 
+            var fechaActual=new Date();
+            var ayer=new Date(fechaActual.getTime()-((1000*60)*60)*24);
+
             if(sel){
 
-                if(sel.value!=""){
+                if(sel.value!=""){                    
 
                     var dataSelected=sel.value.split("-");
                     var initDate=new Date(dataSelected[1],dataSelected[0]-1,1);
                     var endDate=LastDayOfMonth(dataSelected[1],dataSelected[0] );
 
-                    $('#datepicker').val((initDate.getMonth()+1)+"-01-"+initDate.getFullYear());
-                    $('#datepicker2').val((endDate.getMonth()+1)+"-"+endDate.getDate()+"-"+endDate.getFullYear());
+                    if(endDate.getMonth()==fechaActual.getMonth() ){
+
+                        $('#datepicker').val((initDate.getMonth()+1)+"-01-"+initDate.getFullYear());
+                        $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
+
+                    }else{
+
+                        $('#datepicker').val((initDate.getMonth()+1)+"-01-"+initDate.getFullYear());
+                        $('#datepicker2').val((endDate.getMonth()+1)+"-"+endDate.getDate()+"-"+endDate.getFullYear());
+                       
+                    }                  
 
                     $("#getdata").click();
 
                 }else{
-
-                    var fechaActual=new Date();
-                    var ayer=new Date(fechaActual.getTime()-((1000*60)*60)*24);
-        
+                   
                     $('#datepicker').val((ayer.getMonth()+1)+"-01-2023");
                     $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
 
                 }
             }else{
-
-                    var fechaActual=new Date();
-                    var ayer=new Date(fechaActual.getTime()-((1000*60)*60)*24);
-        
+                    
                     $('#datepicker').val((ayer.getMonth()+1)+"-01-2023");
                     $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
             }

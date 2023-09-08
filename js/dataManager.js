@@ -46,6 +46,10 @@ dataManager.CambiaModoKPI=function(modo){
 var entities;
 
  dataManager.ClusterObjects= function(){
+
+    if(loadsCount!=loadsTarget){
+        return;
+    }
     
     dataLoader.HideLoadings();
     
@@ -67,7 +71,13 @@ var entities;
 
     dataLoader.AddLoadingTitle("Fillrate");
 
+    loadsCount=1; 
+    loadsTarget=0;    
+
     calculateKpiExpert_FR.calculateKPI().then(()=>{
+
+        loadsCount=0; 
+        loadsTarget=0;    
 
         filterControls.createDataFiltersControls(store.catlogsForFilters);
 
