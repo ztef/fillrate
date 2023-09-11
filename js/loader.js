@@ -187,6 +187,11 @@ dataLoader.LoadData=function(def,cb){
                 return;
             }
 
+            if(data.recordset.length == 0){
+                alert("Regresando vacío la consulta de "+def.varName);
+
+            }
+
             if(data.recordset){
                 data=data.recordset;
             }            
