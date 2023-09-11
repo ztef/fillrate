@@ -136,7 +136,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Producto", sortable: true, width: "100px" },
+        { key: "key", header: "Unidad de Negocio", sortable: true, width: "100px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
@@ -317,7 +317,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Producto", sortable: true, width: "100px" },
+        { key: "key", header: "Unidad de Negocio", sortable: true, width: "100px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
@@ -499,11 +499,11 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Producto", sortable: true, width: "100px" },
+        { key: "key", header: "Unidad de Negocio", sortable: true, width: "100px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
-        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "220px" },
+        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "100px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
@@ -702,7 +702,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Producto", sortable: true, width: "100px" },
+        { key: "key", header: "Unidad de Negocio", sortable: true, width: "100px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
