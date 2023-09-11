@@ -9,7 +9,7 @@ filterControls.createDataFiltersControls=function(catalogs){
         controlsInit=true;
         vix_tt_formatMenu("#Controls",".",160);
         //$("#Controls").css("max-height","600px");
-        $("#Controls").css("height","550px");
+        $("#Controls").css("height","600px");
         $("#Controls").css("width","400px");
 
 
@@ -47,20 +47,20 @@ filterControls.createDataFiltersControls=function(catalogs){
         if(!createdControls[catalogs[i].id]){
 
             if(catalogs[i].type=="autoComplete"){
-                
+
+                /*
                 $("#ControlsFields").append(
                     `<div class="autocomplete loginBtn" style="width: 100%;margin-top:15px;" >
                         <input class="inputs" id="${catalogs[i].id}" type="text" style="border-color:${catalogs[i].color};" name="" placeholder="${ catalogs[i].placeholder }">
                     </div>`
                 ); 
+                */
                 
                 createdControls[catalogs[i].id]=true;
                 
                 var arr=d3.nest()
                             .key(function(d) { return d[catalogs[i].fieldInCatlog]; })
-                            .entries(catlog);
-
-                            
+                            .entries(catlog);                            
 
                 var arrAutoCompleteArr=[];   
                 
@@ -76,22 +76,175 @@ filterControls.createDataFiltersControls=function(catalogs){
                 
                     arrAutoCompleteArr.push(arr[j].key);
 
-                }
-                
+                }               
+                        
+
+                $("#ControlsFields").append(
+                        `
+                        <div class="ui-widget autocomplete loginBtn" style="width:90%;margin-top:15px;color:white" >
+                        
+                        <select id="${catalogs[i].id}" style="width:90%;border-style: solid;border-width: 1px;border-color:${catalogs[i].color};" placeholder="${ catalogs[i].placeholder }">
+                        <option value=""> </option>                   
+                        </select>
+                        </div>`
+                        );                
+
                 if(catalogs[i].hardcodedData){
 
-                    autocomplete(document.getElementById(catalogs[i].id), catalogs[i].hardcodedData);
+                    for(var j=0;  j < catalogs[i].hardcodedData.length; j++){                             
+                        $("#"+catalogs[i].id).append(`<option value="${catalogs[i].hardcodedData[j]}">${catalogs[i].hardcodedData[j]}</option>`);
+                    }
 
                     for(var j=0;  j < catalogs[i].hardcodedData.length; j++){
                         catalogs[i].diccNames[catalogs[i].hardcodedData[j]]=catalogs[i].hardcodedData[j];
                     }
 
                 }else{
-                    autocomplete(document.getElementById(catalogs[i].id), arrAutoCompleteArr);
-                }               
+                    for(var j=0;  j < arrAutoCompleteArr.length; j++){                             
+                        $("#"+catalogs[i].id).append(`<option value="${arrAutoCompleteArr[j]}">${arrAutoCompleteArr[j]}</option>`);
+                    }
+                }   
 
                 if(catalogs[i].default)
                     $("#"+catalogs[i].id).val(catalogs[i].default);
+
+
+               
+                $.widget( "custom.combobox", {
+			    _create: function() {
+				this.wrapper = $( "<span>" )
+					.addClass( "custom-combobox" )
+					.insertAfter( this.element );
+				this.element.hide();
+				this._createAutocomplete();
+				this._createShowAllButton();
+			},
+
+			_createAutocomplete: function() {
+				var selected = this.element.children( ":selected" ),
+					value = selected.val() ? selected.text() : "";
+
+				this.input = $( "<input>" )
+					.appendTo( this.wrapper )
+					.val( value )
+					.attr( "title", "" )
+                    .attr( "placeholder", catalogs[i].placeholder )
+					.addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+					.autocomplete({
+						delay: 0,
+						minLength: 0,
+						source: $.proxy( this, "_source" )
+					}).css({'border-style': 'solid','border-width': '2px','border-color': catalogs[i].color})
+					.tooltip({
+						classes: {
+							"ui-tooltip": "ui-state-highlight"
+						}
+					});
+
+				this._on( this.input, {
+					autocompleteselect: function( event, ui ) {
+						ui.item.option.selected = true;
+						this._trigger( "select", event, {
+							item: ui.item.option
+						});
+					},
+
+					autocompletechange: "_removeIfInvalid"
+				});
+			},
+
+			_createShowAllButton: function() {
+				var input = this.input,
+					wasOpen = false;
+
+				$( "<a>" )
+					.attr( "tabIndex", -1 )
+					.attr( "title", "Mostrar todo" )
+					.tooltip()
+					.appendTo( this.wrapper )
+					.button({
+						icons: {
+							primary: "ui-icon-triangle-1-s"
+						},
+						text: false
+					})
+					.removeClass( "ui-corner-all" )
+					.addClass( "custom-combobox-toggle ui-corner-right" )
+					.on( "mousedown", function() {
+						wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+					})
+					.on( "click", function() {
+						input.trigger( "focus" );
+
+						// Close if already visible
+						if ( wasOpen ) {
+							return;
+						}
+
+						// Pass empty string as value to search for, displaying all results
+						input.autocomplete( "search", "" );
+					});
+			},
+
+			_source: function( request, response ) {
+				var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+				response( this.element.children( "option" ).map(function() {
+					var text = $( this ).text();
+					if ( this.value && ( !request.term || matcher.test(text) ) )
+						return {
+							label: text,
+							value: text,
+							option: this
+						};
+				}) );
+			},
+
+			_removeIfInvalid: function( event, ui ) {
+
+				// Selected an item, nothing to do
+				if ( ui.item ) {
+					return;
+				}
+
+				// Search for a match (case-insensitive)
+				var value = this.input.val(),
+					valueLowerCase = value.toLowerCase(),
+					valid = false;
+				this.element.children( "option" ).each(function() {
+					if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+						this.selected = valid = true;
+						return false;
+					}
+				});
+
+				// Found a match, nothing to do
+				if ( valid ) {
+					return;
+				}
+
+				// Remove invalid value
+				this.input
+					.val( "" )
+					.attr( "title", value + " didn't match any item" )
+					.tooltip( "open" );
+				this.element.val( "" );
+				this._delay(function() {
+					this.input.tooltip( "close" ).attr( "title", "" );
+				}, 2500 );
+				this.input.autocomplete( "instance" ).term = "";
+			},
+
+			_destroy: function() {
+				this.wrapper.remove();
+				this.element.show();
+			}
+		});
+
+		$( "#"+catalogs[i].id ).combobox();
+
+
+                 
+
                 
             }
 
@@ -102,6 +255,144 @@ filterControls.createDataFiltersControls=function(catalogs){
 
 }
 
+filterControls.CreateSelectAuto=function(){
+
+$( function() {
+    $.widget( "custom.combobox", {
+        _create: function() {
+            this.wrapper = $( "<span>" )
+                .addClass( "custom-combobox" )
+                .insertAfter( this.element );
+            this.element.hide();
+            this._createAutocomplete();
+            this._createShowAllButton();
+        },
+
+        _createAutocomplete: function() {
+            var selected = this.element.children( ":selected" ),
+                value = selected.val() ? selected.text() : "";
+
+            this.input = $( "<input>" )
+                .appendTo( this.wrapper )
+                .val( value )
+                .attr( "title", "" )
+     .attr( "placeholder", "test" )
+                .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+                .autocomplete({
+                    delay: 0,
+                    minLength: 0,
+                    source: $.proxy( this, "_source" )
+                })
+                .tooltip({
+                    classes: {
+                        "ui-tooltip": "ui-state-highlight"
+                    }
+                });
+
+            this._on( this.input, {
+                autocompleteselect: function( event, ui ) {
+                    ui.item.option.selected = true;
+                    this._trigger( "select", event, {
+                        item: ui.item.option
+                    });
+                },
+
+                autocompletechange: "_removeIfInvalid"
+            });
+        },
+
+        _createShowAllButton: function() {
+            var input = this.input,
+                wasOpen = false;
+
+            $( "<a>" )
+                .attr( "tabIndex", -1 )
+                .attr( "title", "Show All Items" )
+                .tooltip()
+                .appendTo( this.wrapper )
+                .button({
+                    icons: {
+                        primary: "ui-icon-triangle-1-s"
+                    },
+                    text: false
+                })
+                .removeClass( "ui-corner-all" )
+                .addClass( "custom-combobox-toggle ui-corner-right" )
+                .on( "mousedown", function() {
+                    wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+                })
+                .on( "click", function() {
+                    input.trigger( "focus" );
+
+                    // Close if already visible
+                    if ( wasOpen ) {
+                        return;
+                    }
+
+                    // Pass empty string as value to search for, displaying all results
+                    input.autocomplete( "search", "" );
+                });
+        },
+
+        _source: function( request, response ) {
+            var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+            response( this.element.children( "option" ).map(function() {
+                var text = $( this ).text();
+                if ( this.value && ( !request.term || matcher.test(text) ) )
+                    return {
+                        label: text,
+                        value: text,
+                        option: this
+                    };
+            }) );
+        },
+
+        _removeIfInvalid: function( event, ui ) {
+
+            // Selected an item, nothing to do
+            if ( ui.item ) {
+                return;
+            }
+
+            // Search for a match (case-insensitive)
+            var value = this.input.val(),
+                valueLowerCase = value.toLowerCase(),
+                valid = false;
+            this.element.children( "option" ).each(function() {
+                if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+                    this.selected = valid = true;
+                    return false;
+                }
+            });
+
+            // Found a match, nothing to do
+            if ( valid ) {
+                return;
+            }
+
+            // Remove invalid value
+            this.input
+                .val( "" )
+                .attr( "title", value + " didn't match any item" )
+                .tooltip( "open" );
+            this.element.val( "" );
+            this._delay(function() {
+                this.input.tooltip( "close" ).attr( "title", "" );
+            }, 2500 );
+            this.input.autocomplete( "instance" ).term = "";
+        },
+
+        _destroy: function() {
+            this.wrapper.remove();
+            this.element.show();
+        }
+    });
+
+    $( "#js__apply_now" ).combobox();
+    
+} );
+
+}
 
 filterControls.CleanFields=function(){
 
@@ -512,7 +803,7 @@ filterControls.createHardCodedControls=function(){
         // NIVELES DE AGRUPACIÓN
         $("#ControlsFieldsCustom").append(
                 `
-                <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
+                <div id="" class="ui-widget"  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
                     Nivel de Lectura: <br> <br>                 
                     <select id="nivel_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
                          
@@ -549,6 +840,9 @@ filterControls.createHardCodedControls=function(){
             posAnterior=$("#nivel_cb").val();            
             
         })
+
+       
+
 
         // NIVELES DE FILLRATE
         $("#ControlsFieldsCustom").append(
