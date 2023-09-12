@@ -372,9 +372,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         arr = arr.sort((a, b) => {                
                         return b.fecha - a.fecha;                                    
         
-        });
-
-        
+        });        
         
         arr=arr.reverse();
 
