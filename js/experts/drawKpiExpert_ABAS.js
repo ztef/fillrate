@@ -603,8 +603,6 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
     }
 
-
-
 kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){  
 
         var maximo=0;    

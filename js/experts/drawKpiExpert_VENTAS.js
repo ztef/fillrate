@@ -117,19 +117,17 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     for(var i=0; i < arr.length; i++ ){
 
         arr[i].Dif=0;
-        arr[i].VolReal_FR=0;
-        arr[i].VolPlan_FR =0;
+       
         arr[i].VolumenReal=0;
         arr[i].VolumenPlan=0;
-        arr[i].PctReal_FR=0;
+       
         arr[i].Peso=0;
 
         for(var j=0; j < arr[i].values.length; j++ ){
 
             arr[i].VolumenPlan+=Number(arr[i].values[j].VolumenPlan);
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
-            arr[i].VolPlan_FR+=Number(arr[i].values[j].VolPlan_FR);
-            arr[i].VolReal_FR+=Number(arr[i].values[j].VolReal_FR);
+           
             arr[i].Peso+=Number(arr[i].values[j].Peso);
             
         }
@@ -314,19 +312,17 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     for(var i=0; i < arr.length; i++ ){
 
         arr[i].Dif=0;
-        arr[i].VolReal_FR=0;
-        arr[i].VolPlan_FR =0;
+       
         arr[i].VolumenReal=0;
         arr[i].VolumenPlan=0;
-        arr[i].PctReal_FR=0;
+       
         arr[i].Peso=0;
 
         for(var j=0; j < arr[i].values.length; j++ ){
 
             arr[i].VolumenPlan+=Number(arr[i].values[j].VolumenPlan);
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
-            arr[i].VolPlan_FR+=Number(arr[i].values[j].VolPlan_FR);
-            arr[i].VolReal_FR+=Number(arr[i].values[j].VolReal_FR);
+           
             arr[i].Peso+=Number(arr[i].values[j].Peso);
             
         }       

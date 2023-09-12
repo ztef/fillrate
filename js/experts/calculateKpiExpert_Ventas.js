@@ -133,8 +133,7 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
 
                             entidad.ventas.VolumenPlan+=Number(data.recordset[j].VolumenPlan);
                             entidad.ventas.VolumenReal+=Number(data.recordset[j].VolumenReal);
-                            entidad.ventas.VolPlan_FR+=Number(data.recordset[j].VolPlan_FR);
-                            entidad.ventas.VolReal_FR+=Number(data.recordset[j].VolReal_FR);
+                           
 
                             entidad.ventas.values.push(data.recordset[j]);
 

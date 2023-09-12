@@ -1,6 +1,5 @@
 var calculateKpiExpert_Abasto={};
 
-
 calculateKpiExpert_Abasto.calculateKPI=function(entities){  
   
     $("#cargando").css("visibility","visible");
