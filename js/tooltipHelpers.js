@@ -175,7 +175,8 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       boxShadow: "rgba(0, 0, 0, .5) 19px 15px 24px",
       width: width+"px", 
       height: tooltipHeight,
-      maxHeight: "70%",
+      maxHeight: "80%",
+      minwidth: "400px",
       overflow:"auto",
      
     });
@@ -358,7 +359,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
     // Ajusta Estilo
     $(divElement).css({
       position: "absolute",
-
+      top: "5%",
       border: "1px solid #6e647b",
       borderRadius: "7px",
       backgroundColor: "rgba(0, 0, 0, 0.85)",

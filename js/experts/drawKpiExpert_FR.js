@@ -206,9 +206,10 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         var tamanioFuente=altura*.4;
         var marginTop=35;
 
-        $("#toolTip3").css("visibility","visible");            
-        $("#toolTip3").css("left",64+"%");
-        $("#toolTip3").css("top",15+"%");
+        $("#toolTip3").css("visibility","visible");   
+        $("#toolTip3").css("left","auto");         
+        $("#toolTip3").css("right",1+"%");
+        $("#toolTip3").css("top",10+"%");
 
 
 
@@ -389,16 +390,16 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         var tamanioFuente=ancho*.8;   
     
         $("#toolTip2").css("visibility","visible");            
-        $("#toolTip2").css("top",15+"%");
-        $("#toolTip2").css("left",24+"%");
-           
+        $("#toolTip2").css("top",10+"%");
+        $("#toolTip2").css("left","auto");
+       $("#toolTip2").css("right",45+"%");
       
         // ADD ON PARA USAR EL FORMATEADOR DE TOOLTIPS ---------------------------------------------------
 
 
         // FORMATEA TOOL TIP :
     
-        vix_tt_formatToolTip("#toolTip2","Cantidad entragada de Fill Rate de "+entity.key,svgTooltipWidth,680);
+        vix_tt_formatToolTip("#toolTip2","Cantidad entragada de Fill Rate de "+entity.key,svgTooltipWidth,685);
 
         // Agrega un div con un elemento svg :
 
