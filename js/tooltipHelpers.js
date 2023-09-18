@@ -167,7 +167,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
     // Ajusta Estilo
     $(divElement).css({
-      position: "absolute",
+      position: "fixed",
 
       border: "1px solid #6e647b",
       borderRadius: "7px",
@@ -202,8 +202,6 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       });
 
     });
-
-
     
 
     // Agrega capacidad de dragg al div

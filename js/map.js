@@ -380,6 +380,11 @@ Stage.ReorderLayout=function(){
 }
 
 
+Stage.SetWindowPos=function(windowReq){
+	
+}
+
+
 Stage.DrawFRLabels=function(){
       
 	svgLines.selectAll(".entityLabel").style("opacity",0) ;

@@ -96,12 +96,28 @@ drawKpiExpert_VENTAS.eraseChart=function(){
 
 
 drawKpiExpert_VENTAS.DrawTooltipDetail=function(entity){   
+  /*
+    var positions=Stage.SetWindowPos([
+        {
+            idealWidh:6*120,
+            minWidth:6*80,
+        },
+        {
+          idealWidh:6*120,
+          minWidth:6*80,
+        }
+    ]
+    );
+    */
     
     d3.select("#svgTooltip").selectAll(".ventasDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".ventasDetail").data([]).exit().remove();
     
     drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion(entity);
     drawKpiExpert_VENTAS.DrawTooltipDetail_Estado(entity);
+
+    opacidadCesium=.3;
+    $("#cesiumContainer").css("opacity",opacidadCesium/100);
 
 }         
 
@@ -158,7 +174,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     var altura=30;
     var caso=0;
    
-    var svgTooltipHeight=(arr.length*altura)+50;
+    var svgTooltipHeight=(arr.length*altura)+120;
     var svgTooltipWidth=550;
     var marginLeft=svgTooltipWidth*.2;
     var tamanioFuente=altura*.4;
@@ -166,15 +182,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
  
     
 
-    $("#toolTip3").css("visibility","visible");            
-    $("#toolTip3").css("top",15+"%");
-    $("#toolTip3").css("left",62+"%");
+    $("#toolTip3").css("visibility","visible"); 
+    $("#toolTip3").css("inset","");           
+    $("#toolTip3").css("bottom","1%");
+    $("#toolTip3").css("right","1%");
     
-   
-        
-  d3.select("#toolTip3")                                     
-    .style("width", (svgTooltipWidth)+"px" );
-
 
     
     /* 
@@ -196,8 +208,6 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
       "Peso": item.Peso,
     };
     });
-
-
   
 
     // DEFINE COLUMNAS
@@ -255,7 +265,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   // FORMATEA DIV :
 
-  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",700);
+  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",700,svgTooltipHeight);
 
   
         // COLUMNAS CON TOTALES :
@@ -360,8 +370,9 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     var marginTop=35;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",24+"%");
-    $("#toolTip2").css("top",15+"%");
+
+    $("#toolTip2").css("top","100px");
+    $("#toolTip2").css("left","10");
 
    // Daniel, quite estas 2 lineas que estaban colocando la ventana muy arriba :
     
@@ -387,8 +398,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
           "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
           "Peso": item.Peso
         };
-        });
-    
+        });   
 
 
       
@@ -464,33 +474,19 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
                        return vix_tt_formatNumber(value) + "T"; 
                      }
                      };
-     
-         
-         
 
-
-    
-    
       // FORMATEA DIV :
-    
-      
-      
-
+   
       vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado",700);
-    
-      
+  
     
       // CREA TABLA USANDO DATOS
-    
-      
+
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
-      
-      
+
       // APLICA TRANSICIONES 
     
-      vix_tt_transitionRectWidth("toolTip2");
-      
-      
-
+      vix_tt_transitionRectWidth("toolTip2");   
+    
     
 }

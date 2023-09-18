@@ -600,17 +600,31 @@ color: yellow;
 
     document.onkeydown = function(event) {
         console.log(event.keyCode);
+
+        //Evalua si el focus esta en alguno de los componentes de forma de Filtros
+        for(var e in createdControls){
+
+            if(  $("."+e+" > input").is(":focus")  && event.keyCode==13){
+               
+                if($("."+e+" > input").val() ==""){
+                        $("#"+e).val("");
+                }
+                forzarFiltrado=true;
+                filterControls.FilterData();
+                break;
+    
+            }
+        }
+        
     
         switch (event.keyCode) {
          
             //MODIFICA TAMAÑO DE CILINDROS
             case 37:   
-                escalado=escalado*(.7);
-                Stage.DrawMapObjects(currentEntities,store.mainDataset);
+               
             break;
             case 39:   
-                escalado=escalado*(1.3);
-                Stage.DrawMapObjects(currentEntities,store.mainDataset);
+                
             break;
             //MODIFICA OPACIDAD DEL MAPA
             case 40:   
@@ -668,11 +682,12 @@ color: yellow;
                 radar.DrawEntities(entities);                  
 
             break;
-
+            case 55:
+          
+           
+            break;
             case 32: 
-
-            radarMosaic.toogle();          
-
+            
             break;
     
         }
@@ -684,7 +699,7 @@ color: yellow;
         switch (event.keyCode) {    
             case 49:
 
-
+          
             break;
             case 50:
     

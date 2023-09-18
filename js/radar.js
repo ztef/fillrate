@@ -136,6 +136,9 @@ radar.CleanWindows=function(){
 
     radarMosaic.EraseMosaic();
 
+    opacidadCesium=100;
+    $("#cesiumContainer").css("opacity",opacidadCesium/100);
+
 }
 
 radar.kpis=[

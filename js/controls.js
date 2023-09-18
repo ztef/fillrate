@@ -113,7 +113,7 @@ filterControls.createDataFiltersControls=function(catalogs){
                 $.widget( "custom.combobox", {
 			    _create: function() {
 				this.wrapper = $( "<span>" )
-					.addClass( "custom-combobox" )
+					.addClass( "custom-combobox "+catalogs[i].id )
 					.insertAfter( this.element );
 				this.element.hide();
 				this._createAutocomplete();
@@ -826,7 +826,7 @@ filterControls.createHardCodedControls=function(){
         $("#nivel_cb").change(function(){
 
             if($("#nivel_cb").val() > 5){
-                if($("#cat_cliente").val() == "" && $("#cat_region").val() == "" &&  $("#cat_estado").val() == "" && $("#cat_gerencia").val() == ""  && $("#cat_un").val() == ""){
+                if($("#cat_cliente").val() == "" && $("#cat_region").val() == "" && $("#cat_region_origen").val() == "" &&  $("#cat_estado").val() == "" && $("#cat_gerencia").val() == ""  && $("#cat_un").val() == ""){
 
                     if(posAnterior)
                         $("#nivel_cb").val(posAnterior);
