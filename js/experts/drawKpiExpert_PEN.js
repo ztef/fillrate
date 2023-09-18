@@ -172,8 +172,9 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     var marginTop=35;
 
                                     $("#toolTip4").css("visibility","visible");            
-                                    $("#toolTip4").css("left",13+"%");
-                                    $("#toolTip4").css("top",16+"%");
+                                    $("#toolTip4").css("top",60+"%");
+                                    $("#toolTip2").css("left","auto");
+                                    $("#toolTip2").css("right",55+"%");
 
                                     // DATOS 
                                     var data = arr.map(function(item) {
@@ -368,15 +369,16 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
     if(svgTooltipWidth < 80)
     svgTooltipWidth=80;
 
-    var svgTooltipHeight=500;
+    var svgTooltipHeight=510;
     var tamanioFuente=ancho*.8;   
 
     var marginBottom=svgTooltipHeight*.11;
 
 
     $("#toolTip3").css("visibility","visible");            
-    $("#toolTip3").css("top",15+"%");
-    $("#toolTip3").css("left",64+"%");
+    $("#toolTip3").css("top",10+"%");
+    $("#toolTip3").css("left","auto");
+    $("#toolTip3").css("right",1+"%");
 
 
 
@@ -501,14 +503,15 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
     var caso=0;
 
     var svgTooltipHeight=campos.length*altura;
-    var svgTooltipWidth=700;
+    var svgTooltipWidth=500;
     var marginLeft=svgTooltipWidth*.4;
     var tamanioFuente=altura*.4;
     var marginTop=svgTooltipHeight*.1;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top",15+"%");
-    $("#toolTip2").css("left",24+"%");
+    $("#toolTip2").css("top",10+"%");
+    $("#toolTip2").css("left","auto");
+    $("#toolTip2").css("right",55+"%");
 
     vix_tt_formatToolTip("#toolTip2","Pedidos Pendientes por Tipo de "+entity.key,svgTooltipWidth);
 
