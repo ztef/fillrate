@@ -136,8 +136,16 @@ radar.CleanWindows=function(){
 
     radarMosaic.EraseMosaic();
 
-    opacidadCesium=100;
-    $("#cesiumContainer").css("opacity",opacidadCesium/100);
+    if( columnasRadar*radio < windowWidth*.5){
+        opacidadCesium=100;
+        $("#cesiumContainer").css("opacity",opacidadCesium/100);
+    }
+    if( columnasRadar*radio > windowWidth*.85){
+
+        opacidadCesium=10;
+        $("#cesiumContainer").css("opacity",opacidadCesium/100);
+
+    }
 
 }
 
