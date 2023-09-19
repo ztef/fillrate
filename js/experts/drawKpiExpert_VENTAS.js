@@ -101,8 +101,10 @@ drawKpiExpert_VENTAS.DrawTooltipDetail=function(entity){
     d3.select("#svgTooltip").selectAll(".ventasDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".ventasDetail").data([]).exit().remove();
     
-    drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion(entity);
+    
     drawKpiExpert_VENTAS.DrawTooltipDetail_Estado(entity);
+
+    drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion(entity);
 
     opacidadCesium=30;
       $("#cesiumContainer").css("opacity",opacidadCesium/100); 
@@ -356,9 +358,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     var marginTop=35;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top","18%");
-    $("#toolTip2").css("bottom","1%");
-    $("#toolTip2").css("left","5%");
+    $("#toolTip2").css("top","70px");
+    $("#toolTip2").css("left","1%");
 
    // Daniel, quite estas 2 lineas que estaban colocando la ventana muy arriba :
     
