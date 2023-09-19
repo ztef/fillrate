@@ -19,7 +19,7 @@ filterControls.createDataFiltersControls=function(catalogs){
 
                     <div id="ControlsFields"></div>  
                     
-                    <div style="width:90%;position:absolute;bottom:19px;display: flex;">
+                    <div style="width:90%;position:absolute;bottom:25px;display: flex;">
                                 <button class="filters" onclick="filterControls.CleanFields();" style="margin: 3px;color:black">Limpiar</button> 
                                 <button class="filters" onclick="forzarFiltrado=true;filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
                         </div>

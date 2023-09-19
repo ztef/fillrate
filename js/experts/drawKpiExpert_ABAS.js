@@ -23,18 +23,21 @@ kpiExpert_ABAS.DrawTooltipDetail=function(entity){
     d3.select("#svgTooltip4").selectAll(".abasDetail").data([]).exit().remove();
     d3.select("#svgTooltip5").selectAll(".abasDetail").data([]).exit().remove();
 
-    kpiExpert_ABAS.DrawTooltipDetail_Transporte(entity);
-    
-    kpiExpert_ABAS.DrawTooltipDetail_Origen(entity);
-
-    
     // VENTANA SE MUESTRA SI SE ESTA EN NIVEL DE UNIDAD DE NEGOCIO
+   
+   
     if( 5 == $("#nivel_cb").val() ){
-        kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen(entity);  
+       kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen(entity);  
     }else{
         kpiExpert_ABAS.DrawTooltipDetail_UN(entity);
-    }           
-     
+    }    
+
+    kpiExpert_ABAS.DrawTooltipDetail_Origen(entity);    
+
+    kpiExpert_ABAS.DrawTooltipDetail_Transporte(entity);
+
+    opacidadCesium=30;
+      $("#cesiumContainer").css("opacity",opacidadCesium/100);     
 
 }
 
@@ -106,6 +109,9 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     if(svgTooltipHeight<100)
         svgTooltipHeight=100;
 
+    if(svgTooltipHeight>windowHeight*.7)
+        svgTooltipHeight=windowHeight*.7;
+
 
     var svgTooltipWidth=600;
     var marginLeft=svgTooltipWidth*.2;
@@ -113,8 +119,8 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     var marginTop=35;
     
     $("#toolTip5").css("visibility","visible");            
-    $("#toolTip5").css("left",23+"%");
-    $("#toolTip5").css("top",16+"%");
+    $("#toolTip5").css("left",1+"%");
+    $("#toolTip5").css("top",70+"px");
 
 
     // DATOS 
@@ -136,7 +142,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Unidad de Negocio", sortable: true, width: "100px" },
+        { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
@@ -164,9 +170,14 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
             return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
-      
+          if(value!=Infinity){
             var barWidth = value + '%';
             var barValue = vix_tt_formatNumber(value)+'%   ';
+          }else{
+            var barWidth =  '0%';
+            var barValue = vix_tt_formatNumber(0)+'%   ';
+          }
+            
         
             return '<div class="bar-container">' +
             '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
@@ -175,7 +186,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
         },
         Peso: function(value){
       
-            var barWidth = (value/Peso)*100 + '%';
+            var barWidth = (value/maximo)*100 + '%';
             var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
@@ -187,7 +198,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key+" hacia otras UN",700);
+      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key+" hacia otras UN",630,svgTooltipHeight);
 
             // COLUMNAS CON TOTALES :
     
@@ -275,34 +286,21 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     var altura=30;
     var caso=0;
    
-    var svgTooltipHeight=arr.length*altura;
+    var svgTooltipHeight=arr.length*(altura*1.2)+70;
 
-    if(svgTooltipHeight<100)
-    svgTooltipHeight=100;
+    if(svgTooltipHeight<150)
+    svgTooltipHeight=150;
 
     var svgTooltipWidth=500;
     var marginLeft=svgTooltipWidth*.15;
     var tamanioFuente=altura*.4;
     var marginTop=35;
 
-       
 
-
-   
-
-    
-
-    $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top","75%");
-    $("#toolTip2").css("left","23%");
-    
-    
-    /* 
-
-        VIX_TT  : Prepara datos para el tool tip
-
-    */
-
+    $("#toolTip2").css("visibility","visible");  
+    $("#toolTip2").css("inset","");            
+    $("#toolTip2").css("bottom","1%");
+    $("#toolTip2").css("left","5%");
 
     // DATOS 
 
@@ -323,7 +321,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Unidad de Negocio", sortable: true, width: "100px" },
+        { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
@@ -376,7 +374,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",700);
+      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",630,svgTooltipHeight);
     
       
             // COLUMNAS CON TOTALES :
@@ -392,6 +390,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
                       'DifK': function(value) { 
                         return vix_tt_formatNumber(value) + " TM"; 
                       }
+
                       };
       
           
@@ -410,6 +409,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
      });
       
       
+
       // APLICA TRANSICIONES 
     
       vix_tt_transitionRectWidth("toolTip2");
@@ -466,13 +466,16 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         arr = arr.sort((a, b) => b.Dif - a.Dif);    
         arr.reverse();
 
-        var altura=30;
+        var altura=50;
         var caso=0;
     
         var svgTooltipHeight=arr.length*altura;
 
-        if(svgTooltipHeight<100)
-            svgTooltipHeight=100;
+        if(svgTooltipHeight<140)
+            svgTooltipHeight=140;
+
+        if(svgTooltipHeight>windowHeight*.7)
+            svgTooltipHeight=windowHeight*.7;
 
 
         var svgTooltipWidth=600;
@@ -481,8 +484,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         var marginTop=35;
 
         $("#toolTip3").css("visibility","visible");            
-        $("#toolTip3").css("left",23+"%");
-        $("#toolTip3").css("top",16+"%");
+        $("#toolTip3").css("left",1+"%");
+        $("#toolTip3").css("top",70+"px");
 
             
     /* 
@@ -503,15 +506,14 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           "DifP":  item.DifPer * 100,
           "Peso": item.Peso,
         };
-        });
-    
+        });   
     
       
     
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Unidad de Negocio", sortable: true, width: "100px" },
+        { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
@@ -581,7 +583,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // FORMATEA DIV :
      
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key);
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,620,svgTooltipHeight);
     
             // COLUMNAS CON TOTALES :
     
@@ -676,8 +678,11 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
     
         var svgTooltipHeight=arr.length*altura;
 
-        if(svgTooltipHeight<100)
-            svgTooltipHeight=100;
+        if(svgTooltipHeight<150)
+            svgTooltipHeight=150;
+
+        if(svgTooltipHeight>windowHeight*.7)
+            svgTooltipHeight=windowHeight*.7;
 
 
         var svgTooltipWidth=600;
@@ -686,11 +691,11 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         var marginTop=35;
 
         $("#toolTip4").css("visibility","visible");    
-        $("#toolTip4").css("left",62+"%");
-             
+        $("#toolTip4").css("inset","");           
+        $("#toolTip4").css("bottom","1%");
+        $("#toolTip4").css("right","1%");           
         
-         
-        
+
 
         $("#toolTip4").append("<svg id='svgTooltip4'  style='pointer-events:none; line-heigth:22px;'></svg> ");
     
@@ -718,7 +723,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Unidad de Negocio", sortable: true, width: "100px" },
+        { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
@@ -788,17 +793,16 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
       $("#toolTip4").css("top",16+"%"); 
 
       if( 5 == $("#nivel_cb").val() ){
-        vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",700);
+        vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",650,svgTooltipHeight);
       }else{
-          vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden "+toTitleCase(entity.key)+"",700);
+          vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden "+toTitleCase(entity.key)+"",650,svgTooltipHeight);
       } 
    
       if(alturaVentana+(windowHeight*.16) > windowHeight ){
         alturaVentana=alturaVentana-((alturaVentana+(windowHeight*.16))-windowHeight);
        
       }
-      $("#toolTip4").css("height",alturaVentana+"px");
-      
+
       // COLUMNAS CON TOTALES :
 
       var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 

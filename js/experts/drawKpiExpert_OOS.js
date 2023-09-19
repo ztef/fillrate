@@ -23,8 +23,8 @@ kpiExpert_OOS.DrawTooltipDetail=function(entity){
     kpiExpert_OOS.DrawTooltipDetail_UN(entity);
     kpiExpert_OOS.DrawTooltipDetail_Dia(entity);
 
-    opacidadCesium=.3;
-    $("#cesiumContainer").css("opacity",opacidadCesium/100);
+    opacidadCesium=30;
+    $("#cesiumContainer").css("opacity",opacidadCesium/100); 
 
 }
 

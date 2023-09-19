@@ -134,8 +134,8 @@ kpiExpert_FR.DrawTooltipDetail=function(entity){
         kpiExpert_FR.DrawTooltipDetail_Estado(entity);
         kpiExpert_FR.DrawTooltipDetail_ByDay(entity);
 
-        opacidadCesium=.3;
-        $("#cesiumContainer").css("opacity",opacidadCesium/100);
+        opacidadCesium=30;
+      $("#cesiumContainer").css("opacity",opacidadCesium/100); 
        
 
 }
@@ -208,17 +208,11 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         var tamanioFuente=altura*.4;
         var marginTop=35;
 
-        $("#toolTip3").css("visibility","visible");            
+        $("#toolTip3").css("visibility","visible"); 
+        $("#toolTip3").css("inset","");            
         $("#toolTip3").css("right",1+"%");
         $("#toolTip3").css("top",80+"px");
 
-
-
-        /* 
-
-        VIX_TT  : Prepara datos para el tool tip
-
-        */
 
 
     // DATOS 
@@ -390,8 +384,8 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
        
         
         var svgTooltipWidth=arr.length*(ancho*1.05) ;
-        if(svgTooltipWidth < 80)
-        svgTooltipWidth=80;
+        if(svgTooltipWidth < 280)
+        svgTooltipWidth=280;
     
         var svgTooltipHeight=550;
         var marginBottom=svgTooltipHeight*.11;
