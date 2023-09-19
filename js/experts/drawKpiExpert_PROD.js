@@ -172,10 +172,15 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
      
          
       // CREA TABLA USANDO DATOS
-    
       
-      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
-      
+      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );        
+
+      // Crea una barra inferior y pasa una funcion de exportacion de datos
+      vix_tt_formatBottomBar("#toolTip2", function () {
+        var dataToExport = formatDataForExport(data, columns);
+        var filename = "exported_data";
+        exportToExcel(dataToExport, filename);
+      });
       
       // APLICA TRANSICIONES 
     
