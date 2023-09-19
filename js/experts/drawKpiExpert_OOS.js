@@ -11,6 +11,8 @@ kpiExpert_OOS.eraseChart=function(){
     $("#toolTip2").css("visibility","hidden");	
     $("#toolTip3").css("visibility","hidden");
 
+    opacidadCesium=.3;
+    $("#cesiumContainer").css("opacity",opacidadCesium/100);
 }
 
 kpiExpert_OOS.DrawTooltipDetail=function(entity){    
@@ -20,6 +22,9 @@ kpiExpert_OOS.DrawTooltipDetail=function(entity){
     
     kpiExpert_OOS.DrawTooltipDetail_UN(entity);
     kpiExpert_OOS.DrawTooltipDetail_Dia(entity);
+
+    opacidadCesium=.3;
+    $("#cesiumContainer").css("opacity",opacidadCesium/100);
 
 }
 
@@ -86,8 +91,8 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",24+"%"); 
-    $("#toolTip2").css("top",15+"%");
+    $("#toolTip2").css("left",1+"%"); 
+    $("#toolTip2").css("top",80+"px");
 
 
     // DATOS 
@@ -105,10 +110,10 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
         // DEFINE COLUMNAS
       
         var columns = [
-            { key: "key", header: "Unidad de Negocio", sortable: true, width: "150px" },
-            { key: "Numero", header: "# OOS", sortable: true, width: "150px" },
-            { key: "OOS", header: "% OOS", sortable: true, width: "150px" },
-            { key: "Numera", header: "Volumen Entregado", sortable: true, width: "150px" },
+            { key: "key", header: "Unidad de Negocio", sortable: true, width: "120px" },
+            { key: "Numero", header: "# OOS", sortable: true, width: "120px" },
+            { key: "OOS", header: "% OOS", sortable: true, width: "120px" },
+            { key: "Numera", header: "Volumen Entregado", sortable: true, width: "120px" },
           
           ];
         
@@ -151,7 +156,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
       // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,svgTooltipWidth);
+      vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,490);
       
             // COLUMNAS CON TOTALES :
     
@@ -291,9 +296,9 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
             arr=arrTemp;            
         
-            var ancho=20;
+            var ancho=18;
             
-            var svgTooltipWidth=arr.length*ancho;
+            var svgTooltipWidth=arr.length*(ancho*1.1);
 
             if(svgTooltipWidth < 80)
             svgTooltipWidth=80;
@@ -301,15 +306,15 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             var svgTooltipHeight=500;
             var tamanioFuente=ancho*.8;   
         
-            $("#toolTip3").css("visibility","visible");            
-            $("#toolTip3").css("top",15+"%");
-            $("#toolTip3").css("left",64+"%");
+            $("#toolTip3").css("visibility","visible");          
+            $("#toolTip3").css("top",80+"px");
+            $("#toolTip3").css("right","1%");
         
             var marginBottom=svgTooltipHeight*.02;
 
             // FORMATEA TOOL TIP :
             
-            vix_tt_formatToolTip("#toolTip3","Out of Stock por Día de "+entity.key,svgTooltipWidth);
+            vix_tt_formatToolTip("#toolTip3","Out of Stock por Día de "+entity.key,svgTooltipWidth+10);
         
             // Agrega un div con un elemento svg :
         
@@ -426,30 +431,32 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                 
                                 });
 
-                //TITULOS
-                d3.select("#svgTooltip3")
-                    .append("text")						
-                    .attr("class","ossDetail")
-                    .style("fill","#ffffff")		
-                    .style("font-family","Cabin")
-                    .style("font-weight","normal")
-                    .style("font-size",tamanioFuente)	
-                    .style("text-anchor","start")
-                    .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
-                    .text("Inventario (TM):"); 
-
-                d3.select("#svgTooltip3")
-                    .append("text")						
-                    .attr("class","ossDetail")
-                    .style("fill","#ffffff")		
-                    .style("font-family","Cabin")
-                    .style("font-weight","normal")
-                    .style("font-size",tamanioFuente)	
-                    .style("text-anchor","start")
-                    .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.54  )+")  rotate("+(0)+") ")
-                    .text("Porcentaje (%):");
                 
 
             }
+
+            //TITULOS
+            d3.select("#svgTooltip3")
+                .append("text")						
+                .attr("class","ossDetail")
+                .style("fill","#ffffff")		
+                .style("font-family","Cabin")
+                .style("font-weight","normal")
+                .style("font-size",tamanioFuente)	
+                .style("text-anchor","start")
+                .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
+                .text("Inventario (TM):"); 
+
+            d3.select("#svgTooltip3")
+                .append("text")						
+                .attr("class","ossDetail")
+                .style("fill","#ffffff")		
+                .style("font-family","Cabin")
+                .style("font-weight","normal")
+                .style("font-size",tamanioFuente)	
+                .style("text-anchor","start")
+                .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.54  )+")  rotate("+(0)+") ")
+                .text("Porcentaje (%):");
+        
 
 }
