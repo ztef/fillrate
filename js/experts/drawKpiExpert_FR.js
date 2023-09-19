@@ -134,6 +134,8 @@ kpiExpert_FR.DrawTooltipDetail=function(entity){
         kpiExpert_FR.DrawTooltipDetail_Estado(entity);
         kpiExpert_FR.DrawTooltipDetail_ByDay(entity);
 
+        opacidadCesium=.3;
+        $("#cesiumContainer").css("opacity",opacidadCesium/100);
        
 
 }
@@ -206,10 +208,9 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         var tamanioFuente=altura*.4;
         var marginTop=35;
 
-        $("#toolTip3").css("visibility","visible");   
-        $("#toolTip3").css("left","auto");         
+        $("#toolTip3").css("visibility","visible");            
         $("#toolTip3").css("right",1+"%");
-        $("#toolTip3").css("top",10+"%");
+        $("#toolTip3").css("top",80+"px");
 
 
 
@@ -235,8 +236,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       
       var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "por1", header: "Fill Rate", sortable: true, width: "220px" },    
-        { key: "cant", header: "Volumen Entregado (TM)", sortable: true, width: "220px" },
+        { key: "por1", header: "Fill Rate", sortable: true, width: "180px" },    
+        { key: "cant", header: "Volumen Entregado (TM)", sortable: true, width: "180px" },
         ];
     
     
@@ -297,7 +298,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado",600);
+      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado",500);
 
       // CREA TABLA USANDO DATOS
     
@@ -377,11 +378,11 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         
         arr=arr.reverse();
 
-        var ancho=20;
+        var ancho=18;
         var caso=0;
        
         
-        var svgTooltipWidth=arr.length*ancho;
+        var svgTooltipWidth=arr.length*(ancho*1.05) ;
         if(svgTooltipWidth < 80)
         svgTooltipWidth=80;
     
@@ -390,16 +391,16 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         var tamanioFuente=ancho*.8;   
     
         $("#toolTip2").css("visibility","visible");            
-        $("#toolTip2").css("top",10+"%");
-        $("#toolTip2").css("left","auto");
-       $("#toolTip2").css("right",45+"%");
+        $("#toolTip2").css("top",90+"px");
+        $("#toolTip2").css("left","1%");
+       
       
         // ADD ON PARA USAR EL FORMATEADOR DE TOOLTIPS ---------------------------------------------------
 
 
         // FORMATEA TOOL TIP :
     
-        vix_tt_formatToolTip("#toolTip2","Cantidad entragada de Fill Rate de "+entity.key,svgTooltipWidth,685);
+        vix_tt_formatToolTip("#toolTip2","Cantidad entragada de Fill Rate de "+entity.key,svgTooltipWidth+10);
 
         // Agrega un div con un elemento svg :
 
@@ -564,31 +565,33 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         
                                 });
 
-                //TITULOS
-                d3.select("#svgTooltip")
-                        .append("text")						
-                        .attr("class","frDetail")
-                        .style("fill","#ffffff")		
-                        .style("font-family","Cabin")
-                        .style("font-weight","normal")
-                        .style("font-size",tamanioFuente)	
-                        .style("text-anchor","start")
-                        .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
-                        .text("Cantidad Entregada Final:"); 
-
-                d3.select("#svgTooltip")
-                        .append("text")						
-                        .attr("class","frDetail")
-                        .style("fill","#ffffff")		
-                        .style("font-family","Cabin")
-                        .style("font-weight","normal")
-                        .style("font-size",tamanioFuente)	
-                        .style("text-anchor","start")
-                        .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.47  )+")  rotate("+(0)+") ")
-                        .text("Fill Rate y Tiempos:");
+                
     
                         caso++;            
-        }         
+        }   
+        
+        //TITULOS
+        d3.select("#svgTooltip")
+                .append("text")						
+                .attr("class","frDetail")
+                .style("fill","#ffffff")		
+                .style("font-family","Cabin")
+                .style("font-weight","normal")
+                .style("font-size",tamanioFuente)	
+                .style("text-anchor","start")
+                .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
+                .text("Cantidad Entregada Final:"); 
+
+        d3.select("#svgTooltip")
+                .append("text")						
+                .attr("class","frDetail")
+                .style("fill","#ffffff")		
+                .style("font-family","Cabin")
+                .style("font-weight","normal")
+                .style("font-size",tamanioFuente)	
+                .style("text-anchor","start")
+                .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.47  )+")  rotate("+(0)+") ")
+                .text("Fill Rate y Tiempos:");
     
     }
 
