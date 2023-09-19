@@ -165,6 +165,9 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
     var tooltipHeight = initialHeight || "auto";
 
+    var isCollapsed = false;
+    var originalHeight = $(divElement).css("height");
+
     // Ajusta Estilo
     $(divElement).css({
       position: "fixed",
@@ -229,12 +232,22 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       minWidth: 400, // width minimo
       maxHeight: "80%", // maximo height
       maxWidth: "80%", // maximo width
+      start: function (event, ui) {
+        // Checa si esta colapsada la ventana
+        isCollapsed = $(divElement).css("height") === "30px";
+      },
+      resize: function (event, ui) {
+        // Si esta colapsada, ajusta minHeight 
+        if (isCollapsed) {
+          $(this).resizable("option", "minHeight", 31);
+        } else {
+          // usa el height original
+          $(this).resizable("option", "minHeight", originalHeight);
+        }
+      },
     });
 
-    // Agrega capacidad de dragg al div
-   // $(divElement).draggable();
-   
-
+    
     // Crea barra superior
     var topBar = $("<div>", {
       class: "top-bar",
@@ -245,6 +258,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
         borderTopRightRadius: "0px",
         cursor: "move",
+        paddingRight: "20px",
       },
     });
 
@@ -302,10 +316,10 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       $(divElement).css("visibility","hidden");
     });
 
-    var isCollapsed = false;
+    
 
     
-    var originalHeight = $(divElement).css("height");
+    
   
     // Crea el evento para colapsar o expander la ventana
     collapseButton.on("click", function () {
@@ -316,7 +330,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       } else {
 
         originalHeight = $(divElement).css("height");
-        $(divElement).css({ height: "30px", maxHeight: "30px", visibility: "visible" });
+        $(divElement).css({ height: "30px", maxHeight: "650px", visibility: "visible" });
         collapseButton.find("i").removeClass("fa-minus").addClass("fa-plus"); // Cambia el icono a +
         isCollapsed = true;
       }
@@ -430,8 +444,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
     
 
-    // Agrega capacidad de dragg al div
-   // $(divElement).draggable();
+    
    
 
     // Crea barra superior
@@ -557,6 +570,12 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
         borderTopRightRadius: "0px",
       },
     });
+
+    var iconAndButtonContainer = $("<div>", {
+      css: {
+        float: "left", // Float the container to the left
+      },
+    });
   
     // Crea el boton de descarga
     var downloadButton = $("<button>", {
@@ -570,7 +589,11 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       },
     }).append('<i class="fas fa-download"></i>');
   
-    bottomBar.append(downloadButton);
+     
+    iconAndButtonContainer.append(downloadButton);
+
+ 
+    bottomBar.append(iconAndButtonContainer); 
   
     // agrega el espacio
     $(divElement).append(spacer);
