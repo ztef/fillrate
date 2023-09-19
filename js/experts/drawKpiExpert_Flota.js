@@ -50,7 +50,7 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
           tamanioFuente=12;
 
         $("#toolTip3").css("visibility","visible");            
-        $("#toolTip3").css("left",14+"%"); 
+        $("#toolTip3").css("left",5+"%"); 
         $("#toolTip3").css("top",5+"%");
 
         // DATOS 
