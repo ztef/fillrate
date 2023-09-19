@@ -185,7 +185,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     $("#toolTip3").css("visibility","visible"); 
     $("#toolTip3").css("inset","");           
     $("#toolTip3").css("bottom","1%");
-    $("#toolTip3").css("right","1%");
+    $("#toolTip3").css("right","3%");
     
 
     
@@ -370,9 +370,9 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     var marginTop=35;
 
     $("#toolTip2").css("visibility","visible");            
-
-    $("#toolTip2").css("top","100px");
-    $("#toolTip2").css("left","10");
+    $("#toolTip2").css("top","18%");
+    $("#toolTip2").css("bottom","1%");
+    $("#toolTip2").css("left","5%");
 
    // Daniel, quite estas 2 lineas que estaban colocando la ventana muy arriba :
     
