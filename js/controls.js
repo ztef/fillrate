@@ -158,7 +158,7 @@ filterControls.createDataFiltersControls=function(catalogs){
 					wasOpen = false;
 
 				$( "<a>" )
-					.attr( "tabIndex", -1 )
+					.attr( "tabIndex", -1 )                    
 					.attr( "title", "Mostrar todo" )
 					.tooltip()
 					.appendTo( this.wrapper )

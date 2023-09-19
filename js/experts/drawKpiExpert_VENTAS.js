@@ -95,20 +95,8 @@ drawKpiExpert_VENTAS.eraseChart=function(){
 }
 
 
-drawKpiExpert_VENTAS.DrawTooltipDetail=function(entity){   
-  /*
-    var positions=Stage.SetWindowPos([
-        {
-            idealWidh:6*120,
-            minWidth:6*80,
-        },
-        {
-          idealWidh:6*120,
-          minWidth:6*80,
-        }
-    ]
-    );
-    */
+drawKpiExpert_VENTAS.DrawTooltipDetail=function(entity){  
+  
     
     d3.select("#svgTooltip").selectAll(".ventasDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".ventasDetail").data([]).exit().remove();
@@ -289,9 +277,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
       
   // CREA TABLA USANDO DATOS
       
-        vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );
-
-        
+        vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );        
 
         // Crea una barra inferior y pasa una funcion de exportacion de datos
         vix_tt_formatBottomBar("#toolTip3", function () {
