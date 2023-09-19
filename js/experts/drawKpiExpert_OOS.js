@@ -306,7 +306,8 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             var svgTooltipHeight=500;
             var tamanioFuente=ancho*.8;   
         
-            $("#toolTip3").css("visibility","visible");          
+            $("#toolTip3").css("visibility","visible");  
+            $("#toolTip3").css("inset",""); 
             $("#toolTip3").css("top",80+"px");
             $("#toolTip3").css("right","1%");
         
