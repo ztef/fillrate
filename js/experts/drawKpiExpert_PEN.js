@@ -22,8 +22,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail=function(entity){
     kpiExpert_PENDIENTES.DrawTooltipDetail_Dia(entity);
     kpiExpert_PENDIENTES.DrawTooltipDetail_Estado(entity);  
 
-    opacidadCesium=.3;
-    $("#cesiumContainer").css("opacity",opacidadCesium/100);
+    opacidadCesium=30;
+      $("#cesiumContainer").css("opacity",opacidadCesium/100); 
 
 }
 
@@ -177,9 +177,10 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     var tamanioFuente=altura*.4;
                                     var marginTop=35;
 
-                                    $("#toolTip4").css("visibility","visible");      
+                                    $("#toolTip4").css("visibility","visible");  
+                                    $("#toolTip4").css("inset","");      
                                     $("#toolTip4").css("right","1%");
-                                    $("#toolTip4").css("bottom","1%");
+                                    $("#toolTip4").css("top","60px");
                                 
 
                                     // DATOS 
@@ -369,8 +370,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
     var svgTooltipWidth=arr.length*ancho;
 
-    if(svgTooltipWidth < 100)
-        svgTooltipWidth=100;
+    if(svgTooltipWidth < 150)
+        svgTooltipWidth=150;
 
     var svgTooltipHeight=290;
     var tamanioFuente=ancho*.7;   
@@ -496,11 +497,18 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
     var colores=["#00DEFF","#00DEFF","#00DEFF","#00DEFF","#8BFF1A","#8BFF1A",];
 
     for(var i=0; i < campos.length; i++ ){
-        console.log(Number(dataElement[campos[i]]));
-        if(maximo < Number(dataElement[campos[i]]) ){
-            maximo = Number(dataElement[campos[i]]);
-        } 
+        if(dataElement){
+            if(dataElement[campos[i]]){
+                if(maximo < Number(dataElement[campos[i]]) ){
+                    maximo = Number(dataElement[campos[i]]);
+                } 
+            }
+        }
+        
+       
     }
+
+
 
     var altura=30;
     var caso=0;
@@ -530,7 +538,27 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
 
     for(var i=0; i < campos.length; i++ ){
 
-        if( !dataElement[campos[i]] ){
+        if( !dataElement ){
+
+            d3.select("#svgTooltip")
+            .append("text")						
+            .attr("class","penDetail")
+            .style("fill",colores[caso])		
+            .style("font-family","Cabin")
+            .style("font-weight","bold")
+            .style("font-size",tamanioFuente)						
+            .style("text-anchor","start")
+            .style("opacity",0 )
+            .attr("transform"," translate("+String( 10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
+            .text(function(){
+            
+                return "SIN DATA";
+            })
+            .transition().delay(0).duration(1000)
+            .style("opacity",1 )
+        ;
+
+        }else if( !dataElement[campos[i]] ){
 
             d3.select("#svgTooltip")
                         .append("text")						

@@ -104,8 +104,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail=function(entity){
     drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion(entity);
     drawKpiExpert_VENTAS.DrawTooltipDetail_Estado(entity);
 
-    opacidadCesium=.3;
-    $("#cesiumContainer").css("opacity",opacidadCesium/100);
+    opacidadCesium=30;
+      $("#cesiumContainer").css("opacity",opacidadCesium/100); 
 
 }         
 
