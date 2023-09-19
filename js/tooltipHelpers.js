@@ -203,7 +203,33 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       });
 
     });
-    
+
+
+    // Capacidad de resize
+
+    var resizeIndicator = $("<i>", {
+      class: "fas fa-expand", // icono
+      css: {
+        position: "absolute",
+        bottom: "0", // posicion abajo
+        right: "0", // posicion derecha
+        cursor: "se-resize", // Cambio de forma del cursor al dar resize
+        padding: "5px", // se agrega un padding para que no este tan pegado
+        color: "#ffffff",
+      },
+    });
+  
+    // Se agrega el indicador para hacer evidente que la ventana tiene resize
+    $(divElement).append(resizeIndicator);
+  
+    // Hace que la ventana sea resizeable
+    $(divElement).resizable({
+      handles: "se", // Se despliega el indicador
+      minHeight: 31, // height minimo
+      minWidth: 400, // width minimo
+      maxHeight: "80%", // maximo height
+      maxWidth: "80%", // maximo width
+    });
 
     // Agrega capacidad de dragg al div
    // $(divElement).draggable();
