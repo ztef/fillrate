@@ -208,10 +208,16 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
           
            
           
-      // CREA TABLA USANDO DATOS
-          
-      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip5", columnsWithTotals );
-     
+     // CREA TABLA USANDO DATOS
+      
+     vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip5", columnsWithTotals );        
+
+     // Crea una barra inferior y pasa una funcion de exportacion de datos
+     vix_tt_formatBottomBar("#toolTip5", function () {
+       var dataToExport = formatDataForExport(data, columns);
+       var filename = "exported_data";
+       exportToExcel(dataToExport, filename);
+     });
       
       
       // APLICA TRANSICIONES 
@@ -392,10 +398,16 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           
            
           
-      // CREA TABLA USANDO DATOS
-          
-            vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
-     
+     // CREA TABLA USANDO DATOS
+      
+     vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );        
+
+     // Crea una barra inferior y pasa una funcion de exportacion de datos
+     vix_tt_formatBottomBar("#toolTip2", function () {
+       var dataToExport = formatDataForExport(data, columns);
+       var filename = "exported_data";
+       exportToExcel(dataToExport, filename);
+     });
       
       
       // APLICA TRANSICIONES 
@@ -591,9 +603,15 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
            
           
       // CREA TABLA USANDO DATOS
-          
-            vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );
-     
+      
+      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );        
+
+      // Crea una barra inferior y pasa una funcion de exportacion de datos
+      vix_tt_formatBottomBar("#toolTip3", function () {
+        var dataToExport = formatDataForExport(data, columns);
+        var filename = "exported_data";
+        exportToExcel(dataToExport, filename);
+      });
       
       
       // APLICA TRANSICIONES 
@@ -803,8 +821,15 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
 
             
       // CREA TABLA USANDO DATOS
-          
-       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip4", columnsWithTotals );
+      
+      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip4", columnsWithTotals );        
+
+      // Crea una barra inferior y pasa una funcion de exportacion de datos
+      vix_tt_formatBottomBar("#toolTip4", function () {
+        var dataToExport = formatDataForExport(data, columns);
+        var filename = "exported_data";
+        exportToExcel(dataToExport, filename);
+      });
      
       return;
       
