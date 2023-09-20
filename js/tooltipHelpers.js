@@ -253,7 +253,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       class: "top-bar",
       css: {
         padding: "5px",
-        backgroundColor: "#74ADBD",
+        backgroundColor: "#507D8C",
         borderTopLeftRadius: "0px",
 
         borderTopRightRadius: "0px",
