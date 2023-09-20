@@ -125,8 +125,10 @@ calculateKpiExpert_Abasto.calculateKPI=function(entities){
                             entidad.abasto.Pct_Radar+=Number(data.recordset[j].Pct_Radar);                                               
 
                             entidad.abasto.values.push(data.recordset[j]);  
-                            entidad.abasto.abasto=Math.round((entidad.abasto.Pct_Radar/entidad.abasto.values.length)*1000)/10;  
-                                                           
+
+                            
+                            entidad.abasto.abasto=Math.round((entidad.abasto.Pct_Radar/entidad.abasto.values.length)*1000)/10; 
+                                                          
 
                         }else{
                             if(data.recordset[j].Agrupador!=null)

@@ -121,9 +121,7 @@ calculateKpiExpert_Produccion.calculateKPI=function(entities){
                             entidad.produccion.Pct_Radar+=Number(data.recordset[j].Pct_Radar);            
 
                             entidad.produccion.values.push(data.recordset[j]);
-                            entidad.produccion.produccion=Math.round((entidad.produccion.Pct_Radar/entidad.produccion.values.length)*1000)/10;  
-
-                            
+                            entidad.produccion.produccion=Math.round((entidad.produccion.Pct_Radar/entidad.produccion.values.length)*1000)/10;
 
                         }else{
                             console.log("no existe entidad mencionada en produccion:",data.recordset[j].Agrupador);

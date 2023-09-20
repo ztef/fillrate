@@ -147,6 +147,38 @@ radar.CleanWindows=function(){
 
     }
 
+    $("#toolTip").css("inset",""); 
+    $("#toolTip").css("top","");
+    $("#toolTip").css("right","");
+    $("#toolTip").css("bottom","");
+    $("#toolTip").css("left","");
+    $("#toolTip").css("width","");
+    $("#toolTip").css("height","");
+
+    $("#toolTip3").css("inset",""); 
+    $("#toolTip3").css("top","");
+    $("#toolTip3").css("right","");
+    $("#toolTip3").css("bottom","");
+    $("#toolTip3").css("left","");
+    $("#toolTip3").css("width","");
+    $("#toolTip3").css("height","");
+
+    $("#toolTip4").css("inset",""); 
+    $("#toolTip4").css("top","");
+    $("#toolTip4").css("right","");
+    $("#toolTip4").css("bottom","");
+    $("#toolTip4").css("left","");
+    $("#toolTip4").css("width","");
+    $("#toolTip4").css("height","");
+
+    $("#toolTip5").css("inset",""); 
+    $("#toolTip5").css("top","");
+    $("#toolTip5").css("right","");
+    $("#toolTip5").css("bottom","");
+    $("#toolTip5").css("left","");
+    $("#toolTip5").css("width","");
+    $("#toolTip5").css("height","");
+
 }
 
 radar.kpis=[

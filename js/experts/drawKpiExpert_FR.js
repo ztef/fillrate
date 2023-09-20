@@ -614,6 +614,10 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 
                 svgLines.selectAll(".encabezado").data([]).exit().remove();
 
+                if(store.map_var!=kpiExpert_FR){
+                        return;
+                }
+
                 // SOLICITADO **********
 
                 svgLines														
@@ -694,6 +698,10 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         kpiExpert_FR.DrawFilteredHeader=function(){
 
                 svgLines.selectAll(".encabezadoFiltered").data([]).exit().remove();
+
+                if(store.map_var!=kpiExpert_FR){
+                        return;
+                }
 
                 //if( (store.fillRate.length==store.dataToDraw.length) )
                 //return;

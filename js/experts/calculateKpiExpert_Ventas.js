@@ -132,14 +132,15 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
                         if( entidad ){
 
                             entidad.ventas.VolumenPlan+=Number(data.recordset[j].VolumenPlan);
-                            entidad.ventas.VolumenReal+=Number(data.recordset[j].VolumenReal);
-                           
+                            entidad.ventas.VolumenReal+=Number(data.recordset[j].VolumenReal);                           
 
                             entidad.ventas.values.push(data.recordset[j]);
 
-                            if(entidad.ventas.VolumenReal>0){
+                            if(entidad.ventas.VolumenReal>0 && entidad.ventas.VolumenPlan>0){
+
                                 entidad.ventas.difPer=Math.round((entidad.ventas.VolumenReal/entidad.ventas.VolumenPlan)*100);
                                 entidad.ventas.ventas=entidad.ventas.difPer;
+
                             }
 
                         }else{
@@ -148,7 +149,8 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
 
                         store.ventas.push(data.recordset[j]);
 
-                    }                
+                    } 
+
 
                     resolve();
 
@@ -257,6 +259,7 @@ calculateKpiExpert_Ventas.getTooltipDetail=function(entityId){
 
                 var text=`<div class="tooltipDetailElement"><img id="" src="images/ventas.png" style=""></img>
                     <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento Ventas: </span><br>
+                    <span style='color:#ffffff;font-size:${13*escalaTextos}px;'>Venta Nacional, Entregado, Recogido y Autoflete</span><br>
                     <span style='color:#fff60150;font-size:px;'></span> <span style='color:#ffffff'>${prodPer} </span><span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].ventas.VolumenPlan)} TM , Real:${formatNumber(entities[i].ventas.VolumenReal)} TM)</span><br>
                     </div>
                 `

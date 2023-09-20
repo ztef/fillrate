@@ -9,6 +9,8 @@ dataManager.CambiaModoKPI=function(modo){
     $("#iconVenta").attr("src","images/mode_3.png");
     ordenRadares="Vol";
 
+   
+
     if(modo =="FR"){
 
         store.map_var=kpiExpert_FR;
@@ -300,8 +302,9 @@ dataManager.checkAllLoads=function(){
         Stage.DrawMapObjects(entities);
 
         kpiExpert_FR.DrawMainHeader();
-
         kpiExpert_FR.DrawFilteredHeader();
+
+         
 
         // COLOREA ESTADOS SOLO SI SE ESTA VIENDO FILL RATE O OOSF
 
