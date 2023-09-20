@@ -49,7 +49,8 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
         if(tamanioFuente < 12)
           tamanioFuente=12;
 
-        $("#toolTip3").css("visibility","visible");            
+        $("#toolTip3").css("visibility","visible");  
+        $("#toolTip3").css("inset","");           
         $("#toolTip3").css("left",5+"%"); 
         $("#toolTip3").css("top",5+"%");
 
