@@ -58,7 +58,8 @@ radarMosaic.DrawRadars=function(){
         if(maxValueFR < entities[i].fillRate.totalSolicitado)
             maxValueFR = entities[i].fillRate.totalSolicitado;
 
-    }
+    }   
+
 
     var lineFunction = d3.svg.line()
                     .x(function(d) { return d.x; })
@@ -74,18 +75,18 @@ radarMosaic.DrawRadars=function(){
                 if(posY > windowHeight+radarMosaic.radarRadius)
                     break;
 
-                var radio= GetValorRangos(entities[i].fillRate.totalSolicitado ,1, maxValueFR,50,radarMosaic.radarRadius*1.2)   ;
+                var radio= GetValorRangos(entities[i].fillRate.totalSolicitado ,1, maxValueFR,50,radarMosaic.radarRadius*1.05)   ;
 
                 var puntosLinea=[];
 
                 for(var j=0; j < radar.config.length; j++){
             
-                    var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  radio*.5  , {x: posX+( radio/2 ) , y:posY+(radio/2) }  );	
+                    var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  radio*.5  , {x: posX+( radarMosaic.radarRadius*.5 ) , y:posY+(radarMosaic.radarRadius*.5) }  );	
                     puntosLinea.push({x:posicion1.x,y:posicion1.y});
             
                 } 
 
-                svgLines	
+                var svgBack =  svgLines	
                         .append("path")
                         .attr("d", lineFunction(puntosLinea))		                
                         .style("stroke", function(){
@@ -97,7 +98,7 @@ radarMosaic.DrawRadars=function(){
                         .style("pointer-events", "auto")
                         .style("stroke-width", 1)
                         .style("stroke-opacity", .2)	                               
-                        .attr("fill", "black")
+                        .attr("fill", "white")
                         .style("opacity", 1)
                         .on("mouseover",function(){
 
@@ -142,11 +143,15 @@ radarMosaic.DrawRadars=function(){
                             Stage.FocusMapElement(this.data.key);
                         });
 
+             svgBack.transition().delay(0).duration(getRandomInt(0,2000))
+                .attr("fill", "black")	
+            ;
+
                 var puntosLinea=[];
 
                 for(var j=0; j < radar.config.length; j++){
             
-                    var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  radio*.4 , {x: posX+( radio/2 ) , y:posY+(radio/2) }  );		
+                    var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  radio*.4 , {x: posX+( radarMosaic.radarRadius*.5 ) , y:posY+(radarMosaic.radarRadius*.5) }  );		
                     puntosLinea.push({x:posicion1.x,y:posicion1.y});
             
                 }
@@ -196,7 +201,7 @@ radarMosaic.DrawRadars=function(){
                                     posicionMarcador = (radio/2)*.97;
                                 }
         
-                                var centroMarcador = CreaCoordenada( entities[i].radarData.kpis[radar.config[j].var].angulo  , posicionMarcador  , {x:posX+(radio/2) , y:posY+(radio/2) }  );
+                                var centroMarcador = CreaCoordenada( entities[i].radarData.kpis[radar.config[j].var].angulo  , posicionMarcador  , {x:posX+(radarMosaic.radarRadius*.5 ) , y:posY+(radarMosaic.radarRadius*.5 ) }  );
         
                                 puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
 
@@ -211,7 +216,7 @@ radarMosaic.DrawRadars=function(){
                                     posicionMarcador=radio*.08;
 
         
-                                var centroMarcador = CreaCoordenada( entities[i].radarData.kpis[radar.config[j].var].angulo  , posicionMarcador  , {x:posX+(radio/2) , y:posY+(radio/2) }  );					
+                                var centroMarcador = CreaCoordenada( entities[i].radarData.kpis[radar.config[j].var].angulo  , posicionMarcador  , {x:posX+(radarMosaic.radarRadius*.5 ) , y:posY+(radarMosaic.radarRadius*.5 ) }  );					
                 
                                 puntosLinea.push({x:centroMarcador.x,y:centroMarcador.y});
 
@@ -242,7 +247,7 @@ radarMosaic.DrawRadars=function(){
                         anchor="start";
                     }
 
-                    var posLabel = CreaCoordenada( entities[i].radarData.kpis[radar.config[j].var].angulo  , (radio/2)+30  , {x:posX+( radio/2 )  , y:posY+(radio/2) }  );
+                    var posLabel = CreaCoordenada( entities[i].radarData.kpis[radar.config[j].var].angulo  , (radio/2)+30  , {x:posX+( radarMosaic.radarRadius*.5 )  , y:posY+(radarMosaic.radarRadius*.5) }  );
 
 
                     entities[i].radarData.mosaic.labels.push(
@@ -280,8 +285,8 @@ radarMosaic.DrawRadars=function(){
 
                 for(var j=0; j < radar.config.length; j++){    
 
-                    var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  0 , {x:posX+( radio/2 ) , y:posY+(radio/2) }  );
-                    var posicion2 = CreaCoordenada( rebanadasAngulos*j  , (radio/2)*.97  , {x:posX+( radio/2 ) , y:posY+(radio/2) }  );
+                    var posicion1 = CreaCoordenada( rebanadasAngulos*j  ,  0 , {x:posX+( radarMosaic.radarRadius*.5 ) , y:posY+(radarMosaic.radarRadius*.5) }  );
+                    var posicion2 = CreaCoordenada( rebanadasAngulos*j  , (radio/2)*.97  , {x:posX+( radarMosaic.radarRadius*.5 ) , y:posY+(radarMosaic.radarRadius*.5) }  );
                 
                     svgLines
                             .append("line")

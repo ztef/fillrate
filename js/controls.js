@@ -818,8 +818,8 @@ filterControls.createHardCodedControls=function(){
                 `<option id="id_${store.niveles[i].id}" value="${store.niveles[i].id}">${store.niveles[i].label}</option>   `); 
         }
 
-        $("#nivel_cb").val(0);
-        nivelLecturaActual=0;
+        $("#nivel_cb").val(3);
+        nivelLecturaActual=3;
 
         posAnterior=0;
       

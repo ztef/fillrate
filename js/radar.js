@@ -142,7 +142,7 @@ radar.CleanWindows=function(){
     }
     if( columnasRadar*radio > windowWidth*.85){
 
-        opacidadCesium=10;
+        opacidadCesium=30;
         $("#cesiumContainer").css("opacity",opacidadCesium/100);
 
     }
@@ -249,6 +249,7 @@ radar.kpis=[
         if(ordenAnterior==ordenRadares){
             direccionOrder=!direccionOrder;
         }
+
         ordenAnterior=ordenRadares;
 
         if(ordenRadares =="Vol"){
@@ -281,6 +282,12 @@ radar.kpis=[
         
         if(direccionOrder)
             entities.reverse();
+
+        if(radarMosaic.visible){
+            radarMosaic.DrawRadars();
+        }else{
+            radar.CleanWindows();
+        }
         
         radar.rows=0;
 
@@ -290,7 +297,7 @@ radar.kpis=[
         $("#radarDiv").animate({scrollTop: 0}, 1000);
         $("#radarDiv").css("pointer-events","none");
 
-        radar.CleanWindows();
+        
 
         maxValueFR = 0;
 
