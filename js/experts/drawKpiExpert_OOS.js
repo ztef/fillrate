@@ -305,13 +305,13 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
         
             var ancho=18;
             
-            var svgTooltipWidth=arr.length*(ancho*1.1);
+            var svgTooltipWidth=arr.length*(ancho*1.05);
 
             if(svgTooltipWidth < 80)
             svgTooltipWidth=80;
 
             var svgTooltipHeight=500;
-            var tamanioFuente=ancho*.8;   
+            var tamanioFuente=ancho*.7;   
         
             $("#toolTip3").css("visibility","visible");  
             $("#toolTip3").css("inset",""); 
@@ -322,7 +322,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
             // FORMATEA TOOL TIP :
             
-            vix_tt_formatToolTip("#toolTip3","Out of Stock por Día de "+entity.key,svgTooltipWidth+10);
+            vix_tt_formatToolTip("#toolTip3","Out of Stock por Día de "+entity.key,svgTooltipWidth+10,svgTooltipHeight+10);
         
             // Agrega un div con un elemento svg :
         
@@ -338,8 +338,8 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             for(var i=0; i < arr.length; i++ ){   
 
                
-                var altura1=GetValorRangos( arr[i].OOS*1000,1, maximo ,1,svgTooltipHeight*.3);
-                var altura2=GetValorRangos( arr[i].Fisico ,1, maximo2 ,1,svgTooltipHeight*.3);
+                var altura1=GetValorRangos( arr[i].OOS*1000,1, maximo ,1,svgTooltipHeight*.25);
+                var altura2=GetValorRangos( arr[i].Fisico ,1, maximo2 ,1,svgTooltipHeight*.25   );
                 
                 
                 var color="#1ADD00";
@@ -354,7 +354,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                                 .attr("width",ancho*.8 )
                                 .attr("class","ossDetail")
                                 .attr("x",(ancho*i)  )
-                                .attr("y", (svgTooltipHeight)-altura1-marginBottom  )
+                                .attr("y", (svgTooltipHeight*.78)-altura1-marginBottom  )
                                 .attr("height",altura1)
                                 .attr("fill",color)
                                 .style("pointer-events","auto")
@@ -365,7 +365,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                                 .attr("width",ancho*.8 )
                                 .attr("class","ossDetail")
                                 .attr("x",(ancho*i)  )
-                                .attr("y", (svgTooltipHeight*.5)-altura2-marginBottom  )
+                                .attr("y", (svgTooltipHeight*.38)-altura2-marginBottom  )
                                 .attr("height",altura2)
                                 .attr("fill","#ffffff")
                                 .style("pointer-events","auto")
@@ -390,7 +390,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                                 .style("font-weight","bold")
                                 .style("font-size",tamanioFuente)	
                                 .style("text-anchor","start")
-                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight)-altura1-marginBottom-9   )+")  rotate("+(-90)+") ")
+                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight*.77)-altura1-marginBottom-2   )+")  rotate("+(-90)+") ")
                                 .text(function(){
                                 
                                     return  formatNumber(arr[i].OOS,true)+"%" ;
@@ -415,7 +415,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                                 .style("font-weight","bold")
                                 .style("font-size",tamanioFuente)	
                                 .style("text-anchor","end")
-                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight)-marginBottom+10   )+")  rotate("+(-90)+") ")
+                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight*.79)-marginBottom   )+")  rotate("+(-90)+") ")
                                 .text(function(){
                                 
                                     var date=new Date( Number(arr[i].key) );
@@ -432,7 +432,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                                 .style("font-weight","bold")
                                 .style("font-size",tamanioFuente)	
                                 .style("text-anchor","start")
-                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight*.5)-altura2-marginBottom-3   )+")  rotate("+(-90)+") ")
+                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight*.37)-altura2-marginBottom-3   )+")  rotate("+(-90)+") ")
                                 .text(function(){
                                 
                                     return  formatNumber(arr[i].Fisico) ;
@@ -452,7 +452,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                 .style("font-weight","normal")
                 .style("font-size",tamanioFuente)	
                 .style("text-anchor","start")
-                .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
+                .attr("transform"," translate("+String( 3  )+","+String( 20 )+")  rotate("+(0)+") ")
                 .text("Inventario (TM):"); 
 
             d3.select("#svgTooltip3")
@@ -463,7 +463,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                 .style("font-weight","normal")
                 .style("font-size",tamanioFuente)	
                 .style("text-anchor","start")
-                .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.54  )+")  rotate("+(0)+") ")
+                .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.4  )+")  rotate("+(0)+") ")
                 .text("Porcentaje (%):");
         
 

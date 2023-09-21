@@ -84,7 +84,7 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
               Deficit: function(value){
                   console.log(maximo,Math.abs(value)*100);
                   var barWidth = (Math.abs(value)*100/maximo)*100 + '%';
-                  var barValue = value;
+                  var barValue = formatNumber(value,2);
               
                   return '<div class="bar-container">' +
                   '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
@@ -103,7 +103,7 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
       var columnsWithTotals = ['Deficit']; 
       var totalsColumnVisitors = {
                   'Deficit': function(value) { 
-                  return vix_tt_formatNumber(value) ; 
+                  return formatNumber(value,2); 
                   }              
                 
                 };
@@ -195,7 +195,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
         Deficit: function(value){
             console.log(maximo,Math.abs(value)*100);
             var barWidth = (Math.abs(value)*100/maximo)*100 + '%';
-            var barValue = value;
+            var barValue = formatNumber(value,2);
         
             return '<div class="bar-container">' +
             '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
@@ -213,7 +213,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
             var columnsWithTotals = ['Deficit']; 
             var totalsColumnVisitors = {
                         'Deficit': function(value) { 
-                        return vix_tt_formatNumber(value) ; 
+                        return formatNumber(value,2) ; 
                         }
                       
                       
@@ -231,9 +231,8 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
       });       
             
             
-        // APLICA TRANSICIONES 
-
-        vix_tt_transitionRectWidth("toolTip2");
+      // APLICA TRANSICIONES
+       vix_tt_transitionRectWidth("toolTip2");
  
 
 }

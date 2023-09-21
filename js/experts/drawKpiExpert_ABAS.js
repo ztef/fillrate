@@ -134,10 +134,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
           "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
           "Peso": item.Peso,
         };
-        });
-    
-    
-      
+        });   
     
         // DEFINE COLUMNAS
       
@@ -471,8 +468,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
         var svgTooltipHeight=arr.length*altura;
 
-        if(svgTooltipHeight<140)
-            svgTooltipHeight=140;
+        if(svgTooltipHeight<180)
+            svgTooltipHeight=180;
 
         if(svgTooltipHeight>windowHeight*.7)
             svgTooltipHeight=windowHeight*.7;
