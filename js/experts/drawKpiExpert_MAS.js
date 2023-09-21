@@ -85,7 +85,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     // DEFINE COLUMNAS
       
      var columns = [
-        { key: "key", header: "Estado", sortable: true, width: "100px" },
+        { key: "key", header: "Estado", sortable: true, width: "130px" },
         { key: "MasivosVol", header: "Volumen Masivos", sortable: true, width: "150px" },    
         { key: "totalSolicitado", header: "Vol. Solicitado", sortable: true, width: "150px" },
         { key: "DifP", header: "Procentaje", sortable: true, width: "150px" },

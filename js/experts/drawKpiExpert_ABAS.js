@@ -27,12 +27,13 @@ kpiExpert_ABAS.DrawTooltipDetail=function(entity){
    
    
     if( 5 == $("#nivel_cb").val() ){
-       kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen(entity);  
+       kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen(entity); 
+       kpiExpert_ABAS.DrawTooltipDetail_Origen(entity);  
     }else{
         kpiExpert_ABAS.DrawTooltipDetail_UN(entity);
     }    
 
-    kpiExpert_ABAS.DrawTooltipDetail_Origen(entity);    
+    //kpiExpert_ABAS.DrawTooltipDetail_Origen(entity);    
 
     kpiExpert_ABAS.DrawTooltipDetail_Transporte(entity);
 
@@ -297,7 +298,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     $("#toolTip2").css("visibility","visible");  
     $("#toolTip2").css("inset","");            
     $("#toolTip2").css("bottom","1%");
-    $("#toolTip2").css("left","5%");
+    $("#toolTip2").css("right","5%");
 
     // DATOS 
 
@@ -475,7 +476,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             svgTooltipHeight=windowHeight*.7;
 
 
-        var svgTooltipWidth=600;
+        var svgTooltipWidth=620;
         var marginLeft=svgTooltipWidth*.2;
         var tamanioFuente=altura*.4;
         var marginTop=35;
@@ -514,7 +515,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
-        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "100px" },
+        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
       ];
     
@@ -580,7 +581,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // FORMATEA DIV :
      
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,620,svgTooltipHeight);
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,640,svgTooltipHeight);
     
             // COLUMNAS CON TOTALES :
     
