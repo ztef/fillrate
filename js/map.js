@@ -114,6 +114,14 @@ Stage.initStage=function(resolve, reject){
 			      
 					if(mapElements[pickedObject.id._id]){						
 						Stage.FocusMapElement(mapElements[pickedObject.id._id].key);
+					}else
+					{
+						$("#toolTip").css("visibility","hidden");
+						
+						radar.CleanWindows();
+		
+						$('#Controls').css("visibility","hidden");
+		
 					}
 
 		    }else
@@ -315,7 +323,7 @@ Stage.DrawMapObjects=function(entities){
 	currentEntities=entities;
 
 	Stage.blockScreen.style("visibility","hidden");
-	$("#Controls").css("visibility","visible");
+	//$("#Controls").css("visibility","visible");
 
 	setTimeout(()=>{
 

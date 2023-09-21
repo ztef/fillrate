@@ -764,7 +764,7 @@ filterControls.showActiveFilters=function(){
 
     console.log(nivel);
 
-    var titulo=`<div style="font-size:100%"> ${filtroProducto} | ${filtroPresentacion} | ${pedidosEntregados} Nivel: ${nivel} 
+    var titulo=`<div style="font-size:100%;width:${windowWidth*.56}px";> ${filtroProducto} | ${filtroPresentacion} | ${pedidosEntregados} Nivel: ${nivel} 
     <span style="font-size:12px; color:white">
        Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;

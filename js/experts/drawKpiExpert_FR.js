@@ -121,7 +121,8 @@ kpiExpert_FR.eraseChart=function(){
 
         $("#toolTip2").css("visibility","hidden");
         $("#toolTip3").css("visibility","hidden");
-       
+        
+        
        
 }
 
@@ -313,287 +314,269 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
 
 
 }
-    
+        
 kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){    
-    
-        console.log(entity);  
-       
-        var maximo=0;
-
-        var arr=d3.nest()
-                .key(function(d) { 
-
-                        if(d.fecha){
-                                return d.fecha.getTime(); 
-                        }else{                       
-                                return 0;
-                        }                        
         
-                })
-                .entries(entity.values);
-
+                console.log(entity);  
         
-        for(var i=0; i < arr.length; i++ ){
+                var maximo=0;
 
-                        arr[i].CantEntfinal=0;
-                        arr[i].fecha=arr[i].values[0].fecha.getTime();
-                        arr[i].totalSolicitado=0;
+                var arr=d3.nest()
+                        .key(function(d) { 
 
-                        arr[i].vol1=0;
-                        arr[i].vol2=0;
-                        arr[i].vol3=0;
+                                if(d.fecha){
+                                        return d.fecha.getTime(); 
+                                }else{                       
+                                        return 0;
+                                }                        
+                
+                        })
+                        .entries(entity.values);
 
-                        arr[i].por1=0;
-                        arr[i].por2=0;
-                        arr[i].por3=0;
+                
+                for(var i=0; i < arr.length; i++ ){
 
-                        for(var j=0; j < arr[i].values.length; j++ ){
+                                arr[i].CantEntfinal=0;
+                                arr[i].fecha=arr[i].values[0].fecha.getTime();
+                                arr[i].totalSolicitado=0;
 
-                                arr[i].CantEntfinal+=Number(arr[i].values[j][campoDeVolumenFR]);
-                                arr[i].totalSolicitado+=Number(arr[i].values[j][campoTotalSolicitado]);
+                                arr[i].vol1=0;
+                                arr[i].vol2=0;
+                                arr[i].vol3=0;
 
-                                if(arr[i].values[j][campoDeATiempo] == "A Tiempo"){
-                                        arr[i].vol1+=Number(arr[i].values[j][campoDeVolumenFR]);
-                                }else if(arr[i].values[j][campoDeATiempo] == "1 a 2 días Tarde"){
-                                        arr[i].vol2+=Number(arr[i].values[j][campoDeVolumenFR]);
-                                }else if(arr[i].values[j][campoDeATiempo] == "3 o más días Tarde"){
-                                        arr[i].vol3+=Number(arr[i].values[j][campoDeVolumenFR]);
+                                arr[i].por1=0;
+                                arr[i].por2=0;
+                                arr[i].por3=0;
+
+                                for(var j=0; j < arr[i].values.length; j++ ){
+
+                                        arr[i].CantEntfinal+=Number(arr[i].values[j][campoDeVolumenFR]);
+                                        arr[i].totalSolicitado+=Number(arr[i].values[j][campoTotalSolicitado]);
+
+                                        if(arr[i].values[j][campoDeATiempo] == "A Tiempo"){
+                                                arr[i].vol1+=Number(arr[i].values[j][campoDeVolumenFR]);
+                                        }else if(arr[i].values[j][campoDeATiempo] == "1 a 2 días Tarde"){
+                                                arr[i].vol2+=Number(arr[i].values[j][campoDeVolumenFR]);
+                                        }else if(arr[i].values[j][campoDeATiempo] == "3 o más días Tarde"){
+                                                arr[i].vol3+=Number(arr[i].values[j][campoDeVolumenFR]);
+                                        } 
+                                        
+                                }
+
+                                if(maximo < arr[i].CantEntfinal){
+                                        maximo=arr[i].CantEntfinal;
                                 } 
                                 
-                        }
+                                arr[i].por1=Math.round((arr[i].vol1/arr[i].CantEntfinal)*100);
+                                arr[i].por2=Math.round((arr[i].vol2/arr[i].CantEntfinal)*100);
+                                arr[i].por3=Math.round((arr[i].vol3/arr[i].CantEntfinal)*100);            
 
-                        if(maximo < arr[i].CantEntfinal){
-                                maximo=arr[i].CantEntfinal;
-                        } 
-                        
-                        arr[i].por1=Math.round((arr[i].vol1/arr[i].CantEntfinal)*100);
-                        arr[i].por2=Math.round((arr[i].vol2/arr[i].CantEntfinal)*100);
-                        arr[i].por3=Math.round((arr[i].vol3/arr[i].CantEntfinal)*100);            
-
-        } 
-        
-        arr = arr.sort((a, b) => {                
-                        return b.fecha - a.fecha;                                    
-        
-        });        
-        
-        arr=arr.reverse();
-
-        var ancho=18;
-        var caso=0;
-       
-        
-        var svgTooltipWidth=arr.length*(ancho*1.05) ;
-        if(svgTooltipWidth < 280)
-        svgTooltipWidth=280;
-    
-        var svgTooltipHeight=550;
-        var marginBottom=svgTooltipHeight*.11;
-        var tamanioFuente=ancho*.8;   
-    
-        $("#toolTip2").css("visibility","visible");            
-        $("#toolTip2").css("top",90+"px");
-        $("#toolTip2").css("left","1%");
-       
-      
-        // ADD ON PARA USAR EL FORMATEADOR DE TOOLTIPS ---------------------------------------------------
-
-
-        // FORMATEA TOOL TIP :
-    
-        vix_tt_formatToolTip("#toolTip2","Cantidad entragada de Fill Rate de "+entity.key,svgTooltipWidth+10);
-
-        // Agrega un div con un elemento svg :
-
-        var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
-        d3.select("#toolTip2").append("div").html(svgElement);
-
-
-        // Continua con la Generacion de las graficas dentro del svgTooltip
-
-        // -------------------------------------------------------------------------------------------------
-
-    
-        d3.select("#svgTooltip")                     
-                    .style("width", svgTooltipWidth )
-                    .style("height", svgTooltipHeight )
-                    ;
-                    var posY=mouse_y+50;
-
-        if( $("#svgTooltip").height()+mouse_y+50 > windowHeight ){
-                posY=windowHeight-($("#svgTooltip").height()+20);
-        }
-
-        var posY=mouse_y-50;
-
-        
-
-        if( posY < 0 ){
-                posY=50;
-        }
-
-      
-       
-        for(var i=0; i < arr.length; i++ ){        
+                } 
                 
-                var altura=svgTooltipHeight*.25;
-                var altura1=GetValorRangos( arr[i].por1,1, 100 ,1,altura);
-                var altura2=GetValorRangos( arr[i].por2,1, 100 ,1,altura);
-                var altura3=GetValorRangos( arr[i].por3,1, 100 ,1,altura);
-              
-          
-                d3.select("#svgTooltip").append("rect")		    		
-                                            .attr("width",ancho )
-                                            .attr("class","frDetail")
-                                            .attr("x",ancho*caso  )
-                                            .attr("y", (svgTooltipHeight*.9)-altura-3-marginBottom  )
-                                            .attr("height",1)
-                                            .attr("fill","none")
-                                            .style("stroke-width",1)
-                                            .style("stroke-color","#ffffff")
-                                            .transition().delay(0).duration(i*50)
-                                            .style("height",altura )	
-                                            ;
+                arr = arr.sort((a, b) => {                
+                                return b.fecha - a.fecha;                                    
+                
+                });        
+                
+                arr=arr.reverse();
 
-                d3.select("#svgTooltip").append("rect")		    		
-                                            .attr("width",ancho*.6 )
-                                            .attr("class","frDetail")
-                                            .attr("x",(ancho*caso)+(ancho*.1)  )
-                                            .attr("y", (svgTooltipHeight*.9)-altura1-3-marginBottom  )
-                                            .attr("height",1)
-                                            .attr("fill","#00A8FF")
-                                            .transition().delay(0).duration(i*50)
-                                            .style("height",altura1 )	
-                                            ;
-
-                d3.select("#svgTooltip").append("rect")		    		
-                                            .attr("width",ancho*.6 )
-                                            .attr("class","frDetail")
-                                            .attr("x",(ancho*caso)+(ancho*.1)  )
-                                            .attr("y", (svgTooltipHeight*.9)-altura1-altura2-3-marginBottom  )
-                                            .attr("height",1)
-                                            .attr("fill","#EAFF00")
-                                            .transition().delay(0).duration(i*50)
-                                            .style("height",altura2 )	
-                                            ;
-
-                 d3.select("#svgTooltip").append("rect")		    		
-                                            .attr("width",ancho*.6 )
-                                            .attr("class","frDetail")
-                                            .attr("x",(ancho*caso)+(ancho*.1)  )
-                                            .attr("y", (svgTooltipHeight*.9)-altura1-altura2-altura3-3-marginBottom  )
-                                            .attr("height",1)
-                                            .attr("fill","#FF0000")
-                                            .transition().delay(0).duration(i*50)
-                                            .style("height",altura3 )	
-                                            ;
-
-
-                var alturaVolumen=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.25);
-
-                d3.select("#svgTooltip").append("rect")		    		
-                                        .attr("width",(ancho*.7) )
-                                        .attr("class","frDetail")
-                                        .attr("x", ancho*caso  )
-                                        .attr("y", (svgTooltipHeight*.42)-alturaVolumen-3  )
-                                        .attr("height",alturaVolumen)
-                                        .attr("fill","#FFFFFF")                                     
-                                        .transition().delay(0).duration(i*50)
-                                        .style("height",alturaVolumen )	
-                                        ;
-
-                 d3.select("#svgTooltip").append("circle")
-                                        .attr("class","frDetail")
-                                        .attr("fill","#ffffff")
-                                        .attr("cx",(ancho*caso)+(ancho/2)-2 )
-                                        .attr("cy",(svgTooltipHeight*.9)-3-marginBottom-alturaVolumen)                   
-                                        .attr("r",4);
+                var ancho=18;
+                var caso=0;
         
-    
-                d3.select("#svgTooltip")
-                        .append("text")						
-                        .attr("class","frDetail")
-                        .style("fill","#ffffff")		
-                        .style("font-family","Cabin")
-                        .style("font-weight","bold")
-                        .style("font-size",tamanioFuente*.8)						
-                        .style("text-anchor","start")
-                        .style("opacity",0 )
-                        .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.42))-alturaVolumen-6  )+")  rotate("+(-90)+") ")
-                        .text(function(){
-                        
-                            return  formatNumber(arr[i].CantEntfinal)+" TM";
-    
-                        })
-                        .transition().delay(0).duration(i*50)
-                                            .style("opacity",1 )
-                      ;
+                
+                var svgTooltipWidth=arr.length*(ancho*1.05) ;
+                if(svgTooltipWidth < 280)
+                        svgTooltipWidth=280;
+        
+                var svgTooltipHeight=620;
 
-                d3.select("#svgTooltip")
-                      .append("text")						
-                      .attr("class","frDetail")
-                      .style("fill","#FFFFFF")		
-                      .style("font-family","Cabin")
-                      .style("font-weight","bold")
-                      .style("font-size",tamanioFuente*.84)						
-                      .style("text-anchor","start")
-                      .style("opacity",0 )
-                      .attr("filter","url(#dropshadowRadar)")
-                      .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.8)+1  )+","+String( (svgTooltipHeight*.9)-marginBottom+70 )+")  rotate("+(-90)+") ")
-                      .text(function(){
-                      
-                          return  "FR: "+arr[i].por1+"%";
-  
-                      })
-                      .transition().delay(0).duration(i*50)
-                                          .style("opacity",1 )
-                    ;
-    
-                d3.select("#svgTooltip")
+                if(windowHeight < 620){
+                        svgTooltipHeight=windowHeight;
+                }                
+
+                var marginBottom=svgTooltipHeight*.11;
+                var tamanioFuente=ancho*.8;   
+        
+                $("#toolTip2").css("visibility","visible");        
+                $("#toolTip2").css("max-height","");    
+                $("#toolTip2").css("top",1+"%");
+                $("#toolTip2").css("left","1%");
+                
+                vix_tt_formatToolTip("#toolTip2","Cantidad entragada por Día de Fill Rate de "+entity.key,svgTooltipWidth+7,svgTooltipHeight*.95);               
+                
+                var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
+
+                d3.select("#toolTip2").append("div").html(svgElement);               
+
+                // Continua con la Generacion de las graficas dentro del svgTooltip
+        
+                d3.select("#svgTooltip")                     
+                        .style("width", svgTooltipWidth )
+                        .style("height", svgTooltipHeight )
+                        ;
+        
+                for(var i=0; i < arr.length; i++ ){        
+                        
+                        var altura=svgTooltipHeight*.18;
+                        var altura1=GetValorRangos( arr[i].por1,1, 100 ,1,altura);
+                        var altura2=GetValorRangos( arr[i].por2,1, 100 ,1,altura);
+                        var altura3=GetValorRangos( arr[i].por3,1, 100 ,1,altura);
+                
+                
+                        d3.select("#svgTooltip").append("rect")		    		
+                                                .attr("width",ancho )
+                                                .attr("class","frDetail")
+                                                .attr("x",ancho*caso  )
+                                                .attr("y", (svgTooltipHeight*.78)-altura-3-marginBottom  )
+                                                .attr("height",1)
+                                                .attr("fill","none")
+                                                .style("stroke-width",1)
+                                                .style("stroke-color","#ffffff")
+                                                .transition().delay(0).duration(i*50)
+                                                .style("height",altura )	
+                                                ;
+
+                        d3.select("#svgTooltip").append("rect")		    		
+                                                .attr("width",ancho*.6 )
+                                                .attr("class","frDetail")
+                                                .attr("x",(ancho*caso)+(ancho*.1)  )
+                                                .attr("y", (svgTooltipHeight*.78)-altura1-3-marginBottom  )
+                                                .attr("height",1)
+                                                .attr("fill","#00A8FF")
+                                                .transition().delay(0).duration(i*50)
+                                                .style("height",altura1 )	
+                                                ;
+
+                        d3.select("#svgTooltip").append("rect")		    		
+                                                .attr("width",ancho*.6 )
+                                                .attr("class","frDetail")
+                                                .attr("x",(ancho*caso)+(ancho*.1)  )
+                                                .attr("y", (svgTooltipHeight*.78)-altura1-altura2-3-marginBottom  )
+                                                .attr("height",1)
+                                                .attr("fill","#EAFF00")
+                                                .transition().delay(0).duration(i*50)
+                                                .style("height",altura2 )	
+                                                ;
+
+                        d3.select("#svgTooltip").append("rect")		    		
+                                                .attr("width",ancho*.6 )
+                                                .attr("class","frDetail")
+                                                .attr("x",(ancho*caso)+(ancho*.1)  )
+                                                .attr("y", (svgTooltipHeight*.78)-altura1-altura2-altura3-3-marginBottom  )
+                                                .attr("height",1)
+                                                .attr("fill","#FF0000")
+                                                .transition().delay(0).duration(i*50)
+                                                .style("height",altura3 )	
+                                                ;
+
+
+                        var alturaVolumen=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.18);
+
+                        d3.select("#svgTooltip").append("rect")		    		
+                                                .attr("width",(ancho*.7) )
+                                                .attr("class","frDetail")
+                                                .attr("x", ancho*caso  )
+                                                .attr("y", (svgTooltipHeight*.38)-alturaVolumen-3  )
+                                                .attr("height",alturaVolumen)
+                                                .attr("fill","#FFFFFF")                                     
+                                                .transition().delay(0).duration(i*50)
+                                                .style("height",alturaVolumen )	
+                                                ;
+
+                        d3.select("#svgTooltip").append("circle")
+                                                .attr("class","frDetail")
+                                                .attr("fill","#ffffff")
+                                                .attr("cx",(ancho*caso)+(ancho/2)-2 )
+                                                .attr("cy",(svgTooltipHeight*.78)-3-marginBottom-alturaVolumen)                   
+                                                .attr("r",4);
+                
+        
+                        d3.select("#svgTooltip")
                                 .append("text")						
                                 .attr("class","frDetail")
                                 .style("fill","#ffffff")		
                                 .style("font-family","Cabin")
                                 .style("font-weight","bold")
-                                .style("font-size",tamanioFuente*.7)	
-                                .style("text-anchor","end")
-                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight)-marginBottom+28  )+")  rotate("+(-90)+") ")
+                                .style("font-size",tamanioFuente*.8)						
+                                .style("text-anchor","start")
+                                .style("opacity",0 )
+                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.38))-alturaVolumen-6  )+")  rotate("+(-90)+") ")
                                 .text(function(){
-                                        
-                                var date=new Date( Number(arr[i].key) );
-
-                                return  date.getDate()+" "+getMes(date.getMonth());
+                                
+                                return  formatNumber(arr[i].CantEntfinal)+" TM";
         
-                                });
+                                })
+                                .transition().delay(0).duration(i*50)
+                                                .style("opacity",1 )
+                        ;
 
+                        d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","frDetail")
+                        .style("fill","#FFFFFF")		
+                        .style("font-family","Cabin")
+                        .style("font-weight","bold")
+                        .style("font-size",tamanioFuente*.84)						
+                        .style("text-anchor","start")
+                        .style("opacity",0 )
+                        .attr("filter","url(#dropshadowRadar)")
+                        .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.8)+1  )+","+String( (svgTooltipHeight*.78)-marginBottom+70 )+")  rotate("+(-90)+") ")
+                        .text(function(){
+                        
+                                return  "FR: "+arr[i].por1+"%";
+        
+                        })
+                        .transition().delay(0).duration(i*50)
+                                                .style("opacity",1 )
+                        ;
+        
+                        d3.select("#svgTooltip")
+                                        .append("text")						
+                                        .attr("class","frDetail")
+                                        .style("fill","#ffffff")		
+                                        .style("font-family","Cabin")
+                                        .style("font-weight","bold")
+                                        .style("font-size",tamanioFuente*.7)	
+                                        .style("text-anchor","end")
+                                        .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight*.87)-marginBottom+28  )+")  rotate("+(-90)+") ")
+                                        .text(function(){
+                                                
+                                        var date=new Date( Number(arr[i].key) );
+
+                                        return  date.getDate()+" "+getMes(date.getMonth());
                 
-    
-                        caso++;            
-        }   
-        
-        //TITULOS
-        d3.select("#svgTooltip")
-                .append("text")						
-                .attr("class","frDetail")
-                .style("fill","#ffffff")		
-                .style("font-family","Cabin")
-                .style("font-weight","normal")
-                .style("font-size",tamanioFuente)	
-                .style("text-anchor","start")
-                .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
-                .text("Cantidad Entregada Final:"); 
+                                        });
 
-        d3.select("#svgTooltip")
-                .append("text")						
-                .attr("class","frDetail")
-                .style("fill","#ffffff")		
-                .style("font-family","Cabin")
-                .style("font-weight","normal")
-                .style("font-size",tamanioFuente)	
-                .style("text-anchor","start")
-                .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.47  )+")  rotate("+(0)+") ")
-                .text("Fill Rate y Tiempos:");
-    
+                        
+        
+                                caso++;            
+                }   
+                
+                //TITULOS
+                d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","frDetail")
+                        .style("fill","#ffffff")		
+                        .style("font-family","Cabin")
+                        .style("font-weight","normal")
+                        .style("font-size",tamanioFuente)	
+                        .style("text-anchor","start")
+                        .attr("transform"," translate("+String( 3  )+","+String( 25 )+")  rotate("+(0)+") ")
+                        .text("Cantidad Entregada Final:"); 
+
+                d3.select("#svgTooltip")
+                        .append("text")						
+                        .attr("class","frDetail")
+                        .style("fill","#ffffff")		
+                        .style("font-family","Cabin")
+                        .style("font-weight","normal")
+                        .style("font-size",tamanioFuente)	
+                        .style("text-anchor","start")
+                        .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.42  )+")  rotate("+(0)+") ")
+                        .text("Fill Rate y Tiempos:");
+
+                $("#toolTip2").css("max-height","");                      
+     
     }
 
     kpiExpert_FR.DrawMainHeader=function(){

@@ -154,6 +154,19 @@ radar.CleanWindows=function(){
     $("#toolTip").css("left","");
     $("#toolTip").css("width","");
     $("#toolTip").css("height","");
+    $("#toolTip").css("max-height","");
+    $("#toolTip").css("z-index","9999999");
+
+
+    $("#toolTip2").css("inset",""); 
+    $("#toolTip2").css("top","");
+    $("#toolTip2").css("right","");
+    $("#toolTip2").css("bottom","");
+    $("#toolTip2").css("left","");
+    $("#toolTip2").css("width","");
+    $("#toolTip2").css("height","");
+    $("#toolTip2").css("max-height","");
+    $("#toolTip2").css("z-index","9999999");
 
     $("#toolTip3").css("inset",""); 
     $("#toolTip3").css("top","");
@@ -162,6 +175,8 @@ radar.CleanWindows=function(){
     $("#toolTip3").css("left","");
     $("#toolTip3").css("width","");
     $("#toolTip3").css("height","");
+    $("#toolTip3").css("max-height","");
+    $("#toolTip3").css("z-index","9999999");
 
     $("#toolTip4").css("inset",""); 
     $("#toolTip4").css("top","");
@@ -170,6 +185,8 @@ radar.CleanWindows=function(){
     $("#toolTip4").css("left","");
     $("#toolTip4").css("width","");
     $("#toolTip4").css("height","");
+    $("#toolTip4").css("max-height","");
+    $("#toolTip4").css("z-index","9999999");
 
     $("#toolTip5").css("inset",""); 
     $("#toolTip5").css("top","");
@@ -178,6 +195,8 @@ radar.CleanWindows=function(){
     $("#toolTip5").css("left","");
     $("#toolTip5").css("width","");
     $("#toolTip5").css("height","");
+    $("#toolTip5").css("max-height","");
+    $("#toolTip5").css("z-index","9999999");
 
 }
 
