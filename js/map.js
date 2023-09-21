@@ -103,17 +103,14 @@ Stage.initStage=function(resolve, reject){
 
 		    if (Cesium.defined(pickedObject)) {
 
-		        	$("#tool").css("visibility","visible");
-
-			    	$("#tool").css("top",mouse_y-50);
-
-			        $("#tool").css("left",mouse_x+50);
-
+		        	
 			        $("#chartContainer").css("visibility","visible");
 
 			      
-					if(mapElements[pickedObject.id._id]){						
+					if(mapElements[pickedObject.id._id]){
+
 						Stage.FocusMapElement(mapElements[pickedObject.id._id].key);
+
 					}else
 					{
 						$("#toolTip").css("visibility","hidden");
