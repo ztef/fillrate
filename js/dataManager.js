@@ -17,8 +17,7 @@ dataManager.CambiaModoKPI=function(modo){
         $("#iconFR").attr("src","images/mode1_.png");
         $("#logo").attr("src","images/logo1.png");
         dataManager.ClusterObjects();
-        $("#simbologia").attr("src","images/simbologia FR.png");
-       
+        $("#simbologia").attr("src","images/simbologia FR.png");      
         
 
     }else if(modo =="OOS F"){

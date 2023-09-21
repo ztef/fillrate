@@ -217,7 +217,7 @@ radar.kpis=[
     {label:"Estadías",color:"#FF00DE",var:"estadias",minimoValor:0 ,valorEquilibrio:0,maximoValor:0, abreviacion:"T. Recogido",unidad:""}
 ];
 
-   radar.DrawEntities=function(){  
+radar.DrawEntities=function(){  
         
         if(entities.length==0){
             alert("existe un problema con los datos básicos de Fill Rate");
@@ -275,7 +275,7 @@ radar.kpis=[
 
         }else if(ordenRadares == "Ven"){
 
-            entities=entities.sort((a, b) =>   b.ventas.ventas - a.ventas.ventas );
+            entities=entities.sort((a, b) =>   b.ventas.VolumenReal- a.ventas.VolumenReal );
             $("#ordenVen").attr("src","images/order4_.png");
 
         }   
@@ -309,10 +309,27 @@ radar.kpis=[
 
         for(var i=0; i < entities.length; i++){
 
-            if(maxValueFR < entities[i].fillRate.totalSolicitado)
-                maxValueFR = entities[i].fillRate.totalSolicitado;
+            if( store.map_var==kpiExpert_FR){
+
+                if(maxValueFR < entities[i].fillRate.totalSolicitado)
+                    maxValueFR = entities[i].fillRate.totalSolicitado;
+
+            }else if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS ){
+
+                if(maxValueFR < entities[i].ventas.VolumenReal){
+                    maxValueFR = entities[i].ventas.VolumenReal;
+                  
+                }
+                    
+
+            }else{
+                alert("Problema al detectar valores maximos al crear Radares base");
+                return;
+            }
 
         }   
+
+        console.log("maxValueFR",maxValueFR);
 
         var caso=0;
 
@@ -348,7 +365,7 @@ radar.kpis=[
 
         }
 
-    }
+}
 
 radar.AddNewRadar=function(entity){ 
     
@@ -424,8 +441,17 @@ radar.DrawBaseRadar=function(entity){
 
         if(entity.fillRate.totalVolumenEntregado){
 
-            var anchoBarraTotal=GetValorRangos(  maxValueFR  ,1 ,maxValueFR,1,radio-(radio*.2));
-            var anchoBarra=GetValorRangos(  entity.fillRate.totalVolumenEntregado  ,1 ,maxValueFR,1,radio-(radio*.2));
+            if( store.map_var==kpiExpert_FR){
+
+                var anchoBarraTotal=GetValorRangos(  maxValueFR  ,1 ,maxValueFR,1,radio-(radio*.2));
+                var anchoBarra=GetValorRangos(  entity.fillRate.totalVolumenEntregado  ,1 ,maxValueFR,1,radio-(radio*.2));
+
+            }else if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS ){
+
+                var anchoBarraTotal=GetValorRangos(  maxValueFR  ,1 ,maxValueFR,1,radio-(radio*.2));
+                var anchoBarra=GetValorRangos(  entity.ventas.VolumenReal  ,1 ,maxValueFR,1,radio-(radio*.2));
+
+            }           
 
             svgRadar.append("rect")		    		
                         .attr("width",anchoBarra )
@@ -459,10 +485,21 @@ radar.DrawBaseRadar=function(entity){
                         .attr("transform"," translate("+String(10+entity.radarData.posX)+","+String(entity.radarData.posY-(tamanioTexto*.7) )+")  rotate("+(0)+") ")
                         .text(function(){
 
-                            if(entity.fillRate.totalVolumenEntregado < 1000)
-                                return "Entregado "+formatNumber(entity.fillRate.totalVolumenEntregado);
+                            if( store.map_var==kpiExpert_FR){
 
-                            return "Entregado "+formatNumber(entity.fillRate.totalVolumenEntregado/1000)+" k";
+                                if(entity.fillRate.totalVolumenEntregado < 1000)
+                                    return "Entregado "+formatNumber(entity.fillRate.totalVolumenEntregado);
+
+                                return "Entregado "+formatNumber(entity.fillRate.totalVolumenEntregado/1000)+" k";
+                
+                            }else if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS ){
+                
+                                if(entity.fillRate.totalVolumenEntregado < 1000)
+                                    return "Ventas Real "+formatNumber(entity.ventas.VolumenReal);
+
+                                return "Ventas Real "+formatNumber(entity.ventas.VolumenReal/1000)+" k";
+                
+                            }                          
 
                         });               
 
