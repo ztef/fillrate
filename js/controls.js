@@ -9,7 +9,7 @@ filterControls.createDataFiltersControls=function(catalogs){
         controlsInit=true;
         vix_tt_formatMenu("#Controls",".",160);
         //$("#Controls").css("max-height","600px");
-        $("#Controls").css("height","600px");
+        $("#Controls").css("height","570px");
         $("#Controls").css("width","400px");
 
 
@@ -24,7 +24,7 @@ filterControls.createDataFiltersControls=function(catalogs){
                                 <button class="filters" onclick="forzarFiltrado=true;filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
                         </div>
 
-                    <div id="ControlsFieldsCustom">                    
+                    <div id="ControlsFieldsCustom" style="margin-left: 51px;">                    
 
                     </div>
             </div>
