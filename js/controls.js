@@ -24,7 +24,7 @@ filterControls.createDataFiltersControls=function(catalogs){
                                 <button class="filters" onclick="forzarFiltrado=true;filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
                         </div>
 
-                    <div id="ControlsFieldsCustom" style="margin-left: 51px;">                    
+                    <div id="ControlsFieldsCustom" style="margin-left: 15px;">                    
 
                     </div>
             </div>
