@@ -103,9 +103,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
           "OOS": item.OOS,
           "Numera": item.CantEntFinal,
         };
-        });
-    
-    
+        });  
     
         // DEFINE COLUMNAS
       

@@ -42,6 +42,9 @@ kpiExpert_ABAS.DrawTooltipDetail=function(entity){
 
 }
 
+
+ //********************************************************************************************************************** */
+
 kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){    
 
     var maximo=0;
@@ -57,10 +60,25 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
         }
             
     }
-    
-    var arr=d3.nest()
+
+    if( 5 == $("#nivel_cb").val() ){
+
+      for(var i=0; i < entity.abasto.values.length; i++ ){
+          entity.abasto.values[i].DestinoTrans=entity.abasto.values[i].Destino+"_"+entity.abasto.values[i].Transporte;
+       
+      }
+
+      var arr=d3.nest()
+            .key(function(d) { return d.DestinoTrans; })
+            .entries(entity.abasto.values);
+
+    }else{
+
+      var arr=d3.nest()
             .key(function(d) { return d.Destino; })
-            .entries(arrTemp);   
+            .entries(arrTemp); 
+
+    }     
 
    
     for(var i=0; i < arr.length; i++ ){
@@ -107,12 +125,14 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
 
     var svgTooltipHeight=arr.length*altura;
 
-    if(svgTooltipHeight<100)
-        svgTooltipHeight=100;
+    if(svgTooltipHeight<180)
+      svgTooltipHeight=180;
 
-    if(svgTooltipHeight>windowHeight*.7)
-        svgTooltipHeight=windowHeight*.7;
+    if(svgTooltipHeight>windowHeight*.7){
 
+      svgTooltipHeight=windowHeight*.7;
+     
+    }    
 
     var svgTooltipWidth=600;
     var marginLeft=svgTooltipWidth*.2;
@@ -120,9 +140,8 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     var marginTop=35;
     
     $("#toolTip5").css("visibility","visible");            
-    $("#toolTip5").css("left",1+"%");
-    $("#toolTip5").css("top",70+"px");
-
+    $("#toolTip4").css("bottom","1%");
+    $("#toolTip5").css("right","2%");
 
     // DATOS 
 
@@ -140,7 +159,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },
+        { key: "key", header: "Destino", sortable: true, width: "110px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
@@ -154,6 +173,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       var columnVisitors = {
         key: function(value) {
+          value=value.replaceAll("_"," ");
             return `<div>${value}
             </div>`;
           },
@@ -168,14 +188,22 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
             return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
+
+          console.log("value",value);
+
+          if(value<0)
+          value=0;
+
+          if(value > 150 && value!=Infinity)
+            value=150;          
+
           if(value!=Infinity){
-            var barWidth = value + '%';
+            var barWidth = value*.66 + '%';
             var barValue = vix_tt_formatNumber(value)+'%   ';
           }else{
             var barWidth =  '0%';
             var barValue = vix_tt_formatNumber(0)+'%   ';
-          }
-            
+          }            
         
             return '<div class="bar-container">' +
             '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
@@ -198,25 +226,21 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
 
       vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key+" hacia otras UN",630,svgTooltipHeight);
 
-            // COLUMNAS CON TOTALES :
-    
-            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
-            var totalsColumnVisitors = {
-                      'VolumenPlan': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM";
-                      },
-                      'VolumenReal': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      },
-                      'DifK': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      }
-                      };
-      
-          
-          
-           
-          
+      // COLUMNAS CON TOTALES :
+
+      var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
+      var totalsColumnVisitors = {
+                'VolumenPlan': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM";
+                },
+                'VolumenReal': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                },
+                'DifK': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                }
+                };      
+   
      // CREA TABLA USANDO DATOS
       
      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip5", columnsWithTotals );        
@@ -234,7 +258,10 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
       vix_tt_transitionRectWidth("toolTip5");
       
     
-    }
+}
+
+
+ //********************************************************************************************************************** */
     
 kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){    
    
@@ -286,8 +313,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
    
     var svgTooltipHeight=arr.length*(altura*1.2)+70;
 
-    if(svgTooltipHeight<150)
-    svgTooltipHeight=150;
+    if(svgTooltipHeight<180)
+     svgTooltipHeight=180;
 
     var svgTooltipWidth=500;
     var marginLeft=svgTooltipWidth*.15;
@@ -319,7 +346,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },
+        { key: "key", header: "Transporte", sortable: true, width: "110px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
@@ -347,9 +374,20 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
-      
-            var barWidth = value + '%';
-            var barValue = vix_tt_formatNumber(value)+'%   ';
+
+            if(value<0)
+            value=0;
+
+            if(value > 150 && value!=Infinity)
+              value=150;
+          
+            if(value!=Infinity){
+              var barWidth = value*.66 + '%';
+              var barValue = vix_tt_formatNumber(value)+'%   ';
+            }else{
+              var barWidth =  '0%';
+              var barValue = vix_tt_formatNumber(0)+'%   ';
+            }  
         
             return '<div class="bar-container">' +
            
@@ -363,7 +401,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
-           '<span class="bar-value" style="width:30px"></span>' +
+           
            '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
            '</div>';
         }
@@ -404,8 +442,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
        var dataToExport = formatDataForExport(data, columns);
        var filename = "exported_data";
        exportToExcel(dataToExport, filename);
-     });
-      
+     });     
       
 
       // APLICA TRANSICIONES 
@@ -413,9 +450,11 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       vix_tt_transitionRectWidth("toolTip2");
       
     
-    }
-    
-    kpiExpert_ABAS.DrawTooltipDetail_UN=function(entity){  
+  }    
+
+ //********************************************************************************************************************** */
+
+  kpiExpert_ABAS.DrawTooltipDetail_UN=function(entity){  
 
         var maximo=0;    
         var maximoVolumen=0;   
@@ -467,13 +506,14 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         var altura=50;
         var caso=0;
     
-        var svgTooltipHeight=arr.length*altura;
+        var svgTooltipHeight=arr.length*(altura*.7);
 
         if(svgTooltipHeight<180)
             svgTooltipHeight=180;
 
         if(svgTooltipHeight>windowHeight*.7)
             svgTooltipHeight=windowHeight*.7;
+
 
 
         var svgTooltipWidth=620;
@@ -484,13 +524,6 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         $("#toolTip3").css("visibility","visible");            
         $("#toolTip3").css("left",1+"%");
         $("#toolTip3").css("top",70+"px");
-
-            
-    /* 
-
-        VIX_TT  : Prepara datos para el tool tip
-
-    */
 
 
     // DATOS 
@@ -511,7 +544,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },
+        { key: "key", header: "Unidad de Neogcio", sortable: true, width: "110px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
@@ -540,26 +573,24 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         },
         DifP: function(value){
           
-          if(value<=0)
-           value=1;
+          if(value<0)
+            value=0;
 
-           if(value > 200)
-           value=200;
+          if(value > 150 && value!=Infinity)
+            value=150;
 
-           value=Math.round(value);
+          value=Math.round(value);
 
-            var barWidth = value / 2 + '%';
-            var barValue = vix_tt_formatNumber(value)+'%   ';
+          var barWidth = value*.66 + '%';
+          var barValue = vix_tt_formatNumber(value)+'%   ';
 
             //var fixedWidth = '60px';
 
-            return '<div class="bar-container">' +
+          return '<div class="bar-container">' +
             '<span class="bar-value">' + barValue + '</span>' +
             '<svg width="90%" height="10">'  +
             '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
-            '</div>';
-
-        
+            '</div>';        
 
       
         },
@@ -572,15 +603,14 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             var barValue = vix_tt_formatNumber(value)+'TM';
        
            return '<div class="bar-container">' +
-           '<span class="bar-value" style="width:30px"></span>' +
+           
            '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
            '</div>';
         }
-      };
-    
+      };    
     
       // FORMATEA DIV :
-     
+
       vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,640,svgTooltipHeight);
     
             // COLUMNAS CON TOTALES :
@@ -597,11 +627,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
                         return vix_tt_formatNumber(value) + " TM"; 
                       }
                       };
-      
-          
-          
-           
-          
+
       // CREA TABLA USANDO DATOS
       
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );        
@@ -612,23 +638,37 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         var filename = "exported_data";
         exportToExcel(dataToExport, filename);
       });
-      
-      
+
       // APLICA TRANSICIONES 
     
       vix_tt_transitionRectWidth("toolTip3");
       
-    
-    }
+ }
+
+ //********************************************************************************************************************** */
 
 kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){  
 
         var maximo=0;    
-        var maximoVolumen=0;   
-    
-        var arr=d3.nest()
+        var maximoVolumen=0;  
+        
+        if( 5 == $("#nivel_cb").val() ){
+
+          for(var i=0; i < entity.abasto.values.length; i++ ){
+              entity.abasto.values[i].OrigenTrans=entity.abasto.values[i].Origen+"_"+entity.abasto.values[i].Transporte;
+           
+          }
+          var arr=d3.nest()
+                .key(function(d) { return d.OrigenTrans; })
+                .entries(entity.abasto.values);
+
+        }else{
+          var arr=d3.nest()
                 .key(function(d) { return d.Origen; })
                 .entries(entity.abasto.values);
+        }
+    
+        
 
         
         for(var i=0; i < arr.length; i++ ){
@@ -637,8 +677,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
             
             arr[i].VolumenReal=0;
             arr[i].VolumenPlan=0;
-            arr[i].Peso=0;
-        
+            arr[i].Peso=0;    
            
             for(var j=0; j < arr[i].values.length; j++ ){
             
@@ -669,15 +708,14 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         arr = arr.sort((a, b) => b.Dif - a.Dif);    
         arr.reverse();
 
-      
 
         var altura=30;
         var caso=0;
     
         var svgTooltipHeight=arr.length*altura;
 
-        if(svgTooltipHeight<150)
-            svgTooltipHeight=150;
+        if(svgTooltipHeight<180)
+          svgTooltipHeight=180;
 
         if(svgTooltipHeight>windowHeight*.7)
             svgTooltipHeight=windowHeight*.7;
@@ -688,20 +726,11 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         var tamanioFuente=altura*.4;
         var marginTop=35;
 
-        $("#toolTip4").css("visibility","visible");    
-        $("#toolTip4").css("inset","");           
-        $("#toolTip4").css("bottom","1%");
-        $("#toolTip4").css("right","1%");           
+        $("#toolTip4").css("inset","");   
+        $("#toolTip4").css("visibility","visible");  
         
-
-
         $("#toolTip4").append("<svg id='svgTooltip4'  style='pointer-events:none; line-heigth:22px;'></svg> ");
     
-    /* 
-
-        VIX_TT  : Prepara datos para el tool tip
-
-    */
 
     // DATOS 
 
@@ -721,7 +750,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         // DEFINE COLUMNAS
       
       var columns = [
-        { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },
+        { key: "key", header: "Origen", sortable: true, width: "110px" },
         { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
@@ -735,6 +764,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
     
         var columnVisitors = {
             key: function(value) {
+
+                value=value.replaceAll("_"," ");
                 return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
                 </div>`;
               },
@@ -750,19 +781,21 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
         },
         DifP: function(value){
 
+          if(value<0)
+            value=0;
+
+          if(value > 150 && value!=Infinity)
+            value=150;
+
+
           value=Math.round(value);
-      
-            var barWidth = value/2 + '%';
-            var barValue = vix_tt_formatNumber(value)+'%   ';
 
-           
-
-          var barWidth = value + '%';
+          var barWidth = value*.66 + '%';
           var barValue = vix_tt_formatNumber(value)+'%   ';
       
           return '<div class="bar-container">' +
           '<span class="bar-value" style="width:60px">' + barValue + '</span>' + '<svg width="90%" height="10">'  
-        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
+        + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;margin-right:3px;"></rect></svg>' +        
           '</div>';
         },
         Peso: function(value){
@@ -781,7 +814,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
             var barValue = vix_tt_formatNumber(value)+' TM';
        
            return '<div class="bar-container">' +
-           '<span class="bar-value" style="width:30px"></span>' +
+          
            '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
            '</div>';
         }
@@ -791,8 +824,17 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
       $("#toolTip4").css("top",16+"%"); 
 
       if( 5 == $("#nivel_cb").val() ){
-        vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",650,svgTooltipHeight);
-      }else{
+                 
+          $("#toolTip4").css("left",1+"%");
+          $("#toolTip4").css("top",70+"px");
+
+          vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",650,svgTooltipHeight);
+      
+        }else{
+
+          $("#toolTip4").css("bottom","1%");
+          $("#toolTip4").css("right","1%");                   
+
           vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden "+toTitleCase(entity.key)+"",650,svgTooltipHeight);
       } 
    

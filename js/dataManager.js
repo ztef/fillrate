@@ -38,9 +38,8 @@ dataManager.CambiaModoKPI=function(modo){
         $("#simbologia").attr("src","images/Simbolog¡a Ventas.png");
       
         
-    }     
+    }  
     
-
 }
 
 //PROCESO QUE AGRUPA ELEMENTOS SEGUN EL NIVEL AL Q SE ENCUENTRA
