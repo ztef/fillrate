@@ -207,6 +207,23 @@
             visibility: visible;
             opacity: 1;
         }
+
+        .top-bar-container {
+            display: flex;
+            justify-content: space-between; /* Align columns at the start and end */
+            align-items: center; /* Vertically center items */
+            width: 100%; /* Take up the full width of the top bar */
+        }
+
+        .title-column {
+        flex: 1; /* Allow the title column to grow and take available space */
+        }
+
+        .icons-column {
+                display: flex; /* Use flexbox to control the alignment */
+                flex-direction: row; /* Stack items vertically */
+                align-items: flex-end; /* Align items to the top */
+        }
   
    </style>
 
