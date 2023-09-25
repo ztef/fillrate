@@ -228,7 +228,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
     // Hace que la ventana sea resizeable
     $(divElement).resizable({
       handles: "se", // Se despliega el indicador
-      minHeight: 31, // height minimo
+      minHeight: 30, // height minimo
       minWidth: 400, // width minimo
       maxHeight: "80%", // maximo height
       maxWidth: "80%", // maximo width
@@ -247,8 +247,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       },
     });
 
-    
-    // Crea barra superior
+
     var topBar = $("<div>", {
       class: "top-bar",
       css: {
@@ -262,51 +261,55 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       },
     });
 
-    // Crea la zona de drag
-    var dragHandle = $("<span>", {
-      class: "drag-handle",
-      text: titulo,
-      
-      css: {
-        cursor: "move",
-        fontSize: "18px",
-      },
+
+
+    var topBarContainer = $("<div>", {
+      class: "top-bar-container",
     });
 
-
-
+    var titleColumn = $("<div>", {
+      class: "title-column",
+      text: titulo,
+    });
+  
+   
+    var dragHandle = $("<span>", {
+      class: "drag-handle",
+      
+    });
+    titleColumn.append(dragHandle);
+  
+    // Create the right column for icons
+    var iconsColumn = $("<div>", {
+      class: "icons-column",
+    });
+  
+    
     var collapseButton = $("<button>", {
       class: "collapse-button",
-      css: {
-        float: "right",
-        cursor: "pointer",
-        color: "white",
-        backgroundColor: "transparent",
-        border: "none",
-        color: "#ffffff",
-      },
     }).append('<i class="fas fa-minus"></i>');
-
-    // Crea boton de cerrado
+    iconsColumn.append(collapseButton);
+  
+    
     var closeButton = $("<button>", {
-        class: "close-button",
-        css: {
-          float: "right",
-          cursor: "pointer",
-          color: "white",
-          backgroundColor: "transparent",
-          border: "none",
-          color: "#ffffff",
-        },
-      }).append('<i class="fas fa-times"></i>'); 
+      class: "close-button",
+    }).append('<i class="fas fa-times"></i>');
+    iconsColumn.append(closeButton);
+  
+    
+    topBarContainer.append(titleColumn);
+    topBarContainer.append(iconsColumn);
+  
+    
+    topBar.append(topBarContainer);
+  
 
-    // A la barra le agrega la zona de cerrado y el boton de cerrado
-    topBar.append(dragHandle);
-    topBar.append(collapseButton);
-    topBar.append(closeButton);
+   
 
     // Agrega la barra superior al div
     $(divElement).prepend(topBar);
+
+    
     
 
    
