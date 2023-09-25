@@ -231,9 +231,24 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
         return vix_tt_formatNumber(value) + "TM";
     },
     DifP: function(value){
-  
-        var barWidth = value + '%';
-        var barValue = vix_tt_formatNumber(value)+'%   ';
+
+        if(value<0)
+        value=0;
+
+        if(value > 150 && value!=Infinity)
+          value=150;          
+
+        if(value!=Infinity){
+
+          var barWidth = value*.66 + '%';
+          var barValue = vix_tt_formatNumber(value)+'%   ';
+
+        }else{
+
+          var barWidth =  '0%';
+          var barValue = vix_tt_formatNumber(0)+'%   ';
+
+        }         
     
         return '<div class="bar-container">' +
         '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10px">'  
@@ -246,7 +261,6 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
         var barValue = vix_tt_formatNumber(value)+'TM';
    
        return '<div class="bar-container">' +
-       '<span class="bar-value" style="width:30px"></span>' +
        '<svg width="100%" height="10px"><rect class="bar-rect" width="' + barWidth + '" height="10px" style="fill: yellow;"></rect></svg>' +      
        '</div>';
     }
@@ -288,10 +302,6 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
           exportToExcel(dataToExport, filename);
         });
  
-  
-  
-  // APLICA TRANSICIONES 
-
         vix_tt_transitionRectWidth("toolTip3");
   
 
@@ -421,8 +431,19 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         },
         DifP: function(value){
       
-            var barWidth = value + '%';
-            var barValue = vix_tt_formatNumber(value)+'%';
+          f(value<0)
+          value=0;
+
+          if(value > 150 && value!=Infinity)
+            value=150;          
+
+          if(value!=Infinity){
+            var barWidth = value*.66 + '%';
+            var barValue = vix_tt_formatNumber(value)+'%   ';
+          }else{
+            var barWidth =  '0%';
+            var barValue = vix_tt_formatNumber(0)+'%   ';
+          }      
         
             return '<div class="bar-container">' +
             '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
@@ -437,7 +458,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
            var barValue = vix_tt_formatNumber(value)+'TM';
       
           return '<div class="bar-container">' +
-          '<span class="bar-value" style="width:30px"></span>' +
+          
           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
           
           '</div>';

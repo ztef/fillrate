@@ -188,9 +188,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
             return vix_tt_formatNumber(value) + " TM";
         },
         DifP: function(value){
-
-          console.log("value",value);
-
+          
           if(value<0)
           value=0;
 
@@ -205,7 +203,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
             var barValue = vix_tt_formatNumber(0)+'%   ';
           }            
         
-            return '<div class="bar-container">' +
+          return '<div class="bar-container">' +
             '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
             + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
             '</div>';
