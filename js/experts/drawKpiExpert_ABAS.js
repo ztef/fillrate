@@ -330,8 +330,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     $("#toolTip2").css("visibility","visible");  
     $("#toolTip2").css("inset","");            
     $("#toolTip2").css("bottom","1%");
-    $("#toolTip2").css("right","5%");
-
+    $("#toolTip2").css("left",radio+"px");
+    
     if(windowWidth > 1500 ){
 
       $("#toolTip2").css("top",windowHeight*.5+"px");
