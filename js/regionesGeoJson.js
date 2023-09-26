@@ -6,7 +6,7 @@ function DibujaEstados()
 {
     $.ajax({
       type: "GET",
-      url: "docs/geojson/Estados_CEMEX.json",
+      url: "docs/geojson/Estados_CEMEX2.json",
       dataType: "text",
       success: function(data) {parseEstados(data);}
    });
