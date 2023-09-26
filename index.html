@@ -559,7 +559,21 @@ color: yellow;
                 dateInit=new Date($('#datepicker').val());
                 dateEnd=new Date($('#datepicker2').val());
 
-                dataLoader.LoadInitialData( store.localDataSources.concat(store.apiDataSources) ).then(function(){                     
+                var dataSources=[];
+
+                for(var i=0; i < store.localDataSources.length; i++){
+                    if(store.localDataSources[i].onInitLoad ){
+                        dataSources.push(store.localDataSources[i]);
+                    }
+                }
+                
+                for(var i=0; i < store.apiDataSources.length; i++){
+                    if(store.apiDataSources[i].onInitLoad ){
+                        dataSources.push(store.apiDataSources[i]);
+                    }
+                }
+
+                dataLoader.LoadInitialData( dataSources ).then(function(){                     
                     
                     DibujaRegiones();
 

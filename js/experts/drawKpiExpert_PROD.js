@@ -4,11 +4,7 @@ kpiExpert_PROD.eraseChart=function(){
 
     d3.select("#svgTooltip").selectAll(".prodDetail").data([]).exit().remove();   
     
-    $("#toolTip2").css("visibility","hidden");
-
-    opacidadCesium=30;
-    $("#cesiumContainer").css("opacity",opacidadCesium/100); 
-
+    $("#toolTip2").css("visibility","hidden");    
 
 }
 
@@ -16,6 +12,9 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
     
     d3.select("#svgTooltip").selectAll(".prodDetail").data([]).exit().remove();
     kpiExpert_PROD.DrawTooltipDetail_Planta(entity);   
+
+    opacidadCesium=30;
+    $("#cesiumContainer").css("opacity",opacidadCesium/100); 
 
 }
 

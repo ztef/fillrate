@@ -7,19 +7,12 @@ var dateEnd;
 dataLoader.LoadInitialData = function(dataSources ){
 
     console.log("dataSources",dataSources);
-    dataSourcesToLoad=[];
-   
-    for(var i=0; i < dataSources.length; i++){
-
-        if(dataSources[i].onInitLoad   ){
-            dataSourcesToLoad.push(dataSources[i]);
-        }           
-
-    }
+    dataSourcesToLoad=dataSources;
 
     return new Promise((resolve, reject) => { 
 
         loadsToComplete=dataSourcesToLoad.length;
+        loadsCompleted=0;
 
         for(var i=0; i < dataSourcesToLoad.length; i++){          
      
@@ -100,6 +93,7 @@ dataLoader.ShowLoadings=function(){
 
 dataLoader.HideLoadings=function(){
 
+   
     dataLoader.loadings={history:[],current:[]};
     $("#toolTipLoader").css("visibility","hidden");
    // $("#toolTipLoader").css("height","400px" ); 
@@ -112,7 +106,7 @@ dataLoader.LoadData=function(def,cb){
 
     $("#cargando").css("visibility","visible");   
 
-    if(def.apiURL && def.onInitLoad){
+    if(def.apiURL ){
 
         var mes=Number(dateInit.getMonth())+1;
         if(mes < 10)
@@ -231,7 +225,7 @@ dataLoader.LoadData=function(def,cb){
 
             store[def.varName]=data;
                   
-           cb();
+            cb();
 
         });
 
@@ -303,8 +297,7 @@ dataLoader.LoadData=function(def,cb){
 
     }else{
         alert("Existe un origen de datos mal definido");
-    }
-       
+    }      
     
 
 }
@@ -312,11 +305,15 @@ dataLoader.LoadData=function(def,cb){
 var loadsToComplete=0;
 var loadsCompleted=0;
 dataLoader.CheckIfComplete=function(){
-    
+
+   
     loadsCompleted++;
+    console.log(loadsCompleted,loadsToComplete);
     if(loadsCompleted == loadsToComplete){
 
         dataLoader.HideLoadings();
+
+        console.log("entraa");
 
         for(var i=0; i < dataSourcesToLoad.length; i++){
 

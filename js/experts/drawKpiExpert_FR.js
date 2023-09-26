@@ -136,7 +136,7 @@ kpiExpert_FR.DrawTooltipDetail=function(entity){
         kpiExpert_FR.DrawTooltipDetail_ByDay(entity);
 
         opacidadCesium=30;
-      $("#cesiumContainer").css("opacity",opacidadCesium/100); 
+        $("#cesiumContainer").css("opacity",opacidadCesium/100); 
        
 
 }

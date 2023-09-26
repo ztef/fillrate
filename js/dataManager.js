@@ -1,5 +1,8 @@
 var dataManager={};
 
+var lastDateInit;
+var lastDateEnd;
+
 dataManager.CambiaModoKPI=function(modo){
 
     console.log(modo);
@@ -46,18 +49,15 @@ dataManager.CambiaModoKPI=function(modo){
 var entities;
 
  dataManager.ClusterObjects= function(){
-
+        
     if(loadsCount!=loadsTarget){
         return;
     }
     
-    dataLoader.HideLoadings();
-    
-
     Stage.blockScreen.style("visibility","visible"); 
     
     Stage.EraseMapObjects();
-    
+
     if(backInfoNav.length > 0){
         $("#back_btn").css("visibility","visible");
        
@@ -85,13 +85,46 @@ var entities;
 
         dataLoader.HideLoadings();
 
-        dataManager.ProcessEntities();
+        if( lastDateInit!=$('#datepicker').val() || lastDateEnd!=$('#datepicker2').val()  ) {
+
+            lastDateInit=$('#datepicker').val();
+            lastDateEnd=$('#datepicker2').val();
+
+            dataManager.UpdateCatlogs();
+
+        }else{
+
+            dataManager.ProcessEntities();
+
+        }
+       
+        
     }); 
 
 }
 
-dataManager.ProcessEntities= function(){
-    
+//Funcion para actualizar catalogos si hubo un cambio de fechas, solo aquellos catalogos que utilizan fechas para ser filtrados
+dataManager.UpdateCatlogs= function(){
+
+        var catlogsSources=[];
+
+        for(var i=0; i < store.localDataSources.length; i++){
+            if(store.localDataSources[i].varName=="cat_zt" || store.localDataSources[i].varName=="cat_cliente"){
+                catlogsSources.push(store.localDataSources[i]);
+            }
+        }
+
+        console.log("catlogsSources",catlogsSources);
+        
+        dataLoader.LoadInitialData(  catlogsSources ).then(function(){ 
+
+            dataManager.ProcessEntities();
+
+        });
+
+}
+
+dataManager.ProcessEntities= function(){    
 
     console.log("entities",entities);
 

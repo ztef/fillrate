@@ -78,9 +78,7 @@ Stage.initStage=function(resolve, reject){
 							}	
 							
 						}
-					}
-
-					
+					}				
 
 		    }else
 		    {
@@ -148,6 +146,9 @@ Stage.initStage=function(resolve, reject){
 		        	$("#toolTip").css("visibility","visible");
 			    	
 			        $("#toolTip").css("left",mouse_x+50);
+
+					if(  windowWidth-mouse_x < 500 )
+					$("#toolTip").css("left",mouse_x-600);
 
 					var text=dataManager.getTooltipText(mapElements[pickedObject.id._id]);
 

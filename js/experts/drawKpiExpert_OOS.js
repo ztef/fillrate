@@ -11,8 +11,7 @@ kpiExpert_OOS.eraseChart=function(){
     $("#toolTip2").css("visibility","hidden");	
     $("#toolTip3").css("visibility","hidden");
 
-    opacidadCesium=.3;
-    $("#cesiumContainer").css("opacity",opacidadCesium/100);
+   
 }
 
 kpiExpert_OOS.DrawTooltipDetail=function(entity){    

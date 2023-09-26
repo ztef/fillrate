@@ -14,6 +14,9 @@ kpiExpert_Flota.DrawTooltipDetail=function(entity){
     kpiExpert_Flota.DrawTooltipDetail_Origen(entity);
     kpiExpert_Flota.DrawTooltipDetail_Presentacion(entity);
 
+    opacidadCesium=30;
+      $("#cesiumContainer").css("opacity",opacidadCesium/100);   
+
 }
 
 kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){   

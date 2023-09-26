@@ -124,6 +124,7 @@ radar.CleanWindows=function(){
             kpiExpert_PENDIENTES.eraseChart();
         }
     }
+    
     if(reportExpert){
                 
         reportExpert.EraseReport();
