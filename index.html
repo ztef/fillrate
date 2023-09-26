@@ -54,6 +54,8 @@
     <script src="js/experts/drawKpiExpert_PEN.js"></script>
     <script src="js/experts/drawKpiExpert_Flota.js"></script>
 
+    <script src="js/kpi_date_status.js"></script>
+
     <!-- CUSTOM -->
     <script src="js/loader.js"></script>
     <script src="js/config.js"></script>
@@ -321,7 +323,8 @@ color: yellow;
         <img id="logo" src="images/logo1.png" style="position:fixed;z-index:999999;width:140px;float:left;left:10px;top:11px;pointer-events: none;visibility:visible;"></img>
         
         <div class="tooltipIcon" style="position:fixed;z-index:999999;width:31px;float:left;right:5px;bottom:36px;pointer-events: auto;visibility:visible;"><a href="https://visualinteractor.azurewebsites.net/customers/cemex/help/fillrate/"><img id="" src="images/info.png" style="width:20px;"></img></a><div class="tooltip-text">Guia de uso del visualizador</div></div>
-        <div class="tooltipIcon" style="position:fixed;z-index:999999;width:31px;float:left;right:5px;bottom:65px;pointer-events: auto;visibility:visible;"><a href="https://forms.office.com/r/vKYCMHqze6" target="_blank"><img id="" src="images/ico soporte 01.png" style="width:25px;"></img></a><div class="tooltip-text">Reporte de incidencias</div></div>
+        <div class="tooltipIcon" style="position:fixed;z-index:999999;width:31px;float:left;right:5px;bottom:96px;pointer-events: auto;visibility:visible;"><a onclick="kpi_date_status.loadData();"><img id="" src="images/dates.png" style="width:20px;"></img></a><div class="tooltip-text">Fechas disponibles por KPI</div></div>
+        <div class="tooltipIcon" style="position:fixed;z-index:999999;width:31px;float:left;right:7px;bottom:65px;pointer-events: auto;visibility:visible;"><a href="https://forms.office.com/r/vKYCMHqze6" target="_blank"><img id="" src="images/ico soporte 01.png" style="width:25px;"></img></a><div class="tooltip-text">Reporte de incidencias</div></div>
 
         
       
@@ -368,7 +371,7 @@ color: yellow;
 
         <ul class="fa-ul" style="position:fixed;left:-12px;top:70px;color:rgb(255, 255, 255);z-index:999999;font-family:Cabin;">
             
-            <div class="tooltipIcon"><img id="ordenVol" class="iconKPI" src="images/order1_.png" onclick="ordenRadares='Vol';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text2">Ordenar por Volumen</div></div>
+            <div class="tooltipIcon"><img id="ordenVol" class="iconKPI" src="images/order1_.png" onclick="ordenRadares='Vol';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text2">Ordenar por Volumen Entregado</div></div>
             <div class="tooltipIcon"><img id="ordenFR" class="iconKPI" src="images/order2.png" onclick="ordenRadares='FR';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text2">Ordenar por FillRate</div></div>
             <div class="tooltipIcon"><img id="ordenOOS" class="iconKPI" src="images/order3.png" onclick="ordenRadares='OOS';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por OOS CED</div></div>
             <div class="tooltipIcon"><img id="ordenOOSF" class="iconKPI" src="images/order5.png" onclick="ordenRadares='OOSF';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por OOS Filiales</div></div>
@@ -566,7 +569,7 @@ color: yellow;
                         dataSources.push(store.localDataSources[i]);
                     }
                 }
-                
+
                 for(var i=0; i < store.apiDataSources.length; i++){
                     if(store.apiDataSources[i].onInitLoad ){
                         dataSources.push(store.apiDataSources[i]);

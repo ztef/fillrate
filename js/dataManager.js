@@ -49,7 +49,7 @@ dataManager.CambiaModoKPI=function(modo){
 var entities;
 
  dataManager.ClusterObjects= function(){
-        
+
     if(loadsCount!=loadsTarget){
         return;
     }
@@ -90,7 +90,7 @@ var entities;
             lastDateInit=$('#datepicker').val();
             lastDateEnd=$('#datepicker2').val();
 
-            dataManager.UpdateCatlogs();
+            dataManager.UpdateCatlogs();         
 
         }else{
 

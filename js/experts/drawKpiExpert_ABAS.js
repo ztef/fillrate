@@ -63,14 +63,14 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
 
     if( 5 == $("#nivel_cb").val() ){
 
-      for(var i=0; i < entity.abasto.values.length; i++ ){
-          entity.abasto.values[i].DestinoTrans=entity.abasto.values[i].Destino+"_"+entity.abasto.values[i].Transporte;
+      for(var i=0; i < arrTemp.length; i++ ){
+        arrTemp[i].DestinoTrans=arrTemp[i].Destino+"_"+arrTemp[i].Transporte;
        
       }
 
       var arr=d3.nest()
             .key(function(d) { return d.DestinoTrans; })
-            .entries(entity.abasto.values);
+            .entries(arrTemp);
 
     }else{
 
@@ -128,9 +128,9 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     if(svgTooltipHeight<180)
       svgTooltipHeight=180;
 
-    if(svgTooltipHeight>windowHeight*.7){
+    if(svgTooltipHeight>windowHeight*.8){
 
-      svgTooltipHeight=windowHeight*.7;
+      svgTooltipHeight=windowHeight*.8;
      
     }    
 
@@ -229,7 +229,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key+" hacia otras UN",630,svgTooltipHeight);
+      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key+" hacia otras UN",630,svgTooltipHeight+80);
 
       // COLUMNAS CON TOTALES :
 
