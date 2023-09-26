@@ -180,7 +180,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       height: tooltipHeight,
       maxHeight: "80%",
       minwidth: "400px",
-      overflow:"auto",
+      overflow:"hidden",
      
     });
 
@@ -299,16 +299,17 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
     
     topBarContainer.append(titleColumn);
     topBarContainer.append(iconsColumn);
-  
-    
     topBar.append(topBarContainer);
   
+
+    
 
    
 
     // Agrega la barra superior al div
     $(divElement).prepend(topBar);
 
+  
     
     
 
@@ -597,12 +598,26 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
  
     bottomBar.append(iconAndButtonContainer); 
+
+
+
+   
+  //var containerDiv = d3.select(`#${containerID}`);
+
+
+ 
+
+   
+
+  var contentDiv = $(divElement).find(".content");
+
+
   
     // agrega el espacio
-    $(divElement).append(spacer);
+    $(contentDiv).append(spacer);
   
     // Agrega la barra
-    $(divElement).append(bottomBar);
+    $(contentDiv).append(bottomBar);
   
     // Agrega el evento on Click
     downloadButton.on("click", function () {
@@ -680,11 +695,19 @@ function s2ab(s) {
 
 
 
-    // CREA TABLA, Aplica estilos 
+    var containerDiv = d3.select(`#${containerID}`)
+    .append("div")
+    .style("height", "100%") // Set the height to 100% to match the div's actual height
+    .style("overflow", "auto");
 
-    var table = d3.select(`#${containerID}`).append("table")
+
+    var table = containerDiv.append("table")
+      .classed("tooltip-table", true)
       .style("border-collapse", "collapse")
-      .style("border", "0px solid white"); // Set the table border color to white
+      .style("border", "0px solid white");
+    
+
+     
   
     var thead = table.append("thead"); // Table header
     var tbody = table.append("tbody"); // Table body
@@ -784,7 +807,17 @@ function s2ab(s) {
     function vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, containerID,  columnsWithTotals) {
      
 
-      // CALCULA TOTALES PARA LAS COLUMNAS EN columnsWithTotals
+      var containerDiv = d3.select(`#${containerID}`)
+        .append("div")
+        .attr("class", "content")
+        .style("height", "100%") // Set the height to 100% to match the div's actual height
+        .style("overflow", "auto");
+
+    
+      var table = containerDiv.append("table")
+          .classed("tooltip-table", true)
+          .style("border-collapse", "collapse")
+          .style("border", "0px solid white");
 
 
             
@@ -793,10 +826,7 @@ function s2ab(s) {
 
         // CREA TABLA, Aplica estilos 
     
-        var table = d3.select(`#${containerID}`).append("table")
-          .classed("tooltip-table", true)
-          .style("border-collapse", "collapse")
-          .style("border", "0px solid white"); // Set the table border color to white
+       
       
         var thead = table.append("thead"); // Table header
         var tbody = table.append("tbody"); // Table body
@@ -886,7 +916,7 @@ function s2ab(s) {
          
            // CREA UNA TABLA SEPARADA CON LOS TOTALES
 
-                var totalsTable = d3.select(`#${containerID}`).append("table")
+                var totalsTable = containerDiv.append("table")
                 .classed("tooltip-table", true)
                 .style("border-collapse", "collapse")
                 .style("border", "1px solid white");  
@@ -942,6 +972,8 @@ function s2ab(s) {
       
         return table;
       }
+
+   
 
 
 
