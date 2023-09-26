@@ -143,6 +143,13 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     $("#toolTip4").css("bottom","1%");
     $("#toolTip5").css("right","2%");
 
+    if(windowWidth > 1500 ){
+
+      $("#toolTip5").css("top",90+"px");
+      $("#toolTip5").css("right","2%");
+     
+    }
+
     // DATOS 
 
     var data = arr.map(function(item) {
@@ -324,6 +331,14 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     $("#toolTip2").css("inset","");            
     $("#toolTip2").css("bottom","1%");
     $("#toolTip2").css("right","5%");
+
+    if(windowWidth > 1500 ){
+
+      $("#toolTip2").css("top",windowHeight*.5+"px");
+      $("#toolTip2").css("left",radio+"px");
+      $("#toolTip2").css("right","");
+     
+    }
 
     // DATOS 
 
@@ -522,6 +537,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         $("#toolTip3").css("visibility","visible");            
         $("#toolTip3").css("left",1+"%");
         $("#toolTip3").css("top",70+"px");
+
+        if(windowWidth > 1500 ){
+
+          $("#toolTip3").css("top",80+"px");
+          $("#toolTip3").css("left",radio+"px");
+         
+        }
 
 
     // DATOS 
@@ -825,6 +847,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
                  
           $("#toolTip4").css("left",1+"%");
           $("#toolTip4").css("top",70+"px");
+
+          if(windowWidth > 1500 ){
+
+            $("#toolTip4").css("top",90+"px");
+            $("#toolTip4").css("left",100+"px");
+           
+          }
 
           vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",650,svgTooltipHeight);
       

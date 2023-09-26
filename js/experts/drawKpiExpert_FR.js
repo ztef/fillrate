@@ -210,10 +210,16 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         var marginTop=35;
 
         $("#toolTip3").css("visibility","visible"); 
-        $("#toolTip3").css("inset","");            
-        $("#toolTip3").css("right",1+"%");
+        $("#toolTip3").css("inset","");   
         $("#toolTip3").css("top",80+"px");
+        $("#toolTip3").css("right",1+"%");
 
+        if(windowWidth > 1500 ){
+
+                $("#toolTip3").css("top",80+"px");
+                $("#toolTip3").css("left",windowWidth*.55+"px");
+               
+        }    
 
 
     // DATOS 
@@ -309,9 +315,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       
       // APLICA TRANSICIONES 
     
-      vix_tt_transitionRectWidth("toolTip3");
-      
-
+      vix_tt_transitionRectWidth("toolTip3");     
 
 }
         
@@ -392,7 +396,9 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                 if(windowHeight < 620){
                         svgTooltipHeight=windowHeight;
-                }                
+                }   
+                
+                
 
                 var marginBottom=svgTooltipHeight*.11;
                 var tamanioFuente=ancho*.8;   
@@ -400,7 +406,14 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 $("#toolTip2").css("visibility","visible");        
                 $("#toolTip2").css("max-height","");    
                 $("#toolTip2").css("top",1+"%");
-                $("#toolTip2").css("left","1%");
+                $("#toolTip2").css("left",radio+"px");
+
+                if(windowWidth > 1500 ){
+
+                        $("#toolTip2").css("top",80+"px");
+                        $("#toolTip2").css("left",radio+"px");
+                       
+                }  
                 
                 vix_tt_formatToolTip("#toolTip2","Cantidad entragada por Día de Fill Rate de "+entity.key,svgTooltipWidth+7,svgTooltipHeight*.95);               
                 

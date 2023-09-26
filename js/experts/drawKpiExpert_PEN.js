@@ -181,6 +181,13 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     $("#toolTip4").css("inset","");      
                                     $("#toolTip4").css("right","1%");
                                     $("#toolTip4").css("top","60px");
+
+                                    if(windowWidth > 1500 ){
+
+                                        $("#toolTip4").css("top",80+"px");
+                                        $("#toolTip4").css("left",windowWidth*.6+"px");
+                                       
+                                    } 
                                 
 
                                     // DATOS 
@@ -390,7 +397,14 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
     $("#toolTip3").css("inset","");         
     $("#toolTip3").css("left","10%");  
     $("#toolTip3").css("bottom","1%");
-  
+
+    if(windowWidth > 1500 ){
+
+        $("#toolTip3").css("top",windowHeight*.5+"px");
+        $("#toolTip3").css("left",radio+"px");
+        $("#toolTip3").css("bottom","");
+       
+    }   
 
 
     // FORMATEA TOOL TIP :
@@ -529,6 +543,13 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
     $("#toolTip2").css("visibility","visible");            
     $("#toolTip2").css("top","1%");
     $("#toolTip2").css("left","1%");
+
+    if(windowWidth > 1500 ){
+
+        $("#toolTip2").css("top",80+"px");
+        $("#toolTip2").css("left",radio+"px");
+       
+    } 
  
 
     vix_tt_formatToolTip("#toolTip2","Pedidos Pendientes por Tipo de "+entity.key,svgTooltipWidth+10,svgTooltipHeight+40);

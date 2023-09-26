@@ -51,8 +51,14 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
 
         $("#toolTip3").css("visibility","visible");  
         $("#toolTip3").css("inset","");           
-        $("#toolTip3").css("left",5+"%"); 
-        $("#toolTip3").css("top",5+"%");
+        $("#toolTip3").css("top",90+"px");
+          $("#toolTip3").css("left",radio+"px");
+        if(windowWidth > 1500 ){
+
+          $("#toolTip3").css("top",90+"px");
+          $("#toolTip3").css("left",radio+"px");
+         
+        }
 
         // DATOS 
         var data = arr.map(function(item) {
@@ -159,8 +165,16 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
     tamanioFuente=12;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",44+"%"); 
-    $("#toolTip2").css("top",15+"%");
+   
+    $("#toolTip2").css("top",90+"px");
+    $("#toolTip2").css("left",windowWidth*.65+"px");
+
+    if(windowWidth > 1500 ){
+
+      $("#toolTip2").css("top",190+"px");
+      $("#toolTip2").css("left",windowWidth*.65+"px");
+     
+    }
 
     // DATOS 
     var data = arr.map(function(item) {

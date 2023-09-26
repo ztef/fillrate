@@ -177,14 +177,12 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     $("#toolTip3").css("bottom","1%");
     $("#toolTip3").css("right","3%");
     
+    if(windowWidth > 1500 ){
 
-    
-    /* 
-
-        VIX_TT  : Prepara datos para el tool tip
-
-    */
-
+      $("#toolTip3").css("top",380+"px");
+      $("#toolTip3").css("left",windowWidth*.5+"px");
+     
+    }
 
     // DATOS 
 
@@ -286,12 +284,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
                     return vix_tt_formatNumber(value) + "TM"; 
                   }
                   };
-  
-      
-      
-       
-      
-  // CREA TABLA USANDO DATOS
+
+        // CREA TABLA USANDO DATOS
       
         vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );        
 
@@ -371,6 +365,13 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     $("#toolTip2").css("top","70px");
     $("#toolTip2").css("left","1%");
 
+    if(windowWidth > 1500 ){
+
+        $("#toolTip2").css("top",80+"px");
+        $("#toolTip2").css("left",radio+"px");
+     
+    }   
+
    // Daniel, quite estas 2 lineas que estaban colocando la ventana muy arriba :
     
    // if( (mouse_y-100)+(arr.length*altura) > windowHeight  )
@@ -431,8 +432,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
         },
         DifP: function(value){
       
-          f(value<0)
-          value=0;
+          if(value<0)
+            value=0;
 
           if(value > 150 && value!=Infinity)
             value=150;          
