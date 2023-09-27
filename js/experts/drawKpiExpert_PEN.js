@@ -175,20 +175,18 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     var svgTooltipWidth=400;
                                     var marginLeft=svgTooltipWidth*.2;
                                     var tamanioFuente=altura*.4;
-                                    var marginTop=35;
-
-                                    
+                                    var marginTop=35;                                    
 
 
                                     $("#toolTip4").css("visibility","visible");            
                                     $("#toolTip4").css("inset","");         
-                                    $("#toolTip4").css("left",(radio)+"px"); 
-                                    $("#toolTip4").css("bottom","1%");
+                                    $("#toolTip4").css("left",radio*.7+"px"); 
+                                    $("#toolTip4").css("top",windowHeight*.5+"px");
                                 
                                     if(windowWidth > 1500 ){
                                 
-                                        $("#toolTip4").css("top",windowHeight*.5+"px");
-                                        $("#toolTip4").css("left",radio+"px");
+                                        $("#toolTip4").css("top",windowHeight*.3+"px");
+                                        $("#toolTip4").css("left",radio +"px");
                                         $("#toolTip4").css("bottom","");
                                        
                                     }   
@@ -415,7 +413,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
     // Agrega un div con un elemento svg :
 
-    var svgElement = `<img id="simbologia" src="images/simb FR libre.png" style="width:310px;position:absolute;float:left;right:7px;top:45px;"></img><svg id='svgTooltip3' style='pointer-events:none;'></svg>`;
+    var svgElement = `<img id="simbologia" src="images/simb FR libre.png" style="width:290px;position:absolute;float:left;right:7px;top:45px;"></img><svg id='svgTooltip3' style='pointer-events:none;'></svg>`;
     d3.select("#toolTip3").append("div").html(svgElement);
 
     d3.select("#svgTooltip3")                     
@@ -540,7 +538,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
     var marginTop=svgTooltipHeight*.05;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top","30px");
+    $("#toolTip2").css("top","60px");
     $("#toolTip2").css("left",(radio*.7)+"px");
 
     if(windowWidth > 1500 ){

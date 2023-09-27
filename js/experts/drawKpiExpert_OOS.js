@@ -349,8 +349,8 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             for(var i=0; i < arr.length; i++ ){   
 
                
-                var altura1=GetValorRangos( arr[i].OOS*1000,1, maximo ,1,svgTooltipHeight*.25);
-                var altura2=GetValorRangos( arr[i].Fisico ,1, maximo2 ,1,svgTooltipHeight*.25   );
+                var altura1=GetValorRangos( arr[i].OOS*1000,1, maximo ,1,svgTooltipHeight*.22);
+                var altura2=GetValorRangos( arr[i].Fisico ,1, maximo2 ,1,svgTooltipHeight*.22   );
                 
                 
                 var color="#1ADD00";
