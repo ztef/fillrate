@@ -55,6 +55,7 @@
     <script src="js/experts/drawKpiExpert_Flota.js"></script>
 
     <script src="js/kpi_date_status.js"></script>
+    <script src="js/kpi_windows_context.js"></script>
 
     <!-- CUSTOM -->
     <script src="js/loader.js"></script>
@@ -342,9 +343,9 @@ color: yellow;
         
         <img id="logo" src="images/logo1.png" style="position:fixed;z-index:999999;width:140px;float:left;left:10px;top:11px;pointer-events: none;visibility:visible;"></img>
         
-        <div class="tooltipIcon" style="position:fixed;z-index:999999;width:31px;float:left;right:5px;bottom:36px;pointer-events: auto;visibility:visible;"><a href="https://visualinteractor.azurewebsites.net/customers/cemex/help/fillrate/"><img id="" src="images/info.png" style="width:20px;"></img></a><div class="tooltip-text">Guia de uso del visualizador</div></div>
-        <div class="tooltipIcon" style="position:fixed;z-index:999999;width:31px;float:left;right:5px;bottom:96px;pointer-events: auto;visibility:visible;"><a onclick="kpi_date_status.loadData(true);"><img id="dates_img" src="images/dates.png" style="width:20px;"></img></a><div class="tooltip-text">Fechas disponibles por KPI</div></div>
-        <div class="tooltipIcon" style="position:fixed;z-index:999999;width:31px;float:left;right:7px;bottom:65px;pointer-events: auto;visibility:visible;"><a href="https://forms.office.com/r/vKYCMHqze6" target="_blank"><img id="" src="images/ico soporte 01.png" style="width:25px;"></img></a><div class="tooltip-text">Reporte de incidencias</div></div>
+        <div class="tooltipIcon" style="position:fixed;z-index:999;width:31px;float:left;right:5px;bottom:96px;pointer-events: auto;visibility:visible;"><a onclick="kpi_date_status.loadData(true);"><img id="dates_img" src="images/dates.png" style="width:20px;"></img></a><div class="tooltip-text">Fechas disponibles por KPI</div></div>
+        <div class="tooltipIcon" style="position:fixed;z-index:999;width:31px;float:left;right:5px;bottom:36px;pointer-events: auto;visibility:visible;"><a href="https://visualinteractor.azurewebsites.net/customers/cemex/help/fillrate/"><img id="" src="images/info.png" style="width:20px;"></img></a><div class="tooltip-text">Guia de uso del visualizador</div></div>
+        <div class="tooltipIcon" style="position:fixed;z-index:999;width:31px;float:left;right:7px;bottom:65px;pointer-events: auto;visibility:visible;"><a href="https://forms.office.com/r/vKYCMHqze6" target="_blank"><img id="" src="images/ico soporte 01.png" style="width:25px;"></img></a><div class="tooltip-text">Reporte de incidencias</div></div>
 
         
       
@@ -361,6 +362,7 @@ color: yellow;
         <div id="toolTipLoader" style="position:fixed;top:300px;left:500px;line-height:24px;font-family:Cabin;box-shadow: rgba(0, 0, 0,.4) 5px 15px 16px ;color:white;font-size:19px;font-weight:normal;z-index:9999999;border-style:solid;border-color:#507D8C;border-width:1px;background-color:rgba(0,0,0,.9);padding:10px;pointer-events:auto;border-radius:6px;visibility:hidden;"></div>
 
         <svg id="svgLines"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:8000"/>
+        <svg id="svgLines2"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:9999999"/>
 
         <ul class="fa-ul" style="position:absolute;right:0px;top:-4px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;width: 233px;    direction: initial;    display: flow;">
             <div class="tooltipIcon"><img id="cargando" src="images/Home.png" onclick=" $('#nivel_cb').val(1); Stage.GoHome(); filterControls.CleanFields();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Limpiar Filtros y Ubicar Mapa</div></div>

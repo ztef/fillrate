@@ -115,7 +115,7 @@ kpi_date_status.ShowWindows = function( ){
           
           };
 
-        vix_tt_formatToolTip("#toolTip3","Utimas fechas disponibles por KPI (solo aquellas con warnings) ",400,300);
+        vix_tt_formatToolTip("#toolTip3","Últimas fechas disponibles por KPI (solo aquellas con warnings) ",400,300);
       
         // CREA TABLA USANDO DATOS
       

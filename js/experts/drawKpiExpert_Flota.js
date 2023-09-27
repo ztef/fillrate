@@ -4,6 +4,7 @@ kpiExpert_Flota.eraseChart=function(){
 
     d3.select("#svgTooltip").selectAll(".flotaDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".flotaDetail").data([]).exit().remove();
+    svgLines2.selectAll(".windowsContext").data([]).exit().remove();
 
 }
 
@@ -11,11 +12,21 @@ kpiExpert_Flota.DrawTooltipDetail=function(entity){
  
     d3.select("#svgTooltip").selectAll(".flotaDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".flotaDetail").data([]).exit().remove();
+
+    /*
     kpiExpert_Flota.DrawTooltipDetail_Origen(entity);
     kpiExpert_Flota.DrawTooltipDetail_Presentacion(entity);
+    */
 
     opacidadCesium=30;
-      $("#cesiumContainer").css("opacity",opacidadCesium/100);   
+      $("#cesiumContainer").css("opacity",opacidadCesium/100); 
+      
+    var objWindows=[
+      {titulo:"Déficit de Flota por Presentación",entity:entity, method:kpiExpert_Flota.DrawTooltipDetail_Presentacion},
+      {titulo:"Déficit de Flota por Origen",entity:entity,method: kpiExpert_Flota.DrawTooltipDetail_Origen}
+    ];     
+    
+    WindowsContext(objWindows);
 
 }
 
@@ -54,11 +65,12 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
 
         $("#toolTip3").css("visibility","visible");  
         $("#toolTip3").css("inset","");           
-        $("#toolTip3").css("top",120+"px");
+        $("#toolTip3").css("top",170+"px");
           $("#toolTip3").css("left",radio+"px");
+
         if(windowWidth > 1500 ){
 
-          $("#toolTip3").css("top",90+"px");
+          $("#toolTip3").css("top",170+"px");
           $("#toolTip3").css("left",radio+"px");
          
         }
@@ -169,12 +181,12 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
 
     $("#toolTip2").css("visibility","visible");            
    
-    $("#toolTip2").css("top",120+"px");
+    $("#toolTip2").css("top",170+"px");
     $("#toolTip2").css("left",windowWidth*.65+"px");
 
     if(windowWidth > 1500 ){
 
-      $("#toolTip2").css("top",190+"px");
+      $("#toolTip2").css("top",170+"px");
       $("#toolTip2").css("left",windowWidth*.65+"px");
      
     }

@@ -9,6 +9,8 @@ Cesium.Camera.DEFAULT_VIEW_FACTOR = 0;
 
 var svgLines;
 
+var svgLines2;
+
 
 var Stage={};
 
@@ -190,7 +192,17 @@ Stage.initStage=function(resolve, reject){
 		svgLines = d3.select("#svgLines")						
 							.append("svg")								
 							.attr("width", "100%" )
-							.attr("height", windowHeight )
+							.attr("height",  "100%" )
+							;
+
+		$("#svgLines2")
+							.css("width","100%")
+							.css("height",windowHeight);
+
+		svgLines2 = d3.select("#svgLines2")						
+							.append("svg")								
+							.attr("width", "100%" )
+							.attr("height",  "100%" )
 							;
 
 		svgLines.append("rect")		    		
