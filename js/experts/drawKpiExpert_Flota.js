@@ -44,7 +44,7 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
         arr = arr.sort((a, b) => b.Deficit - a.Deficit );
         arr.reverse();
 
-        var svgTooltipWidth=400;
+        var svgTooltipWidth=350;
         var altura=30;
 
         var tamanioFuente=altura*.5;
@@ -54,7 +54,7 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
 
         $("#toolTip3").css("visibility","visible");  
         $("#toolTip3").css("inset","");           
-        $("#toolTip3").css("top",90+"px");
+        $("#toolTip3").css("top",120+"px");
           $("#toolTip3").css("left",radio+"px");
         if(windowWidth > 1500 ){
 
@@ -160,7 +160,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
     arr = arr.sort((a, b) => b.Deficit - a.Deficit );
     arr.reverse();
 
-    var svgTooltipWidth=400;
+    var svgTooltipWidth=350;
     var altura=30;
 
     var tamanioFuente=altura*.5;
@@ -169,7 +169,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
 
     $("#toolTip2").css("visibility","visible");            
    
-    $("#toolTip2").css("top",90+"px");
+    $("#toolTip2").css("top",120+"px");
     $("#toolTip2").css("left",windowWidth*.65+"px");
 
     if(windowWidth > 1500 ){

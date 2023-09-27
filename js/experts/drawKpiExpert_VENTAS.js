@@ -165,7 +165,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     var caso=0;
    
     var svgTooltipHeight=(arr.length*altura)+120;
-    var svgTooltipWidth=550;
+
+    if(svgTooltipHeight < 160)
+      svgTooltipHeight=160;
+
+    var svgTooltipWidth=600;
     var marginLeft=svgTooltipWidth*.2;
     var tamanioFuente=altura*.4;
     var marginTop=35;
@@ -267,7 +271,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   // FORMATEA DIV :
 
-  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",700,svgTooltipHeight);
+  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",svgTooltipWidth,svgTooltipHeight);
 
   
         // COLUMNAS CON TOTALES :
@@ -356,18 +360,22 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     var caso=0;
 
     var svgTooltipHeight=(arr.length*altura)+50;
-    var svgTooltipWidth=530;
+
+    if(svgTooltipHeight < 160)
+      svgTooltipHeight=160;
+
+
+    var svgTooltipWidth=600;
     var marginLeft=svgTooltipWidth*.2;
     var tamanioFuente=altura*.4;
     var marginTop=35;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top","70px");
-    $("#toolTip2").css("left","1%");
+    $("#toolTip2").css("top","80px");
+    $("#toolTip2").css("left",radio+"px");
 
     if(windowWidth > 1500 ){
-
-        $("#toolTip2").css("top",80+"px");
+             
         $("#toolTip2").css("left",radio+"px");
      
     }   
@@ -486,12 +494,19 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
 
       // FORMATEA DIV :
    
-      vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado",700);
+      vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado",svgTooltipWidth,svgTooltipHeight);
   
     
       // CREA TABLA USANDO DATOS
 
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
+
+      // Crea una barra inferior y pasa una funcion de exportacion de datos
+      vix_tt_formatBottomBar("#toolTip2", function () {
+        var dataToExport = formatDataForExport(data, columns);
+        var filename = "exported_data";
+        exportToExcel(dataToExport, filename);
+      });
 
       // APLICA TRANSICIONES 
     

@@ -259,7 +259,7 @@ calculateKpiExpert_Ventas.getTooltipDetail=function(entityId){
 
                 var text=`<div class="tooltipDetailElement"><img id="" src="images/ventas.png" style=""></img>
                     <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento Ventas: </span><br>
-                    <span style='color:#ffffff;font-size:${13*escalaTextos}px;'>Venta Nacional, Entregado, Recogido y Autoflete a clientes terceros</span><br>
+                    <span style='color:#FFFDC7;font-size:${13*escalaTextos}px;'>Venta Nacional, Entregado, Recogido y<br>Autoflete a clientes terceros</span><br>
                     <span style='color:#fff60150;font-size:px;'></span> <span style='color:#ffffff'>${prodPer} </span><span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].ventas.VolumenPlan)} TM , Real:${formatNumber(entities[i].ventas.VolumenReal)} TM)</span><br>
                     </div>
                 `

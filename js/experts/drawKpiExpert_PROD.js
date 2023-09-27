@@ -18,7 +18,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
 
 }
 
-    kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){    
+kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){    
        
         var maximo=0; 
         var maximo2=0; 
@@ -164,9 +164,10 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
     
         }
       };
- // FORMATEA DIV :
- 
- vix_tt_formatToolTip("#toolTip2","Producción por Planta",700);
+
+          // FORMATEA DIV :
+          
+          vix_tt_formatToolTip("#toolTip2","Producción por Planta",650);
 
            // COLUMNAS CON TOTALES :
 
@@ -188,12 +189,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
       
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );        
 
-      // Crea una barra inferior y pasa una funcion de exportacion de datos
-      vix_tt_formatBottomBar("#toolTip2", function () {
-        var dataToExport = formatDataForExport(data, columns);
-        var filename = "exported_data";
-        exportToExcel(dataToExport, filename);
-      });
+      
       
       // APLICA TRANSICIONES 
     
@@ -205,10 +201,17 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         if($("#cat_producto").val() == "Gris"){
             $("#toolTip2").find(".content").append(`<div id="" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Gris, Impercem y Mortero </div>`);
         } else if( $("#cat_producto").val() == "Gris" || $("#cat_producto").val() == "Blanco" ){
-          $("#toolTip2").find(".content").append(`<div id="" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Blanco y Especiales </div>`);
+            $("#toolTip2").find(".content").append(`<div id="" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Blanco y Especiales </div>`);
         }      
 
       }   
+
+      // Crea una barra inferior y pasa una funcion de exportacion de datos
+      vix_tt_formatBottomBar("#toolTip2", function () {
+        var dataToExport = formatDataForExport(data, columns);
+        var filename = "exported_data";
+        exportToExcel(dataToExport, filename);
+      });
 
 
     }

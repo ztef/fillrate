@@ -177,17 +177,21 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     var tamanioFuente=altura*.4;
                                     var marginTop=35;
 
-                                    $("#toolTip4").css("visibility","visible");  
-                                    $("#toolTip4").css("inset","");      
-                                    $("#toolTip4").css("right","1%");
-                                    $("#toolTip4").css("top","60px");
+                                    
 
+
+                                    $("#toolTip4").css("visibility","visible");            
+                                    $("#toolTip4").css("inset","");         
+                                    $("#toolTip4").css("left",(radio)+"px"); 
+                                    $("#toolTip4").css("bottom","1%");
+                                
                                     if(windowWidth > 1500 ){
-
-                                        $("#toolTip4").css("top",80+"px");
-                                        $("#toolTip4").css("left",windowWidth*.6+"px");
+                                
+                                        $("#toolTip4").css("top",windowHeight*.5+"px");
+                                        $("#toolTip4").css("left",radio+"px");
+                                        $("#toolTip4").css("bottom","");
                                        
-                                    } 
+                                    }   
                                 
 
                                     // DATOS 
@@ -387,33 +391,31 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
     if(svgTooltipWidth < 150)
         svgTooltipWidth=150;
 
-    var svgTooltipHeight=290;
+    var svgTooltipHeight=320;
     var tamanioFuente=ancho*.7;   
 
     var marginBottom=svgTooltipHeight*.28;
 
 
-    $("#toolTip3").css("visibility","visible");            
-    $("#toolTip3").css("inset","");         
-    $("#toolTip3").css("left","10%");  
-    $("#toolTip3").css("bottom","1%");
+    $("#toolTip3").css("visibility","visible");  
+    $("#toolTip3").css("inset","");      
+    $("#toolTip3").css("right","1%");
+    $("#toolTip3").css("top","60px");
 
     if(windowWidth > 1500 ){
 
-        $("#toolTip3").css("top",windowHeight*.5+"px");
-        $("#toolTip3").css("left",radio+"px");
-        $("#toolTip3").css("bottom","");
-       
-    }   
-
+        $("#toolTip3").css("top",80+"px");
+        $("#toolTip3").css("left",windowWidth*.6+"px");
+        
+    } 
 
     // FORMATEA TOOL TIP :
     
-    vix_tt_formatToolTip("#toolTip3","Pedidos Pendientes por Día de "+entity.key,svgTooltipWidth+30);
+    vix_tt_formatToolTip("#toolTip3","Pedidos Pendientes por Día de "+entity.key,svgTooltipWidth+30,svgTooltipHeight);
 
     // Agrega un div con un elemento svg :
 
-    var svgElement = `<img id="simbologia" src="images/simb FR libre.png" style="width:340px;position:absolute;float:left;right:7px;bottom:10px;"></img><svg id='svgTooltip3' style='pointer-events:none;'></svg>`;
+    var svgElement = `<img id="simbologia" src="images/simb FR libre.png" style="width:310px;position:absolute;float:left;right:7px;top:45px;"></img><svg id='svgTooltip3' style='pointer-events:none;'></svg>`;
     d3.select("#toolTip3").append("div").html(svgElement);
 
     d3.select("#svgTooltip3")                     
@@ -524,12 +526,9 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
                     maximo = Number(dataElement[campos[i]]);
                 } 
             }
-        }
-        
+        }       
        
     }
-
-
 
     var altura=20;
     var caso=0;
@@ -541,8 +540,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
     var marginTop=svgTooltipHeight*.05;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top","1%");
-    $("#toolTip2").css("left","1%");
+    $("#toolTip2").css("top","30px");
+    $("#toolTip2").css("left",(radio*.7)+"px");
 
     if(windowWidth > 1500 ){
 
