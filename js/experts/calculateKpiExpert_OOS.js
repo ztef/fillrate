@@ -20,13 +20,15 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                         }                        
                 }
 
+                
                 for( var i=0; i < store.catlogsForFilters.length; i++ ){    
                         if(store.catlogsForFilters[i].data==nombreCatalogoParaDiccionario){
                                 diccionarioNombres=store.catlogsForFilters[i].diccNames;
                                 
                         }
-                }               
-
+                }    
+                
+                
                 for(var i=0; i < store.apiDataSources.length; i++){
           
                         if(store.apiDataSources[i].varName=="oos"){
@@ -129,9 +131,8 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 
                                                 var entidad=entities_coll[data.recordset[j].Agrupador];
 
-                                                
-
-                                                if(entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ]] && !entidad){
+                                         
+                                                if(entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ] ] && !entidad){
                                                         entidad=entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ]];
                                                 }
 

@@ -31,8 +31,10 @@ filterControls.createDataFiltersControls=function(catalogs){
 
         `);
 
-        filterControls.creaCatalogosDerivadorDeClientes();   
+        
     }
+
+    filterControls.creaCatalogosDerivadorDeClientes();   
     
     
     for(var i=0;  i < catalogs.length; i++){
@@ -473,6 +475,8 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
                 }
 
             }
+
+            console.log("crea cat sucrusal");
 
             store.cat_sucursal=arrTemp;
 

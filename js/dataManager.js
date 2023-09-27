@@ -51,7 +51,7 @@ var entities;
  dataManager.ClusterObjects= function(){
 
     if(loadsCount!=loadsTarget){
-        return;
+        //return;
     }
     
     Stage.blockScreen.style("visibility","visible"); 
@@ -117,6 +117,8 @@ dataManager.UpdateCatlogs= function(){
         console.log("catlogsSources",catlogsSources);
         
         dataLoader.LoadInitialData(  catlogsSources ).then(function(){ 
+
+            filterControls.createDataFiltersControls(store.catlogsForFilters);
 
             dataManager.ProcessEntities();
 
