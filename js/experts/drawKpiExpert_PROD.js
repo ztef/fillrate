@@ -100,8 +100,8 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
       
       var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "VolVenta_Plan", header: "Vol Plan", sortable: true, width: "100px" },
-        { key: "VolVenta_Real", header: "Vol Real", sortable: true, width: "100px" },
+        { key: "VolVenta_Plan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
+        { key: "VolVenta_Real", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
@@ -119,13 +119,13 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
           },
     
           VolVenta_Plan: function(value) {
-          return vix_tt_formatNumber(value) + " TM";
+          return vix_tt_formatNumber(value) ;
         },
         VolVenta_Real: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifP: function(value){
       

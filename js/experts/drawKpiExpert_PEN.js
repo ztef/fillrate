@@ -181,11 +181,11 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     $("#toolTip4").css("visibility","visible");            
                                     $("#toolTip4").css("inset","");         
                                     $("#toolTip4").css("left",radio*.7+"px"); 
-                                    $("#toolTip4").css("top",windowHeight*.5+"px");
+                                    $("#toolTip4").css("top","80px");
                                 
                                     if(windowWidth > 1500 ){
                                 
-                                        $("#toolTip4").css("top",windowHeight*.3+"px");
+                                       
                                         $("#toolTip4").css("left",radio +"px");
                                         $("#toolTip4").css("bottom","");
                                        
@@ -221,7 +221,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                         Libre_Pendiente_Hoy: function(value){
                                     
                                             var barWidth = (value/maximo1)*100 + '%';
-                                            var barValue = vix_tt_formatNumber(value)+'%   ';
+                                            var barValue = vix_tt_formatNumber(value)+'';
                                         
                                             return '<div class="bar-container">' +
                                             '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
@@ -231,7 +231,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                         Libre_Retrasado: function(value){
                                     
                                             var barWidth = (value/maximo1)*100 + '%';
-                                            var barValue = vix_tt_formatNumber(value)+'TM   ';
+                                            var barValue = vix_tt_formatNumber(value)+'';
                                     
                                         return '<div class="bar-container">' +
                                         '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
@@ -538,13 +538,12 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
     var marginTop=svgTooltipHeight*.05;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top","60px");
-    $("#toolTip2").css("left",(radio*.7)+"px");
+    $("#toolTip2").css("top","500px");
+    $("#toolTip2").css("right","1%");
 
     if(windowWidth > 1500 ){
 
-        $("#toolTip2").css("top",80+"px");
-        $("#toolTip2").css("left",radio+"px");
+        $("#toolTip2").css("left",windowWidth*.6+"px");
        
     } 
  

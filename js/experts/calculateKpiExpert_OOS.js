@@ -129,6 +129,8 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 
                                                 var entidad=entities_coll[data.recordset[j].Agrupador];
 
+                                                
+
                                                 if(entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ]] && !entidad){
                                                         entidad=entities_coll[ diccionarioNombres[ data.recordset[j].Agrupador ]];
                                                 }

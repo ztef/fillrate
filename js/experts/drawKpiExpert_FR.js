@@ -268,7 +268,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         
         cant: function(value,i) {
                 var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.4);
-                var barValue = formatNumber(value)+" TM";
+                var barValue = formatNumber(value);
                
               
 
@@ -299,7 +299,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado",500);
+      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado",500,svgTooltipHeight+100);
 
      // CREA TABLA USANDO DATOS
       
@@ -405,7 +405,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         
                 $("#toolTip2").css("visibility","visible");        
                 $("#toolTip2").css("max-height","");    
-                $("#toolTip2").css("top",1+"%");
+                $("#toolTip2").css("top",80+"px");
                 $("#toolTip2").css("left",radio+"px");
 
                 if(windowWidth > 1500 ){

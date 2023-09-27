@@ -178,12 +178,12 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
     $("#toolTip3").css("visibility","visible"); 
     $("#toolTip3").css("inset","");           
-    $("#toolTip3").css("bottom","1%");
-    $("#toolTip3").css("right","3%");
+    $("#toolTip3").css("top","80px");
+    $("#toolTip3").css("right","1%");
     
     if(windowWidth > 1500 ){
 
-      $("#toolTip3").css("top",380+"px");
+      $("#toolTip2").css("top","80px");
       $("#toolTip3").css("left",windowWidth*.5+"px");
      
     }
@@ -210,7 +210,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
     { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
     { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-    { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+    { key: "Peso", header: "Peso", sortable: true,  width: "80px" }
   ];
 
 
@@ -224,13 +224,13 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
       },
 
     VolumenPlan: function(value) {
-      return vix_tt_formatNumber(value) + "TM";
+      return vix_tt_formatNumber(value) ;
     },
     VolumenReal: function(value) {
-        return vix_tt_formatNumber(value) + "TM";
+        return vix_tt_formatNumber(value) ;
     },
     DifK: function(value) {
-        return vix_tt_formatNumber(value) + "TM";
+        return vix_tt_formatNumber(value) ;
     },
     DifP: function(value){
 
@@ -279,13 +279,13 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
         var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
         var totalsColumnVisitors = {
                   'VolumenPlan': function(value) { 
-                    return vix_tt_formatNumber(value) + "TM";
+                    return vix_tt_formatNumber(value) ;
                   },
                   'VolumenReal': function(value) { 
-                    return vix_tt_formatNumber(value) + "TM"; 
+                    return vix_tt_formatNumber(value) ; 
                   },
                   'DifK': function(value) { 
-                    return vix_tt_formatNumber(value) + "TM"; 
+                    return vix_tt_formatNumber(value) ; 
                   }
                   };
 
@@ -372,7 +372,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
 
     $("#toolTip2").css("visibility","visible");            
     $("#toolTip2").css("top","80px");
-    $("#toolTip2").css("left",radio+"px");
+    $("#toolTip2").css("left",radio*.7+"px");
 
     if(windowWidth > 1500 ){
              
@@ -412,11 +412,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
       
       var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+        { key: "Peso", header: "Peso", sortable: true,  width: "80px" }
       ];
     
     
@@ -430,13 +430,13 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
           },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + "TM";
+          return vix_tt_formatNumber(value) ;
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + "TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + "TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifP: function(value){
       
@@ -482,13 +482,13 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
            var totalsColumnVisitors = {
                      'VolumenPlan': function(value) { 
-                       return vix_tt_formatNumber(value) + "T";
+                       return vix_tt_formatNumber(value) ;
                      },
                      'VolumenReal': function(value) { 
-                       return vix_tt_formatNumber(value) + "T"; 
+                       return vix_tt_formatNumber(value) ; 
                      },
                      'DifK': function(value) { 
-                       return vix_tt_formatNumber(value) + "T"; 
+                       return vix_tt_formatNumber(value) ; 
                      }
                      };
 

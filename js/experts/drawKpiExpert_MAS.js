@@ -67,7 +67,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
 
     $("#toolTip2").css("visibility","visible");            
     $("#toolTip2").css("left",34+"%");
-    $("#toolTip2").css("top",15+"%");
+    $("#toolTip2").css("top",80+"px");
 
     //Agrega div con un elemento svg :
 

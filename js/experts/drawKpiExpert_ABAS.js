@@ -125,8 +125,11 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
 
     var svgTooltipHeight=arr.length*altura;
 
-    if(svgTooltipHeight<180)
-      svgTooltipHeight=180;
+    if(svgTooltipHeight<140){
+      console.log("corrigee");
+      svgTooltipHeight=140;
+    }
+     
 
     if(svgTooltipHeight>windowHeight*.8){
 
@@ -140,7 +143,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     var marginTop=35;
     
     $("#toolTip5").css("visibility","visible");            
-    $("#toolTip4").css("bottom","1%");
+    $("#toolTip5").css("bottom","1%");
     $("#toolTip5").css("right","2%");
 
     if(windowWidth > 1500 ){
@@ -330,12 +333,12 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     $("#toolTip2").css("visibility","visible");  
     $("#toolTip2").css("inset","");            
     $("#toolTip2").css("bottom","1%");
-    $("#toolTip2").css("left",radio+"px");
+    $("#toolTip2").css("right","10px");
 
     if(windowWidth > 1500 ){
 
       $("#toolTip2").css("top",windowHeight*.5+"px");
-      $("#toolTip2").css("left",radio+"px");
+      $("#toolTip2").css("left",windowWidth*.6+"px");
       $("#toolTip2").css("right","");
      
     }
@@ -351,12 +354,11 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
           "Peso": item.Peso,
         };
-        });
-    
+        });  
     
       
     
-        // DEFINE COLUMNAS
+      // DEFINE COLUMNAS
       
       var columns = [
         { key: "key", header: "Transporte", sortable: true, width: "110px" },
@@ -378,13 +380,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + " TM";
+          return vix_tt_formatNumber(value) ;
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifP: function(value){
 
@@ -518,10 +520,10 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         var altura=50;
         var caso=0;
     
-        var svgTooltipHeight=arr.length*(altura*.7);
+        var svgTooltipHeight=arr.length*(altura*.5);
 
-        if(svgTooltipHeight<180)
-            svgTooltipHeight=180;
+        if(svgTooltipHeight<120)
+            svgTooltipHeight=120;
 
         if(svgTooltipHeight>windowHeight*.7)
             svgTooltipHeight=windowHeight*.7;
@@ -582,13 +584,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + " TM";
+          return vix_tt_formatNumber(value) ;
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifP: function(value){
           
@@ -628,28 +630,25 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         }
       };    
     
-      // FORMATEA DIV :
+      // COLUMNAS CON TOTALES :
 
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,640,svgTooltipHeight);
-    
-            // COLUMNAS CON TOTALES :
-    
-            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
-            var totalsColumnVisitors = {
-                      'VolumenPlan': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM";
-                      },
-                      'VolumenReal': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      },
-                      'DifK': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      }
-                      };
+      var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
+      var totalsColumnVisitors = {
+                'VolumenPlan': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM";
+                },
+                'VolumenReal': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                },
+                'DifK': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                }
+                };
 
-      // CREA TABLA USANDO DATOS
-      
-      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );        
+
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,640,svgTooltipHeight+170);
+
+      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );  
 
       // Crea una barra inferior y pasa una funcion de exportacion de datos
       vix_tt_formatBottomBar("#toolTip3", function () {
@@ -790,13 +789,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
               },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + " TM";
+          return vix_tt_formatNumber(value) ;
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifP: function(value){
 
