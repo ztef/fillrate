@@ -30,6 +30,9 @@ kpiExpert_Flota.DrawTooltipDetail=function(entity){
     //WindowsContext(objWindows);
     */
 
+     // DISTRIBUYE 
+     vix_tt_distributeDivs(["#toolTip2","#toolTip3"]);  
+
 }
 
 kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){   

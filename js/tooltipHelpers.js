@@ -146,6 +146,153 @@ function vix_tt_transitionRectWidth(containerID) {
   }
 
 
+  // Funcion que distribuye un grupo de tooltips en la ventana
+
+
+  function vix_tt_distributeDivs(tooltips) {
+    // 600,200 es la posicion inicial
+    distributeDivs(600,150,tooltips,  40, 40)
+  }
+
+  function distributeDivs(x, y, divs, marginX, marginY) {
+
+
+    const positions = [{ x, y }]; // Arreglo que guarda posiciones disponibles
+                                  // Al principio solo hay una.
+
+    // Recorre cada DIV
+    divs.forEach((div, index) => {
+      
+      const $div = $(div);
+      const divWidth = $div.width() + marginX;
+      const divHeight = $div.height() + marginY;
+
+      //console.log("div width", divWidth);
+  
+      let positionIndex = -1; // Indice de la posicion seleccionada
+      
+      // Checa las posiciones disponibles
+      for (let i = 0; i < positions.length; i++) {
+        const position = positions[i];
+        const { x: posX, y: posY } = position;
+  
+        // Checa si el div cabe, si cabe a la derecha selecciona esa posicion.
+        if (posX + divWidth <= window.innerWidth) {
+          positionIndex = i;
+          break; 
+        }
+      }
+  
+     
+
+      // Si no encontro ninguna toma la ultima
+      
+      if (positionIndex === -1) {
+         
+          const position = positions[positions.length -1 ];
+          const { x: posX, y: posY } = position;
+  
+           
+            positionIndex = positions.length -1;
+            
+          
+         
+      }
+      
+      
+  
+      // selecciona datos de la posicion y posiciona el div
+      if (positionIndex !== -1) {
+
+        
+        const position = positions.splice(positionIndex, 1)[0];  // Elimina la posicion encontrada para que nadie la tome
+        const { x: posX, y: posY } = position;
+        //console.log("Posicion encontrada", position);
+  
+        // Posiciona el DIV
+        $div.css({ left: posX, top: posY });
+  
+        // Calcula 2 siguientes posibles posiciones : a la derecha y abajo
+
+        const rightPosition = { x: posX + divWidth, y: posY };
+        const belowPosition = { x: x, y: posY + divHeight };
+
+        //console.log("posX",posX);
+        //console.log("divWidth",divWidth);
+  
+        positions.push(rightPosition)
+        positions.push(belowPosition);
+        
+        //console.log("posicion derecha ", rightPosition);
+        //console.log("posicion abajo ", belowPosition);
+      }
+    });
+  }
+  
+  
+  
+
+
+
+
+  function vix_tt_distributeDivs_old(tooltips) {
+
+    let x = 600;
+    let y = 150;
+
+    let currentX = x;
+    let currentY = y;
+    const windowWidth = window.innerWidth; // Get the current screen width
+    const windowHeight = window.innerHeight;
+
+    let maxWidth = windowWidth;
+    let maxHeight = windowHeight;
+     
+    let x_separation = 30;
+    let y_separation = 30;
+    let row = 0;
+    let column = 0;
+
+    
+    tooltips.forEach((div, index) => {
+
+      if (currentX + $(div).width() > maxWidth) {
+          currentX = x;
+          currentY = y + $(tooltips[index-column]).height() + y_separation;
+          if(row == 1){
+             currentY +=  $(tooltips[0]).height() + y_separation;
+          }
+             row = row + 1;
+
+          if(currentY + $(div).height() > maxHeight){
+            column = column + 1;
+            currentX = $(tooltips[index-column + 1]) + x_separation;
+            currentY = $(tooltips[index-column + 1]).height + y_separation;
+  
+          }
+
+          
+      }
+
+
+     
+      $(div).css({ left: currentX, top: currentY });
+
+      currentX += $(div).width() + x_separation;
+      column = column + 1;
+      
+      
+  });
+
+}
+
+
+
+
+
+
+
+
 /*
 
   Formatea cualquier elemento DIV del DOM :

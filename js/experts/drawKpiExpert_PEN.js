@@ -25,6 +25,9 @@ kpiExpert_PENDIENTES.DrawTooltipDetail=function(entity){
     opacidadCesium=30;
       $("#cesiumContainer").css("opacity",opacidadCesium/100); 
 
+
+   
+
 }
 
 kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){    
@@ -177,19 +180,10 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     var tamanioFuente=altura*.4;
                                     var marginTop=35;                                    
 
-
-                                    $("#toolTip4").css("visibility","visible");            
-                                    $("#toolTip4").css("inset","");         
-                                    $("#toolTip4").css("left",radio*.7+"px"); 
-                                    $("#toolTip4").css("top","80px");
-                                
-                                    if(windowWidth > 1500 ){
-                                
-                                       
-                                        $("#toolTip4").css("left",radio +"px");
-                                        $("#toolTip4").css("bottom","");
-                                       
-                                    }   
+                                    $("#toolTip4").css("visibility","visible");  
+                                    $("#toolTip4").css("inset","");      
+                                   // $("#toolTip4").css("right","1%");
+                                   // $("#toolTip4").css("top","60px");
                                 
 
                                     // DATOS 
@@ -268,6 +262,9 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     });
                                     // APLICA TRANSICIONES
                                     vix_tt_transitionRectWidth("toolTip4");
+
+                                     // DISTRIBUYE 
+                                    vix_tt_distributeDivs(["#toolTip2","#toolTip3","#toolTip4"]); 
 
 
                     });

@@ -40,6 +40,14 @@ kpiExpert_ABAS.DrawTooltipDetail=function(entity){
     opacidadCesium=30;
       $("#cesiumContainer").css("opacity",opacidadCesium/100);     
 
+    // DISTRIBUYE
+    if( 5 == $("#nivel_cb").val() ){
+         vix_tt_distributeDivs(["#toolTip5","#toolTip4","#toolTip2"]);  
+    } else {
+         vix_tt_distributeDivs(["#toolTip3","#toolTip2"]);
+    }
+
+
 }
 
 
