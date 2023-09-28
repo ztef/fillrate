@@ -31,8 +31,10 @@ filterControls.createDataFiltersControls=function(catalogs){
 
         `);
 
-        filterControls.creaCatalogosDerivadorDeClientes();   
+        
     }
+
+    filterControls.creaCatalogosDerivadorDeClientes();   
     
     
     for(var i=0;  i < catalogs.length; i++){
@@ -76,8 +78,7 @@ filterControls.createDataFiltersControls=function(catalogs){
                 
                     arrAutoCompleteArr.push(arr[j].key);
 
-                }               
-                        
+                }                
 
                 $("#ControlsFields").append(
                         `
@@ -100,9 +101,15 @@ filterControls.createDataFiltersControls=function(catalogs){
                     }
 
                 }else{
-                    for(var j=0;  j < arrAutoCompleteArr.length; j++){                             
+
+                    $("#"+catalogs[i].id).append(`<option value="Todos">${catalogs[i].placeholder}: Todos</option>`);
+                  
+
+                    for(var j=0;  j < arrAutoCompleteArr.length; j++){   
+                                             
                         $("#"+catalogs[i].id).append(`<option value="${arrAutoCompleteArr[j]}">${arrAutoCompleteArr[j]}</option>`);
                     }
+
                 }   
 
                 if(catalogs[i].default)
@@ -111,14 +118,14 @@ filterControls.createDataFiltersControls=function(catalogs){
 
                
                 $.widget( "custom.combobox", {
-			    _create: function() {
-				this.wrapper = $( "<span>" )
-					.addClass( "custom-combobox "+catalogs[i].id )
-					.insertAfter( this.element );
-				this.element.hide();
-				this._createAutocomplete();
-				this._createShowAllButton();
-			},
+                    _create: function() {
+                    this.wrapper = $( "<span>" )
+                        .addClass( "custom-combobox "+catalogs[i].id )
+                        .insertAfter( this.element );
+                    this.element.hide();
+                    this._createAutocomplete();
+                    this._createShowAllButton();
+                },
 
 			_createAutocomplete: function() {
 				var selected = this.element.children( ":selected" ),
@@ -474,6 +481,8 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             }
 
+            console.log("crea cat sucrusal");
+
             store.cat_sucursal=arrTemp;
 
             // CLIENTES  HOLDINGS            
@@ -639,7 +648,7 @@ filterControls.showActiveFilters=function(){
 
     for(var i=0; i < store.catlogsForFilters.length; i++){
          
-        if($("#"+store.catlogsForFilters[i].id).val() != "" && $("#"+store.catlogsForFilters[i].id).val() != undefined ){
+        if($("#"+store.catlogsForFilters[i].id).val() != "" && $("#"+store.catlogsForFilters[i].id).val() != undefined && $("#"+store.catlogsForFilters[i].id).val() != "Todos" ){
            filtrosAplicados[store.catlogsForFilters[i].id]=$("#"+store.catlogsForFilters[i].id).val();
             caso++;
         }else{
@@ -693,7 +702,9 @@ filterControls.showActiveFilters=function(){
         }
 
     }
-
+    if(!svgLines){
+        return;
+    }
     svgLines.selectAll(".filters").data([]).exit().remove();
 
     var caso=1;  
@@ -768,8 +779,6 @@ filterControls.showActiveFilters=function(){
     <span style="font-size:12px; color:white">
        Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;
-
-    console.log("titulo",titulo);
 
     $("#titulo").html(titulo);   
     

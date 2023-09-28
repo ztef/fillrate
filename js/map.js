@@ -9,6 +9,8 @@ Cesium.Camera.DEFAULT_VIEW_FACTOR = 0;
 
 var svgLines;
 
+var svgLines2;
+
 
 var Stage={};
 
@@ -78,9 +80,7 @@ Stage.initStage=function(resolve, reject){
 							}	
 							
 						}
-					}
-
-					
+					}				
 
 		    }else
 		    {
@@ -149,6 +149,9 @@ Stage.initStage=function(resolve, reject){
 			    	
 			        $("#toolTip").css("left",mouse_x+50);
 
+					if(  windowWidth-mouse_x < 500 )
+					$("#toolTip").css("left",mouse_x-600);
+
 					var text=dataManager.getTooltipText(mapElements[pickedObject.id._id]);
 
 					
@@ -189,7 +192,17 @@ Stage.initStage=function(resolve, reject){
 		svgLines = d3.select("#svgLines")						
 							.append("svg")								
 							.attr("width", "100%" )
-							.attr("height", windowHeight )
+							.attr("height",  "100%" )
+							;
+
+		$("#svgLines2")
+							.css("width","100%")
+							.css("height",windowHeight);
+
+		svgLines2 = d3.select("#svgLines2")						
+							.append("svg")								
+							.attr("width", "100%" )
+							.attr("height",  "100%" )
 							;
 
 		svgLines.append("rect")		    		
@@ -369,6 +382,7 @@ Stage.FocusMapElement=function(id){
 }
 
 Stage.ReorderLayout=function(){
+
 	windowWidth = window.innerWidth;
 	windowHeight = window.innerHeight;
 
@@ -383,6 +397,8 @@ Stage.ReorderLayout=function(){
 		svgLines.attr("height",windowHeight+"px");
 	
 	$("#titulo").css("width",((windowWidth*.9)-220)+"px");
+
+	filterControls.showActiveFilters();
 }
 
 

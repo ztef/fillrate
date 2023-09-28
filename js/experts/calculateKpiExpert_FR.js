@@ -65,16 +65,14 @@ calculateKpiExpert_FR.calculateKPI=function(){
                        
         for(var j=0; j < store.catlogsForFilters.length; j++){
 
-            if($("#"+store.catlogsForFilters[j].id).val() != "" && $("#"+store.catlogsForFilters[j].id).val() != undefined ){
-                console.log(store.catlogsForFilters[j].id,$("#"+store.catlogsForFilters[j].id).val());
+            if($("#"+store.catlogsForFilters[j].id).val() != "" && $("#"+store.catlogsForFilters[j].id).val() != undefined && $("#"+store.catlogsForFilters[j].id).val() != "Todos" ){
+                
                 params+="&"+store.catlogsForFilters[j].storeProcedureField+"="+store.catlogsForFilters[j].diccNames[ $("#"+store.catlogsForFilters[j].id).val() ];
                 cuentaFiltros++;
             }
 
         }
-
-        console.log("params ********",params);
-
+      
         if(serviceName && apiURL){
 
                 //FILTRO DE MASIVO
@@ -175,9 +173,7 @@ calculateKpiExpert_FR.calculateKPI=function(){
 
                                 store.fillRate=data.recordset;
 
-                            }
-
-                           
+                            }                           
 
                             for(var i=0;  i < entities.length; i++){ 
 

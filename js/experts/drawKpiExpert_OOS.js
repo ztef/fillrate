@@ -11,8 +11,7 @@ kpiExpert_OOS.eraseChart=function(){
     $("#toolTip2").css("visibility","hidden");	
     $("#toolTip3").css("visibility","hidden");
 
-    opacidadCesium=.3;
-    $("#cesiumContainer").css("opacity",opacidadCesium/100);
+   
 }
 
 kpiExpert_OOS.DrawTooltipDetail=function(entity){    
@@ -94,9 +93,15 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",1+"%"); 
+    $("#toolTip2").css("left",radio+"px"); 
     $("#toolTip2").css("top",80+"px");
 
+    if(windowWidth > 1500 ){
+
+        $("#toolTip2").css("top",80+"px");
+        $("#toolTip2").css("left",radio+"px");
+       
+    }
 
     // DATOS 
     var data = arr.map(function(item) {
@@ -106,9 +111,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
           "OOS": item.OOS,
           "Numera": item.CantEntFinal,
         };
-        });
-    
-    
+        });  
     
         // DEFINE COLUMNAS
       
@@ -310,8 +313,8 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             
             var svgTooltipWidth=arr.length*(ancho*1.05);
 
-            if(svgTooltipWidth < 80)
-            svgTooltipWidth=80;
+            if(svgTooltipWidth < 180)
+            svgTooltipWidth=180;
 
             var svgTooltipHeight=500;
             var tamanioFuente=ancho*.7;   
@@ -320,6 +323,14 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             $("#toolTip3").css("inset",""); 
             $("#toolTip3").css("top",80+"px");
             $("#toolTip3").css("right","1%");
+
+            if(windowWidth > 1500 ){
+
+                $("#toolTip3").css("top",80+"px");
+                $("#toolTip3").css("left",windowWidth*.6+"px");
+                $("#toolTip3").css("right","");
+               
+        }   
         
             var marginBottom=svgTooltipHeight*.02;
 
@@ -341,8 +352,8 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
             for(var i=0; i < arr.length; i++ ){   
 
                
-                var altura1=GetValorRangos( arr[i].OOS*1000,1, maximo ,1,svgTooltipHeight*.25);
-                var altura2=GetValorRangos( arr[i].Fisico ,1, maximo2 ,1,svgTooltipHeight*.25   );
+                var altura1=GetValorRangos( arr[i].OOS*1000,1, maximo ,1,svgTooltipHeight*.22);
+                var altura2=GetValorRangos( arr[i].Fisico ,1, maximo2 ,1,svgTooltipHeight*.22   );
                 
                 
                 var color="#1ADD00";
@@ -368,7 +379,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                                 .attr("width",ancho*.8 )
                                 .attr("class","ossDetail")
                                 .attr("x",(ancho*i)  )
-                                .attr("y", (svgTooltipHeight*.38)-altura2-marginBottom  )
+                                .attr("y", (svgTooltipHeight*.4)-altura2-marginBottom  )
                                 .attr("height",altura2)
                                 .attr("fill","#ffffff")
                                 .style("pointer-events","auto")
@@ -435,7 +446,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                                 .style("font-weight","bold")
                                 .style("font-size",tamanioFuente)	
                                 .style("text-anchor","start")
-                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight*.37)-altura2-marginBottom-3   )+")  rotate("+(-90)+") ")
+                                .attr("transform"," translate("+String( (ancho*i)+tamanioFuente-2  )+","+String( (svgTooltipHeight*.4)-altura2-marginBottom-3   )+")  rotate("+(-90)+") ")
                                 .text(function(){
                                 
                                     return  formatNumber(arr[i].Fisico) ;
@@ -466,7 +477,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
                 .style("font-weight","normal")
                 .style("font-size",tamanioFuente)	
                 .style("text-anchor","start")
-                .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.4  )+")  rotate("+(0)+") ")
+                .attr("transform"," translate("+String( 3  )+","+String( svgTooltipHeight*.42  )+")  rotate("+(0)+") ")
                 .text("Porcentaje (%):");
         
 

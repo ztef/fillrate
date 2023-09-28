@@ -124,6 +124,13 @@ radar.CleanWindows=function(){
             kpiExpert_PENDIENTES.eraseChart();
         }
     }
+
+    if(kpiExpert_Flota){
+        if(kpiExpert_Flota.DrawTooltipDetail){
+            kpiExpert_Flota.eraseChart();
+        }
+    }
+    
     if(reportExpert){
                 
         reportExpert.EraseReport();

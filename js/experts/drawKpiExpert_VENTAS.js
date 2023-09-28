@@ -169,7 +169,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     var caso=0;
    
     var svgTooltipHeight=(arr.length*altura)+120;
-    var svgTooltipWidth=550;
+
+    if(svgTooltipHeight < 160)
+      svgTooltipHeight=160;
+
+    var svgTooltipWidth=600;
     var marginLeft=svgTooltipWidth*.2;
     var tamanioFuente=altura*.4;
     var marginTop=35;
@@ -178,17 +182,15 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
     $("#toolTip3").css("visibility","visible"); 
     $("#toolTip3").css("inset","");           
-    $("#toolTip3").css("bottom","1%");
-    $("#toolTip3").css("right","3%");
+    $("#toolTip3").css("top","80px");
+    $("#toolTip3").css("right","1%");
     
+    if(windowWidth > 1500 ){
 
-    
-    /* 
-
-        VIX_TT  : Prepara datos para el tool tip
-
-    */
-
+      $("#toolTip2").css("top","80px");
+      $("#toolTip3").css("left",windowWidth*.5+"px");
+     
+    }
 
     // DATOS 
 
@@ -212,7 +214,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
     { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
     { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
     { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-    { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+    { key: "Peso", header: "Peso", sortable: true,  width: "80px" }
   ];
 
 
@@ -226,18 +228,33 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
       },
 
     VolumenPlan: function(value) {
-      return vix_tt_formatNumber(value) + "TM";
+      return vix_tt_formatNumber(value) ;
     },
     VolumenReal: function(value) {
-        return vix_tt_formatNumber(value) + "TM";
+        return vix_tt_formatNumber(value) ;
     },
     DifK: function(value) {
-        return vix_tt_formatNumber(value) + "TM";
+        return vix_tt_formatNumber(value) ;
     },
     DifP: function(value){
-  
-        var barWidth = value + '%';
-        var barValue = vix_tt_formatNumber(value)+'%   ';
+
+        if(value<0)
+        value=0;
+
+        if(value > 150 && value!=Infinity)
+          value=150;          
+
+        if(value!=Infinity){
+
+          var barWidth = value*.66 + '%';
+          var barValue = vix_tt_formatNumber(value)+'%   ';
+
+        }else{
+
+          var barWidth =  '0%';
+          var barValue = vix_tt_formatNumber(0)+'%   ';
+
+        }         
     
         return '<div class="bar-container">' +
         '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10px">'  
@@ -250,7 +267,6 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
         var barValue = vix_tt_formatNumber(value)+'TM';
    
        return '<div class="bar-container">' +
-       '<span class="bar-value" style="width:30px"></span>' +
        '<svg width="100%" height="10px"><rect class="bar-rect" width="' + barWidth + '" height="10px" style="fill: yellow;"></rect></svg>' +      
        '</div>';
     }
@@ -259,7 +275,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   // FORMATEA DIV :
 
-  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",700,svgTooltipHeight);
+  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",svgTooltipWidth,svgTooltipHeight);
 
   
         // COLUMNAS CON TOTALES :
@@ -267,21 +283,17 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
         var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
         var totalsColumnVisitors = {
                   'VolumenPlan': function(value) { 
-                    return vix_tt_formatNumber(value) + "TM";
+                    return vix_tt_formatNumber(value) ;
                   },
                   'VolumenReal': function(value) { 
-                    return vix_tt_formatNumber(value) + "TM"; 
+                    return vix_tt_formatNumber(value) ; 
                   },
                   'DifK': function(value) { 
-                    return vix_tt_formatNumber(value) + "TM"; 
+                    return vix_tt_formatNumber(value) ; 
                   }
                   };
-  
-      
-      
-       
-      
-  // CREA TABLA USANDO DATOS
+
+        // CREA TABLA USANDO DATOS
       
         vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );        
 
@@ -292,10 +304,6 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
           exportToExcel(dataToExport, filename);
         });
  
-  
-  
-  // APLICA TRANSICIONES 
-
         vix_tt_transitionRectWidth("toolTip3");
   
 
@@ -356,14 +364,25 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     var caso=0;
 
     var svgTooltipHeight=(arr.length*altura)+50;
-    var svgTooltipWidth=530;
+
+    if(svgTooltipHeight < 160)
+      svgTooltipHeight=160;
+
+
+    var svgTooltipWidth=600;
     var marginLeft=svgTooltipWidth*.2;
     var tamanioFuente=altura*.4;
     var marginTop=35;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("top","70px");
-    $("#toolTip2").css("left","1%");
+    $("#toolTip2").css("top","80px");
+    $("#toolTip2").css("left",radio*.7+"px");
+
+    if(windowWidth > 1500 ){
+             
+        $("#toolTip2").css("left",radio+"px");
+     
+    }   
 
    // Daniel, quite estas 2 lineas que estaban colocando la ventana muy arriba :
     
@@ -397,11 +416,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
       
       var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "Peso", header: "Volumen Real", sortable: true,  width: "100px" }
+        { key: "Peso", header: "Peso", sortable: true,  width: "80px" }
       ];
     
     
@@ -415,18 +434,29 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
           },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + "TM";
+          return vix_tt_formatNumber(value) ;
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + "TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + "TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifP: function(value){
       
-            var barWidth = value + '%';
-            var barValue = vix_tt_formatNumber(value)+'%';
+          if(value<0)
+            value=0;
+
+          if(value > 150 && value!=Infinity)
+            value=150;          
+
+          if(value!=Infinity){
+            var barWidth = value*.66 + '%';
+            var barValue = vix_tt_formatNumber(value)+'%   ';
+          }else{
+            var barWidth =  '0%';
+            var barValue = vix_tt_formatNumber(0)+'%   ';
+          }      
         
             return '<div class="bar-container">' +
             '<span class="bar-value">' + barValue + '</span>' + '<svg width="100%" height="10">'  
@@ -441,7 +471,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
            var barValue = vix_tt_formatNumber(value)+'TM';
       
           return '<div class="bar-container">' +
-          '<span class="bar-value" style="width:30px"></span>' +
+          
           '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
           
           '</div>';
@@ -456,24 +486,31 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
            var totalsColumnVisitors = {
                      'VolumenPlan': function(value) { 
-                       return vix_tt_formatNumber(value) + "T";
+                       return vix_tt_formatNumber(value) ;
                      },
                      'VolumenReal': function(value) { 
-                       return vix_tt_formatNumber(value) + "T"; 
+                       return vix_tt_formatNumber(value) ; 
                      },
                      'DifK': function(value) { 
-                       return vix_tt_formatNumber(value) + "T"; 
+                       return vix_tt_formatNumber(value) ; 
                      }
                      };
 
       // FORMATEA DIV :
    
-      vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado",700);
+      vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado",svgTooltipWidth,svgTooltipHeight);
   
     
       // CREA TABLA USANDO DATOS
 
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );
+
+      // Crea una barra inferior y pasa una funcion de exportacion de datos
+      vix_tt_formatBottomBar("#toolTip2", function () {
+        var dataToExport = formatDataForExport(data, columns);
+        var filename = "exported_data";
+        exportToExcel(dataToExport, filename);
+      });
 
       // APLICA TRANSICIONES 
     

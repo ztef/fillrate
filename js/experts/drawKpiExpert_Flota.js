@@ -4,6 +4,7 @@ kpiExpert_Flota.eraseChart=function(){
 
     d3.select("#svgTooltip").selectAll(".flotaDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".flotaDetail").data([]).exit().remove();
+    svgLines2.selectAll(".windowsContext").data([]).exit().remove();
 
 }
 
@@ -11,8 +12,21 @@ kpiExpert_Flota.DrawTooltipDetail=function(entity){
  
     d3.select("#svgTooltip").selectAll(".flotaDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".flotaDetail").data([]).exit().remove();
+
+    /*
     kpiExpert_Flota.DrawTooltipDetail_Origen(entity);
     kpiExpert_Flota.DrawTooltipDetail_Presentacion(entity);
+    */
+
+    opacidadCesium=30;
+      $("#cesiumContainer").css("opacity",opacidadCesium/100); 
+      
+    var objWindows=[
+      {titulo:"Déficit de Flota por Presentación",entity:entity, method:kpiExpert_Flota.DrawTooltipDetail_Presentacion},
+      {titulo:"Déficit de Flota por Origen",entity:entity,method: kpiExpert_Flota.DrawTooltipDetail_Origen}
+    ];     
+    
+    WindowsContext(objWindows);
 
      // DISTRIBUYE 
      vix_tt_distributeDivs(["#toolTip2","#toolTip3"]);  
@@ -44,7 +58,7 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
         arr = arr.sort((a, b) => b.Deficit - a.Deficit );
         arr.reverse();
 
-        var svgTooltipWidth=400;
+        var svgTooltipWidth=350;
         var altura=30;
 
         var tamanioFuente=altura*.5;
@@ -54,8 +68,15 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
 
         $("#toolTip3").css("visibility","visible");  
         $("#toolTip3").css("inset","");           
-        $("#toolTip3").css("left",5+"%"); 
-        $("#toolTip3").css("top",5+"%");
+        $("#toolTip3").css("top",170+"px");
+          $("#toolTip3").css("left",radio+"px");
+
+        if(windowWidth > 1500 ){
+
+          $("#toolTip3").css("top",170+"px");
+          $("#toolTip3").css("left",radio+"px");
+         
+        }
 
         // DATOS 
         var data = arr.map(function(item) {
@@ -154,7 +175,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
     arr = arr.sort((a, b) => b.Deficit - a.Deficit );
     arr.reverse();
 
-    var svgTooltipWidth=400;
+    var svgTooltipWidth=350;
     var altura=30;
 
     var tamanioFuente=altura*.5;
@@ -162,8 +183,16 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
     tamanioFuente=12;
 
     $("#toolTip2").css("visibility","visible");            
-    $("#toolTip2").css("left",44+"%"); 
-    $("#toolTip2").css("top",15+"%");
+   
+    $("#toolTip2").css("top",170+"px");
+    $("#toolTip2").css("left",windowWidth*.65+"px");
+
+    if(windowWidth > 1500 ){
+
+      $("#toolTip2").css("top",170+"px");
+      $("#toolTip2").css("left",windowWidth*.65+"px");
+     
+    }
 
     // DATOS 
     var data = arr.map(function(item) {

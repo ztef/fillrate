@@ -22,9 +22,9 @@ var store={
             //{sourceName:"unSource",varName:"cat_un",onInitLoad:true},
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_un",onInitLoad:true,useDateFilters:false},
             //{sourceName:"ztSource",varName:"cat_zt",onInitLoad:true},
-            {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetZT_FillRate",varName:"cat_zt",idFieldInCatlog:"ID" ,onInitLoad:true,useDateFilters:true},            
+            {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetZT_FillRate",varName:"cat_zt",idFieldInCatlog:"ID" ,onInitLoad:false,useDateFilters:true},            
             //{sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true}, 
-            {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetFrentes_FillRate",varName:"cat_cliente",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",onInitLoad:true,useDateFilters:true},            
+            {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetFrentes_FillRate",varName:"cat_cliente",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",onInitLoad:false,useDateFilters:true},            
             //Catalogos PRODUCTO y PRESENTACION 
             //{apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_producto",onInitLoad:true,useDateFilters:true},
   

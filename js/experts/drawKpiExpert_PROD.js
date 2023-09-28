@@ -4,11 +4,7 @@ kpiExpert_PROD.eraseChart=function(){
 
     d3.select("#svgTooltip").selectAll(".prodDetail").data([]).exit().remove();   
     
-    $("#toolTip2").css("visibility","hidden");
-
-    opacidadCesium=30;
-    $("#cesiumContainer").css("opacity",opacidadCesium/100); 
-
+    $("#toolTip2").css("visibility","hidden");    
 
 }
 
@@ -17,9 +13,12 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
     d3.select("#svgTooltip").selectAll(".prodDetail").data([]).exit().remove();
     kpiExpert_PROD.DrawTooltipDetail_Planta(entity);   
 
+    opacidadCesium=30;
+    $("#cesiumContainer").css("opacity",opacidadCesium/100); 
+
 }
 
-    kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){    
+kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){    
        
         var maximo=0; 
         var maximo2=0; 
@@ -101,8 +100,8 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
       
       var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "VolVenta_Plan", header: "Vol Plan", sortable: true, width: "100px" },
-        { key: "VolVenta_Real", header: "Vol Real", sortable: true, width: "100px" },
+        { key: "VolVenta_Plan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
+        { key: "VolVenta_Real", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
@@ -120,18 +119,29 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
           },
     
           VolVenta_Plan: function(value) {
-          return vix_tt_formatNumber(value) + " TM";
+          return vix_tt_formatNumber(value) ;
         },
         VolVenta_Real: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifP: function(value){
       
-            var barWidth = value + '%';
-            var barValue = vix_tt_formatNumber(value)+'%';
+          if(value<0)
+          value=0;
+
+          if(value > 150 && value!=Infinity)
+            value=150;          
+
+          if(value!=Infinity){
+            var barWidth = value*.66 + '%';
+            var barValue = vix_tt_formatNumber(value)+'%   ';
+          }else{
+            var barWidth =  '0%';
+            var barValue = vix_tt_formatNumber(0)+'%   ';
+          }  
         
             return '<div class="bar-container">' +
             '<span class="bar-value">' + barValue + '</span>' + '<svg width="90%" height="10">'  
@@ -146,7 +156,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
            var barValue = vix_tt_formatNumber(value)+' TM';
       
           return '<div class="bar-container">' +
-          '<span class="bar-value" style="width:30px"></span>' +
+         
           '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
           
           '</div>';
@@ -154,9 +164,10 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
     
         }
       };
- // FORMATEA DIV :
- 
- vix_tt_formatToolTip("#toolTip2","Producción por Planta",700);
+
+          // FORMATEA DIV :
+          
+          vix_tt_formatToolTip("#toolTip2","Producción por Planta",650);
 
            // COLUMNAS CON TOTALES :
 
@@ -178,12 +189,7 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
       
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );        
 
-      // Crea una barra inferior y pasa una funcion de exportacion de datos
-      vix_tt_formatBottomBar("#toolTip2", function () {
-        var dataToExport = formatDataForExport(data, columns);
-        var filename = "exported_data";
-        exportToExcel(dataToExport, filename);
-      });
+      
       
       // APLICA TRANSICIONES 
     
@@ -195,13 +201,20 @@ kpiExpert_PROD.DrawTooltipDetail=function(entity){
         if($("#cat_producto").val() == "Gris"){
             $("#toolTip2").find(".content").append(`<div id="" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Gris, Impercem y Mortero </div>`);
         } else if( $("#cat_producto").val() == "Gris" || $("#cat_producto").val() == "Blanco" ){
-          $("#toolTip2").find(".content").append(`<div id="" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Blanco y Especiales </div>`);
+            $("#toolTip2").find(".content").append(`<div id="" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Blanco y Especiales </div>`);
         }      
 
       }
       
        // DISTRIBUYE 
        vix_tt_distributeDivs(["#toolTip2"]);  
+
+      // Crea una barra inferior y pasa una funcion de exportacion de datos
+      vix_tt_formatBottomBar("#toolTip2", function () {
+        var dataToExport = formatDataForExport(data, columns);
+        var filename = "exported_data";
+        exportToExcel(dataToExport, filename);
+      });
 
 
     }

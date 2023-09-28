@@ -213,10 +213,16 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         var marginTop=35;
 
         $("#toolTip3").css("visibility","visible"); 
-        $("#toolTip3").css("inset","");            
-        $("#toolTip3").css("right",1+"%");
+        $("#toolTip3").css("inset","");   
         $("#toolTip3").css("top",80+"px");
+        $("#toolTip3").css("right",1+"%");
 
+        if(windowWidth > 1500 ){
+
+                $("#toolTip3").css("top",80+"px");
+                $("#toolTip3").css("left",windowWidth*.55+"px");
+               
+        }    
 
 
     // DATOS 
@@ -265,7 +271,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         
         cant: function(value,i) {
                 var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.4);
-                var barValue = formatNumber(value)+" TM";
+                var barValue = formatNumber(value);
                
               
 
@@ -296,7 +302,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado",500);
+      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado",500,svgTooltipHeight+100);
 
      // CREA TABLA USANDO DATOS
       
@@ -312,9 +318,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       
       // APLICA TRANSICIONES 
     
-      vix_tt_transitionRectWidth("toolTip3");
-      
-
+      vix_tt_transitionRectWidth("toolTip3");     
 
 }
         
@@ -395,17 +399,26 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                 if(windowHeight < 620){
                         svgTooltipHeight=windowHeight;
-                }                
+                }   
+                
+                
 
                 var marginBottom=svgTooltipHeight*.11;
                 var tamanioFuente=ancho*.8;   
         
                 $("#toolTip2").css("visibility","visible");        
                 $("#toolTip2").css("max-height","");    
-                $("#toolTip2").css("top",1+"%");
-                $("#toolTip2").css("left","1%");
+                $("#toolTip2").css("top",80+"px");
+                $("#toolTip2").css("left",radio+"px");
+
+                if(windowWidth > 1500 ){
+
+                        $("#toolTip2").css("top",80+"px");
+                        $("#toolTip2").css("left",radio+"px");
+                       
+                }  
                 
-                vix_tt_formatToolTip("#toolTip2","Cantidad entragada por Día de Fill Rate de "+entity.key,svgTooltipWidth+7,svgTooltipHeight*.95);               
+                vix_tt_formatToolTip("#toolTip2","Cantidad entregada por Día de Fill Rate de "+entity.key,svgTooltipWidth+7,svgTooltipHeight*.95);               
                 
                 var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
 
@@ -653,7 +666,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.attr("y", offSetTop+20 )
 			.text(function(){
 
-				return "Nacional Entregado: "+formatNumber((totalCanEnt_ref/totalCanSol_ref)*100)+"%, "+formatNumber((totalCanEnt_ref/1000) )+" TM  ";
+				return "Nacional Entregado: "+formatNumber((totalCanEnt_ref/totalCanSol_ref)*100)+"%, "+formatNumber((totalCanEnt_ref/1000) )+" K TM  ";
 
 			})
                         .transition().delay(0).duration(1000)
@@ -673,7 +686,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 			.attr("y", offSetTop+20 )
 			.text(function(){
 
-				return "Solicitado: "+formatNumber((totalCanSol_ref/1000) )+" TM ";
+				return "Solicitado: "+formatNumber((totalCanSol_ref/1000) )+" K TM ";
 
 			}).transition().delay(0).duration(1000)
                         .style("opacity",1 );
