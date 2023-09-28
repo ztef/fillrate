@@ -204,7 +204,10 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
             $("#toolTip2").find(".content").append(`<div id="" class="sombra" align="left" style="font-family:Cabin;pointer-events:none;font-size:18px;color:#7DDFFF;opacity:1;font-weight:bold;"/><br> Incluye Blanco y Especiales </div>`);
         }      
 
-      }   
+      }
+      
+       // DISTRIBUYE 
+       vix_tt_distributeDivs(["#toolTip2"]);  
 
       // Crea una barra inferior y pasa una funcion de exportacion de datos
       vix_tt_formatBottomBar("#toolTip2", function () {
