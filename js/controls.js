@@ -78,8 +78,7 @@ filterControls.createDataFiltersControls=function(catalogs){
                 
                     arrAutoCompleteArr.push(arr[j].key);
 
-                }               
-                        
+                }                
 
                 $("#ControlsFields").append(
                         `
@@ -102,6 +101,7 @@ filterControls.createDataFiltersControls=function(catalogs){
                     }
 
                 }else{
+                    $("#"+catalogs[i].id).append(`<option value=""></option>`);
                     for(var j=0;  j < arrAutoCompleteArr.length; j++){                             
                         $("#"+catalogs[i].id).append(`<option value="${arrAutoCompleteArr[j]}">${arrAutoCompleteArr[j]}</option>`);
                     }
@@ -113,14 +113,14 @@ filterControls.createDataFiltersControls=function(catalogs){
 
                
                 $.widget( "custom.combobox", {
-			    _create: function() {
-				this.wrapper = $( "<span>" )
-					.addClass( "custom-combobox "+catalogs[i].id )
-					.insertAfter( this.element );
-				this.element.hide();
-				this._createAutocomplete();
-				this._createShowAllButton();
-			},
+                    _create: function() {
+                    this.wrapper = $( "<span>" )
+                        .addClass( "custom-combobox "+catalogs[i].id )
+                        .insertAfter( this.element );
+                    this.element.hide();
+                    this._createAutocomplete();
+                    this._createShowAllButton();
+                },
 
 			_createAutocomplete: function() {
 				var selected = this.element.children( ":selected" ),
@@ -697,7 +697,9 @@ filterControls.showActiveFilters=function(){
         }
 
     }
-
+    if(!svgLines){
+        return;
+    }
     svgLines.selectAll(".filters").data([]).exit().remove();
 
     var caso=1;  
@@ -772,8 +774,6 @@ filterControls.showActiveFilters=function(){
     <span style="font-size:12px; color:white">
        Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
     </span></div>`;
-
-    console.log("titulo",titulo);
 
     $("#titulo").html(titulo);   
     

@@ -60,16 +60,15 @@ kpi_date_status.ShowWindows = function( ){
 
         for(var i=0; i < kpi_date_status.data.length; i++ ){
 
-            if(kpi_date_status.data[i].esWarning > 0){
+            //if(kpi_date_status.data[i].esWarning > 0){
 
                 var fechaSplit=kpi_date_status.data[i].maxFecha.split("T");
-                            
-                //fechaSplit=fechaSplit[0].split("-"); 
-
-                //kpi_date_status.data[i].max_fecha= new Date(Number(fechaSplit[0]),Number(fechaSplit[1])-1 ,Number(fechaSplit[2]));   
+  
                 kpi_date_status.data[i].max_fecha=fechaSplit[0];
+                kpi_date_status.data[i].titulo={esWarning:kpi_date_status.data[i].esWarning , Indicador:kpi_date_status.data[i].Indicador };
                 data.push(kpi_date_status.data[i]);
-            }                
+
+            //}                
 
         }
 
@@ -81,30 +80,46 @@ kpi_date_status.ShowWindows = function( ){
         // DATOS 
         var data = data.map(function(item) {
             return {
-                "Indicador": item.Indicador,
-                "max_fecha": item.max_fecha         
+                "titulo": item.titulo,
+                "max_fecha": item.max_fecha,
+                "esWarning": item.esWarning          
             };
         });
 
         // DEFINE COLUMNAS      
         var columns = [
 
-            { key: "Indicador", header: "KPI", sortable: true, width: "250px" },
-            { key: "max_fecha", header: "Última Fecha", sortable: true, width: "150px" }
-        
+            { key: "titulo", header: "KPI", sortable: true, width: "250px" },
+            { key: "max_fecha", header: "Última Fecha", sortable: true, width: "150px" },
+            { key: "esWarning", header: " ", sortable: true, width: "60px" }        
         
         ];
 
         // DEFINE VISITORS PARA CADA COLUMNA
         var columnVisitors = {
-            Indicador: function(value) {
-                return `<div class="key-selector" onclick="">${value}
+            titulo: function(value) {
+                var color="#ffffff";
+
+                if(value.esWarning > 0){
+                    color="#F2B600";
+                }
+
+                return `<div class="key-selector" style="color:${color}" onclick="">${value.Indicador}
                 </div>`;
               },
         
             max_fecha: function(value){
+
                 return `<div class="key-selector" onclick="">${value}
                 </div>`;
+            },
+            esWarning: function(value){
+                var src="";
+                if(value > 0){
+                    src="images/warning.png";
+                }
+                return `<img id="" src="${src}" style="width:30px;"></img>
+                `;
             }
         };
         var columnsWithTotals = ['Indicador']; 
@@ -115,7 +130,7 @@ kpi_date_status.ShowWindows = function( ){
           
           };
 
-        vix_tt_formatToolTip("#toolTip3","Últimas fechas disponibles por KPI (solo aquellas con warnings) ",400,300);
+        vix_tt_formatToolTip("#toolTip3","Últimas fechas disponibles por KPI (solo aquellas con warnings) ",400,400);
       
         // CREA TABLA USANDO DATOS
       

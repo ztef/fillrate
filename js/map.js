@@ -382,6 +382,7 @@ Stage.FocusMapElement=function(id){
 }
 
 Stage.ReorderLayout=function(){
+
 	windowWidth = window.innerWidth;
 	windowHeight = window.innerHeight;
 
@@ -396,6 +397,8 @@ Stage.ReorderLayout=function(){
 		svgLines.attr("height",windowHeight+"px");
 	
 	$("#titulo").css("width",((windowWidth*.9)-220)+"px");
+
+	filterControls.showActiveFilters();
 }
 
 

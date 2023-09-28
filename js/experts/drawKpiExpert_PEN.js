@@ -429,15 +429,15 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
        
         d3.select("#svgTooltip3").append("rect")		    		
-                                            .attr("width",ancho*.8 )
-                                            .attr("class","penDetail")
-                                            .attr("x",(ancho*i)  )
-                                            .attr("y", (svgTooltipHeight)-altura1-marginBottom  )
-                                            .attr("height",altura1)
-                                            .attr("fill","#00A8FF")
-                                            .style("pointer-events","auto")
-                                            .append('title')
-                                            .text("Libre Pendiente Hoy: "+formatNumber(arr[i].Libre_Pendiente_Hoy));	
+                                    .attr("width",ancho*.8 )
+                                    .attr("class","penDetail")
+                                    .attr("x",(ancho*i)  )
+                                    .attr("y", (svgTooltipHeight)-altura1-marginBottom  )
+                                    .attr("height",altura1)
+                                    .attr("fill","#00A8FF")
+                                    .style("pointer-events","auto")
+                                    .append('title')
+                                    .text("Libre Pendiente Hoy: "+formatNumber(arr[i].Libre_Pendiente_Hoy));	
 
         d3.select("#svgTooltip3").append("rect")		    		
                                     .attr("width",ancho*.8 )
@@ -514,8 +514,21 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
 
     var dataElement=entity.pendientes.values[0];
 
-    var campos=["Entregado:","Libre_Retrasado","Libre_Pendiente_Hoy","Libre_Programado_Total","AutoFlete y Recogido:","Libre_RecAutf",];
-    var colores=["#00DEFF","#00DEFF","#00DEFF","#00DEFF","#8BFF1A","#8BFF1A",];
+    var campos=["Entregado:","Libre_Retrasado","Libre_Pendiente_Hoy","Libre_Programado_Total","Total_Libre_Pendientes_siguientes_días","AutoFlete y Recogido:","Libre_RecAutf",];
+    var colores=["#00DEFF","#00DEFF","#00DEFF","#00DEFF","#00DEFF","#8BFF1A","#8BFF1A",];
+
+    //Calcula total de pendientes entregados
+    dataElement.Total_Libre_Pendientes_siguientes_días=0;
+    for(var i=0; i < campos.length; i++ ){
+        if(dataElement){
+            if( dataElement[campos[i]] && (campos[i]=="Libre_Retrasado"  || campos[i]=="Libre_Pendiente_Hoy" || campos[i]=="Libre_Programado_Total") ){
+
+                dataElement.Total_Libre_Pendientes_siguientes_días += Number(dataElement[campos[i]]);
+
+            }
+        }       
+       
+    }
 
     for(var i=0; i < campos.length; i++ ){
         if(dataElement){
@@ -533,7 +546,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
 
     var svgTooltipHeight=(campos.length*altura)+20;
     var svgTooltipWidth=500;
-    var marginLeft=svgTooltipWidth*.4;
+    var marginLeft=svgTooltipWidth*.45;
     var tamanioFuente=altura*.8;
     var marginTop=svgTooltipHeight*.05;
 
@@ -546,7 +559,6 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
         $("#toolTip2").css("left",windowWidth*.6+"px");
        
     } 
- 
 
     vix_tt_formatToolTip("#toolTip2","Pedidos Pendientes por Tipo de "+entity.key,svgTooltipWidth+10,svgTooltipHeight+40);
 
@@ -593,7 +605,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
                         .style("font-size",tamanioFuente)						
                         .style("text-anchor","start")
                         .style("opacity",0 )
-                        .attr("transform"," translate("+String( 10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
+                        .attr("transform"," translate("+String( 2  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
                         .text(function(){
                         
                             return campos[i];
@@ -651,6 +663,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
                         .text(function(){
                         
                             return config.checkLabel(campos[i]);
+
                         })
                         .transition().delay(0).duration(1000)
                         .style("opacity",1 )
