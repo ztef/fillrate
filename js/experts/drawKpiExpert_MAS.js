@@ -180,6 +180,11 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
        exportToExcel(dataToExport, filename);
      });
       
+
+
+      // DISTRIBUYE 
+      vix_tt_distributeDivs(["#toolTip2"]);  
+
       // APLICA TRANSICIONES 
     
       vix_tt_transitionRectWidth("toolTip2");

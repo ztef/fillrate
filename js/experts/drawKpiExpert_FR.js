@@ -137,6 +137,9 @@ kpiExpert_FR.DrawTooltipDetail=function(entity){
 
         opacidadCesium=30;
       $("#cesiumContainer").css("opacity",opacidadCesium/100); 
+
+      // DISTRIBUYE 
+      vix_tt_distributeDivs(["#toolTip2","#toolTip3"]);  
        
 
 }

@@ -14,6 +14,9 @@ kpiExpert_Flota.DrawTooltipDetail=function(entity){
     kpiExpert_Flota.DrawTooltipDetail_Origen(entity);
     kpiExpert_Flota.DrawTooltipDetail_Presentacion(entity);
 
+     // DISTRIBUYE 
+     vix_tt_distributeDivs(["#toolTip2","#toolTip3"]);  
+
 }
 
 kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){   

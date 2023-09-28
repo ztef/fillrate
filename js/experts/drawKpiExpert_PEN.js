@@ -25,6 +25,9 @@ kpiExpert_PENDIENTES.DrawTooltipDetail=function(entity){
     opacidadCesium=30;
       $("#cesiumContainer").css("opacity",opacidadCesium/100); 
 
+
+   
+
 }
 
 kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){    
@@ -179,8 +182,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
 
                                     $("#toolTip4").css("visibility","visible");  
                                     $("#toolTip4").css("inset","");      
-                                    $("#toolTip4").css("right","1%");
-                                    $("#toolTip4").css("top","60px");
+                                   // $("#toolTip4").css("right","1%");
+                                   // $("#toolTip4").css("top","60px");
                                 
 
                                     // DATOS 
@@ -259,6 +262,9 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     });
                                     // APLICA TRANSICIONES
                                     vix_tt_transitionRectWidth("toolTip4");
+
+                                     // DISTRIBUYE 
+                                    vix_tt_distributeDivs(["#toolTip2","#toolTip3","#toolTip4"]); 
 
 
                     });
