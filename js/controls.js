@@ -101,10 +101,15 @@ filterControls.createDataFiltersControls=function(catalogs){
                     }
 
                 }else{
-                    $("#"+catalogs[i].id).append(`<option value=""></option>`);
-                    for(var j=0;  j < arrAutoCompleteArr.length; j++){                             
+
+                    $("#"+catalogs[i].id).append(`<option value="Todos">Todos</option>`);
+                  
+
+                    for(var j=0;  j < arrAutoCompleteArr.length; j++){   
+                                             
                         $("#"+catalogs[i].id).append(`<option value="${arrAutoCompleteArr[j]}">${arrAutoCompleteArr[j]}</option>`);
                     }
+
                 }   
 
                 if(catalogs[i].default)
@@ -643,7 +648,7 @@ filterControls.showActiveFilters=function(){
 
     for(var i=0; i < store.catlogsForFilters.length; i++){
          
-        if($("#"+store.catlogsForFilters[i].id).val() != "" && $("#"+store.catlogsForFilters[i].id).val() != undefined ){
+        if($("#"+store.catlogsForFilters[i].id).val() != "" && $("#"+store.catlogsForFilters[i].id).val() != undefined && $("#"+store.catlogsForFilters[j].id).val() != "Todos" ){
            filtrosAplicados[store.catlogsForFilters[i].id]=$("#"+store.catlogsForFilters[i].id).val();
             caso++;
         }else{
