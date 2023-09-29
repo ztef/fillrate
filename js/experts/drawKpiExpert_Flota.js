@@ -13,10 +13,11 @@ kpiExpert_Flota.DrawTooltipDetail=function(entity){
     d3.select("#svgTooltip").selectAll(".flotaDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".flotaDetail").data([]).exit().remove();
 
-    /*
+    
     kpiExpert_Flota.DrawTooltipDetail_Origen(entity);
     kpiExpert_Flota.DrawTooltipDetail_Presentacion(entity);
-    */
+    
+    /*
 
     opacidadCesium=30;
       $("#cesiumContainer").css("opacity",opacidadCesium/100); 
@@ -26,7 +27,8 @@ kpiExpert_Flota.DrawTooltipDetail=function(entity){
       {titulo:"Déficit de Flota por Origen",entity:entity,method: kpiExpert_Flota.DrawTooltipDetail_Origen}
     ];     
     
-    WindowsContext(objWindows);
+    //WindowsContext(objWindows);
+    */
 
      // DISTRIBUYE 
      vix_tt_distributeDivs(["#toolTip2","#toolTip3"]);  

@@ -154,6 +154,7 @@ function vix_tt_transitionRectWidth(containerID) {
 
 
     distributeDivs(400,100,tooltips,  40, 40)
+
   }
 
   function distributeDivs(in_x, in_y, divs, marginX, marginY) {
@@ -236,10 +237,6 @@ function vix_tt_transitionRectWidth(containerID) {
     });
   }
   
-  
-  
-
-
 
 
   function vix_tt_distributeDivs_old(tooltips) {
