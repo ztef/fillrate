@@ -167,10 +167,10 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     var altura=30;
                                     var caso=0;
 
-                                    var svgTooltipHeight=(arr.length*altura )+150;
+                                    var svgTooltipHeight=(arr.length*altura*.5 );
 
-                                    if(svgTooltipHeight<150)
-                                        svgTooltipHeight=150;
+                                    if(svgTooltipHeight<80)
+                                        svgTooltipHeight=80;
 
                                     if(svgTooltipHeight>windowHeight*.8)
                                         svgTooltipHeight=windowHeight*.8;
@@ -235,7 +235,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     };
 
                                     // FORMATEA DIV :
-                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+entity.key,460,svgTooltipHeight);
+                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+entity.key,460,svgTooltipHeight+110);
 
                                     // COLUMNAS CON TOTALES :
                                     var columnsWithTotals = ['Libre_Pendiente_Hoy','Libre_Retrasado']; 

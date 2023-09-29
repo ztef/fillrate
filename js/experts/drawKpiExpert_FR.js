@@ -203,8 +203,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
        
         var svgTooltipHeight=arr.length*altura;
     
-        if(svgTooltipHeight<100)
-            svgTooltipHeight=100;
+        if(svgTooltipHeight<80)
+            svgTooltipHeight=80;
 
         if(svgTooltipHeight > windowHeight*.7)
         svgTooltipHeight = windowHeight*.7;
@@ -273,7 +273,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         },
         
         cant: function(value,i) {
-                var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.4);
+                var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight+100);
                 var barValue = formatNumber(value);
 
                 return '<div class="bar-container">' +

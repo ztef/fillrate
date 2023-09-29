@@ -81,7 +81,10 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
     var altura=30;
    
-    var svgTooltipHeight=(arr.length*altura)+50;
+    var svgTooltipHeight=(arr.length*altura);
+
+    if(svgTooltipHeight<80)
+    svgTooltipHeight=80;
 
     if(svgTooltipHeight>windowHeight*.8)
         svgTooltipHeight=windowHeight*.8;
@@ -165,7 +168,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
       // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,490,svgTooltipHeight);
+      vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,490,svgTooltipHeight+100);
       
         // COLUMNAS CON TOTALES :
 

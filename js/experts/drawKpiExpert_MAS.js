@@ -58,8 +58,11 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
    
     var svgTooltipHeight=(arr.length*altura)+50;
 
+    if(svgTooltipHeight<80)
+      svgTooltipHeight=80;
+
     if(svgTooltipHeight>windowHeight*.8)
-    svgTooltipHeight=windowHeight*.8;
+      svgTooltipHeight=windowHeight*.8;
 
     var svgTooltipWidth=600;
     var marginLeft=svgTooltipWidth*.3;
@@ -171,7 +174,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+entity.key, 600, svgTooltipHeight);
+      vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+entity.key, 600, svgTooltipHeight+100);
     
      // CREA TABLA USANDO DATOS
       
