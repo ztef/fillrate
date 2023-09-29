@@ -367,7 +367,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
         right: "0", // posicion derecha
         cursor: "se-resize", // Cambio de forma del cursor al dar resize
         padding: "5px", // se agrega un padding para que no este tan pegado
-        color: "#ffffff",
+        color: "#877575",
       },
     });
   
