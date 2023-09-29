@@ -718,9 +718,10 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
       css: {
         padding: "5px",
         height: "20px",
+        width: "28px",
         backgroundColor: "#1f2e39",
-        borderTopLeftRadius: "0px",
-        borderTopRightRadius: "0px",
+        borderTopLeftRadius: "2px",
+        borderTopRightRadius: "2px",
       },
     });
 
@@ -749,14 +750,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
     bottomBar.append(iconAndButtonContainer); 
 
 
-
-   
   //var containerDiv = d3.select(`#${containerID}`);
-
-
- 
-
-   
 
   var contentDiv = $(divElement).find(".content");
 

@@ -130,11 +130,7 @@
             color:#000000;
             background-color: lightgray;
             cursor: pointer; 
-        }
-
-
-
-         
+        }         
 
         .bar-value {
              margin-left: 1px; /* Add some spacing between the bar and value */
@@ -159,6 +155,21 @@
             position: relative;
             display: inline-block;
         }
+
+
+        body::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: orange;        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: blue;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid orange;  /* creates padding around scroll thumb */
+}
 
         .tooltip-text {
             visibility: hidden;
@@ -245,7 +256,7 @@
             color: #86ffff;
             border-width: 1px;
         }
-
+       
       
   
    </style>
