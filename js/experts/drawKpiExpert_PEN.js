@@ -322,6 +322,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
         return b.fecha - a.fecha;                                    
 
     }); 
+
+    console.log("arr",arr);
     
 
     arr=arr.reverse();
@@ -421,8 +423,14 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
     for(var i=0; i < arr.length; i++ ){   
 
         var altura=svgTooltipHeight*.5;
-        var altura1=GetValorRangos( arr[i].Libre_Pendiente_Hoy,1, maximo ,1,altura);
-        var altura2=GetValorRangos( arr[i].Libre_Retrasado,1, maximo ,1,altura);
+        if(maximo==0){
+            var altura1=1;
+            var altura2=1;
+        }else{
+            var altura1=GetValorRangos( arr[i].Libre_Pendiente_Hoy,1, maximo ,1,altura);
+            var altura2=GetValorRangos( arr[i].Libre_Retrasado,1, maximo ,1,altura);
+        }
+       
 
        
         d3.select("#svgTooltip3").append("rect")		    		
