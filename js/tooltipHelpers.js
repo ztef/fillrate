@@ -151,8 +151,8 @@ function vix_tt_transitionRectWidth(containerID) {
 
   function vix_tt_distributeDivs(tooltips) {
     // 600,200 es la posicion inicial
-    return;
-    distributeDivs(600,150,tooltips,  40, 40)
+
+    distributeDivs(300,110,tooltips,  40, 40)
   }
 
   function distributeDivs(x, y, divs, marginX, marginY) {
