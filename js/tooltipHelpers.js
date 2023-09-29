@@ -151,11 +151,20 @@ function vix_tt_transitionRectWidth(containerID) {
 
   function vix_tt_distributeDivs(tooltips) {
     // 600,200 es la posicion inicial
-    distributeDivs(600,150,tooltips,  40, 40)
+
+
+    distributeDivs(400,100,tooltips,  40, 40)
   }
 
-  function distributeDivs(x, y, divs, marginX, marginY) {
+  function distributeDivs(in_x, in_y, divs, marginX, marginY) {
 
+    let x = in_x;
+    let y = in_y;
+
+    const innerWidth = window.innerWidth;  
+    const innerHeight = window.innerHeight;
+
+     
 
     const positions = [{ x, y }]; // Arreglo que guarda posiciones disponibles
                                   // Al principio solo hay una.
@@ -167,7 +176,7 @@ function vix_tt_transitionRectWidth(containerID) {
       const divWidth = $div.width() + marginX;
       const divHeight = $div.height() + marginY;
 
-      //console.log("div width", divWidth);
+      console.log("div num", index);
   
       let positionIndex = -1; // Indice de la posicion seleccionada
       
@@ -177,27 +186,25 @@ function vix_tt_transitionRectWidth(containerID) {
         const { x: posX, y: posY } = position;
   
         // Checa si el div cabe, si cabe a la derecha selecciona esa posicion.
-        if (posX + divWidth <= window.innerWidth) {
-          positionIndex = i;
-          break; 
+        if ((posX + divWidth <= 1.2 * innerWidth) && (posY + divHeight <= innerHeight)) {
+             
+                console.log("Si cupo", posY, divHeight, innerHeight);
+                positionIndex = i;
+                break; 
+            
         }
       }
   
      
 
-      // Si no encontro ninguna toma la ultima
+      // Si no encontro ninguna para caber completa
       
       if (positionIndex === -1) {
-         
-          const position = positions[positions.length -1 ];
-          const { x: posX, y: posY } = position;
-  
-           
-            positionIndex = positions.length -1;
-            
-          
-         
+
+        console.log("NO CUPO");
+
       }
+      
       
       
   
@@ -207,7 +214,7 @@ function vix_tt_transitionRectWidth(containerID) {
         
         const position = positions.splice(positionIndex, 1)[0];  // Elimina la posicion encontrada para que nadie la tome
         const { x: posX, y: posY } = position;
-        //console.log("Posicion encontrada", position);
+        console.log("Posicion encontrada", position);
   
         // Posiciona el DIV
         $div.css({ left: posX, top: posY });
@@ -215,7 +222,7 @@ function vix_tt_transitionRectWidth(containerID) {
         // Calcula 2 siguientes posibles posiciones : a la derecha y abajo
 
         const rightPosition = { x: posX + divWidth, y: posY };
-        const belowPosition = { x: x, y: posY + divHeight };
+        const belowPosition = { x: posX, y: posY + divHeight };
 
         //console.log("posX",posX);
         //console.log("divWidth",divWidth);
@@ -223,8 +230,8 @@ function vix_tt_transitionRectWidth(containerID) {
         positions.push(rightPosition)
         positions.push(belowPosition);
         
-        //console.log("posicion derecha ", rightPosition);
-        //console.log("posicion abajo ", belowPosition);
+        console.log("posicion derecha ", rightPosition);
+        console.log("posicion abajo ", belowPosition);
       }
     });
   }
