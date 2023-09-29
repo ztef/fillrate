@@ -264,7 +264,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     vix_tt_transitionRectWidth("toolTip4");
 
                                      // DISTRIBUYE 
-                                    vix_tt_distributeDivs(["#toolTip2","#toolTip3","#toolTip4"]); 
+                                    vix_tt_distributeDivs(["#toolTip4","#toolTip2","#toolTip3"]); 
 
 
                     });
