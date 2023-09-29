@@ -153,6 +153,7 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
 
 kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){   
 
+
     d3.select("#svgTooltip").selectAll(".flotaDetail").data([]).exit().remove();
 
     var maximo=0;
@@ -177,8 +178,18 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
     arr = arr.sort((a, b) => b.Deficit - a.Deficit );
     arr.reverse();
 
+       
+
     var svgTooltipWidth=350;
     var altura=30;
+
+    var svgTooltipHeight=(arr.length*altura);
+ 
+    if(svgTooltipHeight>windowHeight*.8){
+ 
+      svgTooltipHeight=windowHeight*.8;
+    }
+     
 
     var tamanioFuente=altura*.5;
     if(tamanioFuente < 12)
@@ -240,7 +251,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
 
       // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip2","Déficit de Flota por Origen "+entity.key,svgTooltipWidth);
+      vix_tt_formatToolTip("#toolTip2","Déficit de Flota por Origen "+entity.key,svgTooltipWidth,svgTooltipHeight+100);
       
             // COLUMNAS CON TOTALES :
     

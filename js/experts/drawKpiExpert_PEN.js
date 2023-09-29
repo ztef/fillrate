@@ -172,8 +172,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     if(svgTooltipHeight<150)
                                         svgTooltipHeight=150;
 
-                                    if(svgTooltipHeight>windowHeight*.7)
-                                        svgTooltipHeight=windowHeight*.7;
+                                    if(svgTooltipHeight>windowHeight*.8)
+                                        svgTooltipHeight=windowHeight*.8;
 
                                     var svgTooltipWidth=400;
                                     var marginLeft=svgTooltipWidth*.2;
@@ -235,7 +235,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     };
 
                                     // FORMATEA DIV :
-                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+entity.key,460);
+                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+entity.key,460,svgTooltipHeight);
 
                                     // COLUMNAS CON TOTALES :
                                     var columnsWithTotals = ['Libre_Pendiente_Hoy','Libre_Retrasado']; 
@@ -252,7 +252,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
     
                                    // CREA TABLA USANDO DATOS
       
-                                        vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip4", columnsWithTotals );        
+                                    vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip4", columnsWithTotals );        
 
                                     // Crea una barra inferior y pasa una funcion de exportacion de datos
                                         vix_tt_formatBottomBar("#toolTip4", function () {

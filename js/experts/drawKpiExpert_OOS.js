@@ -80,9 +80,12 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
     arr = arr.sort((a, b) => b.OOS*1000 - a.OOS*1000);
 
     var altura=30;
-   // var caso=0;
    
-    //var svgTooltipHeight=(arr.length*altura)+50;
+    var svgTooltipHeight=(arr.length*altura)+50;
+
+    if(svgTooltipHeight>windowHeight*.8)
+        svgTooltipHeight=windowHeight*.8;
+
     var svgTooltipWidth=600;
     //var marginLeft=svgTooltipWidth*.3;
     var tamanioFuente=altura*.5;
@@ -162,38 +165,37 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
       // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,490);
+      vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,490,svgTooltipHeight);
       
-            // COLUMNAS CON TOTALES :
-    
-            var columnsWithTotals = ['Numero','','Numera']; 
-            var totalsColumnVisitors = {
-                        'Numero': function(value) { 
-                        return vix_tt_formatNumber(value) ; 
-                        },
-                        'Numera': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM";
-                        },
-                      
-                      
-                      };
-      
-// CREA TABLA USANDO DATOS
-      
- vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );        
+        // COLUMNAS CON TOTALES :
 
- // Crea una barra inferior y pasa una funcion de exportacion de datos
- vix_tt_formatBottomBar("#toolTip2", function () {
-   var dataToExport = formatDataForExport(data, columns);
-   var filename = "exported_data";
-   exportToExcel(dataToExport, filename);
- });
-     
+        var columnsWithTotals = ['Numero','','Numera']; 
+        var totalsColumnVisitors = {
+                    'Numero': function(value) { 
+                    return vix_tt_formatNumber(value) ; 
+                    },
+                    'Numera': function(value) { 
+                    return vix_tt_formatNumber(value) + " TM";
+                    },                   
+                    
+                    };
       
-      
- // APLICA TRANSICIONES 
+        // CREA TABLA USANDO DATOS
+            
+        vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );        
 
- vix_tt_transitionRectWidth("toolTip2");
+        // Crea una barra inferior y pasa una funcion de exportacion de datos
+        vix_tt_formatBottomBar("#toolTip2", function () {
+        var dataToExport = formatDataForExport(data, columns);
+        var filename = "exported_data";
+        exportToExcel(dataToExport, filename);
+        });
+            
+            
+            
+        // APLICA TRANSICIONES 
+
+        vix_tt_transitionRectWidth("toolTip2");
  
 
 }

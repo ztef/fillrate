@@ -368,6 +368,9 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     if(svgTooltipHeight < 160)
       svgTooltipHeight=160;
 
+    if(svgTooltipHeight > windowHeight*.8 )
+      svgTooltipHeight=windowHeight*.8;
+
 
     var svgTooltipWidth=600;
     var marginLeft=svgTooltipWidth*.2;

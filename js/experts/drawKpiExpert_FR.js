@@ -205,6 +205,9 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
         if(svgTooltipHeight<100)
             svgTooltipHeight=100;
+
+        if(svgTooltipHeight > windowHeight*.7)
+        svgTooltipHeight = windowHeight*.7;
     
     
         var svgTooltipWidth=600;
@@ -272,15 +275,11 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         cant: function(value,i) {
                 var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.4);
                 var barValue = formatNumber(value);
-               
-              
 
                 return '<div class="bar-container">' +
                 '<span class="bar-value" style="width:80px">' + barValue + '</span>' +
                 '<svg width="90%" height="10"><rect class="bar-rect" width="' + ancho + '" height="10" style="fill: white;"></rect></svg>' +
                 '</div>';
-
-
 
                 
         }
