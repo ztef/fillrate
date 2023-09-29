@@ -327,10 +327,11 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     var altura=30;
     var caso=0;
    
-    var svgTooltipHeight=arr.length*(altura*1.2)+70;
+    var svgTooltipHeight=arr.length*(altura*.55);
 
-    if(svgTooltipHeight<180)
-     svgTooltipHeight=180;
+
+    if(svgTooltipHeight<80)
+     svgTooltipHeight=80;
 
     var svgTooltipWidth=500;
     var marginLeft=svgTooltipWidth*.15;
@@ -433,7 +434,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",630,svgTooltipHeight);
+      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",630,svgTooltipHeight+120);
     
       
             // COLUMNAS CON TOTALES :
@@ -528,7 +529,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         var altura=50;
         var caso=0;
     
-        var svgTooltipHeight=arr.length*(altura*.5);
+        var svgTooltipHeight=arr.length*(altura*.55);
 
         if(svgTooltipHeight<120)
             svgTooltipHeight=120;
@@ -546,6 +547,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         $("#toolTip3").css("visibility","visible");            
         $("#toolTip3").css("left",radio*.5+"px");
         $("#toolTip3").css("top",70+"px");
+        $("#toolTip3").css("max-height","");
 
         if(windowWidth > 1500 ){
 
@@ -654,7 +656,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
                 };
 
 
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,640,svgTooltipHeight+170);
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,640,svgTooltipHeight+100);
 
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );  
 
