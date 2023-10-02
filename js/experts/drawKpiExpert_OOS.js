@@ -168,7 +168,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
 
       // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip2","Out of Stock de "+entity.key,490,svgTooltipHeight+100);
+      vix_tt_formatToolTip("#toolTip2","Out of Stock de "+dataManager.getNameFromId(entity.key),490,svgTooltipHeight+100);
       
         // COLUMNAS CON TOTALES :
 
@@ -341,7 +341,7 @@ kpiExpert_OOS.DrawTooltipDetail_Dia=function(entity){
 
             // FORMATEA TOOL TIP :
             
-            vix_tt_formatToolTip("#toolTip3","Out of Stock por Día de "+entity.key,svgTooltipWidth+10,svgTooltipHeight+10);
+            vix_tt_formatToolTip("#toolTip3","Out of Stock por Día de "+dataManager.getNameFromId(entity.key),svgTooltipWidth+10,svgTooltipHeight+10);
         
             // Agrega un div con un elemento svg :
         

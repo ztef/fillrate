@@ -34,8 +34,9 @@ kpiExpert_ABAS.DrawTooltipDetail=function(entity){
     }    
 
     //kpiExpert_ABAS.DrawTooltipDetail_Origen(entity);    
-
+    
     kpiExpert_ABAS.DrawTooltipDetail_Transporte(entity);
+      
 
     opacidadCesium=30;
       $("#cesiumContainer").css("opacity",opacidadCesium/100);     
@@ -252,7 +253,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip5","Abasto desde "+entity.key+" hacia otras UN",820,svgTooltipHeight+80);
+      vix_tt_formatToolTip("#toolTip5","Abasto desde "+dataManager.getNameFromId(entity.key)+" hacia otras UN",820,svgTooltipHeight+80);
 
       // COLUMNAS CON TOTALES :
 
@@ -463,38 +464,40 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         DifPesos: function(value) {
           return vix_tt_formatNumber(value) ;
         }
-      };
-    
+      };    
     
       // FORMATEA DIV :
     
       vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",840,svgTooltipHeight+120);
+
+
+      $("#toolTip2").mousedown();
     
       
-            // COLUMNAS CON TOTALES :
-    
-            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK','PesoPlan','PesoReal','DifPesos']; 
-            var totalsColumnVisitors = {
-                      'VolumenPlan': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM";
-                      },
-                      'VolumenReal': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      },
-                      'DifK': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      },
-                      'PesoPlan': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      },
-                      'PesoReal': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      },
-                      'DifPesos': function(value) { 
-                        return vix_tt_formatNumber(value) + " TM"; 
-                      }
+      // COLUMNAS CON TOTALES :
 
-                      };             
+      var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK','PesoPlan','PesoReal','DifPesos']; 
+      var totalsColumnVisitors = {
+                'VolumenPlan': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM";
+                },
+                'VolumenReal': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                },
+                'DifK': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                },
+                'PesoPlan': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                },
+                'PesoReal': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                },
+                'DifPesos': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                }
+
+                };             
           
            
           
@@ -713,9 +716,10 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
                   return vix_tt_formatNumber(value) + " TM"; 
                 }
                 };
+ 
 
 
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+entity.key,840,svgTooltipHeight+130);
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+dataManager.getNameFromId(entity.key) ,840,svgTooltipHeight+130);
 
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );  
 

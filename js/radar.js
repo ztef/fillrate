@@ -408,48 +408,7 @@ radar.DrawBaseRadar=function(entity){
                 .attr("transform"," translate("+String(10+(entity.radarData.posX) )+","+String(entity.radarData.posY-(alturaBarra*2.5) )+")  rotate("+(0)+") ")
                 .text(function(){
                     
-                        var nombre=entity.key;
-
-                        for(var j=0; j < store.niveles.length; j++){    
-
-                            if( store.niveles[j].id == $("#nivel_cb").val() ){
-
-                                if(store.niveles[j].coordinatesSource){
-
-                                    dataCatlog=store[store.niveles[j].coordinatesSource];
-
-                                    var encuentra=false;
-                                   
-                                    for(var j=0; j < dataCatlog.length; j++){    
-                                        
-                                        if(dataCatlog[j].ID==nombre){
-                                            
-                                            if(dataCatlog[j].Nombre!=nombre){
-                                                encuentra=true;
-                                                nombre=dataCatlog[j].Nombre;
-                                            }
-                                                
-                                        }
-                                            
-                                    }
-
-                                    if(!encuentra)
-                                    console.log(nombre);
-
-                                }else{
-                                    nombre="Indicadores Nacionales";
-                                }
-                            }	
-                                                
-                        }
-
-                        nombre=nombre.replaceAll("_"," ");
-                        nombre=nombre.replaceAll("undefined"," ");
-
-                        if(nombre.length > 30)
-                            nombre=nombre.substr(0,30)+"...";
-
-                        return toTitleCase(nombre);
+                        return dataManager.getNameFromId(entity.key);
 
                 });
     

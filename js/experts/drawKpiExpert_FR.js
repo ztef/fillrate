@@ -422,7 +422,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                        
                 }  
                 
-                vix_tt_formatToolTip("#toolTip2","Cantidad entregada por Día de Fill Rate de "+entity.key,svgTooltipWidth+7,svgTooltipHeight*.95);               
+                vix_tt_formatToolTip("#toolTip2","Cantidad entregada por Día de Fill Rate de "+dataManager.getNameFromId(entity.key),svgTooltipWidth+7,svgTooltipHeight*.95);               
                 
                 var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
 

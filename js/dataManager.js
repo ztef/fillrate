@@ -126,6 +126,37 @@ dataManager.UpdateCatlogs= function(){
 
 }
 
+dataManager.getNameFromId=function(id){
+
+    var nombre=id;
+
+    for(var j=0; j < store.niveles.length; j++){   
+        if( store.niveles[j].id == $("#nivel_cb").val() ){
+            if(store.niveles[j].coordinatesSource){
+                dataCatlog=store[store.niveles[j].coordinatesSource];
+                for(var j=0; j < dataCatlog.length; j++){    
+                    if(dataCatlog[j].ID==nombre){ 
+                        if(dataCatlog[j].Nombre!=nombre){
+                            nombre=dataCatlog[j].Nombre;
+                        }      
+                    }      
+                }
+            }else{
+                nombre=" Nacional";
+            }
+        }	                     
+    }
+
+    nombre=nombre.replaceAll("_"," ");
+    nombre=nombre.replaceAll("undefined"," ");
+
+    if(nombre.length > 30)
+        nombre=nombre.substr(0,30)+"...";
+
+    return toTitleCase(nombre);
+
+}
+
 dataManager.ProcessEntities= function(){    
 
     console.log("entities",entities);

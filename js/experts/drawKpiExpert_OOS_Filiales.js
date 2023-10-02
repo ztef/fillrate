@@ -234,7 +234,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_UN=function(entity){
 
       // FORMATEA DIV :
     
-        vix_tt_formatToolTip("#toolTip2","OOS Filiales por Origen y Producto de "+entity.key,svgTooltipWidth);
+        vix_tt_formatToolTip("#toolTip2","OOS Filiales por Origen y Producto de "+dataManager.getNameFromId(entity.key),svgTooltipWidth);
       
             // COLUMNAS CON TOTALES :
     
@@ -341,7 +341,7 @@ kpiExpert_OOS_Filiales.DrawTooltipDetail_Dia=function(entity){
 
             // FORMATEA TOOL TIP :
             
-            vix_tt_formatToolTip("#toolTip3","OOS Filiales por Día de "+entity.key,svgTooltipWidth+10,svgTooltipHeight+10);
+            vix_tt_formatToolTip("#toolTip3","OOS Filiales por Día de "+dataManager.getNameFromId(entity.key),svgTooltipWidth+10,svgTooltipHeight+10);
         
             // Agrega un div con un elemento svg :
         

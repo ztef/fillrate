@@ -122,7 +122,7 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
 
         // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip3","Déficit de Flota por Presentación "+entity.key,svgTooltipWidth);
+      vix_tt_formatToolTip("#toolTip3","Déficit de Flota por Presentación "+dataManager.getNameFromId(entity.key),svgTooltipWidth);
       
       // COLUMNAS CON TOTALES :
 
@@ -251,7 +251,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
 
       // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip2","Déficit de Flota por Origen "+entity.key,svgTooltipWidth,svgTooltipHeight+100);
+      vix_tt_formatToolTip("#toolTip2","Déficit de Flota por Origen "+dataManager.getNameFromId(entity.key),svgTooltipWidth,svgTooltipHeight+100);
       
             // COLUMNAS CON TOTALES :
     
