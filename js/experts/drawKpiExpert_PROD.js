@@ -34,6 +34,8 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
            
             arr[i].VolVenta_Real=0;
             arr[i].VolVenta_Plan=0;
+            arr[i].PesoPlan=0;
+            arr[i].PesoReal=0;
             arr[i].Peso=0;
 
             for(var j=0; j < arr[i].values.length; j++ ){
@@ -41,9 +43,13 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
              
                 arr[i].VolVenta_Real+=Number(arr[i].values[j].VolVenta_Real);
                 arr[i].VolVenta_Plan+=Number(arr[i].values[j].VolVenta_Plan);
+                arr[i].PesoPlan+=Number(arr[i].values[j].VolPlan_Peso);
+                arr[i].PesoReal+=Number(arr[i].values[j].VolReal_Peso);
                 arr[i].Peso+=Number(arr[i].values[j].Peso);
 
             }
+
+            arr[i].DifPesos=0;
 
             if(arr[i].VolVenta_Plan>0){
                 arr[i].Dif=arr[i].VolVenta_Real-arr[i].VolVenta_Plan;
@@ -52,9 +58,13 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
                 arr[i].Dif=0;
                 arr[i].DifPer=0;
             }  
+
+            if(arr[i].PesoPlan>0){
+              arr[i].DifPesos=arr[i].PesoReal-arr[i].PesoPlan;
+            }
             
-            if(maximo < arr[i].Peso){
-                maximo = arr[i].Peso;
+            if(maximo < arr[i].DifPesos*1000){
+              maximo = arr[i].DifPesos*1000;
             }
 
             if(maximo2 < arr[i].DifPer*1000){
@@ -69,15 +79,21 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
         var altura=30;
         var caso=0;
        
-        var svgTooltipHeight=arr.length*altura*100;
+        var svgTooltipHeight=arr.length*(altura*.55);
+
+
+        if(svgTooltipHeight<80)
+        svgTooltipHeight=80;
+
         var svgTooltipWidth=650;
         var marginLeft=svgTooltipWidth*.2;
         var tamanioFuente=altura*.4;
         var marginTop=svgTooltipHeight*.15;
 
         $("#toolTip2").css("visibility","visible");            
-        $("#toolTip2").css("left",24+"%");
-        $("#toolTip2").css("top",15+"%");
+        $("#toolTip2").css("left",radio+"px");
+        $("#toolTip2").css("top",100+"px");
+        $("#toolTip2").css("bottom","");
 
         if(svgTooltipHeight > 300){
           $("#toolTip2").css("top","");
@@ -94,7 +110,9 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
           "VolVenta_Real": item.VolVenta_Real,
           "DifK": item.VolVenta_Real - item.VolVenta_Plan,
           "DifP":  item.DifPer * 100,
-          "Peso": item.Peso,
+          "PesoPlan": item.PesoPlan,
+          "PesoReal": item.PesoReal,
+          "DifPesos": item.DifPesos
         };
         });
     
@@ -109,7 +127,9 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
         { key: "VolVenta_Real", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
+        { key: "PesoPlan", header: "Peso Plan (TM)", sortable: true,  width: "100px" },
+        { key: "PesoReal", header: "Peso Real (TM)", sortable: true,  width: "100px" },
+        { key: "DifPesos", header: "Dif (TM)", sortable: true,  width: "100px" }
       ];
     
     
@@ -154,29 +174,27 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
         '</div>';
     
         },
-        Peso: function(value){
-      
-
-           var barWidth = (value/maximo)*100 + '%';
-           var barValue = vix_tt_formatNumber(value)+' TM';
-      
-          return '<div class="bar-container">' +
-         
-          '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +
-          
-          '</div>';
-
-    
+        PesoPlan: function(value) {
+        
+          return '<div style="padding-left:10px;">' +vix_tt_formatNumber(value)+'</div>';   ;
+        },
+        PesoReal: function(value) {
+          return vix_tt_formatNumber(value) ;
+        },
+        DifPesos: function(value) {
+          return vix_tt_formatNumber(value) ;
         }
       };
 
           // FORMATEA DIV :
           
-          vix_tt_formatToolTip("#toolTip2","Producción por Planta",650);
+          // CREA TABLA USANDO DATOS
+      
+      
 
            // COLUMNAS CON TOTALES :
 
-           var columnsWithTotals = ['VolVenta_Plan','VolVenta_Real','DifK']; 
+           var columnsWithTotals = ['VolVenta_Plan','VolVenta_Real','DifK','PesoPlan','PesoReal','DifPesos']; 
            var totalsColumnVisitors = {
                      'VolVenta_Plan': function(value) { 
                        return vix_tt_formatNumber(value) + " TM";
@@ -186,15 +204,23 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
                      },
                      'DifK': function(value) { 
                        return vix_tt_formatNumber(value) + " TM"; 
+                     },
+                     'PesoPlan': function(value) { 
+                       return vix_tt_formatNumber(value) + " TM"; 
+                     },
+                     'PesoReal': function(value) { 
+                       return vix_tt_formatNumber(value) + " TM"; 
+                     },
+                     'DifPesos': function(value) { 
+                       return vix_tt_formatNumber(value) + " TM"; 
                      }
                      };
      
          
-      // CREA TABLA USANDO DATOS
-      
-      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );        
+    
+                     vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",840,svgTooltipHeight+130);
 
-      
+
       
       // APLICA TRANSICIONES 
     
@@ -215,12 +241,16 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
        vix_tt_distributeDivs(["#toolTip2"]);  
 
       // Crea una barra inferior y pasa una funcion de exportacion de datos
+      vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip2", columnsWithTotals );        
+
+      // Crea una barra inferior y pasa una funcion de exportacion de datos
       vix_tt_formatBottomBar("#toolTip2", function () {
         var dataToExport = formatDataForExport(data, columns);
         var filename = "exported_data";
         exportToExcel(dataToExport, filename);
-      });
+      });   
 
+      
 
     }
      
