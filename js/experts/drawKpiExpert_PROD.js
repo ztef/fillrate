@@ -188,10 +188,6 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
 
           // FORMATEA DIV :
           
-          // CREA TABLA USANDO DATOS
-      
-      
-
            // COLUMNAS CON TOTALES :
 
            var columnsWithTotals = ['VolVenta_Plan','VolVenta_Real','DifK','PesoPlan','PesoReal','DifPesos']; 
@@ -214,11 +210,10 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
                      'DifPesos': function(value) { 
                        return vix_tt_formatNumber(value) + " TM"; 
                      }
-                     };
-     
+                     };     
          
     
-                     vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",840,svgTooltipHeight+130);
+                     vix_tt_formatToolTip("#toolTip2","Producción por Planta",840,svgTooltipHeight+130);
 
 
       
