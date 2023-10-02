@@ -75,7 +75,7 @@ kpi_date_status.ShowWindows = function( ){
         $("#toolTip3").css("visibility","visible");  
         $("#toolTip3").css("inset","");           
         $("#toolTip3").css("bottom","90px");
-        $("#toolTip3").css("right","100px");
+        $("#toolTip3").css("right","40px");
 
         // DATOS 
         var data = data.map(function(item) {
@@ -89,8 +89,8 @@ kpi_date_status.ShowWindows = function( ){
         // DEFINE COLUMNAS      
         var columns = [
 
-            { key: "titulo", header: "KPI", sortable: true, width: "250px" },
-            { key: "max_fecha", header: "Última Fecha", sortable: true, width: "150px" },
+            { key: "titulo", header: "KPI", sortable: true, width: "200px" },
+            { key: "max_fecha", header: "Última Fecha", sortable: true, width: "130px" },
             { key: "esWarning", header: " ", sortable: true, width: "60px" }        
         
         ];
@@ -130,7 +130,7 @@ kpi_date_status.ShowWindows = function( ){
           
           };
 
-        vix_tt_formatToolTip("#toolTip3","Últimas fechas disponibles por KPI (solo aquellas con warnings) ",400,400);
+        vix_tt_formatToolTip("#toolTip3","Últimas fechas disponibles por KPI (solo aquellas con warnings) ",350,400);
       
         // CREA TABLA USANDO DATOS
       
