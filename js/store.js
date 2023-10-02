@@ -63,7 +63,7 @@ var store={
             {data:"cat_frente",placeholder:"Frente",fieldInCatlog:"Nombre",id:"cat_frente",type:"autoComplete",nameOnFR:"Frente",nameOnPendientes:"Frente", color:"#12FF00",storeProcedureField:"Frente"},
             {data:"cat_sucursal",placeholder:"Sucursal",fieldInCatlog:"Nombre",id:"cat_sucursal",type:"autoComplete",nameOnFR:"",nameOnPendientes:"", color:"#12FF00",storeProcedureField:"Obra"},
 
-            {data:"fillRate",placeholder:"AgrupProducto",fieldInCatlog:"AgrupProducto",id:"cat_producto",type:"autoComplete",nameOnFR:"AgrupProducto",nameOnPendientes:"TipoProducto", color:"#F716FF",storeProcedureField:"AgrupProducto",default:"Gris", hardcodedData:["Gris","Mortero","Blanco","Especial","Impercem","Otros"]},
+            {data:"fillRate",placeholder:"AgrupProducto",fieldInCatlog:"AgrupProducto",id:"cat_producto",type:"autoComplete",nameOnFR:"AgrupProducto",nameOnPendientes:"TipoProducto", color:"#F716FF",storeProcedureField:"AgrupProducto",default:"Gris", hardcodedData:["Gris","Mortero","Blanco","Multiplast","Impercem","Otros"]},
             {data:"fillRate",placeholder:"Presentación",fieldInCatlog:"Presentacion",id:"cat_presentacion",type:"autoComplete",nameOnFR:"Presentacion",nameOnPendientes:"Presentacion", color:"#F716FF",storeProcedureField:"Presentacion"},
             {data:"fillRate",placeholder:"Material",fieldInCatlog:"Producto_Tactician",id:"cat_material",type:"autoComplete",nameOnFR:"Producto_Tactician",nameOnPendientes:"Descripcion", color:"#F716FF",storeProcedureField:"Producto_Tactician"},
                

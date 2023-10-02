@@ -69,7 +69,7 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
         var altura=30;
         var caso=0;
        
-        var svgTooltipHeight=arr.length*altura;
+        var svgTooltipHeight=arr.length*altura*100;
         var svgTooltipWidth=650;
         var marginLeft=svgTooltipWidth*.2;
         var tamanioFuente=altura*.4;
@@ -78,6 +78,11 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
         $("#toolTip2").css("visibility","visible");            
         $("#toolTip2").css("left",24+"%");
         $("#toolTip2").css("top",15+"%");
+
+        if(svgTooltipHeight > 300){
+          $("#toolTip2").css("top","");
+          $("#toolTip2").css("bottom","10px");
+        }
             
      // DATOS 
 

@@ -220,6 +220,11 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         $("#toolTip3").css("top",80+"px");
         $("#toolTip3").css("right",1+"%");
 
+        if(svgTooltipHeight > 400){
+                $("#toolTip3").css("top","");
+                $("#toolTip3").css("bottom","10px");
+        }  
+
         if(windowWidth > 1500 ){
 
                 $("#toolTip3").css("top",80+"px");
@@ -407,7 +412,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
         
                 $("#toolTip2").css("visibility","visible");        
                 $("#toolTip2").css("max-height","");    
-                $("#toolTip2").css("top",80+"px");
+                $("#toolTip2").css("bottom",4+"px");
                 $("#toolTip2").css("left",radio+"px");
 
                 if(windowWidth > 1500 ){

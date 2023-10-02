@@ -172,8 +172,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     if(svgTooltipHeight<80)
                                         svgTooltipHeight=80;
 
-                                    if(svgTooltipHeight>windowHeight*.8)
-                                        svgTooltipHeight=windowHeight*.8;
+                                    if(svgTooltipHeight>windowHeight*.7)
+                                        svgTooltipHeight=windowHeight*.7;
 
                                     var svgTooltipWidth=400;
                                     var marginLeft=svgTooltipWidth*.2;
@@ -184,7 +184,11 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     $("#toolTip4").css("inset","");      
                                     $("#toolTip4").css("left",radio*.7+"px");
                                     $("#toolTip4").css("top","50px");
-                                
+
+                                    if(svgTooltipHeight > 400){
+                                        $("#toolTip4").css("top","");
+                                        $("#toolTip4").css("bottom","10px");
+                                    }                               
 
                                     // DATOS 
                                     var data = arr.map(function(item) {
