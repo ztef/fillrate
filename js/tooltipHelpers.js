@@ -397,6 +397,10 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
     });
 
 
+    var alignToTop = {
+      "align-self": "flex-start",
+    };
+
     var topBar = $("<div>", {
       class: "top-bar",
       css: {
@@ -428,20 +432,27 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
     });
     titleColumn.append(dragHandle);
   
-    // Create the right column for icons
+  
+
     var iconsColumn = $("<div>", {
       class: "icons-column",
+      css: {
+        "align-self": "flex-start",
+        "align-items": "flex-start", // Align items to the top
+      },
     });
   
     
     var collapseButton = $("<button>", {
       class: "collapse-button",
+      
     }).append('<i class="fas fa-minus"></i>');
     iconsColumn.append(collapseButton);
   
     
     var closeButton = $("<button>", {
       class: "close-button",
+      
     }).append('<i class="fas fa-times"></i>');
     iconsColumn.append(closeButton);
   
@@ -754,6 +765,8 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
   var contentDiv = $(divElement).find(".content");
 
+   
+
 
   
     // agrega el espacio
@@ -761,6 +774,8 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
   
     // Agrega la barra
     $(contentDiv).append(bottomBar);
+
+    $(contentDiv).css("height", "97%");   // recalcula al 80%
   
     // Agrega el evento on Click
     downloadButton.on("click", function () {
@@ -952,9 +967,9 @@ function s2ab(s) {
 
       var containerDiv = d3.select(`#${containerID}`)
         .append("div")
-        .attr("class", "content")
-        .style("height", "100%") // Set the height to 100% to match the div's actual height
-        .style("overflow", "auto");
+        .attr("class", "content") // Content es el div al que se le habilita scroll.
+        .style("height", "100%") 
+        .style("overflow", "auto"); // habilita scroll
 
     
       var table = containerDiv.append("table")
