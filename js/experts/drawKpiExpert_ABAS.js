@@ -640,12 +640,11 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       ];
     
     
-         // DEFINE VISITORS PARA CADA COLUMNA
-    
+      // DEFINE VISITORS PARA CADA COLUMNA   
     
       var columnVisitors = {
         key: function(value) {
-            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
+            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}','cat_un')">${value}
             </div>`;
           },
     
@@ -857,7 +856,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
             key: function(value) {
 
                 value=value.replaceAll("_"," ");
-                return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
+                return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}','cat_un')">${value}
                 </div>`;
               },
     

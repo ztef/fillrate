@@ -432,7 +432,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
     
       var columnVisitors = {
         key: function(value) {
-            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
+            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}','cat_estado')">${value}
             </div>`;
           },
     

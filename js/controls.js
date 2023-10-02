@@ -1160,6 +1160,8 @@ filterControls.arrowUpdate=function(){
 
 filterControls.lookForEntity=function(name, catlog){
 
+    console.log(lookForEntity,catlog);
+
     name=String(name).toLocaleLowerCase();
 
     console.log("buscando nombre ",name);
