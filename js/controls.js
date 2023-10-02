@@ -777,7 +777,7 @@ filterControls.showActiveFilters=function(){
 
     var titulo=`<div style="font-size:100%;width:${windowWidth*.56}px";> ${filtroProducto} | ${filtroPresentacion} | ${pedidosEntregados} Nivel: ${nivel} 
     <span style="font-size:12px; color:white">
-       Período del ${dateInit.getDate()} ${getMes(dateInit.getMonth())} al ${dateEnd.getDate()}  ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())}
+       Período: ${dateInit.getDate()} ${getMes(dateInit.getMonth())} ${String(dateInit.getFullYear())} al ${dateEnd.getDate()}  ${getMes(dateEnd.getMonth())} ${String(dateEnd.getFullYear())}
     </span></div>`;
 
     $("#titulo").html(titulo);   
