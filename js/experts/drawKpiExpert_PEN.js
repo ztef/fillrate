@@ -495,7 +495,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
                     return color;
                     
                 })		
-                .style("font-family","Cabin").
+                .style("font-family","Cabin")
                 .style("font-weight","bold")
                 .style("font-size",tamanioFuente)	
                 .style("text-anchor","end")
