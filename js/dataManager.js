@@ -109,7 +109,7 @@ dataManager.UpdateCatlogs= function(){
         var catlogsSources=[];
 
         for(var i=0; i < store.localDataSources.length; i++){
-            if(store.localDataSources[i].varName=="cat_zt" || store.localDataSources[i].varName=="cat_cliente"){
+            if(store.localDataSources[i].varName=="cat_zt" || store.localDataSources[i].varName=="cat_cliente_ref"){
                 catlogsSources.push(store.localDataSources[i]);
             }
         }

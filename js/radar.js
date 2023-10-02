@@ -417,15 +417,24 @@ radar.DrawBaseRadar=function(entity){
                                 if(store.niveles[j].coordinatesSource){
 
                                     dataCatlog=store[store.niveles[j].coordinatesSource];
-                                    
+
+                                    var encuentra=false;
+                                   
                                     for(var j=0; j < dataCatlog.length; j++){    
                                         
                                         if(dataCatlog[j].ID==nombre){
-                                            if(dataCatlog[j].Nombre!=nombre)
+                                            
+                                            if(dataCatlog[j].Nombre!=nombre){
+                                                encuentra=true;
                                                 nombre=dataCatlog[j].Nombre;
+                                            }
+                                                
                                         }
                                             
                                     }
+
+                                    if(!encuentra)
+                                    console.log(nombre);
 
                                 }else{
                                     nombre="Indicadores Nacionales";
@@ -440,7 +449,7 @@ radar.DrawBaseRadar=function(entity){
                         if(nombre.length > 30)
                             nombre=nombre.substr(0,30)+"...";
 
-                        return nombre;
+                        return toTitleCase(nombre);
 
                 });
     

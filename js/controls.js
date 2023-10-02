@@ -432,7 +432,9 @@ filterControls.CleanFields=function(){
 // SE CREAN CATALOGOS A PARTIR DE UNA UNICA CONSULTA 
 filterControls.creaCatalogosDerivadorDeClientes=function(){
 
-    if(store.cat_cliente){
+    if(store.cat_cliente_ref){
+
+            console.log("store.cat_cliente",store.cat_cliente_ref.length);
 
             // FRENTES
 
@@ -442,21 +444,38 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             var caso=0;
             
-            for(var i=0; i < store.cat_cliente.length; i++){
+            for(var i=0; i < store.cat_cliente_ref.length; i++){
 
-                if(!idCreados[store.cat_cliente[i].FrenteNum]){
-                    arrTemp[caso]={...store.cat_cliente[i]};
-                    arrTemp[caso].ID=arrTemp[caso].FrenteNum;
-                    arrTemp[caso].Nombre=arrTemp[caso].Frente;
-                    idCreados[arrTemp[caso].FrenteNum]=true;
+                if(!idCreados[store.cat_cliente_ref[i].FrenteNum]){
+
+                    arrTemp[caso]={};
+                    arrTemp[caso].ID=store.cat_cliente_ref[i].FrenteNum;
+                    arrTemp[caso].Nombre=store.cat_cliente_ref[i].Frente;
+                    arrTemp[caso].Lat=store.cat_cliente_ref[i].Lat;
+                    arrTemp[caso].Long=store.cat_cliente_ref[i].Long;
+                    idCreados[store.cat_cliente_ref[i].FrenteNum]=true;
+
+                    if(String(arrTemp[caso].ID)=="66782029" ){
+                        console.log("encuentra frenteeeeeee");
+                    }
+
                     caso++;
+
                 }              
 
             }
 
             store.cat_frente=arrTemp;
 
-            // SUCURSALES            
+            for(var i=0; i < store.cat_frente.length; i++){
+
+                if("66782029"==String(store.cat_frente[i].ID) )
+                    console.log("enuentra*****************");
+
+            }
+
+            // SUCURSALES           
+            
 
             var arrTemp=[]; 
             
@@ -464,13 +483,13 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             var caso=0;
             
-            for(var i=0; i < store.cat_cliente.length; i++){
+            for(var i=0; i < store.cat_cliente_ref.length; i++){
 
-                if(store.cat_cliente[i].Destino == store.cat_cliente[i].Frente){
+                if(store.cat_cliente_ref[i].Destino == store.cat_cliente_ref[i].Frente){
 
-                    if(!idCreados[store.cat_cliente[i].DestinoNum]){
+                    if(!idCreados[store.cat_cliente_ref[i].DestinoNum]){
 
-                        arrTemp[caso]={...store.cat_cliente[i]};
+                        arrTemp[caso]={...store.cat_cliente_ref[i]};
                         arrTemp[caso].ID=arrTemp[caso].DestinoNum;
                         arrTemp[caso].Nombre=arrTemp[caso].Destino;                  
                         idCreados[arrTemp[caso].DestinoNum]=true;
@@ -481,31 +500,28 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             }
 
-            console.log("crea cat sucrusal");
 
-            store.cat_sucursal=arrTemp;
+            store.cat_sucursal=arrTemp;            
 
             // CLIENTES  HOLDINGS            
 
-            var arrTemp=[]; 
+            var arrTemp_=[]; 
             
-            var idCreados={};
-
-            var caso=0;
+            var idCreados_={};    
             
-            for(var i=0; i < store.cat_cliente.length; i++){               
+            for(var i=0; i < store.cat_cliente_ref.length; i++){               
 
-                    if(!idCreados[store.cat_cliente[i].HoldingNum]){
-
-                        arrTemp[caso]={...store.cat_cliente[i]};                    
-                        idCreados[arrTemp[caso].HoldingNum]=true;
-                        caso++;
+                    if(!idCreados_[store.cat_cliente_ref[i].HoldingNum]){
+                       
+                        arrTemp_.push(store.cat_cliente_ref[i]);                   
+                        idCreados_[store.cat_cliente_ref[i].HoldingNum]=true;                        
 
                     }               
 
-            }
+            }            
 
-            store.cat_cliente=arrTemp;
+            store.cat_cliente=arrTemp_;    
+                  
 
     }  
     
