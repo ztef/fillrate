@@ -122,7 +122,7 @@ calculateKpiExpert_Abasto.calculateKPI=function(entities){
 
                             entidad.abasto.VolumenPlan+=Number(data.recordset[j].VolumenPlan);
                             entidad.abasto.VolumenReal+=Number(data.recordset[j].VolumenReal);
-                            entidad.abasto.Pct_Radar+=Number(data.recordset[j].Pct_Radar);                                               
+                            entidad.abasto.Pct_Radar+=Number(data.recordset[j].Pct_Radar);                                              
 
                             entidad.abasto.values.push(data.recordset[j]);  
 
