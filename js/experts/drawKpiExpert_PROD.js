@@ -213,7 +213,7 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
                      };     
          
     
-                     vix_tt_formatToolTip("#toolTip2","Producción por Planta",840,svgTooltipHeight+130);
+                     vix_tt_formatToolTip("#toolTip2","Producción por Planta de "+toTitleCase(entity.key),840,svgTooltipHeight+130);
 
 
       
