@@ -293,27 +293,36 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       
         arr[i].VolumenReal=0;
         arr[i].VolumenPlan=0; 
+        arr[i].PesoPlan=0;
+        arr[i].PesoReal=0;
         arr[i].Peso=0;      
 
         for(var j=0; j < arr[i].values.length; j++ ){
         
             arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
             arr[i].VolumenPlan+=Number(arr[i].values[j].VolumenPlan); 
+            arr[i].PesoPlan+=Number(arr[i].values[j].VolPlan_Peso);
+            arr[i].PesoReal+=Number(arr[i].values[j].VolReal_Peso);
             arr[i].Peso+=Number(arr[i].values[j].Peso);        
 
         }
+
+        arr[i].DifPer=0;
+        arr[i].DifPesos=0;
+        arr[i].Dif=0;
         
         if(arr[i].VolumenReal>0){
             arr[i].Dif=arr[i].VolumenReal-arr[i].VolumenPlan;
             arr[i].DifPer=arr[i].VolumenReal/arr[i].VolumenPlan;
-        }else{
-            arr[i].Dif=0;
-            arr[i].DifPer=0;
-        }  
-        
-        if(maximo < arr[i].Peso){
-            maximo = arr[i].Peso;
         }
+
+        if(arr[i].PesoPlan>0){
+          arr[i].DifPesos=arr[i].PesoReal-arr[i].PesoPlan;
+        }
+        
+        if(maximo < arr[i].DifPesos*1000){
+          maximo = arr[i].DifPesos*1000;
+      }
 
         if(maximoVolumen < arr[i].DifPer*1000){
             maximoVolumen=arr[i].DifPer*1000;
@@ -347,8 +356,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     if(windowWidth > 1500 ){
 
       $("#toolTip2").css("top",windowHeight*.5+"px");
-      $("#toolTip2").css("left",windowWidth*.6+"px");
-      $("#toolTip2").css("right","");
+      //$("#toolTip2").css("left",windowWidth*.6+"px");
+      $("#toolTip2").css("right","10px");
      
     }
 
@@ -361,7 +370,9 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           "VolumenReal": item.VolumenReal,
           "DifK": item.VolumenReal - item.VolumenPlan,
           "DifP":  ((item.VolumenReal / item.VolumenPlan) ) * 100,
-          "Peso": item.Peso,
+          "PesoPlan": item.PesoPlan,
+          "PesoReal": item.PesoReal,
+          "DifPesos": item.DifPesos
         };
         });  
     
@@ -375,7 +386,9 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
         { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "Peso", header: "Ponderación", sortable: true,  width: "100px" }
+        { key: "PesoPlan", header: "Peso Plan (TM)", sortable: true,  width: "100px" },
+        { key: "PesoReal", header: "Peso Real (TM)", sortable: true,  width: "100px" },
+        { key: "DifPesos", header: "Dif (TM)", sortable: true,  width: "100px" }
       ];
     
     
@@ -419,27 +432,27 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
             + '<rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' +        
             '</div>';
         },
-        Peso: function(value){
-      
-            var barWidth = (value/maximo)*100 + '%';
-            var barValue = vix_tt_formatNumber(value)+' TM';
-       
-           return '<div class="bar-container">' +
-           
-           '<svg width="90%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' +      
-           '</div>';
+        PesoPlan: function(value) {
+        
+          return '<div style="padding-left:10px;">' +vix_tt_formatNumber(value)+'</div>';   ;
+        },
+        PesoReal: function(value) {
+          return vix_tt_formatNumber(value) ;
+        },
+        DifPesos: function(value) {
+          return vix_tt_formatNumber(value) ;
         }
       };
     
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",630,svgTooltipHeight+120);
+      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",840,svgTooltipHeight+120);
     
       
             // COLUMNAS CON TOTALES :
     
-            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK']; 
+            var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK','PesoPlan','PesoReal','DifPesos']; 
             var totalsColumnVisitors = {
                       'VolumenPlan': function(value) { 
                         return vix_tt_formatNumber(value) + " TM";
@@ -448,6 +461,15 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
                         return vix_tt_formatNumber(value) + " TM"; 
                       },
                       'DifK': function(value) { 
+                        return vix_tt_formatNumber(value) + " TM"; 
+                      },
+                      'PesoPlan': function(value) { 
+                        return vix_tt_formatNumber(value) + " TM"; 
+                      },
+                      'PesoReal': function(value) { 
+                        return vix_tt_formatNumber(value) + " TM"; 
+                      },
+                      'DifPesos': function(value) { 
                         return vix_tt_formatNumber(value) + " TM"; 
                       }
 
@@ -540,8 +562,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
         if(svgTooltipHeight<120)
             svgTooltipHeight=120;
 
-        if(svgTooltipHeight>windowHeight*.7)
-            svgTooltipHeight=windowHeight*.7;
+        if(svgTooltipHeight>windowHeight*.61)
+            svgTooltipHeight=windowHeight*.61;
 
 
 
@@ -649,7 +671,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // COLUMNAS CON TOTALES :
 
-      var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK','PesoPlan','PesoReal']; 
+      var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK','PesoPlan','PesoReal','DifPesos']; 
       var totalsColumnVisitors = {
                 'VolumenPlan': function(value) { 
                   return vix_tt_formatNumber(value) + " TM";
@@ -664,6 +686,9 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
                   return vix_tt_formatNumber(value) + " TM"; 
                 },
                 'PesoReal': function(value) { 
+                  return vix_tt_formatNumber(value) + " TM"; 
+                },
+                'DifPesos': function(value) { 
                   return vix_tt_formatNumber(value) + " TM"; 
                 }
                 };
