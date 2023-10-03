@@ -547,7 +547,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("font-size",tamanioFuente*.84)						
                         .style("text-anchor","start")
                         .style("opacity",0 )
-                        .attr("filter","url(#dropshadowRadar)")
+                        
                         .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.8)+1  )+","+String( (svgTooltipHeight*.78)-marginBottom+70 )+")  rotate("+(-90)+") ")
                         .text(function(){
                         
