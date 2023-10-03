@@ -455,10 +455,7 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
                     arrTemp[caso].Long=store.cat_cliente_ref[i].Long;
                     idCreados[store.cat_cliente_ref[i].FrenteNum]=true;
 
-                    if(String(arrTemp[caso].ID)=="66782029" ){
-                        console.log("encuentra frenteeeeeee");
-                    }
-
+                   
                     caso++;
 
                 }              
@@ -467,15 +464,7 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             store.cat_frente=arrTemp;
 
-            for(var i=0; i < store.cat_frente.length; i++){
-
-                if("66782029"==String(store.cat_frente[i].ID) )
-                    console.log("enuentra*****************");
-
-            }
-
-            // SUCURSALES           
-            
+            // SUCURSALES         
 
             var arrTemp=[]; 
             
@@ -485,23 +474,30 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
             
             for(var i=0; i < store.cat_cliente_ref.length; i++){
 
-                if(store.cat_cliente_ref[i].Destino == store.cat_cliente_ref[i].Frente){
+                //if(store.cat_cliente_ref[i].Destino == store.cat_cliente_ref[i].Frente){
 
-                    if(!idCreados[store.cat_cliente_ref[i].DestinoNum]){
+                    if(!idCreados[store.cat_cliente_ref[i].DestinoNum+"_"+store.cat_cliente_ref[i].Destino]){
 
                         arrTemp[caso]={...store.cat_cliente_ref[i]};
                         arrTemp[caso].ID=arrTemp[caso].DestinoNum;
                         arrTemp[caso].Nombre=arrTemp[caso].Destino;                  
-                        idCreados[arrTemp[caso].DestinoNum]=true;
+                        idCreados[arrTemp[caso].DestinoNum+"_"+arrTemp[caso].Destino]=true;
                         caso++;
 
                     }
-                }
+                    
+                //}
+
+            }          
+
+            store.cat_sucursal=arrTemp;    
+            
+            for(var i=0; i < store.cat_sucursal.length; i++){
+
+                if("67136308"==String(store.cat_sucursal[i].ID) )
+                    console.log("enuentra*****************");
 
             }
-
-
-            store.cat_sucursal=arrTemp;            
 
             // CLIENTES  HOLDINGS            
 
@@ -864,9 +860,7 @@ filterControls.createHardCodedControls=function(){
 
             posAnterior=$("#nivel_cb").val();            
             
-        })
-
-       
+        })       
 
 
         // NIVELES DE FILLRATE
