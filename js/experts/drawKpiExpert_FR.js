@@ -260,7 +260,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       var columnVisitors = {
         key: function(value,i) {
 
-            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}','cat_estado')">${value}
+            return `<div class="key-selector" onclick="backInfoNav.push({entity:'${entity.key}' , catlog:'${dataManager.getCurrentCatlog()}'});filterControls.arrowUpdate();filterControls.lookForEntity('${value}','cat_estado')">${value}
             </div>`;
           },
     
