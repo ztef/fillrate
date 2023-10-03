@@ -780,31 +780,33 @@ radar.DrawEntityValues=function(entity){
                                     if(this.tootipDetail){
 
                                         this.tootipDetail.DrawTooltipDetail(this.data);    	
-
+                                        
+                                        /*
                                         if(backInfoNav){
 
                                             var catlog;                                            
 
                                             for(var j=0; j < store.niveles.length; j++){
                        
-                                                    if( String(store.niveles[j].id) ==  String($("#nivel_cb").val()) ){
-                            
-                                                        if(store.niveles[j].coordinatesSource){
+                                                if( String(store.niveles[j].id) ==  String($("#nivel_cb").val()) ){
+                        
+                                                    if(store.niveles[j].coordinatesSource){
 
-                                                            catlog = store.niveles[j].coordinatesSource;            
-                            
-                                                        }
-                            
+                                                        catlog = store.niveles[j].coordinatesSource;            
+                        
                                                     }
+                        
                                                 }
                                             }
+                                        }
 
-                                            if(catlog){
+                                        if(catlog){
 
-                                                backInfoNav.push({entity:this.data.key , catlog:catlog});
-                                                filterControls.arrowUpdate();
+                                            backInfoNav.push({entity:this.data.key , catlog:catlog});
+                                            filterControls.arrowUpdate();
 
-                                            }                                               
+                                        } 
+                                        */                                              
                                            
                                     }                                      
 

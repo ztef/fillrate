@@ -136,7 +136,9 @@ calculateKpiExpert_FR.calculateKPI=function(){
                             fillRateEntities=entities;
                             calculateKpiExpert_FR.max=0;
 
-                            if( !initialized || (cuentaFiltros==0 && ($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == "")) ){
+                            $("#cat_producto").val()
+
+                            if( !initialized || (cuentaFiltros==0 && ($("#masivos_cb").val() == "Todos" || $("#masivos_cb").val() == ""))  || (cuentaFiltros==0 && ($("#cat_producto").val() == "Todos" || $("#cat_producto").val() == "")) ){
 
                                 initialized=true;
 

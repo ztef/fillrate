@@ -126,6 +126,34 @@ dataManager.UpdateCatlogs= function(){
 
 }
 
+
+dataManager.getCurrentCatlog=function(){
+
+    var catlog;                                            
+
+    for(var j=0; j < store.niveles.length; j++){
+
+        if( String(store.niveles[j].id) ==  String($("#nivel_cb").val()) ){
+
+            if(store.niveles[j].coordinatesSource){
+
+                catlog = store.niveles[j].coordinatesSource;            
+
+            }
+
+        }
+    }
+
+    if(catlog){
+
+        return catlog;
+
+    }else{
+        return "";
+    }
+
+}
+
 dataManager.getNameFromId=function(id){
 
     var nombre=id;
