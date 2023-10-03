@@ -260,7 +260,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       var columnVisitors = {
         key: function(value,i) {
 
-            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
+            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}','cat_estado')">${value}
             </div>`;
           },
     
@@ -332,9 +332,18 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         
 kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){    
         
-                console.log(entity);  
-        
                 var maximo=0;
+                
+                /*
+                var diasDelPeriodo={};
+                for(var i=0; i < entity.values; i++ ){
+
+                        if(entity.values[i].fecha){
+                                diasDelPeriodo[ entity.values[i].fecha.getTime() ]=true;
+                        }
+
+                }
+                */
 
                 var arr=d3.nest()
                         .key(function(d) { 
@@ -346,8 +355,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 }                        
                 
                         })
-                        .entries(entity.values);
-
+                        .entries(entity.values);             
 
                 for(var i=0; i < arr.length; i++ ){
 
