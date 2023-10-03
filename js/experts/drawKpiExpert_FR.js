@@ -323,7 +323,6 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
        exportToExcel(dataToExport, filename);
      });
       
-      
       // APLICA TRANSICIONES 
     
       vix_tt_transitionRectWidth("toolTip3");     
@@ -332,8 +331,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         
 kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){    
         
-                var maximo=0;
-                
+                var maximo=0;   
+                            
                 /*
                 var diasDelPeriodo={};
                 for(var i=0; i < entity.values; i++ ){
@@ -341,6 +340,15 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         if(entity.values[i].fecha){
                                 diasDelPeriodo[ entity.values[i].fecha.getTime() ]=true;
                         }
+
+                }
+
+                var dia=((1000*60)*60)*24;
+                var init=dateInit.getDate();
+                var end=dateEnd.getDate();
+                for(var i=init; i < end+1000; i+=dia ){
+
+                        console.log("dia",new Date(i));
 
                 }
                 */

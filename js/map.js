@@ -252,6 +252,7 @@ var escalado=1;
 var currentEntities;
 
 Stage.GoHome=function(){
+
 	viewer.camera.flyTo({
 		destination : Cesium.Cartesian3.fromDegrees(-101.777344, 8.121772, 2500000.0),
 		orientation : {
@@ -260,6 +261,7 @@ Stage.GoHome=function(){
 			roll : 0.0
 		}
 	});
+	
 }
 
 Stage.EraseMapObjects=function(){

@@ -407,7 +407,7 @@ filterControls.CleanFields=function(){
 
         if(e == "nivel_cb"){
 
-            $("#nivel_cb").val(1);
+            $("#nivel_cb").val(3);
 
         } else if(e == "masivos_cb"){
 
