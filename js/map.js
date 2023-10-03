@@ -261,7 +261,7 @@ Stage.GoHome=function(){
 			roll : 0.0
 		}
 	});
-	
+
 }
 
 Stage.EraseMapObjects=function(){
@@ -352,9 +352,12 @@ Stage.FocusMapElement=function(id){
 
 	radar.CleanWindows();
 
-	for(var e in mapElements){
+	var encontro=false;
 
+	for(var e in mapElements){
+		
 		if(mapElements[e].key.toLowerCase()==id.toLowerCase()){
+			
 			viewer.camera.flyTo({
 				destination : Cesium.Cartesian3.fromDegrees(mapElements[e].lng, mapElements[e].lat+config.offSetCamaraParaEnfocar[$("#nivel_cb").val()], config.alturas[$("#nivel_cb").val()]*3 ),
 				orientation : {
@@ -363,6 +366,8 @@ Stage.FocusMapElement=function(id){
 					roll : 0.0
 				}
 			});
+
+			encontro=true;
 
 			if( !mapElements[e].radarData ){
 				if(radar )
@@ -373,14 +378,21 @@ Stage.FocusMapElement=function(id){
 			mapElements[e].radarData.svgBack.attr("fill", "#9A9C9C").transition().delay(2000).duration(getRandomInt(0,2000))
 			.attr("fill", "black");
 
-			
-	
 			break;
 
-		}	
-		
+		}		
 
 	}
+
+	if(!encontro){
+
+		setTimeout(()=>{
+			alert("No se encuentra en mapa el elemento");
+		}, 500); 
+
+	}
+		
+
 }
 
 Stage.ReorderLayout=function(){

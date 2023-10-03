@@ -485,19 +485,13 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
                         caso++;
 
                     }
-                    
+
                 //}
 
             }          
 
             store.cat_sucursal=arrTemp;    
-            
-            for(var i=0; i < store.cat_sucursal.length; i++){
 
-                if("67136308"==String(store.cat_sucursal[i].ID) )
-                    console.log("enuentra*****************");
-
-            }
 
             // CLIENTES  HOLDINGS            
 

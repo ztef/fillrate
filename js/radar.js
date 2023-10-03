@@ -523,6 +523,13 @@ radar.DrawBaseRadar=function(entity){
             })
             .on("click",function(){
                 radar.CleanWindows();
+
+                
+                d3.select(this).attr("fill","gray");
+                d3.select(this).transition().delay(0).duration(getRandomInt(0,800))
+                .attr("fill", "black")	
+                ;
+
                 Stage.FocusMapElement(this.data.key);
             });
 
