@@ -274,14 +274,18 @@ Stage.EraseMapObjects=function(){
 
 }
 
+
+
 Stage.DrawMapObjects=function(entities){
 	console.log(entities);
 
 	Stage.EraseMapObjects();
 
 	mapElementsArr=[];
+	entitiesCoords=[];
 
 	for(var i=0; i < entities.length; i++){   
+
 		for(var j=0; j < store.niveles.length; j++){ 
 
 			if( store.niveles[j].id == Number($("#nivel_cb").val()) ){
@@ -295,6 +299,7 @@ Stage.DrawMapObjects=function(entities){
 							if(catalogoDeCoordenadas[k].ID==entities[i].key || catalogoDeCoordenadas[k].Nombre==entities[i].key){								
 								entities[i].lat=Number(catalogoDeCoordenadas[k].Lat);
 								entities[i].lng=Number(catalogoDeCoordenadas[k].Long);
+								entitiesCoords.push({lat:entities[i].lat ,lng:entities[i].lng});
 							}
 					}
 
@@ -338,14 +343,20 @@ Stage.DrawMapObjects=function(entities){
 	Stage.blockScreen.style("visibility","hidden");
 	//$("#Controls").css("visibility","visible");
 
+
+
 	setTimeout(()=>{
 
-        filterControls.CheckIfFocus();        
+        filterControls.CheckIfFocus();       
 
     }, 1000);
 
-	
+	Stage.GetCammeraPos(entitiesCoords);
 
+}
+
+Stage.GetCammeraPos=function(coords){
+	console.log("GetCammeraPos",coords);
 }
 
 Stage.FocusMapElement=function(id){
