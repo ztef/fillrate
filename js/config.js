@@ -2,6 +2,8 @@ var config={
 
     modoSoloFillRate:false,
 
+    nivelInicial:0 , //Debe especificarse el id de store.niveles
+
     //DATA OPERATIVA
     fillRateSource:"docs/FillRate_mayoGS.csv",
     oosSource:"docs/OOS_Mayo_GS.csv",
