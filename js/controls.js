@@ -283,7 +283,7 @@ $( function() {
                 .appendTo( this.wrapper )
                 .val( value )
                 .attr( "title", "" )
-     .attr( "placeholder", "test" )
+                .attr( "placeholder", "test" )
                 .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
                 .autocomplete({
                     delay: 0,
@@ -401,32 +401,40 @@ $( function() {
 
 }
 
-filterControls.CleanFields=function(){
+filterControls.CleanFields=function(filtra){
 
     for(var e in createdControls){
 
         if(e == "nivel_cb"){
 
-            $("#nivel_cb").val(1);
+            $("#nivel_cb").val(3);
 
         } else if(e == "masivos_cb"){
 
             $("#masivos_cb").val("Todos");
 
-        }else{
+        }if(e == "inputEnfoqueCamara"){
 
+
+        }else{
+            console.log("limpia ",e);
             $("#"+e).val("");
+            $($("#"+e).siblings().first()[0].firstChild).val("")
 
         }
        
     }
 
-    setTimeout(()=>{ 
+    if(filtra){
+        setTimeout(()=>{ 
 
-        filterControls.FilterData();
+            //filterControls.FilterData();
+        
+        }, 100);
     
-    }, 100);
+    }
 
+   
 }
 
 // SE CREAN CATALOGOS A PARTIR DE UNA UNICA CONSULTA 
@@ -455,10 +463,7 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
                     arrTemp[caso].Long=store.cat_cliente_ref[i].Long;
                     idCreados[store.cat_cliente_ref[i].FrenteNum]=true;
 
-                    if(String(arrTemp[caso].ID)=="66782029" ){
-                        console.log("encuentra frenteeeeeee");
-                    }
-
+                   
                     caso++;
 
                 }              
@@ -467,15 +472,7 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             store.cat_frente=arrTemp;
 
-            for(var i=0; i < store.cat_frente.length; i++){
-
-                if("66782029"==String(store.cat_frente[i].ID) )
-                    console.log("enuentra*****************");
-
-            }
-
-            // SUCURSALES           
-            
+            // SUCURSALES         
 
             var arrTemp=[]; 
             
@@ -485,23 +482,24 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
             
             for(var i=0; i < store.cat_cliente_ref.length; i++){
 
-                if(store.cat_cliente_ref[i].Destino == store.cat_cliente_ref[i].Frente){
+                //if(store.cat_cliente_ref[i].Destino == store.cat_cliente_ref[i].Frente){
 
-                    if(!idCreados[store.cat_cliente_ref[i].DestinoNum]){
+                    if(!idCreados[store.cat_cliente_ref[i].DestinoNum+"_"+store.cat_cliente_ref[i].Destino]){
 
                         arrTemp[caso]={...store.cat_cliente_ref[i]};
                         arrTemp[caso].ID=arrTemp[caso].DestinoNum;
                         arrTemp[caso].Nombre=arrTemp[caso].Destino;                  
-                        idCreados[arrTemp[caso].DestinoNum]=true;
+                        idCreados[arrTemp[caso].DestinoNum+"_"+arrTemp[caso].Destino]=true;
                         caso++;
 
                     }
-                }
 
-            }
+                //}
 
+            }          
 
-            store.cat_sucursal=arrTemp;            
+            store.cat_sucursal=arrTemp;    
+
 
             // CLIENTES  HOLDINGS            
 
@@ -864,9 +862,7 @@ filterControls.createHardCodedControls=function(){
 
             posAnterior=$("#nivel_cb").val();            
             
-        })
-
-       
+        })       
 
 
         // NIVELES DE FILLRATE
@@ -1088,9 +1084,9 @@ var backInfoNav=[];
 
 filterControls.back=function(){
 
-    if(backInfoNav.length > 1){
+    if(backInfoNav.length > 0){
 
-        filterControls.lookForEntity(backInfoNav[backInfoNav.length-2].entity,backInfoNav[backInfoNav.length-2].catlog);
+        filterControls.lookForEntity(backInfoNav[backInfoNav.length-1].entity,backInfoNav[backInfoNav.length-1].catlog);
 
     }
 
@@ -1102,7 +1098,7 @@ filterControls.back=function(){
 
     setTimeout(()=>{
 
-        if(backInfoNav.length > 1){
+        if(backInfoNav.length > 0){
             $("#back_btn").css("visibility","visible");           
         } else{
             $("#back_btn").css("visibility","hidden");
@@ -1118,7 +1114,7 @@ filterControls.arrowUpdate=function(){
 
     $("#toolTip").html("");
 
-    if(backInfoNav.length > 1){
+    if(backInfoNav.length > 0){
 
         console.log("arrowUpdate");
 
@@ -1130,11 +1126,13 @@ filterControls.arrowUpdate=function(){
 
                 $("#toolTip").css("left",mouse_x+20);
 
+                $("#toolTip").html("");
+
                 $("#toolTip").html(
                     
                     `
-                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>Regresa a: <span style='color:#00EAFF'>${toTitleCase(backInfoNav[backInfoNav.length-2   ].entity)}<br>
-                        <span style='color:#fff600;font-size:${15*escalaTextos}px;'>En: <span style='color:#00EAFF'>${backInfoNav[backInfoNav.length-1].catlog}
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;margin:13px;'>Regresa a: <span style='color:#00EAFF;margin:5px;'>${toTitleCase(backInfoNav[backInfoNav.length-1   ].entity)}<br>
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;margin:13px;'>En: <span style='color:#00EAFF;margin:5px;'>${backInfoNav[backInfoNav.length-1].catlog}
                 
                     `
                 );
@@ -1150,7 +1148,7 @@ filterControls.arrowUpdate=function(){
 
     }
 
-    if(backInfoNav.length > 1){
+    if(backInfoNav.length > 0){
         $("#back_btn").css("visibility","visible");           
     } else{
         $("#back_btn").css("visibility","hidden");
@@ -1160,52 +1158,52 @@ filterControls.arrowUpdate=function(){
 
 filterControls.lookForEntity=function(name, catlog){
 
-    console.log(lookForEntity,catlog);
+        name=String(name).toLocaleLowerCase();
 
-    name=String(name).toLocaleLowerCase();
+        console.log("buscando nombre ",name);
 
-    console.log("buscando nombre ",name);
+        waitingToFocus=undefined;
+        
+        for(var e in store){
 
-    waitingToFocus=undefined;
-    
-    for(var e in store){
-
-        if(e.indexOf("cat_") > -1 && filterControls.checkCatlogName(e,catlog) ){
-            
-            for(var i=0; i < store[e].length; i++){
-               
-                if( String(store[e][i].ID).toLocaleLowerCase()== name || String(store[e][i].Nombre).toLocaleLowerCase() == name  ){                   
-                   
-                    for(var j=0; j < store.niveles.length; j++){
-                       
-                        if(store.niveles[j].coordinatesSource){
-                            
-                            if(store.niveles[j].coordinatesSource==e){
-                                console.log(String($("#nivel_cb").val()) , String(store.niveles[j].id));
-                                if( String($("#nivel_cb").val()) != String(store.niveles[j].id) ){
-                                    $("#nivel_cb").val(store.niveles[j].id);
-                                    backInfoNav.push({entity:name , catlog:e});
-                                    waitingToFocus=name;
-                                    filterControls.FilterData();
-                                }else{
-                                    Stage.FocusMapElement(name);
-                                }                 
-   
-                            }
-
-                        }
-                    }
+            if(e.indexOf("cat_") > -1 && filterControls.checkCatlogName(e,catlog) ){
+                
+                for(var i=0; i < store[e].length; i++){
+                
+                    if( String(store[e][i].ID).toLocaleLowerCase()== name || String(store[e][i].Nombre).toLocaleLowerCase() == name  ){                   
                     
-                    return;
+                        for(var j=0; j < store.niveles.length; j++){
+                        
+                            if(store.niveles[j].coordinatesSource){
+                                
+                                if(store.niveles[j].coordinatesSource==e){
+                                    
+                                    if( String($("#nivel_cb").val()) != String(store.niveles[j].id) ){                                        
+
+                                        $("#nivel_cb").val(store.niveles[j].id);
+                                        
+                                        waitingToFocus=name;
+                                        filterControls.FilterData();
+
+                                    }else{
+                                        Stage.FocusMapElement(name);
+                                    }                 
+    
+                                }
+
+                            }
+                        }
+                        
+                        return;
+                    }
+
                 }
 
             }
 
         }
 
-    }
-
-    alert("No encontró una entidad con el nombre: "+name);
+        alert("No encontró una entidad con el nombre: "+name);
 
 }
 

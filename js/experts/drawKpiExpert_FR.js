@@ -187,7 +187,9 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
                 
                 arr[i].por1=Math.round((arr[i].vol1/arr[i].totalSolicitado)*100);
                 arr[i].por2=Math.round((arr[i].vol2/arr[i].totalSolicitado)*100);
-                arr[i].por3=Math.round((arr[i].vol3/arr[i].totalSolicitado)*100);      
+                arr[i].por3=Math.round((arr[i].vol3/arr[i].totalSolicitado)*100);   
+                
+                console.log("por1",arr[i].vol1,arr[i].totalSolicitado);
 
         }
 
@@ -241,8 +243,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
           "por1": item.por1,      
           "cant": item.CantEntfinal
         };
-        });
-    
+        });    
     
         // DEFINE COLUMNAS
       
@@ -258,7 +259,8 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
       var columnVisitors = {
         key: function(value,i) {
-            return `<div class="key-selector" onclick="filterControls.lookForEntity('${value}')">${value}
+
+            return `<div class="key-selector" onclick="backInfoNav.push({entity:'${entity.key}' , catlog:'${dataManager.getCurrentCatlog()}'});filterControls.arrowUpdate();filterControls.lookForEntity('${value}','cat_estado')">${value}
             </div>`;
           },
     
@@ -268,7 +270,9 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
           var p2 =  arr[i].por2;  
           var p3 =  arr[i].por3;  
           var svgWidth = 150;  
-          var svgHeight = 15;  
+          var svgHeight = 15; 
+          
+          
           
           var svgString = createBar(p1, p2, p3, svgWidth, svgHeight, p1+"%");
           
@@ -319,7 +323,6 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
        exportToExcel(dataToExport, filename);
      });
       
-      
       // APLICA TRANSICIONES 
     
       vix_tt_transitionRectWidth("toolTip3");     
@@ -328,9 +331,27 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         
 kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){    
         
-                console.log(entity);  
-        
-                var maximo=0;
+                var maximo=0;   
+                            
+                /*
+                var diasDelPeriodo={};
+                for(var i=0; i < entity.values; i++ ){
+
+                        if(entity.values[i].fecha){
+                                diasDelPeriodo[ entity.values[i].fecha.getTime() ]=true;
+                        }
+
+                }
+
+                var dia=((1000*60)*60)*24;
+                var init=dateInit.getDate();
+                var end=dateEnd.getDate();
+                for(var i=init; i < end+1000; i+=dia ){
+
+                        console.log("dia",new Date(i));
+
+                }
+                */
 
                 var arr=d3.nest()
                         .key(function(d) { 
@@ -342,9 +363,8 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 }                        
                 
                         })
-                        .entries(entity.values);
+                        .entries(entity.values);             
 
-                
                 for(var i=0; i < arr.length; i++ ){
 
                                 arr[i].CantEntfinal=0;
@@ -366,24 +386,28 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                                         if(arr[i].values[j][campoDeATiempo] == "A Tiempo"){
                                                 arr[i].vol1+=Number(arr[i].values[j][campoDeVolumenFR]);
+                                                
                                         }else if(arr[i].values[j][campoDeATiempo] == "1 a 2 días Tarde"){
                                                 arr[i].vol2+=Number(arr[i].values[j][campoDeVolumenFR]);
+                                               
                                         }else if(arr[i].values[j][campoDeATiempo] == "3 o más días Tarde"){
                                                 arr[i].vol3+=Number(arr[i].values[j][campoDeVolumenFR]);
                                         } 
                                         
                                 }
 
+                                
                                 if(maximo < arr[i].CantEntfinal){
                                         maximo=arr[i].CantEntfinal;
                                 } 
                                 
-                                arr[i].por1=Math.round((arr[i].vol1/arr[i].CantEntfinal)*100);
-                                arr[i].por2=Math.round((arr[i].vol2/arr[i].CantEntfinal)*100);
-                                arr[i].por3=Math.round((arr[i].vol3/arr[i].CantEntfinal)*100);            
+                                arr[i].por1=Math.round((arr[i].vol1/arr[i].totalSolicitado)*100);
+                                arr[i].por2=Math.round((arr[i].vol2/arr[i].totalSolicitado)*100);
+                                arr[i].por3=Math.round((arr[i].vol3/arr[i].totalSolicitado)*100);            
 
-                } 
-                
+                }
+
+
                 arr = arr.sort((a, b) => {                
                                 return b.fecha - a.fecha;                                    
                 
@@ -539,7 +563,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .style("font-size",tamanioFuente*.84)						
                         .style("text-anchor","start")
                         .style("opacity",0 )
-                        .attr("filter","url(#dropshadowRadar)")
+                        
                         .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.8)+1  )+","+String( (svgTooltipHeight*.78)-marginBottom+70 )+")  rotate("+(-90)+") ")
                         .text(function(){
                         

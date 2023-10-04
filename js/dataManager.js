@@ -126,6 +126,34 @@ dataManager.UpdateCatlogs= function(){
 
 }
 
+
+dataManager.getCurrentCatlog=function(){
+
+    var catlog;                                            
+
+    for(var j=0; j < store.niveles.length; j++){
+
+        if( String(store.niveles[j].id) ==  String($("#nivel_cb").val()) ){
+
+            if(store.niveles[j].coordinatesSource){
+
+                catlog = store.niveles[j].coordinatesSource;            
+
+            }
+
+        }
+    }
+
+    if(catlog){
+
+        return catlog;
+
+    }else{
+        return "";
+    }
+
+}
+
 dataManager.getNameFromId=function(id){
 
     var nombre=id;
@@ -133,6 +161,7 @@ dataManager.getNameFromId=function(id){
     for(var j=0; j < store.niveles.length; j++){   
         if( store.niveles[j].id == $("#nivel_cb").val() ){
             if(store.niveles[j].coordinatesSource){
+                console.log("store.niveles[j].coordinatesSource",store.niveles[j].coordinatesSource);
                 dataCatlog=store[store.niveles[j].coordinatesSource];
                 for(var j=0; j < dataCatlog.length; j++){    
                     if(dataCatlog[j].ID==nombre){ 

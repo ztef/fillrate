@@ -212,7 +212,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     // DEFINE VISITORS PARA CADA COLUMNA   
                                     var columnVisitors = {
                                         key: function(value) {
-                                            return `<div>${value}
+                                            return `<div class="key-selector" onclick="backInfoNav.push({entity:'${entity.key}' , catlog:'${dataManager.getCurrentCatlog()}'});filterControls.arrowUpdate();filterControls.lookForEntity('${value}','cat_estado')">${value}
                                             </div>`;
                                         },                                   
                                        

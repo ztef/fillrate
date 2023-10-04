@@ -379,7 +379,7 @@ color: yellow;
         <svg id="svgLines2"  height="100%" width="100%" style="position:fixed;top:0;left:0px;pointer-events: none;z-index:9999999"/>
 
         <ul class="fa-ul" style="position:absolute;right:0px;top:-4px;color:rgb(255, 255, 255);z-index:99999;font-family:Cabin;right:0px;width: 233px;    direction: initial;    display: flow;">
-            <div class="tooltipIcon"><img id="cargando" src="images/Home.png" onclick=" $('#nivel_cb').val(1); Stage.GoHome(); filterControls.CleanFields();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Limpiar Filtros y Ubicar Mapa</div></div>
+            <div class="tooltipIcon"><img id="cargando" src="images/Home.png" onclick=" $('#nivel_cb').val(3); Stage.GoHome(); filterControls.CleanFields(true);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Limpiar Filtros y Ubicar Mapa</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/SizeIncrease.png" onclick="escalado=escalado*(1.3);Stage.DrawMapObjects(currentEntities,store.mainDataset);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño barras</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/Sizedecrease.png" onclick="escalado=escalado*(.7);Stage.DrawMapObjects(currentEntities,store.mainDataset);" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Tamaño barras</div></div>
             <div class="tooltipIcon"><img id="cargando" src="images/hexagons_.png" onclick="radar.DecreaseRadars();" style="width:18px ;float:left;margin:8px"></img><div class="tooltip-text">Disminuir Columnas</div></div>
@@ -587,8 +587,8 @@ color: yellow;
             $('#datepicker').val((ayer.getMonth()+1)+"-01-2023");
             $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
 
-            
-            //$('#datepicker').val("08-01-2023"); $('#datepicker2').val("08-31-2023"); 
+
+            $('#datepicker').val("09-01-2023"); $('#datepicker2').val("09-30-2023"); 
             
             $(".datepicker").css("z-index",99999);
               
@@ -632,8 +632,6 @@ color: yellow;
 
                     $('#Controls').css('visibility','hidden');
 
-                   
-                    
                     //setTimeout(()=>{$(".loginBtn").click()}, 500); // Se debe asegurar haber cargado catalogos basicos antes de disparra las consultas
 
                 })               
