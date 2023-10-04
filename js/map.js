@@ -357,6 +357,20 @@ Stage.DrawMapObjects=function(entities){
 
 Stage.GetCammeraPos=function(coords){
 	console.log("GetCammeraPos",coords);
+
+	if( $("#nivel_cb").val()==0 ){
+
+		viewer.camera.flyTo({
+			destination : Cesium.Cartesian3.fromDegrees(-101.777344, 8.121772, 2500000.0),
+			orientation : {
+				heading : Cesium.Math.toRadians(0),
+				pitch : Cesium.Math.toRadians(-58.0),
+				roll : 0.0
+			}
+
+		});
+		
+	}
 }
 
 Stage.FocusMapElement=function(id){

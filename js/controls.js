@@ -407,7 +407,7 @@ filterControls.CleanFields=function(filtra){
 
         if(e == "nivel_cb"){
 
-            $("#nivel_cb").val(3);
+            $("#nivel_cb").val(config.nivelInicial);
 
         } else if(e == "masivos_cb"){
 
@@ -417,7 +417,7 @@ filterControls.CleanFields=function(filtra){
 
 
         }else{
-            console.log("limpia ",e);
+           
             $("#"+e).val("");
             $($("#"+e).siblings().first()[0].firstChild).val("")
 
@@ -841,8 +841,8 @@ filterControls.createHardCodedControls=function(){
                 `<option id="id_${store.niveles[i].id}" value="${store.niveles[i].id}">${store.niveles[i].label}</option>   `); 
         }
 
-        $("#nivel_cb").val(3);
-        nivelLecturaActual=3;
+        $("#nivel_cb").val(config.nivelInicial);
+        nivelLecturaActual=config.nivelInicial;
 
         posAnterior=0;
       
@@ -1221,9 +1221,11 @@ filterControls.checkCatlogName=function(cat1, cat2){
 
 
 filterControls.CheckIfFocus=function(){
+
     if(waitingToFocus){
-        console.log("waitingToFocus",waitingToFocus);
+
         Stage.FocusMapElement(waitingToFocus);
         waitingToFocus=undefined;
     }
+
 }

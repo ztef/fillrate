@@ -329,29 +329,45 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
 
 }
         
+
+
+
 kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){    
         
-                var maximo=0;   
-                            
-                /*
+                var maximo=0;                             
+                
                 var diasDelPeriodo={};
-                for(var i=0; i < entity.values; i++ ){
+                var data=[];
+                for(var i=0; i < entity.values.length; i++ ){
 
                         if(entity.values[i].fecha){
+                                console.log("registra",entity.values[i].fecha.getTime());
                                 diasDelPeriodo[ entity.values[i].fecha.getTime() ]=true;
+                                data.push(entity.values[i]);
+                        }else{
+                                
                         }
 
                 }
 
                 var dia=((1000*60)*60)*24;
-                var init=dateInit.getDate();
-                var end=dateEnd.getDate();
-                for(var i=init; i < end+1000; i+=dia ){
-
-                        console.log("dia",new Date(i));
+                var init=dateInit.getTime();
+                var end=dateEnd.getTime();
+  
+                for(var i=init; i < end+1000; i+=((1000*60)*60)*24 ){
+                        
+                        if(!diasDelPeriodo[new Date(i).getTime()]){
+                                console.log("crea ",new Date(i).getTime(),new Date(i).getDate());
+                                var obj={};
+                                obj[campoDeVolumenFR]=0;
+                                obj[campoTotalSolicitado]=0;
+                                obj[campoDeATiempo]="A Tiempo";
+                                obj.fecha=new Date(i);
+                                data.push(obj);
+                        }
 
                 }
-                */
+                
 
                 var arr=d3.nest()
                         .key(function(d) { 
@@ -363,7 +379,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 }                        
                 
                         })
-                        .entries(entity.values);             
+                        .entries(data);             
 
                 for(var i=0; i < arr.length; i++ ){
 
@@ -397,15 +413,20 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 }
 
                                 
-                                if(maximo < arr[i].CantEntfinal){
+                                if(maximo < arr[i].CantEntfinal && arr[i].CantEntfinal>0 ){
                                         maximo=arr[i].CantEntfinal;
                                 } 
-                                
-                                arr[i].por1=Math.round((arr[i].vol1/arr[i].totalSolicitado)*100);
-                                arr[i].por2=Math.round((arr[i].vol2/arr[i].totalSolicitado)*100);
-                                arr[i].por3=Math.round((arr[i].vol3/arr[i].totalSolicitado)*100);            
+
+                                if(arr[i].totalSolicitado > 0){
+                                        arr[i].por1=Math.round((arr[i].vol1/arr[i].totalSolicitado)*100);
+                                        arr[i].por2=Math.round((arr[i].vol2/arr[i].totalSolicitado)*100);
+                                        arr[i].por3=Math.round((arr[i].vol3/arr[i].totalSolicitado)*100); 
+                                }
+                                          
 
                 }
+
+                console.log("maximo: ",maximo);
 
 
                 arr = arr.sort((a, b) => {                
@@ -513,8 +534,13 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                                 .style("height",altura3 )	
                                                 ;
 
-
-                        var alturaVolumen=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight*.18);
+                        if(maximo > 0.1){
+                            
+                                var alturaVolumen=GetValorRangos( arr[i].CantEntfinal,1, maximo ,0,svgTooltipHeight*.18);
+                        } else{
+                                var alturaVolumen=1;    
+                        }
+                       
 
                         d3.select("#svgTooltip").append("rect")		    		
                                                 .attr("width",(ancho*.7) )
@@ -622,6 +648,9 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 $("#toolTip2").css("max-height","");                      
      
     }
+
+
+
 
     kpiExpert_FR.DrawMainHeader=function(){
 
