@@ -357,7 +357,55 @@ Stage.DrawMapObjects=function(entities){
 
 Stage.GetCammeraPos=function(coords){
 	console.log("GetCammeraPos",coords);
+	return calculateCameraPosition(coords);
 }
+
+
+// CALCULO DE POSICION DE CAMARA :  BOUNDING BOX y CENTROIDE
+
+
+function calculateCameraPosition(coordinates) {
+
+	// Calcula bounding box 
+
+	let west = Number.MAX_VALUE;
+	let south = Number.MAX_VALUE;
+	let east = -Number.MAX_VALUE;
+	let north = -Number.MAX_VALUE;
+  
+	for (const coord of coordinates) {
+	  west = Math.min(west, coord.long);
+	  south = Math.min(south, coord.lat);
+	  east = Math.max(east, coord.long);
+	  north = Math.max(north, coord.lat);
+	}
+  
+	// Calcula centro del bounding box
+
+	const centerLat = (north + south) / 2;
+	const centerLong = (east + west) / 2;
+  
+	// Calcula altitud 
+
+	const altitude = 100000; // metros
+	const viewAngle = Cesium.Math.toRadians(30); // Angulo en radianes
+  
+	// Calcula posicion de la camara
+	const cameraPosition = new Cesium.Cartesian3.fromDegrees(
+	  centerLong,
+	  centerLat,
+	  altitude
+	);
+  
+	return {
+	  position: cameraPosition,
+	  heading: 0, // heading : viendo al norte
+	  pitch: -viewAngle, // viendo hacia abajo con el angulo calculado
+	  roll: 0, // Roll : 0
+	};
+  }
+
+
 
 Stage.FocusMapElement=function(id){
 
