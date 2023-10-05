@@ -183,7 +183,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
     var svgTooltipWidth=350;
     var altura=30;
 
-    var svgTooltipHeight=(arr.length*altura);
+    var svgTooltipHeight=(arr.length*(altura) );
  
     if(svgTooltipHeight>windowHeight*.8){
  
@@ -251,7 +251,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
 
       // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip2","Déficit de Flota por Origen "+dataManager.getNameFromId(entity.key),svgTooltipWidth,svgTooltipHeight+100);
+      vix_tt_formatToolTip("#toolTip2","Déficit de Flota por Origen "+dataManager.getNameFromId(entity.key),svgTooltipWidth,svgTooltipHeight+130);
       
             // COLUMNAS CON TOTALES :
     

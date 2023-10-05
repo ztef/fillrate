@@ -204,8 +204,8 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     // DEFINE COLUMNAS      
                                     var columns = [
                                         { key: "key", header: "Estado", sortable: true, width: "130px" },
-                                        { key: "Libre_Pendiente_Hoy", header: "Libre Pendiente Hoy (TM)", sortable: true, width: "160px" },
-                                        { key: "Libre_Retrasado", header: "Libre Retrasado (TM)", sortable: true, width: "160px" },
+                                        { key: "Libre_Pendiente_Hoy", header: "Libre Pendiente Hoy", sortable: true, width: "160px" },
+                                        { key: "Libre_Retrasado", header: "Libre Retrasado", sortable: true, width: "160px" },
                                       
                                     ];
 
@@ -239,16 +239,16 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     };
 
                                     // FORMATEA DIV :
-                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+dataManager.getNameFromId(entity.key),460,svgTooltipHeight+110);
+                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+dataManager.getNameFromId(entity.key)+" (TM)",460,svgTooltipHeight+110);
 
                                     // COLUMNAS CON TOTALES :
                                     var columnsWithTotals = ['Libre_Pendiente_Hoy','Libre_Retrasado']; 
                                     var totalsColumnVisitors = {
                                                 'Libre_Pendiente_Hoy': function(value) { 
-                                                return vix_tt_formatNumber(value) + " TM";
+                                                return vix_tt_formatNumber(value) ;
                                                 },
                                                 'Libre_Retrasado': function(value) { 
-                                                return vix_tt_formatNumber(value) + " TM"; 
+                                                return vix_tt_formatNumber(value) ; 
                                                 }
                                                 };   
     
@@ -569,7 +569,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
        
     } 
 
-    vix_tt_formatToolTip("#toolTip2","Pedidos Pendientes por Tipo de "+dataManager.getNameFromId(entity.key),svgTooltipWidth+10,svgTooltipHeight+40);
+    vix_tt_formatToolTip("#toolTip2","Pedidos Pendientes por Tipo de "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+10,svgTooltipHeight+40);
 
     var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
     d3.select("#toolTip2").append("div").html(svgElement);
@@ -640,7 +640,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
                         .attr("transform"," translate("+String( ancho+(marginLeft)+10  )+","+String( altura*caso+(tamanioFuente)+marginTop   )+")  rotate("+(0)+") ")
                         .text(function(){
             
-                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])))))+" TM";
+                            return formatNumber((Math.round(   (Number(dataElement[campos[i]])))));
             })
             .transition().delay(0).duration(1000)
             .style("opacity",1 )

@@ -754,6 +754,9 @@ radar.DrawEntityValues=function(entity){
 
                                     $("#toolTip").css("left",mouse_x+50);
 
+                                    if(  windowWidth-mouse_x < 500 )
+					                    $("#toolTip").css("left",mouse_x-600);
+
                                     $("#toolTip").html(dataManager.getTooltipText(this.data) );                            
                                     
                                     var posY=mouse_y-50;

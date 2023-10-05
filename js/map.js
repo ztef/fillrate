@@ -357,38 +357,38 @@ Stage.DrawMapObjects=function(entities){
 
 Stage.GetCammeraPos=function(coords){ 
 
-	console.log("GetCammeraPos",coords); 
+		console.log("GetCammeraPos",coords); 
 
-	var coords= calculateCameraPosition(coords); 
+		var coords= calculateCameraPosition(coords); 
 
 
-	if( $("#nivel_cb").val()==0 ){ // para nivel nacional
+		if( $("#nivel_cb").val()==0 ){ // para nivel nacional
 
-		viewer.camera.flyTo({
-			destination : Cesium.Cartesian3.fromDegrees(-101.777344, 8.121772, 2500000.0),
-			orientation : {
-				heading : Cesium.Math.toRadians(0),
-				pitch : Cesium.Math.toRadians(-58.0),
-				roll : 0.0
-			}
+				viewer.camera.flyTo({
+					destination : Cesium.Cartesian3.fromDegrees(-101.777344, 8.121772, 2500000.0),
+					orientation : {
+						heading : Cesium.Math.toRadians(0),
+						pitch : Cesium.Math.toRadians(-58.0),
+						roll : 0.0
+					}
 
-		});
-		
-	}else{
+				});
+			
+		}else{
 
-		/*
-		viewer.camera.flyTo({
-				destination : Cesium.Cartesian3.fromDegrees(coords.position.lat, coords.position.l, 2500000.0),
-				orientation : {
-					heading : Cesium.Math.toRadians(0),
-					pitch : Cesium.Math.toRadians(-58.0),
-					roll : 0.0
-				}
+				/*
+				viewer.camera.flyTo({
+						destination : Cesium.Cartesian3.fromDegrees(coords.position.lat, coords.position.l, 2500000.0),
+						orientation : {
+							heading : Cesium.Math.toRadians(0),
+							pitch : Cesium.Math.toRadians(-58.0),
+							roll : 0.0
+						}
 
-			});
-		*/
+					});
+				*/
 
-  	}  
+		}  
 
 }
 

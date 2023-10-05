@@ -210,9 +210,9 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
   
   var columns = [
     { key: "key", header: "Producto", sortable: true, width: "100px" },
-    { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
-    { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
-    { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
+    { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
+    { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
+    { key: "DifK", header: "Dif", sortable: true, width: "100px" },
     { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
     { key: "Peso", header: "Peso", sortable: true,  width: "80px" }
   ];
@@ -275,7 +275,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   // FORMATEA DIV :
 
-  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",svgTooltipWidth,svgTooltipHeight);
+  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación (TM)",svgTooltipWidth,svgTooltipHeight);
 
   
         // COLUMNAS CON TOTALES :
@@ -419,9 +419,9 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
       
       var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
         { key: "Peso", header: "Peso", sortable: true,  width: "80px" }
       ];
@@ -501,7 +501,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
 
       // FORMATEA DIV :
    
-      vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado",svgTooltipWidth,svgTooltipHeight);
+      vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado (TM)",svgTooltipWidth,svgTooltipHeight);
   
     
       // CREA TABLA USANDO DATOS

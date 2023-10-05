@@ -178,7 +178,7 @@ kpiExpert_OOS.DrawTooltipDetail_UN=function(entity){
                     return vix_tt_formatNumber(value) ; 
                     },
                     'Numera': function(value) { 
-                    return vix_tt_formatNumber(value) + " TM";
+                    return vix_tt_formatNumber(value) ;
                     },                   
                     
                     };
