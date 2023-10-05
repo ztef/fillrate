@@ -380,7 +380,9 @@ Stage.GetCammeraPos=function(coords){
 		// arreglo de coordenadas, angulo desde la camara hacia abajo, factor de altura
 		// El factor de altura es proporcional a la diagonal del bounding box 
 
-		var c_pos= calculateCameraPosition(coords, -45, 0.9);
+		// coords, angulo hacia  abajo, factor de altitud, factor de distancia 
+
+		var c_pos= calculateCameraPosition(coords, -30, 0.5,0.5);
     
    		 viewer.camera.flyTo({
 			destination : c_pos.position,
@@ -396,7 +398,7 @@ Stage.GetCammeraPos=function(coords){
 // CALCULO DE POSICION DE CAMARA :  BOUNDING BOX y CENTROIDE
 
 
-function calculateCameraPosition(coordinates, pitchDegrees, altitudeFactor) {
+function calculateCameraPosition(coordinates, pitchDegrees, altitudeFactor, diagonalFactor) {
 	
 	if (coordinates.length === 0) {
 	  throw new Error('Input array is empty.');
@@ -414,7 +416,7 @@ function calculateCameraPosition(coordinates, pitchDegrees, altitudeFactor) {
 	let north = -Number.MAX_VALUE;
 	
 	for (const coord of coordinates) {
-	  if(coord.lng != 0 && coord.lat !=0){
+	  if(isInsideMexico(coord.lat,coord.lng)){
 		west = Math.min(west, coord.lng);
 		south = Math.min(south, coord.lat);
 		east = Math.max(east, coord.lng);
@@ -432,8 +434,7 @@ function calculateCameraPosition(coordinates, pitchDegrees, altitudeFactor) {
 	  { lat: north, long: east }
 	);
 	
-	// Calcula la altura como proporcion a la diagonal
-	const altitude = diagonalDistance * altitudeFactor; 
+	
 	
 	// Calcula la posicion al sur del centro (en metros ) y la convierte a grados
 
@@ -442,8 +443,15 @@ function calculateCameraPosition(coordinates, pitchDegrees, altitudeFactor) {
 
 
 	const pitchRadians = Cesium.Math.toRadians(pitchComplement);
-	const latAdjustmentMeters = altitude * Math.tan(pitchRadians);
+	
+	//const latAdjustmentMeters = altitude * Math.tan(pitchRadians);
+	
+	const latAdjustmentMeters = diagonalDistance * diagonalFactor;
 	const newLat = centerLat - (latAdjustmentMeters / 111319.9); // Convierte metros a grados (1 grado  de latitud ≈ 111319.9 metros)
+	
+	// Calcula la altura como proporcion a la diagonal
+	const altitude = altitudeFactor * (latAdjustmentMeters / Math.tan(pitchRadians));
+	
 	
 	const cameraPosition = new Cesium.Cartesian3.fromDegrees(centerLong, newLat, altitude);
 	
@@ -464,13 +472,13 @@ function calculateCameraPosition(coordinates, pitchDegrees, altitudeFactor) {
   
   
   function calculateDistance(coord1, coord2) {
-	// Calculate the distance between two geographical coordinates
+	// Calcula la distancia entre dos coordenadas
 	const lat1 = Cesium.Math.toRadians(coord1.lat);
 	const lon1 = Cesium.Math.toRadians(coord1.long);
 	const lat2 = Cesium.Math.toRadians(coord2.lat);
 	const lon2 = Cesium.Math.toRadians(coord2.long);
   
-	// Using Haversine formula to calculate the great-circle distance
+	// Usa la formula Haversine sobre un circulo  para calcular la distancia
 	const dLat = lat2 - lat1;
 	const dLon = lon2 - lon1;
 	const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -485,7 +493,23 @@ function calculateCameraPosition(coordinates, pitchDegrees, altitudeFactor) {
   
 	
   
-  
+  function isInsideMexico(lat, lng) {
+    // Bounding Box de Mexico
+    const mexicoBoundingBox = {
+        north: 32.718333,
+        south: 14.532778,
+        west: -117.127764,
+        east: -86.710278
+    };
+
+    // Checa si la coord esta en Mexico
+    return (
+        lat >= mexicoBoundingBox.south &&
+        lat <= mexicoBoundingBox.north &&
+        lng >= mexicoBoundingBox.west &&
+        lng <= mexicoBoundingBox.east
+    );
+}
 	
 
 
