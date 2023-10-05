@@ -125,6 +125,7 @@ kpi_date_status.ShowWindows = function( ){
                 `;
             }
         };
+
         var columnsWithTotals = ['Indicador']; 
         var totalsColumnVisitors = {
             'Indicador': function(value) { 
@@ -133,7 +134,7 @@ kpi_date_status.ShowWindows = function( ){
           
           };
 
-        vix_tt_formatToolTip("#toolTip3","Últimas fechas disponibles por KPI ",250,500);
+        vix_tt_formatToolTip("#toolTip3","Últimas fechas disponibles por KPI ",250,350);
       
         // CREA TABLA USANDO DATOS
       

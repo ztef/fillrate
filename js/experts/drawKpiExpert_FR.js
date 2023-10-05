@@ -282,7 +282,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         },
         
         cant: function(value,i) {
-                var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight+100);
+                var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1, 180 );
                 var barValue = formatNumber(value);
 
                 return '<div class="bar-container">' +
@@ -534,7 +534,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                                 .style("height",altura3 )	
                                                 ;
 
-                        if(maximo > 0.1){
+                        if(maximo > 1){
                             
                                 var alturaVolumen=GetValorRangos( arr[i].CantEntfinal,1, maximo ,0,svgTooltipHeight*.18);
                         } else{
