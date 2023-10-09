@@ -803,11 +803,16 @@ color: yellow;
 
             Stage.allowMultipleSelection=false;
 
-            var queryInit = confirm("HA seleccionado los siguiente estados: "+Object.keys(Stage.selectedItems).toString()+", Desea filtrar Datos?");
+            var queryInit = confirm("Ha seleccionado los siguiente estados: "+Object.keys(Stage.selectedItems).toString()+", Desea filtrar Datos?");
             if (queryInit) {
 
+                if($("#nivel_cb").val()==0){
+                    $("#nivel_cb").val(3);
+                };
+
                 $("#cat_estado").val(Object.keys(Stage.selectedItems).toString().replaceAll("'",""));
-                $($("#cat_estado").siblings().first()[0].firstChild).val(Object.keys(Stage.selectedItems).toString().replaceAll("'",""))
+                $($("#cat_estado").siblings().first()[0].firstChild).val(Object.keys(Stage.selectedItems).toString().replaceAll("'",""));
+
                 dataManager.ClusterObjects();
 
             } else {
