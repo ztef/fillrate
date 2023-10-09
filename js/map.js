@@ -440,6 +440,7 @@ function calculateCameraPosition(coordinates, pitchDegrees, altitudeFactor, diag
 
 		// ojo : usa teorema de pitagoras para calcular el cateto opuesto (d)
 		// en base a la altura y el angulo. Por eso la tangente.
+		// va
 
 
 	const pitchRadians = Cesium.Math.toRadians(pitchComplement);
