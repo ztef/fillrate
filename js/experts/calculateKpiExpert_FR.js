@@ -30,7 +30,7 @@ calculateKpiExpert_FR.calculateKPI=function(){
         var serviceName;
         var apiURL;
         var agrupador="";
-        var cuentaFiltros=0;
+        
 
         for(var i=0; i < store.niveles.length; i++){    
      
@@ -60,19 +60,47 @@ calculateKpiExpert_FR.calculateKPI=function(){
 
         }
 
+        var cuentaFiltros=0;
+
         // FILTROS****
         var params="";       
-                       
+        
+        /*
         for(var j=0; j < store.catlogsForFilters.length; j++){
 
-            if($("#"+store.catlogsForFilters[j].id).val() != "" && $("#"+store.catlogsForFilters[j].id).val() != undefined && $("#"+store.catlogsForFilters[j].id).val() != "Todos" ){
+            
+        }
+        */
+                        
+        for(var j=0; j < store.catlogsForFilters.length; j++){
+
+            if($("#"+store.catlogsForFilters[j].id).siblings().first()[0]){
+          
+                if($($("#"+store.catlogsForFilters[j].id).siblings().first()[0].firstChild).val() != "" && $($("#"+store.catlogsForFilters[j].id).siblings().first()[0].firstChild).val() != undefined && $("#"+store.catlogsForFilters[j].id).val() != "Todos" ){
+                    
+                    if($($("#"+store.catlogsForFilters[j].id).siblings().first()[0].firstChild).val().includes(",")){
+                        params+="&"+store.catlogsForFilters[j].storeProcedureField+"="+ $($("#"+store.catlogsForFilters[j].id).siblings().first()[0].firstChild).val()  ;
+                    }else{
+                        params+="&"+store.catlogsForFilters[j].storeProcedureField+"="+store.catlogsForFilters[j].diccNames[ $($("#"+store.catlogsForFilters[j].id).siblings().first()[0].firstChild).val()  ];
+                    }            
+
+                    cuentaFiltros++;
+
+                }
+
+            }else{
                 
-                params+="&"+store.catlogsForFilters[j].storeProcedureField+"="+store.catlogsForFilters[j].diccNames[ $("#"+store.catlogsForFilters[j].id).val() ];
-                cuentaFiltros++;
+                if($("#"+store.catlogsForFilters[j].id).val() != "" && $("#"+store.catlogsForFilters[j].id).val() != undefined && $("#"+store.catlogsForFilters[j].id).val() != "Todos" ){
+                
+                    params+="&"+store.catlogsForFilters[j].storeProcedureField+"="+store.catlogsForFilters[j].diccNames[ $("#"+store.catlogsForFilters[j].id).val() ];
+                    cuentaFiltros++;
+                }
+    
             }
 
         }
-      
+
+
         if(serviceName && apiURL){
 
                 //FILTRO DE MASIVO

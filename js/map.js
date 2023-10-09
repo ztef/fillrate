@@ -17,6 +17,7 @@ var Stage={};
 Stage.labelsInterval;
 
 Stage.allowMultipleSelection=false;
+Stage.selectedItems={};
 
 Stage.initStage=function(resolve, reject){
 
@@ -131,9 +132,18 @@ Stage.initStage=function(resolve, reject){
 							for(var j=0; j < ultimosEstadosDibujados[e].length; j++ ){
 	
 								if( ultimosEstadosDibujados[e][j]._id == pickedObject.id._id ){
-									console.log(ultimosEstadosDibujados[e][j]._polygon);
-									ultimosEstadosDibujados[e][j]._polygon.material=Cesium.Color.fromCssColorString("#ffffff").withAlpha(.7);
+
+									if(ultimosEstadosDibujados[e][j].seleccionado){
+										ultimosEstadosDibujados[e][j].seleccionado=false;
+										ultimosEstadosDibujados[e][j]._polygon.material=ultimosEstadosDibujados[e][j].originalMaterial;
+										delete Stage.selectedItems[e];
+									}else{	
+										ultimosEstadosDibujados[e][j].seleccionado=true;
+										ultimosEstadosDibujados[e][j]._polygon.material=Cesium.Color.fromCssColorString("#ffffff").withAlpha(.7);
+										Stage.selectedItems[e]=true;
+									}
 									
+									console.log("Stage.selectedItems",Stage.selectedItems);
 
 								}	
 								
@@ -266,6 +276,22 @@ Stage.initStage=function(resolve, reject){
 		resolve();
 		
 };
+
+Stage.CleanSelectedItems=function(){
+	
+	for(var e in ultimosEstadosDibujados){	
+
+		for(var j=0; j < ultimosEstadosDibujados[e].length; j++ ){
+
+				ultimosEstadosDibujados[e][j].seleccionado=false;
+				ultimosEstadosDibujados[e][j]._polygon.material=ultimosEstadosDibujados[e][j].originalMaterial;
+			
+		}
+
+	}
+
+	Stage.selectedItems={};
+}
 
 var mapElements={};
 var mapElementsArr=[];
