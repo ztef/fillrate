@@ -357,38 +357,43 @@ Stage.DrawMapObjects=function(entities){
 
 Stage.GetCammeraPos=function(coords){ 
 
-		console.log("GetCammeraPos",coords); 
+	
+	if( $("#nivel_cb").val()==0 ){ // para nivel nacional
 
-		var coords= calculateCameraPosition(coords); 
+		
+
+		var rootpos = Cesium.Cartesian3.fromDegrees(-101.777344, 8.121772, 2500000.0);
+
+		viewer.camera.flyTo({
+			destination : rootpos,
+			orientation : {
+				heading : Cesium.Math.toRadians(0),
+				pitch : Cesium.Math.toRadians(-58.0),
+				roll : 0.0
+			}
+
+		});
+		
+		
+	}else{
 
 
-		if( $("#nivel_cb").val()==0 ){ // para nivel nacional
+		// arreglo de coordenadas, angulo desde la camara hacia abajo, factor de altura
+		// El factor de altura es proporcional a la diagonal del bounding box 
 
-				viewer.camera.flyTo({
-					destination : Cesium.Cartesian3.fromDegrees(-101.777344, 8.121772, 2500000.0),
-					orientation : {
-						heading : Cesium.Math.toRadians(0),
-						pitch : Cesium.Math.toRadians(-58.0),
-						roll : 0.0
-					}
+		// coords, angulo hacia  abajo, factor de altitud, factor de distancia 
 
-				});
-			
-		}else{
+	
 
-				/*
-				viewer.camera.flyTo({
-						destination : Cesium.Cartesian3.fromDegrees(coords.position.lat, coords.position.l, 2500000.0),
-						orientation : {
-							heading : Cesium.Math.toRadians(0),
-							pitch : Cesium.Math.toRadians(-58.0),
-							roll : 0.0
-						}
-
-					});
-				*/
-
-		}  
+		var c_pos= calculateCameraPosition(coords, -30, 0.5,0.5);
+    
+   		 viewer.camera.flyTo({
+			destination : c_pos.position,
+			orientation : c_pos.orientation,
+		});
+    
+  }
+  
 
 }
 
@@ -396,46 +401,123 @@ Stage.GetCammeraPos=function(coords){
 // CALCULO DE POSICION DE CAMARA :  BOUNDING BOX y CENTROIDE
 
 
-function calculateCameraPosition(coordinates) {
-
-	// Calcula bounding box 
+function calculateCameraPosition(coordinates, pitchDegrees, altitudeFactor, diagonalFactor) {
+	
+	if (coordinates.length === 0) {
+	  throw new Error('Input array is empty.');
+	}
+	
+	 
+	// Calcula complemento del angulo 
+	const pitchComplement = 90 + pitchDegrees;
+	
+	// Calcula bounding box :
 
 	let west = Number.MAX_VALUE;
 	let south = Number.MAX_VALUE;
 	let east = -Number.MAX_VALUE;
 	let north = -Number.MAX_VALUE;
-  
+	
 	for (const coord of coordinates) {
-	  west = Math.min(west, coord.long);
-	  south = Math.min(south, coord.lat);
-	  east = Math.max(east, coord.long);
-	  north = Math.max(north, coord.lat);
+	  if(isInsideMexico(coord.lat,coord.lng)){
+		west = Math.min(west, coord.lng);
+		south = Math.min(south, coord.lat);
+		east = Math.max(east, coord.lng);
+		north = Math.max(north, coord.lat);
+	  }
 	}
-  
-	// Calcula centro del bounding box
-
+	
+	// Calcula centroide del  bounding box
 	const centerLat = (north + south) / 2;
 	const centerLong = (east + west) / 2;
-  
-	// Calcula altitud 
-
-	const altitude = 100000; // metros
-	const viewAngle = Cesium.Math.toRadians(30); // Angulo en radianes
-  
-	// Calcula posicion de la camara
-	const cameraPosition = new Cesium.Cartesian3.fromDegrees(
-	  centerLong,
-	  centerLat,
-	  altitude
+	
+	// Calcula la distancia de la diagonal del bounding box
+	const diagonalDistance = calculateDistance(
+	  { lat: south, long: west },
+	  { lat: north, long: east }
 	);
-  
-	return {
+	
+	
+	
+	// Calcula la posicion al sur del centro (en metros ) y la convierte a grados
+
+		// ojo : usa teorema de pitagoras para calcular el cateto opuesto (d)
+		// en base a la altura y el angulo. Por eso la tangente.
+		// va
+
+
+	const pitchRadians = Cesium.Math.toRadians(pitchComplement);
+	
+	//const latAdjustmentMeters = altitude * Math.tan(pitchRadians);
+	
+	const latAdjustmentMeters = diagonalDistance * diagonalFactor;
+	const newLat = centerLat - (latAdjustmentMeters / 111319.9); // Convierte metros a grados (1 grado  de latitud ≈ 111319.9 metros)
+	
+	// Calcula la altura como proporcion a la diagonal
+	const altitude = altitudeFactor * (latAdjustmentMeters / Math.tan(pitchRadians));
+	
+	
+	const cameraPosition = new Cesium.Cartesian3.fromDegrees(centerLong, newLat, altitude);
+	
+	const fly = {
 	  position: cameraPosition,
-	  heading: 0, // heading : viendo al norte
-	  pitch: -viewAngle, // viendo hacia abajo con el angulo calculado
-	  roll: 0, // Roll : 0
+	  orientation: {
+		heading: 0, // Norte
+		pitch: Cesium.Math.toRadians(pitchDegrees), // pitch hacia abajo
+		roll: 0, // Roll: 0
+	  },
 	};
+	
+	//console.log("VOLAR A : ", fly)
+	
+	return fly;
   }
+  
+  
+  
+  function calculateDistance(coord1, coord2) {
+	// Calcula la distancia entre dos coordenadas
+	const lat1 = Cesium.Math.toRadians(coord1.lat);
+	const lon1 = Cesium.Math.toRadians(coord1.long);
+	const lat2 = Cesium.Math.toRadians(coord2.lat);
+	const lon2 = Cesium.Math.toRadians(coord2.long);
+  
+	// Usa la formula Haversine sobre un circulo  para calcular la distancia
+	const dLat = lat2 - lat1;
+	const dLon = lon2 - lon1;
+	const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+			  Math.cos(lat1) * Math.cos(lat2) *
+			  Math.sin(dLon / 2) * Math.sin(dLon / 2);
+	const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+	const radiusOfEarth = 6371000; // Earth's radius in meters
+	const distance = radiusOfEarth * c;
+  
+	return distance;
+  }
+  
+	
+  
+  function isInsideMexico(lat, lng) {
+    // Bounding Box de Mexico
+    const mexicoBoundingBox = {
+        north: 32.718333,
+        south: 14.532778,
+        west: -117.127764,
+        east: -86.710278
+    };
+
+    // Checa si la coord esta en Mexico
+    return (
+        lat >= mexicoBoundingBox.south &&
+        lat <= mexicoBoundingBox.north &&
+        lng >= mexicoBoundingBox.west &&
+        lng <= mexicoBoundingBox.east
+    );
+}
+	
+
+
+  
 
 
 
