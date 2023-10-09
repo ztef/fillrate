@@ -16,6 +16,8 @@ var Stage={};
 
 Stage.labelsInterval;
 
+Stage.allowMultipleSelection=false;
+
 Stage.initStage=function(resolve, reject){
 
 		viewer = new Cesium.Viewer('cesiumContainer', {
@@ -68,7 +70,7 @@ Stage.initStage=function(resolve, reject){
 		    localizacion=undefined;
 
 		    if (Cesium.defined(pickedObject)) {
-				console.log(pickedObject.id._id);
+				
 		        	for(var e in ultimosEstadosDibujados){					
 						for(var j=0; j < ultimosEstadosDibujados[e].length; j++ ){
 
@@ -120,6 +122,25 @@ Stage.initStage=function(resolve, reject){
 		
 						$('#Controls').css("visibility","hidden");
 		
+					}
+
+					if(Stage.allowMultipleSelection){
+
+						for(var e in ultimosEstadosDibujados){	
+
+							for(var j=0; j < ultimosEstadosDibujados[e].length; j++ ){
+	
+								if( ultimosEstadosDibujados[e][j]._id == pickedObject.id._id ){
+									console.log(ultimosEstadosDibujados[e][j]._polygon);
+									ultimosEstadosDibujados[e][j]._polygon.material=Cesium.Color.fromCssColorString("#ffffff").withAlpha(.7);
+									
+
+								}	
+								
+							}
+
+						}
+
 					}
 
 		    }else
