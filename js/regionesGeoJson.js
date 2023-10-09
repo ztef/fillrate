@@ -120,6 +120,9 @@ function DibujaEstadoEspecifico(entity, color)
                     },
                 });
 
+                polygon.seleccionado=false;
+                polygon.originalMaterial=Cesium.Color.fromCssColorString(color).withAlpha(0.2);
+
                 ultimosEstadosDibujados[entity].push(polygon);
 
             }

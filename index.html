@@ -716,8 +716,14 @@ color: yellow;
         switch (event.keyCode) {
          
             //MODIFICA TAMAÑO DE CILINDROS
-            case 37:   
-               
+            case 32:   
+
+                if(!Stage.allowMultipleSelection){
+                    Stage.allowMultipleSelection=true;
+                
+                    Stage.selectedItems={};
+                }
+              
             break;
             case 39:   
                 
@@ -793,8 +799,25 @@ color: yellow;
     document.onkeyup = function(event) {
     
         switch (event.keyCode) {    
-            case 49:
+            case 32:
 
+            Stage.allowMultipleSelection=false;
+
+            var queryInit = confirm("Ha seleccionado los siguiente estados: "+Object.keys(Stage.selectedItems).toString()+", Desea filtrar Datos?");
+            if (queryInit) {
+
+                if($("#nivel_cb").val()==0){
+                    $("#nivel_cb").val(3);
+                };
+
+                $("#cat_estado").val(Object.keys(Stage.selectedItems).toString().replaceAll("'",""));
+                $($("#cat_estado").siblings().first()[0].firstChild).val(Object.keys(Stage.selectedItems).toString().replaceAll("'",""));
+
+                dataManager.ClusterObjects();
+
+            } else {
+                Stage.CleanSelectedItems();
+            }
           
             break;
             case 50:

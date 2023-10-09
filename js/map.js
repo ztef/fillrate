@@ -16,6 +16,9 @@ var Stage={};
 
 Stage.labelsInterval;
 
+Stage.allowMultipleSelection=false;
+Stage.selectedItems={};
+
 Stage.initStage=function(resolve, reject){
 
 		viewer = new Cesium.Viewer('cesiumContainer', {
@@ -68,7 +71,7 @@ Stage.initStage=function(resolve, reject){
 		    localizacion=undefined;
 
 		    if (Cesium.defined(pickedObject)) {
-				console.log(pickedObject.id._id);
+				
 		        	for(var e in ultimosEstadosDibujados){					
 						for(var j=0; j < ultimosEstadosDibujados[e].length; j++ ){
 
@@ -120,6 +123,34 @@ Stage.initStage=function(resolve, reject){
 		
 						$('#Controls').css("visibility","hidden");
 		
+					}
+
+					if(Stage.allowMultipleSelection){
+
+						for(var e in ultimosEstadosDibujados){	
+
+							for(var j=0; j < ultimosEstadosDibujados[e].length; j++ ){
+	
+								if( ultimosEstadosDibujados[e][j]._id == pickedObject.id._id ){
+
+									if(ultimosEstadosDibujados[e][j].seleccionado){
+										ultimosEstadosDibujados[e][j].seleccionado=false;
+										ultimosEstadosDibujados[e][j]._polygon.material=ultimosEstadosDibujados[e][j].originalMaterial;
+										delete Stage.selectedItems[e];
+									}else{	
+										ultimosEstadosDibujados[e][j].seleccionado=true;
+										ultimosEstadosDibujados[e][j]._polygon.material=Cesium.Color.fromCssColorString("#ffffff").withAlpha(.7);
+										Stage.selectedItems[e]=true;
+									}
+									
+									console.log("Stage.selectedItems",Stage.selectedItems);
+
+								}	
+								
+							}
+
+						}
+
 					}
 
 		    }else
@@ -245,6 +276,22 @@ Stage.initStage=function(resolve, reject){
 		resolve();
 		
 };
+
+Stage.CleanSelectedItems=function(){
+	
+	for(var e in ultimosEstadosDibujados){	
+
+		for(var j=0; j < ultimosEstadosDibujados[e].length; j++ ){
+
+				ultimosEstadosDibujados[e][j].seleccionado=false;
+				ultimosEstadosDibujados[e][j]._polygon.material=ultimosEstadosDibujados[e][j].originalMaterial;
+			
+		}
+
+	}
+
+	Stage.selectedItems={};
+}
 
 var mapElements={};
 var mapElementsArr=[];
