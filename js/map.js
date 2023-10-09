@@ -360,7 +360,7 @@ Stage.GetCammeraPos=function(coords){
 		console.log("GetCammeraPos",coords); 
 
 		var coords= calculateCameraPosition(coords); 
-
+	console.log("coords",coords);
 
 		if( $("#nivel_cb").val()==0 ){ // para nivel nacional
 
