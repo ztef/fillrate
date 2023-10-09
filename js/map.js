@@ -360,7 +360,6 @@ Stage.GetCammeraPos=function(coords){
 	
 	if( $("#nivel_cb").val()==0 ){ // para nivel nacional
 
-		
 
 		var rootpos = Cesium.Cartesian3.fromDegrees(-101.777344, 8.121772, 2500000.0);
 
@@ -383,19 +382,37 @@ Stage.GetCammeraPos=function(coords){
 
 		// coords, angulo hacia  abajo, factor de altitud, factor de distancia 
 
-	
+		//calculateCameraPosition PITCH , factor de altitud , lejania
+		var angulo= -45
+		var altitud= 0.5
+		var distancia= 0.5
 
-		var c_pos= calculateCameraPosition(coords, -30, 0.5,0.5);
-    
-   		 viewer.camera.flyTo({
+        if($("#nivel_cb").val() < 4){
+            angulo= -60;
+			altitud= 1;
+			distancia= 1;
+
+        }else if($("#nivel_cb").val() >= 4){
+            angulo= -45;
+			altitud= 1;
+			distancia= 0.9;
+		}
+        
+            
+		
+		var c_pos= calculateCameraPosition(coords, angulo, altitud, distancia);
+   		
+		viewer.camera.flyTo({
 			destination : c_pos.position,
 			orientation : c_pos.orientation,
 		});
-    
-  }
-  
+    
+  }
 
 }
+  
+
+
 
 
 // CALCULO DE POSICION DE CAMARA :  BOUNDING BOX y CENTROIDE
@@ -410,38 +427,48 @@ function calculateCameraPosition(coordinates, pitchDegrees, altitudeFactor, diag
 	 
 	// Calcula complemento del angulo 
 	const pitchComplement = 90 + pitchDegrees;
-	
-	// Calcula bounding box :
 
-	let west = Number.MAX_VALUE;
-	let south = Number.MAX_VALUE;
-	let east = -Number.MAX_VALUE;
-	let north = -Number.MAX_VALUE;
+    let diagonalDistance = 1000;
+
 	
-	for (const coord of coordinates) {
-	  if(isInsideMexico(coord.lat,coord.lng)){
-		west = Math.min(west, coord.lng);
-		south = Math.min(south, coord.lat);
-		east = Math.max(east, coord.lng);
-		north = Math.max(north, coord.lat);
-	  }
-	}
 	
-	// Calcula centroide del  bounding box
-	const centerLat = (north + south) / 2;
-	const centerLong = (east + west) / 2;
+			// Calcula bounding box :
+
+			let west = Number.MAX_VALUE;
+			let south = Number.MAX_VALUE;
+			let east = -Number.MAX_VALUE;
+			let north = -Number.MAX_VALUE;
 	
-	// Calcula la distancia de la diagonal del bounding box
-	const diagonalDistance = calculateDistance(
-	  { lat: south, long: west },
-	  { lat: north, long: east }
-	);
+			for (const coord of coordinates) {
+			if(isInsideMexico(coord.lat,coord.lng)){
+				west = Math.min(west, coord.lng);
+				south = Math.min(south, coord.lat);
+				east = Math.max(east, coord.lng);
+				north = Math.max(north, coord.lat);
+			}
+			}
+	
+			// Calcula centroide del  bounding box
+			var centerLat = (north + south) / 2;
+			var centerLong = (east + west) / 2;
+	
+			// Calcula la distancia de la diagonal del bounding box
+			diagonalDistance = calculateDistance(
+			{ lat: south, long: west },
+			{ lat: north, long: east }
+			);
+	
+			
+			if (coordinates.length == 1) { 
+					 diagonalDistance = 1000000;
+			}
+
 	
 	
 	
 	// Calcula la posicion al sur del centro (en metros ) y la convierte a grados
 
-		// ojo : usa teorema de pitagoras para calcular el cateto opuesto (d)
+		// ojo : usa teorema de pitagoras para calcular el cateto opuesto (d){}
 		// en base a la altura y el angulo. Por eso la tangente.
 		// va
 
