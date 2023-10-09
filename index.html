@@ -409,13 +409,13 @@ color: yellow;
             
             <div class="tooltipIcon"><img id="ordenVol" class="iconKPI" src="images/order1_.png" onclick="ordenRadares='Vol';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text2">Ordenar por Volumen Entregado</div></div>
             <div class="tooltipIcon"><img id="ordenFR" class="iconKPI" src="images/order2.png" onclick="ordenRadares='FR';radar.DrawEntities();" style="width:23px ;float:left;margin:8px" ></img><div class="tooltip-text2">Ordenar por FillRate</div></div>
-            <div class="tooltipIcon"><img id="ordenOOS" class="iconKPI" src="images/order3.png" onclick="ordenRadares='OOS';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por OOS CED</div></div>
-            <div class="tooltipIcon"><img id="ordenOOSF" class="iconKPI" src="images/order5.png" onclick="ordenRadares='OOSF';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por OOS Filiales</div></div>
+            <div class="tooltipIcon"><img id="ordenOOS" class="iconKPI" src="images/order5.png" onclick="ordenRadares='OOS';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por OOS CED</div></div>
+            <div class="tooltipIcon"><img id="ordenOOSF" class="iconKPI" src="images/order3.png" onclick="ordenRadares='OOSF';radar.DrawEntities();" style="width:23px ;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por OOS Filiales</div></div>
             <div class="tooltipIcon"><img id="ordenVen" class="iconKPI" src="images/order4.png" onclick="ordenRadares='Ven';radar.DrawEntities();" style="width:23px;float:left;margin:8px"></img><div class="tooltip-text2">Ordenar por Ventas</div></div>
 
         </ul>
 
-        <div id="titulo" class="sombra" align="left" style="position:fixed;top:6px;left:168px;font-family:Cabin;pointer-events:none;font-size:21px;color:#7DDFFF;opacity:1;font-weight:bold;z-index:9999;    line-height: 15px;"/> 
+        <div id="titulo" class="sombra" align="left" style="position:fixed;top:6px;left:168px;font-family:Cabin;pointer-events:none;font-size:21px;color:#7DDFFF;opacity:1;font-weight:bold;z-index:9999;    line-height: 17px;"/> 
         
         </div>
 
@@ -582,13 +582,24 @@ color: yellow;
             });
 
             var fechaActual=new Date();
-            var ayer=new Date(fechaActual.getTime()-((1000*60)*60)*24);
 
-            $('#datepicker').val((ayer.getMonth()+1)+"-01-2023");
-            $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
+            if(fechaActual.getDate() > 5){
 
+                var ayer=new Date(fechaActual.getTime()-((1000*60)*60)*24);
 
-            $('#datepicker').val("09-01-2023"); $('#datepicker2').val("09-30-2023"); 
+                $('#datepicker').val((ayer.getMonth()+1)+"-01-"+fechaActual.getFullYear());
+                $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-"+fechaActual.getFullYear());
+
+            }else{
+
+                var endDate_=LastDayOfMonth(fechaActual.getFullYear(),fechaActual.getMonth()+1 );
+
+                $('#datepicker').val((fechaActual.getMonth())+"-01-"+fechaActual.getFullYear());
+                $('#datepicker2').val((fechaActual.getMonth())+"-"+(endDate_.getDate())+"-"+fechaActual.getFullYear());
+
+            }        
+
+            //$('#datepicker').val("09-01-2023"); $('#datepicker2').val("09-30-2023"); 
             
             $(".datepicker").css("z-index",99999);
               

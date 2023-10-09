@@ -355,12 +355,12 @@ Stage.DrawMapObjects=function(entities){
 
 }
 
-Stage.GetCammeraPos=function(coords){
-	console.log("GetCammeraPos",coords);
+Stage.GetCammeraPos=function(coords){ 
 
 	
-
 	if( $("#nivel_cb").val()==0 ){ // para nivel nacional
+
+		
 
 		var rootpos = Cesium.Cartesian3.fromDegrees(-101.777344, 8.121772, 2500000.0);
 
@@ -374,6 +374,7 @@ Stage.GetCammeraPos=function(coords){
 
 		});
 		
+		
 	}else{
 
 
@@ -381,6 +382,8 @@ Stage.GetCammeraPos=function(coords){
 		// El factor de altura es proporcional a la diagonal del bounding box 
 
 		// coords, angulo hacia  abajo, factor de altitud, factor de distancia 
+
+	
 
 		var c_pos= calculateCameraPosition(coords, -30, 0.5,0.5);
     

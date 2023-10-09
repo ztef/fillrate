@@ -188,13 +188,13 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
       
       var columns = [
         { key: "key", header: "Destino", sortable: true, width: "110px" },
-        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "PesoPlan", header: "Peso Plan (TM)", sortable: true,  width: "100px" },
-        { key: "PesoReal", header: "Peso Real (TM)", sortable: true,  width: "100px" },
-        { key: "DifPesos", header: "Dif (TM)", sortable: true,  width: "100px" }
+        { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
+        { key: "PesoReal", header: "Peso Real", sortable: true,  width: "100px" },
+        { key: "DifPesos", header: "Dif", sortable: true,  width: "100px" }
       ];
     
     
@@ -209,13 +209,13 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
           },
     
         VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + " TM";
+          return vix_tt_formatNumber(value) ;
         },
         VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifK: function(value) {
-            return vix_tt_formatNumber(value) + " TM";
+            return vix_tt_formatNumber(value) ;
         },
         DifP: function(value){
           
@@ -253,7 +253,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip5","Abasto desde "+dataManager.getNameFromId(entity.key)+" hacia otras UN",820,svgTooltipHeight+80);
+      vix_tt_formatToolTip("#toolTip5","Abasto desde "+dataManager.getNameFromId(entity.key)+" hacia otras UN (TM)",820,svgTooltipHeight+80);
 
       // COLUMNAS CON TOTALES :
 
@@ -404,13 +404,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       
       var columns = [
         { key: "key", header: "Transporte", sortable: true, width: "110px" },
-        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real ", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "PesoPlan", header: "Peso Plan (TM)", sortable: true,  width: "100px" },
-        { key: "PesoReal", header: "Peso Real (TM)", sortable: true,  width: "100px" },
-        { key: "DifPesos", header: "Dif (TM)", sortable: true,  width: "100px" }
+        { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
+        { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+        { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
       ];
     
     
@@ -468,7 +468,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte",840,svgTooltipHeight+120);
+      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte (TM)",840,svgTooltipHeight+120);
 
 
       $("#toolTip2").mousedown();
@@ -479,22 +479,22 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK','PesoPlan','PesoReal','DifPesos']; 
       var totalsColumnVisitors = {
                 'VolumenPlan': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM";
+                  return vix_tt_formatNumber(value) ;
                 },
                 'VolumenReal': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'DifK': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'PesoPlan': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'PesoReal': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'DifPesos': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 }
 
                 };             
@@ -630,13 +630,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       
       var columns = [
         { key: "key", header: "Unidad de Neogcio", sortable: true, width: "110px" },
-        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "PesoPlan", header: "Peso Plan (TM)", sortable: true,  width: "100px" },
-        { key: "PesoReal", header: "Peso Real (TM)", sortable: true,  width: "100px" },
-        { key: "DifPesos", header: "Dif (TM)", sortable: true,  width: "100px" }
+        { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
+        { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+        { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
       ];
     
     
@@ -697,28 +697,28 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK','PesoPlan','PesoReal','DifPesos']; 
       var totalsColumnVisitors = {
                 'VolumenPlan': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM";
+                  return vix_tt_formatNumber(value) ;
                 },
                 'VolumenReal': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'DifK': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'PesoPlan': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'PesoReal': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'DifPesos': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 }
                 };
  
 
 
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+dataManager.getNameFromId(entity.key) ,840,svgTooltipHeight+130);
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+dataManager.getNameFromId(entity.key)+" (TM)" ,840,svgTooltipHeight+130);
 
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );  
 
@@ -852,13 +852,13 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
       
       var columns = [
         { key: "key", header: "Origen", sortable: true, width: "110px" },
-        { key: "VolumenPlan", header: "Vol Plan (TM)", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real (TM)", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif (TM)", sortable: true, width: "100px" },
+        { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
+        { key: "VolumenReal", header: "Vol Real ", sortable: true, width: "100px" },
+        { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
         { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "PesoPlan", header: "Peso Plan (TM)", sortable: true,  width: "100px" },
-        { key: "PesoReal", header: "Peso Real (TM)", sortable: true,  width: "100px" },
-        { key: "DifPesos", header: "Dif (TM)", sortable: true,  width: "100px" }
+        { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
+        { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+        { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
       ];
     
     
@@ -956,7 +956,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
           $("#toolTip4").css("bottom","1%");
           $("#toolTip4").css("right","1%");                   
 
-          vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden "+toTitleCase(entity.key)+"",820,svgTooltipHeight+80);
+          vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden (TM) "+toTitleCase(entity.key)+"",820,svgTooltipHeight+80);
       } 
    
      
@@ -966,22 +966,22 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
       var columnsWithTotals = ['VolumenPlan','VolumenReal','DifK','PesoPlan','PesoReal','DifPesos']; 
       var totalsColumnVisitors = {
                 'VolumenPlan': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM";
+                  return vix_tt_formatNumber(value) ;
                 },
                 'VolumenReal': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'DifK': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'PesoPlan': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'PesoReal': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 },
                 'DifPesos': function(value) { 
-                  return vix_tt_formatNumber(value) + " TM"; 
+                  return vix_tt_formatNumber(value) ; 
                 }
                 };
       

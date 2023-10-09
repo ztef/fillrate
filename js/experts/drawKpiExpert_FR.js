@@ -250,7 +250,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
       var columns = [
         { key: "key", header: "Estado", sortable: true, width: "100px" },
         { key: "por1", header: "Fill Rate", sortable: true, width: "180px" },    
-        { key: "cant", header: "Volumen Entregado (TM)", sortable: true, width: "180px" },
+        { key: "cant", header: "Volumen Entregado", sortable: true, width: "180px" },
         ];
     
     
@@ -282,7 +282,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
         },
         
         cant: function(value,i) {
-                var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1,svgTooltipHeight+100);
+                var ancho=GetValorRangos( arr[i].CantEntfinal,1, maximo ,1, 180 );
                 var barValue = formatNumber(value);
 
                 return '<div class="bar-container">' +
@@ -310,7 +310,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado",500,svgTooltipHeight+100);
+      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado (TM)",500,svgTooltipHeight+100);
 
      // CREA TABLA USANDO DATOS
       
@@ -467,7 +467,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                        
                 }  
                 
-                vix_tt_formatToolTip("#toolTip2","Cantidad entregada por Día de Fill Rate de "+dataManager.getNameFromId(entity.key),svgTooltipWidth+7,svgTooltipHeight*.95);               
+                vix_tt_formatToolTip("#toolTip2","Cantidad entregada por Día de Fill Rate de "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+7,svgTooltipHeight*.95);               
                 
                 var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
 
@@ -534,7 +534,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                                 .style("height",altura3 )	
                                                 ;
 
-                        if(maximo > 0.1){
+                        if(maximo > 1){
                             
                                 var alturaVolumen=GetValorRangos( arr[i].CantEntfinal,1, maximo ,0,svgTooltipHeight*.18);
                         } else{
@@ -573,7 +573,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.38))-alturaVolumen-6  )+")  rotate("+(-90)+") ")
                                 .text(function(){
                                 
-                                return  formatNumber(arr[i].CantEntfinal)+" TM";
+                                return  formatNumber(arr[i].CantEntfinal);
         
                                 })
                                 .transition().delay(0).duration(i*50)

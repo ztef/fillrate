@@ -109,7 +109,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     
         MasivosVol: function(value,i) {
                 var ancho=GetValorRangos( value,1, maximo ,1,svgTooltipHeight*.4);
-                var barValue = formatNumber(value)+" TM";
+                var barValue = formatNumber(value);
                
               
 
@@ -125,7 +125,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
         
         totalSolicitado: function(value,i) {
                 var ancho=GetValorRangos( value,1, maximoVol ,1,svgTooltipHeight*.4);
-                var barValue = formatNumber(value)+" TM";              
+                var barValue = formatNumber(value);              
               
 
                 return '<div class="bar-container">' +
@@ -158,12 +158,12 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
       var columnsWithTotals = ['MasivosVol','totalSolicitado','DifP']; 
       var totalsColumnVisitors = {
                 'MasivosVol': function(value) { 
-                        var v = formatNumber(value)+" TM";
+                        var v = formatNumber(value);
              
                         return v; 
                 },
                 'totalSolicitado': function(value) { 
-                        var v = formatNumber(value)+" TM";
+                        var v = formatNumber(value);
              
                         return v; 
                 }
@@ -174,7 +174,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+dataManager.getNameFromId(entity.key), 600, svgTooltipHeight+100);
+      vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+dataManager.getNameFromId(entity.key)+" (TM)", 600, svgTooltipHeight+100);
     
      // CREA TABLA USANDO DATOS
       

@@ -1,6 +1,6 @@
 var config={
 
-    modoSoloFillRate:false,
+    modoSoloFillRate:true,
 
     nivelInicial:0 , //Debe especificarse el id de store.niveles
 
