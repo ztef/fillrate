@@ -402,6 +402,43 @@ Stage.DrawMapObjects=function(entities){
 
 }
 
+var calendarVisible=true;
+
+Stage.ToogleCalendar=function(val){ 
+
+	if(val){
+
+		if(val=="on"){
+
+			$('.loginContainer').css('visibility','visible');
+			$('#Controls').css('visibility','hidden');
+			$('#dateSelect').val('');
+			calendarVisible=true;
+
+		}else{
+			$('.loginContainer').css('visibility','hidden');		
+			calendarVisible=false;
+		}
+
+	}else{
+
+		calendarVisible=!calendarVisible;
+
+		if(calendarVisible){
+
+			$('.loginContainer').css('visibility','visible');
+			$('#Controls').css('visibility','hidden');
+			$('#dateSelect').val('');
+			calendarVisible=true;
+
+		}else{
+			$('.loginContainer').css('visibility','hidden');		
+			calendarVisible=false;
+		}
+	}	
+
+}
+
 Stage.GetCammeraPos=function(coords){ 
 
 	
