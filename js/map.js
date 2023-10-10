@@ -457,8 +457,7 @@ Stage.GetCammeraPos=function(coords){
 			destination : c_pos.position,
 			orientation : c_pos.orientation,
 		});
-    
-  }
+	}
 
 }
   
