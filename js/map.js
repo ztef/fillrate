@@ -434,20 +434,20 @@ Stage.GetCammeraPos=function(coords){
 		var altitud= 0.5
 		var distancia= 0.5
 
-        if($("#nivel_cb").val() < 4){
+		if($("#nivel_cb").val() < 3){
             angulo= -50;
 			altitud= 1;
 			distancia= 1.2;
 
-		}else if($("#nivel_cb").val() = 4){
+		}else if($("#nivel_cb").val() <= 4){
             angulo= -45;
 			altitud= 0.9;
 			distancia= 0.7;
 
 		}else if($("#nivel_cb").val() > 4){
-            angulo= -60;
-			altitud= 0.9;
-			distancia= 0.5;
+            angulo= -45;
+			altitud= 1;
+			distancia= 0.7;
 		}
             
 		
