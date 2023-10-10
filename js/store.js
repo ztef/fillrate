@@ -60,8 +60,9 @@ var store={
             {data:"cat_zt",placeholder:"Zona Transporte",fieldInCatlog:"Nombre",id:"cat_zt",type:"autoComplete",nameOnFR:"ZonaTransporte",nameOnPendientes:"Zona_de_Entrega", color:"#12FF00",storeProcedureField:"Zona_de_Entrega"},
             {data:"cat_cliente",placeholder:"Holding",fieldInCatlog:"Nombre",id:"cat_cliente",type:"autoComplete",nameOnFR:"Cliente",nameOnPendientes:"HoldingNum", color:"#12FF00",storeProcedureField:"Cliente"},
             //{data:"fillRate",placeholder:"Segmento",fieldInCatlog:"Segmento",id:"cat_segmento",type:"autoComplete",nameOnFR:"Segmento",nameOnPendientes:"Segmento", color:"#12FF00",storeProcedureField:"Segmento"},
-            {data:"cat_frente",placeholder:"Frente",fieldInCatlog:"Nombre",id:"cat_frente",type:"autoComplete",nameOnFR:"Frente",nameOnPendientes:"Frente", color:"#12FF00",storeProcedureField:"Frente"},
+            
             {data:"cat_sucursal",placeholder:"Sucursal",fieldInCatlog:"Nombre",id:"cat_sucursal",type:"autoComplete",nameOnFR:"",nameOnPendientes:"", color:"#12FF00",storeProcedureField:"Obra"},
+            {data:"cat_frente",placeholder:"Frente",fieldInCatlog:"Nombre",id:"cat_frente",type:"autoComplete",nameOnFR:"Frente",nameOnPendientes:"Frente", color:"#12FF00",storeProcedureField:"Frente"},
 
             {data:"fillRate",placeholder:"AgrupProducto",fieldInCatlog:"AgrupProducto",id:"cat_producto",type:"autoComplete",nameOnFR:"AgrupProducto",nameOnPendientes:"TipoProducto", color:"#F716FF",storeProcedureField:"AgrupProducto",default:"Gris", hardcodedData:["Gris","Mortero","Blanco","Multiplast","Impercem","Otros"]},
             {data:"fillRate",placeholder:"Presentación",fieldInCatlog:"Presentacion",id:"cat_presentacion",type:"autoComplete",nameOnFR:"Presentacion",nameOnPendientes:"Presentacion", color:"#F716FF",storeProcedureField:"Presentacion"},
@@ -77,9 +78,9 @@ var store={
         {id:3,label:"Estado",field:"EstadoZTDem",coordinatesSource:"cat_estado",storeProcedureField:"Estado",oosFlilialesField:"EstadoDem"},
         {id:4,label:"Gerencia",field:"GerenciaUN",coordinatesSource:"cat_gerencia",storeProcedureField:"Gerencia",oosFlilialesField:"Gerencia"},
         {id:5,label:"Unidad de Negocio",field:"vc50_UN_Tact",coordinatesSource:"cat_un",storeProcedureField:"UnidadNegocio"},
-        {id:6,label:"Zona de transporte",field:"ZonaTransporte",coordinatesSource:"cat_zt",storeProcedureField:"ZT"},       
-        {id:7,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},    
-        {id:8,label:"Sucursal",field:"Obra",coordinatesSource:"cat_sucursal",storeProcedureField:"Obra"},   
+        {id:6,label:"Zona de transporte",field:"ZonaTransporte",coordinatesSource:"cat_zt",storeProcedureField:"ZT"},               
+        {id:7,label:"Sucursal",field:"Obra",coordinatesSource:"cat_sucursal",storeProcedureField:"Obra"},
+        {id:8,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},       
 
     ]
 

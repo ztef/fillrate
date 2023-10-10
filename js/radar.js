@@ -18,6 +18,7 @@ var columnasRadar=1;
 var ordenRadares="Vol";
 var ordenAnterior="";
 var direccionOrder=false;
+var backSvgRadar;
 
 radar.radarInitStage=function(){    
 
@@ -27,12 +28,30 @@ radar.radarInitStage=function(){
    
     document.body.appendChild(elemDiv);
 
-    svgRadar =d3.select(elemDiv)						
+    svgRadar = d3.select(elemDiv)						
                 .append("svg")
                 .attr("id","containerSCG")
                 .attr("width", "100%" )
                 .attr("height", "100%" )
-                ;   
+                ;  
+                
+    backSvgRadar= svgRadar.append("rect")
+    
+                .attr("fill","#000000")                             
+                .style("opacity",.2 )  
+                .style("pointer-events","auto" )  
+                .attr("width","80%" )
+                .attr("height","100%" )
+                .attr("x",0)
+                .attr("y",0)
+                .on("mouseover",function(){
+                    $("#radarDiv").css("pointer-events","auto");
+                })
+                .on("mouseout",function(){
+                    
+                    setTimeout(()=>{$("#radarDiv").css("pointer-events","none");}, 1000);
+                })
+                ;
 
 }
 
@@ -139,7 +158,7 @@ radar.CleanWindows=function(){
 
     dataLoader.HideLoadings();
 
-    $('.loginContainer').css('visibility','hidden');
+    Stage.ToogleCalendar("off");
 
     radarMosaic.EraseMosaic();
 
@@ -304,7 +323,7 @@ radar.DrawEntities=function(){
         $("#radarDiv").animate({scrollTop: 0}, 1000);
         $("#radarDiv").css("pointer-events","none");
 
-        
+        backSvgRadar.attr("width",(((anchoRadarDiv*radar.escalado)*columnasRadar+(paddingTop*(columnasRadar-1))+150 )*.7  ));
 
         maxValueFR = 0;
 
@@ -336,8 +355,7 @@ radar.DrawEntities=function(){
 
         }   
 
-        console.log("maxValueFR",maxValueFR);
-
+       
         var caso=0;
 
         for(var i=0; i < entities.length; i++){
@@ -515,11 +533,11 @@ radar.DrawBaseRadar=function(entity){
             .attr("fill", "#9A9C9C")
             .style("opacity", 1)
             .on("mouseover",function(){
-                $("#radarDiv").css("pointer-events","auto");
+                //$("#radarDiv").css("pointer-events","auto");
             })
             .on("mouseout",function(){
                 
-                setTimeout(()=>{$("#radarDiv").css("pointer-events","none");}, 1000);
+                //setTimeout(()=>{$("#radarDiv").css("pointer-events","none");}, 1000);
             })
             .on("click",function(){
                 radar.CleanWindows();

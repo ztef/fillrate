@@ -402,6 +402,43 @@ Stage.DrawMapObjects=function(entities){
 
 }
 
+var calendarVisible=true;
+
+Stage.ToogleCalendar=function(val){ 
+
+	if(val){
+
+		if(val=="on"){
+
+			$('.loginContainer').css('visibility','visible');
+			$('#Controls').css('visibility','hidden');
+			$('#dateSelect').val('');
+			calendarVisible=true;
+
+		}else{
+			$('.loginContainer').css('visibility','hidden');		
+			calendarVisible=false;
+		}
+
+	}else{
+
+		calendarVisible=!calendarVisible;
+
+		if(calendarVisible){
+
+			$('.loginContainer').css('visibility','visible');
+			$('#Controls').css('visibility','hidden');
+			$('#dateSelect').val('');
+			calendarVisible=true;
+
+		}else{
+			$('.loginContainer').css('visibility','hidden');		
+			calendarVisible=false;
+		}
+	}	
+
+}
+
 Stage.GetCammeraPos=function(coords){ 
 
 	
@@ -434,20 +471,20 @@ Stage.GetCammeraPos=function(coords){
 		var altitud= 0.5
 		var distancia= 0.5
 
-        if($("#nivel_cb").val() < 4){
+		if($("#nivel_cb").val() < 3){
             angulo= -50;
 			altitud= 1;
 			distancia= 1.2;
 
-		}else if($("#nivel_cb").val() = 4){
+		}else if($("#nivel_cb").val() <= 4){
             angulo= -45;
 			altitud= 0.9;
 			distancia= 0.7;
 
 		}else if($("#nivel_cb").val() > 4){
-            angulo= -60;
-			altitud= 0.9;
-			distancia= 0.5;
+            angulo= -45;
+			altitud= 1;
+			distancia= 0.7;
 		}
             
 		
@@ -457,8 +494,7 @@ Stage.GetCammeraPos=function(coords){
 			destination : c_pos.position,
 			orientation : c_pos.orientation,
 		});
-    
-  }
+	}
 
 }
   
