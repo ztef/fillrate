@@ -29,7 +29,7 @@
   font-size: 14px;
 }
 .datepicker {
-  z-index: 99999;
+  z-index: 99999999;
 }
 .form button {
   font-family: "Roboto", sans-serif;
@@ -260,6 +260,12 @@ select{
 /* Tamaño del scroll */
 #tooltip4::-webkit-scrollbar {
   width: 8px;
+}
+
+.gj-picker {
+  position: absolute;
+  z-index: 99999999;
+  background-color: #fff;
 }
 
  /* Estilos barra (thumb) de scroll */

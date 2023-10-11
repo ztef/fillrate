@@ -42,8 +42,8 @@ var store={
         
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate",varName:"ventas",onInitLoad:false,useDateFilters:true},
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_PedidosPendientes",varName:"pendientes",onInitLoad:false,useDateFilters:true},
-        {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_PedidosPendientes_Estado",varName:"pendientesEstado",onInitLoad:false,useDateFilters:true}
-
+        {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_PedidosPendientes_Estado",varName:"pendientesEstado",onInitLoad:false,useDateFilters:true},
+        {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_Venta_FillRate_PorDia",varName:"ventasDia",onInitLoad:false,useDateFilters:false}
        
        
     ],
