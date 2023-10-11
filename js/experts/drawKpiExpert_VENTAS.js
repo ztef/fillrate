@@ -351,7 +351,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                           if(svgTooltipWidth < 250)
                                 svgTooltipWidth=250;
                   
-                          var svgTooltipHeight=450;
+                          var svgTooltipHeight=480;
 
                           var tamanioFuente=ancho*.75;   
 
@@ -424,7 +424,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .attr("width",ancho*.9 )
                                                 .attr("class","ventasDetail")
                                                 .attr("x",(ancho*caso)  )
-                                                .attr("y", ((svgTooltipHeight*.55))-altura1-50  )
+                                                .attr("y", ((svgTooltipHeight*.55))-altura1-60  )
                                                 .attr("height",1)
                                                 .attr("fill","#00A8FF")
                                                 .transition().delay(0).duration(i*50)
@@ -435,7 +435,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .attr("width",ancho*.9 )
                                                 .attr("class","ventasDetail")
                                                 .attr("x",(ancho*caso)  )
-                                                .attr("y", ((svgTooltipHeight*.55))-altura1-50  )
+                                                .attr("y", ((svgTooltipHeight*.55))-altura1-60  )
                                                 .attr("height",1)
                                                 .attr("fill","#FFFFFF")
                                                 .transition().delay(0).duration(i*50)
@@ -451,7 +451,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .style("font-size",tamanioFuente*.8)						
                                                 .style("text-anchor","start")
                                                 .style("opacity",0 )
-                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.55))-altura1-54 )+")  rotate("+(-90)+") ")
+                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.55))-altura1-64 )+")  rotate("+(-90)+") ")
                                                 .text(function(){
                                                   
                                                   var porDif="0";
@@ -477,7 +477,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .style("font-weight","bold")
                                                 .style("font-size",tamanioFuente*.8)	
                                                 .style("text-anchor","end")
-                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight*.55)-44  )+")  rotate("+(-90)+") ")
+                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight*.55)-54  )+")  rotate("+(-90)+") ")
                                                 .text(function(){
                                                         
                                                 var date=new Date( Number(arr[i].key) );
