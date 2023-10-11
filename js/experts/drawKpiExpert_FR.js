@@ -424,10 +424,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                                 }
                                           
 
-                }
-
-                console.log("maximo: ",maximo);
-
+                }               
 
                 arr = arr.sort((a, b) => {                
                                 return b.fecha - a.fecha;                                    
@@ -437,8 +434,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 arr=arr.reverse();
 
                 var ancho=18;
-                var caso=0;
-        
+                var caso=0;       
                 
                 var svgTooltipWidth=arr.length*(ancho*1.05) ;
                 if(svgTooltipWidth < 280)
