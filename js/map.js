@@ -236,7 +236,8 @@ Stage.initStage=function(resolve, reject){
 							.attr("height",  "100%" )
 							;
 
-		svgLines.append("rect")		    		
+		svgLines.append("rect")		
+							.attr("id","borderBlack")
 							.attr("width",windowWidth*.14 )
 							.attr("y", 0  )
 							.attr("height",windowHeight)
@@ -700,6 +701,10 @@ Stage.ReorderLayout=function(){
 	$("#titulo").css("width",((windowWidth*.9)-220)+"px");
 
 	filterControls.showActiveFilters();
+
+	$("#containerSVG").css("height",windowHeight+"px");
+	$("#borderBlack").css("height",windowHeight+"px");
+	
 }
 
 

@@ -295,7 +295,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                     obj.VolumenPlan_Total=0;
                                     obj.VolumenReal_Total=0;
                                     obj.Peso=0;
-
+                                    obj.fecha=new Date(i);
                                     data_.push(obj);
                             }
     

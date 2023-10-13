@@ -25,8 +25,6 @@ var store={
             {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetZT_FillRate",varName:"cat_zt",idFieldInCatlog:"ID" ,onInitLoad:false,useDateFilters:true},            
             //{sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true}, 
             {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetFrentes_FillRate",varName:"cat_cliente_ref",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",onInitLoad:false,useDateFilters:true},            
-            //Catalogos PRODUCTO y PRESENTACION 
-            //{apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_producto",onInitLoad:true,useDateFilters:true},
   
     ],
 
@@ -43,8 +41,8 @@ var store={
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_Venta_FillRate",varName:"ventas",onInitLoad:false,useDateFilters:true},
         {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_Calcular_KPI_PedidosPendientes",varName:"pendientes",onInitLoad:false,useDateFilters:true},
         {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_PedidosPendientes_Estado",varName:"pendientesEstado",onInitLoad:false,useDateFilters:true},
-        {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_Venta_FillRate_PorDia",varName:"ventasDia",onInitLoad:false,useDateFilters:false}
-       
+        {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_Venta_FillRate_PorDia",varName:"ventasDia",onInitLoad:false,useDateFilters:false},
+        {apiURL:_bkserver ,serviceName:"getSP/VIS_Calcular_KPI_Flota_FillRate_PorDia",varName:"flotaDia",onInitLoad:false,useDateFilters:false}
        
     ],
 
