@@ -30,13 +30,13 @@ radar.radarInitStage=function(){
 
     svgRadar = d3.select(elemDiv)						
                 .append("svg")
-                .attr("id","containerSCG")
+                .attr("id","containerSGG")
                 .attr("width", "100%" )
                 .attr("height", "100%" )
                 ;  
                 
     backSvgRadar= svgRadar.append("rect")
-    
+                .attr("id","radarBKG")
                 .attr("fill","#000000")                             
                 .style("opacity",.2 )  
                 .style("pointer-events","auto" )  
@@ -369,8 +369,13 @@ radar.DrawEntities=function(){
                         radar.rows++;                   
                         
                     }
+
+                    var altura_svgRadar=(radio*(i+1) )+offSetTop+(paddingTop*entities.length)+radio;
+
+                    if(altura_svgRadar < windowHeight)
+                        altura_svgRadar = windowHeight;
                     
-                    svgRadar.attr("height", (radio*(i+1) )+offSetTop+(paddingTop*entities.length)+200 );
+                    svgRadar.attr("height",altura_svgRadar );
 
                     entities[i].radarData={};
 

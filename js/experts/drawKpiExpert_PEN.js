@@ -110,7 +110,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
 
                     d3.json(URL, function (error, data) {
 
-                                    dataLoader.DeleteLoadingTitle("Fillrate"); 
+                                    dataLoader.DeleteLoadingTitle("Pendientes por Estado"); 
 
                                     dataLoader.HideLoadings();
 

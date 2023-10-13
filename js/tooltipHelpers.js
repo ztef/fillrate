@@ -229,8 +229,7 @@ function vix_tt_transitionRectWidth(containerID) {
         positions.push(rightPosition)
         positions.push(belowPosition);
         
-        console.log("posicion derecha ", rightPosition);
-        console.log("posicion abajo ", belowPosition);
+       
       }
     });
   }
