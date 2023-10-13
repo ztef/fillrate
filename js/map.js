@@ -647,7 +647,7 @@ Stage.FocusMapElement=function(id){
 		if(mapElements[e].key.toLowerCase()==id.toLowerCase()){
 			
 			viewer.camera.flyTo({
-				destination : Cesium.Cartesian3.fromDegrees(mapElements[e].lng, mapElements[e].lat+config.offSetCamaraParaEnfocar[$("#nivel_cb").val()], config.alturas[$("#nivel_cb").val()]*3 ),
+				destination : Cesium.Cartesian3.fromDegrees(mapElements[e].lng, mapElements[e].lat+config.offSetCamaraParaEnfocar[$("#nivel_cb").val()], config.alturas[$("#nivel_cb").val()]*config.offSetAlturaParaEnfocar ),
 				orientation : {
 					heading : Cesium.Math.toRadians(0),
 					pitch : Cesium.Math.toRadians(-58.0),

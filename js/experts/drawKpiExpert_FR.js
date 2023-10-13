@@ -796,7 +796,6 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                 
                 var ancho2 = GetValorRangos( vol1_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho-355);
 
-                console.log("ancho2",ancho2);
 
                 if(!ancho2)
                 ancho2=1;
@@ -816,7 +815,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .attr("x",kpiExpert_FR.offSetLeft+6+kpiExpert_FR.offSetLeft2)
                         .attr("y",kpiExpert_FR.offSetTop+5+(altura*.18))
                         .transition().delay(0).duration(1000)
-                        .style("width",ancho2-3 )
+                        .style("width",ancho2-2 )
                         ;
 
                         
@@ -825,7 +824,9 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
 
                 var ancho3 = GetValorRangos( vol2_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho-355);
 
-                console.log("ancho3",ancho3);
+                if(ancho3 < 2){
+                        ancho3=1;
+                }
 
                 if(!ancho3)
                 ancho3=1;
@@ -845,14 +846,24 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .attr("x",kpiExpert_FR.offSetLeft+ancho2+6+kpiExpert_FR.offSetLeft2 )
                         .attr("y",kpiExpert_FR.offSetTop+5+(altura*.18))
                         .transition().delay(1000).duration(1000)
-                        .attr("width",ancho3 )
+                        .attr("width",function(d){
+                                
+                                var ancho_= ancho3; 
+
+                                if(ancho_ > 3)
+                                        ancho_=ancho_-2;
+
+                                return ancho_;
+                        })
                         ;        
 
                 // ROJO
 
                 var ancho4 = GetValorRangos( vol3_filtered ,1, totalCanSol_ref , 1,kpiExpert_FR.ancho-355);
 
-                console.log("ancho4",ancho4);
+                if(ancho4 < 2){
+                        ancho4=1;
+                }
 
                 if(!ancho4)
                 ancho4=1;
@@ -872,7 +883,15 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .attr("x",kpiExpert_FR.offSetLeft+ancho2+ancho3+6+kpiExpert_FR.offSetLeft2)
                         .attr("y",kpiExpert_FR.offSetTop+5+(altura*.18))
                         .transition().delay(2000).duration(1000)
-                        .attr("width",ancho4 )
+                        .attr("width",function(d){
+                                
+                                var ancho_= ancho4; 
+                                   
+                                if(ancho_ > 3)
+                                        ancho_=ancho_-2;
+
+                                return ancho_;
+                        } )
                         ;
                 
                 //CIRCULO Y LIENA
