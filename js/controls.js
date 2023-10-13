@@ -208,46 +208,46 @@ filterControls.createDataFiltersControls=function(catalogs){
 
 			_removeIfInvalid: function( event, ui ) {
 
-				// Selected an item, nothing to do
-				if ( ui.item ) {
-					return;
-				}
+                    // Selected an item, nothing to do
+                    if ( ui.item ) {
+                        return;
+                    }
 
-				// Search for a match (case-insensitive)
-				var value = this.input.val(),
-					valueLowerCase = value.toLowerCase(),
-					valid = false;
-				this.element.children( "option" ).each(function() {
-					if ( $( this ).text().toLowerCase() === valueLowerCase ) {
-						this.selected = valid = true;
-						return false;
-					}
-				});
+                    // Search for a match (case-insensitive)
+                    var value = this.input.val(),
+                        valueLowerCase = value.toLowerCase(),
+                        valid = false;
+                    this.element.children( "option" ).each(function() {
+                        if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+                            this.selected = valid = true;
+                            return false;
+                        }
+                    });
 
-				// Found a match, nothing to do
-				if ( valid ) {
-					return;
-				}
+                    // Found a match, nothing to do
+                    if ( valid ) {
+                        return;
+                    }
 
-				// Remove invalid value
-				this.input
-					.val( "" )
-					.attr( "title", value + " didn't match any item" )
-					.tooltip( "open" );
-				this.element.val( "" );
-				this._delay(function() {
-					this.input.tooltip( "close" ).attr( "title", "" );
-				}, 2500 );
-				this.input.autocomplete( "instance" ).term = "";
+                    // Remove invalid value
+                    this.input
+                        .val( "" )
+                        .attr( "title", value + " didn't match any item" )
+                        .tooltip( "open" );
+                    this.element.val( "" );
+                    this._delay(function() {
+                        this.input.tooltip( "close" ).attr( "title", "" );
+                    }, 2500 );
+                    this.input.autocomplete( "instance" ).term = "";
 			},
 
 			_destroy: function() {
 				this.wrapper.remove();
 				this.element.show();
 			}
-		});
+		    });
 
-		$( "#"+catalogs[i].id ).combobox();
+		    $( "#"+catalogs[i].id ).combobox();
 
 
                  
@@ -660,16 +660,32 @@ filterControls.FilterSpecificDataSet=function(Rows,fieldsNames){
 
 filterControls.showActiveFilters=function(){
 
+
     for(var i=0; i < store.catlogsForFilters.length; i++){
+
+        if($("#"+store.catlogsForFilters[i].id).siblings().first()[0]){
          
-        if($("#"+store.catlogsForFilters[i].id).val() != "" && $("#"+store.catlogsForFilters[i].id).val() != undefined && $("#"+store.catlogsForFilters[i].id).val() != "Todos" ){
-           filtrosAplicados[store.catlogsForFilters[i].id]=$("#"+store.catlogsForFilters[i].id).val();
-            caso++;
+                if($($("#"+store.catlogsForFilters[i].id).siblings().first()[0].firstChild).val() != "" && $($("#"+store.catlogsForFilters[i].id).siblings().first()[0].firstChild).val() != undefined && $("#"+store.catlogsForFilters[i].id).val() != "Todos" ){
+                    
+                    filtrosAplicados[store.catlogsForFilters[i].id]=toTitleCase($($("#"+store.catlogsForFilters[i].id).siblings().first()[0].firstChild).val());
+                    caso++;
+
+                }else{
+                    delete filtrosAplicados[store.catlogsForFilters[i].id];
+                }
+
         }else{
-           delete filtrosAplicados[store.catlogsForFilters[i].id];
+
+                if($("#"+store.catlogsForFilters[i].id).val() != "" && $("#"+store.catlogsForFilters[i].id).val() != undefined && $("#"+store.catlogsForFilters[i].id).val() != "Todos" ){
+                    filtrosAplicados[store.catlogsForFilters[i].id]=toTitleCase($("#"+store.catlogsForFilters[i].id).val());
+                    caso++;
+                }else{
+                    delete filtrosAplicados[store.catlogsForFilters[i].id];
+                }
+
         }
     
-}
+    }
 
     // visibilidad de filtros por nivel
     $("#ordenOOSF").hide();
@@ -810,9 +826,9 @@ filterControls.showActiveFilters=function(){
                     .text(function(){
 
                         if(caso == 1 ){
-                            return "Ningún otro filtro aplicado";
+                            return "Ningún Otro Filtro Aplicado";
                         }else{
-                            return "Otros Filtros activos:";
+                            return "Otros Filtros Activos:";
                         }                       
 
                     });    
