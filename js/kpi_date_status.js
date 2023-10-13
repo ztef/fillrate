@@ -21,18 +21,18 @@ kpi_date_status.loadData = function(muestra ){
         $("#cargando").css("visibility","hidden");
 
         if(error){
-            alert("Error API Fehas de KPI",error);
+            alert("Error API Fechas de KPI",error);
            
             return;
         }
 
         if(data.error){
-            alert("Error API Fehas de KPI",data.error);
+            alert("Error API Fechas de KPI",data.error);
            
             return;
         }
 
-        console.log("Fehas de KPIs",data.recordset);     
+        console.log("Fechas de KPIs",data.recordset);     
 
         kpi_date_status.data=data.recordset;
 
