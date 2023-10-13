@@ -355,17 +355,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                           var tamanioFuente=ancho*.75;   
 
-                          $("#toolTip4").css("visibility","visible");        
-                          $("#toolTip4").css("max-height","");    
-                          $("#toolTip4").css("bottom",4+"px");
-                          $("#toolTip4").css("right",30+"px");
-
-                          if(windowWidth > 1500 ){
-
-                            $("#toolTip4").css("top",80+"px");
-                            $("#toolTip4").css("left",windowWidth/2+"px");
-                           
-                          }                         
+                                                 
 
                           vix_tt_formatToolTip("#toolTip4","Ventas por Día "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+7,svgTooltipHeight+50);               
                 
@@ -493,6 +483,18 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                           }
 
                           $(".gj-picker").css("z-index", 99999999);
+
+                          $("#toolTip4").css("visibility","visible");        
+                          $("#toolTip4").css("max-height","");    
+                          $("#toolTip4").css("bottom",4+"px");
+                          $("#toolTip4").css("right",30+"px");
+
+                          if(windowWidth > 1500 ){
+
+                            $("#toolTip4").css("top",80+"px");
+                            $("#toolTip4").css("left",windowWidth/2+"px");
+                           
+                          }  
 
                           d3.select("#svgTooltip4")                     
                                 .style("width", svgTooltipWidth )
