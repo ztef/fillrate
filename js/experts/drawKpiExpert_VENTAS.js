@@ -295,6 +295,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                     obj.VolumenPlan_Total=0;
                                     obj.VolumenReal_Total=0;
                                     obj.Peso=0;
+                                    obj.Fecha=String(new Date(i)),
                                     obj.fecha=new Date(i);
                                     data_.push(obj);
                             }
@@ -321,6 +322,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                                   arr[i].VolumenPlan=0;
                                   arr[i].VolumenReal=0;
+                                  arr[i].Fecha=arr[i].values[0].Fecha;
 
                                   for(var j=0; j < arr[i].values.length; j++ ){
 
@@ -341,9 +343,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
             
                           });
 
+                          drawKpiExpert_VENTAS.lastDataByDay=arr;
+
                           //arr=arr.reverse();
 
-                          var ancho=15;
+                          var ancho=18;
                           var caso=0;    
 
                           var svgTooltipWidth=arr.length*(ancho*1.05) ;
@@ -353,16 +357,15 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                   
                           var svgTooltipHeight=480;
 
-                          var tamanioFuente=ancho*.75;   
-
+                          var tamanioFuente=ancho*.8;   
                                                  
 
-                          vix_tt_formatToolTip("#toolTip4","Ventas por Día "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+7,svgTooltipHeight+50);               
+                          vix_tt_formatToolTip("#toolTip4","Ventas por Día "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+7,svgTooltipHeight+100);               
                 
                           var svgElement =
                           
                           `<svg id='svgTooltip4' style='pointer-events:none;'></svg>
-                          <div class="item2 loginContainer login-page form " style="position:relative;float:left;padding:10px;top: 0px;margin-top:0px;margin:0px;width: 170px;left:0px;background:#000000;">
+                          <div class="item2 loginContainer login-page form " style="position:relative;padding:10px;top: 0px;margin-top:0px;margin:0px;width: 170px;left:0px;background:#000000;">
 
                                 <div class="dateContainer " style="padding-top: 0px;">
                             
@@ -374,6 +377,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                 </div>    
                         
                               </div>
+                             
+                              <div class="bottom-bar" onClick="drawKpiExpert_VENTAS.DownloadCSVByDay('${entity.key}')" style="    margin-left: 10px;padding: 5px; height: 20px; width: 28px; background-color: rgb(31, 46, 57); border-top-left-radius: 2px; border-top-right-radius: 2px;"><div style="float: left;"><button class="download-button" style="float: right; cursor: pointer; background-color: transparent; border: none; color: rgb(255, 255, 255);"><i class="fas fa-download"></i></button></div></div>
                               `
                           
                             ;
@@ -397,8 +402,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                           $('#datepicker2_').datepicker({format: 'mm-dd-yyyy'}); 
       
                           $('#datepicker_').val((dateInit.getMonth()+1)+"-"+dateInit.getDate()+"-"+dateInit.getFullYear());
-                          $('#datepicker2_').val((dateEnd.getMonth()+1)+"-"+dateEnd.getDate()+"-"+dateEnd.getFullYear());
-      
+                          $('#datepicker2_').val((dateEnd.getMonth()+1)+"-"+dateEnd.getDate()+"-"+dateEnd.getFullYear());      
 
 
                           // Continua con la Generacion de las graficas dentro del svgTooltip   
@@ -416,7 +420,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .attr("width",ancho*.9 )
                                                 .attr("class","ventasDetail")
                                                 .attr("x",(ancho*caso)  )
-                                                .attr("y", ((svgTooltipHeight*.55))-altura1-60  )
+                                                .attr("y", ((svgTooltipHeight*.65))-altura1-60  )
                                                 .attr("height",1)
                                                 .attr("fill","#00A8FF")
                                                 .transition().delay(0).duration(i*50)
@@ -430,13 +434,13 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .attr("x1",lastPosY.x+(ancho/2) )
                                                 .attr("y1", lastPosY.y   )
                                                 .attr("x2",ancho*caso+(ancho/2) )
-                                                .attr("y2", ((svgTooltipHeight*.55))-altura2-60  )
+                                                .attr("y2", ((svgTooltipHeight*.65))-altura2-60  )
                                                 .style("stroke","#ffffff")
                                                 .style("stroke-width",2)
                                                 .style("stroke-opacity",1);
 
                                 }
-                                lastPosY={x:(ancho*caso) ,y:((svgTooltipHeight*.55))-altura2-60 };
+                                lastPosY={x:(ancho*caso) ,y:((svgTooltipHeight*.65))-altura2-60 };
                                 
 
                                 d3.select("#svgTooltip4")
@@ -448,7 +452,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .style("font-size",tamanioFuente*.8)						
                                                 .style("text-anchor","start")
                                                 .style("opacity",0 )
-                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.55))-altura1-67 )+")  rotate("+(-90)+") ")
+                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.65))-altura1-66 )+")  rotate("+(-90)+") ")
                                                 .text(function(){
                                                   
                                                   var porDif="0";
@@ -459,7 +463,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                                                   }
 
-                                                return  "Real: "+formatNumber(arr[i].VolumenReal)+" ("+ porDif +"%)";
+                                                  if(arr[i].VolumenPlan == 0){
+                                                    return "";
+                                                  }
+
+                                                return  "Real: "+formatNumber(arr[i].VolumenReal)+" -  "+ porDif +"%";
                         
                                                 })
                                                 .transition().delay(0).duration(i*50)
@@ -474,7 +482,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .style("font-weight","bold")
                                                 .style("font-size",tamanioFuente*.8)	
                                                 .style("text-anchor","end")
-                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight*.55)-54  )+")  rotate("+(-90)+") ")
+                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight*.65)-54  )+")  rotate("+(-90)+") ")
                                                 .text(function(){
                                                         
                                                 var date=new Date( Number(arr[i].key) );
@@ -505,7 +513,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                           d3.select("#svgTooltip4")                     
                                 .style("width", svgTooltipWidth )
-                                .style("height", (svgTooltipHeight*.5) )
+                                .style("height", (svgTooltipHeight*.6) )
                                 ;
 
                         
@@ -516,6 +524,43 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
       }      
 
+}
+
+drawKpiExpert_VENTAS.DownloadCSVByDay=function(entity){
+
+  console.log(entity);
+
+  if(drawKpiExpert_VENTAS.lastDataByDay){
+
+          var csv = 'Entidad,Volumen Plan,Volumen Real,Fecha\n';
+
+          for(var i=0;  i < drawKpiExpert_VENTAS.lastDataByDay.length; i++){
+
+                            
+
+                            csv +=entity+',';
+                            csv +=drawKpiExpert_VENTAS.lastDataByDay[i].VolumenPlan+',';
+                            csv +=drawKpiExpert_VENTAS.lastDataByDay[i].VolumenReal+',';
+                            csv +=drawKpiExpert_VENTAS.lastDataByDay[i].Fecha+',';
+                    
+
+                    csv += "\n";
+                          
+          }
+
+          console.log(csv);
+
+          var hiddenElement = document.createElement('a');
+              
+          hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+          hiddenElement.target = '_blank';
+
+          hiddenElement.download = 'Ventas por dia de '+entity+'  .csv';
+          hiddenElement.click();
+
+    
+  }
+  
 }
 
 drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){    
