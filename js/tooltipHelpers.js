@@ -403,13 +403,12 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
     var topBar = $("<div>", {
       class: "top-bar",
       css: {
-        padding: "5px",
         backgroundColor: "#507D8C",
         borderTopLeftRadius: "0px",
-
+        padding: "5px 5px 5px 5px",
         borderTopRightRadius: "0px",
         cursor: "move",
-        paddingRight: "20px",
+        
       },
     });
 
