@@ -401,14 +401,16 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
       
 
 
-                          // Continua con la Generacion de las graficas dentro del svgTooltip                         
+                          // Continua con la Generacion de las graficas dentro del svgTooltip   
+                          
+                          var lastPosY;
 
                           for(var i=0; i < arr.length; i++ ){
 
                                 var altura=(svgTooltipHeight*.25);
                                 var altura1=GetValorRangos( arr[i].VolumenPlan,1, maximo ,1,altura);
                                 var altura2=GetValorRangos( arr[i].VolumenReal,1, maximo ,1,altura);
-                                var dif=altura1-altura2;
+                               
 
                                 d3.select("#svgTooltip4").append("rect")		    		
                                                 .attr("width",ancho*.9 )
@@ -421,16 +423,21 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .style("height",altura1 )	
                                                 ;
 
-                                d3.select("#svgTooltip4").append("rect")		    		
-                                                .attr("width",ancho*.9 )
-                                                .attr("class","ventasDetail")
-                                                .attr("x",(ancho*caso)  )
-                                                .attr("y", ((svgTooltipHeight*.55))-altura1-60  )
-                                                .attr("height",1)
-                                                .attr("fill","#FFFFFF")
-                                                .transition().delay(0).duration(i*50)
-                                                .style("height",dif )	
-                                                ;
+                                if(lastPosY){
+
+                                  d3.select("#svgTooltip4").append("line")       
+                                                .attr("class","ventasDetail")                                
+                                                .attr("x1",lastPosY.x+(ancho/2) )
+                                                .attr("y1", lastPosY.y   )
+                                                .attr("x2",ancho*caso+(ancho/2) )
+                                                .attr("y2", ((svgTooltipHeight*.55))-altura2-60  )
+                                                .style("stroke","#ffffff")
+                                                .style("stroke-width",2)
+                                                .style("stroke-opacity",1);
+
+                                }
+                                lastPosY={x:(ancho*caso) ,y:((svgTooltipHeight*.55))-altura2-60 };
+                                
 
                                 d3.select("#svgTooltip4")
                                                 .append("text")						
@@ -441,7 +448,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .style("font-size",tamanioFuente*.8)						
                                                 .style("text-anchor","start")
                                                 .style("opacity",0 )
-                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.55))-altura1-64 )+")  rotate("+(-90)+") ")
+                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.55))-altura1-67 )+")  rotate("+(-90)+") ")
                                                 .text(function(){
                                                   
                                                   var porDif="0";
