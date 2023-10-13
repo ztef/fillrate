@@ -30,7 +30,7 @@ radar.radarInitStage=function(){
 
     svgRadar = d3.select(elemDiv)						
                 .append("svg")
-                .attr("id","containerSVG")
+                .attr("id","containerSGG")
                 .attr("width", "100%" )
                 .attr("height", "100%" )
                 ;  
@@ -370,10 +370,10 @@ radar.DrawEntities=function(){
                         
                     }
 
-                    var altura_svgRadar=(radio*(i+1) )+offSetTop+(paddingTop*entities.length)+200;
+                    var altura_svgRadar=(radio*(i+1) )+offSetTop+(paddingTop*entities.length)+radio;
 
                     if(altura_svgRadar < windowHeight)
-                    altura_svgRadar = windowHeight;
+                        altura_svgRadar = windowHeight;
                     
                     svgRadar.attr("height",altura_svgRadar );
 

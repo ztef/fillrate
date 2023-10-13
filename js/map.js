@@ -702,7 +702,6 @@ Stage.ReorderLayout=function(){
 
 	filterControls.showActiveFilters();
 
-	$("#containerSVG").css("height",windowHeight+"px");
 	$("#borderBlack").css("height",windowHeight+"px");
 	
 }
