@@ -2,6 +2,29 @@ var filterControls={};
 var createdControls={};
 var controlsInit=false;
 
+filterControls.estadoSelection={};
+filterControls.handlerEstadoMultipleSelection_Select=function(values){
+
+    filterControls.estadoSelection[values]=true;
+
+    $("#cat_estado").val(Object.keys(filterControls.estadoSelection).toString().replaceAll("'",""));
+    $($("#cat_estado").siblings().first()[0].firstChild).val(Object.keys(filterControls.estadoSelection).toString().replaceAll("'",""));
+      
+}
+filterControls.handlerEstadoMultipleSelection_DesSelect=function(values){
+
+    delete filterControls.estadoSelection[values];
+    $("#cat_estado").val(Object.keys(filterControls.estadoSelection).toString().replaceAll("'",""));
+    $($("#cat_estado").siblings().first()[0].firstChild).val(Object.keys(filterControls.estadoSelection).toString().replaceAll("'",""));
+
+}
+filterControls.cat_estado_Clean=function(){
+    
+    $("#cat_estado_multiple").multiSelect('deselect_all');
+    filterControls.estadoSelection={};
+
+}
+
 filterControls.createDataFiltersControls=function(catalogs){
 
     if(!controlsInit){
@@ -20,8 +43,9 @@ filterControls.createDataFiltersControls=function(catalogs){
                     <div id="ControlsFields"></div>  
                     
                     <div style="width:90%;position:absolute;bottom:25px;display: flex;">
+                                <button class="filters" onclick="$('#Controls2').css('visibility','visible');" style="margin: 3px;color:black">Selección Multiple</button>
                                 <button class="filters" onclick="filterControls.CleanFields();" style="margin: 3px;color:black">Limpiar</button> 
-                                <button class="filters" onclick="forzarFiltrado=true;filterControls.FilterData();" style="margin: 3px;color:black">Filtrar</button>  
+                                <button class="filters" onclick="forzarFiltrado=true;filterControls.FilterData();  $('#Controls2').css('visibility','hidden');" style="margin: 3px;color:black">Filtrar</button>  
                         </div>
 
                     <div id="ControlsFieldsCustom" style="margin-left: 15px;">                    
@@ -31,6 +55,11 @@ filterControls.createDataFiltersControls=function(catalogs){
 
         `);
 
+        vix_tt_formatMenu("#Controls2",".",160);
+        $("#Controls2").css("height","570px");
+        $("#Controls2").css("width","400px");
+        $("#Controls2").css("right","480px");
+    
         
     }
 
@@ -50,14 +79,6 @@ filterControls.createDataFiltersControls=function(catalogs){
 
             if(catalogs[i].type=="autoComplete"){
 
-                /*
-                $("#ControlsFields").append(
-                    `<div class="autocomplete loginBtn" style="width: 100%;margin-top:15px;" >
-                        <input class="inputs" id="${catalogs[i].id}" type="text" style="border-color:${catalogs[i].color};" name="" placeholder="${ catalogs[i].placeholder }">
-                    </div>`
-                ); 
-                */
-                
                 createdControls[catalogs[i].id]=true;
                 
                 var arr=d3.nest()
@@ -80,6 +101,7 @@ filterControls.createDataFiltersControls=function(catalogs){
 
                 }                
 
+                // crea control de select  
                 $("#ControlsFields").append(
                         `
                         <div class="ui-widget autocomplete loginBtn" style="width:90%;margin-top:15px;color:white" >
@@ -88,7 +110,29 @@ filterControls.createDataFiltersControls=function(catalogs){
                         <option value=""> </option>                   
                         </select>
                         </div>`
-                        );                
+                        );
+                
+                // crea control de seleccion multiple
+                if(catalogs[i].multipleSelection){
+
+                    createdControls[catalogs[i].id+"_multiple"]={Clean:filterControls[catalogs[i].id+"_Clean"]};
+                    
+                    $("#Controls2").append(`
+
+                                <div id="" style="margin:10px;">
+
+                                        <div id="" style="color:white">${ catalogs[i].placeholder }<br><br></div>                                          
+                                        <select id='${catalogs[i].id}_multiple' multiple='multiple'>
+                                                 
+                                        </select>
+
+                                        
+                                </div>
+                                `
+                    );
+                    
+                    
+                }
 
                 if(catalogs[i].hardcodedData){
 
@@ -102,20 +146,25 @@ filterControls.createDataFiltersControls=function(catalogs){
 
                 }else{
 
-                    $("#"+catalogs[i].id).append(`<option value="Todos">${catalogs[i].placeholder}: Todos</option>`);
-                  
+                    $("#"+catalogs[i].id).append(`<option value="Todos">${catalogs[i].placeholder}: Todos</option>`);                  
 
                     for(var j=0;  j < arrAutoCompleteArr.length; j++){   
                                              
                         $("#"+catalogs[i].id).append(`<option value="${arrAutoCompleteArr[j]}">${arrAutoCompleteArr[j]}</option>`);
+
+                        if(catalogs[i].multipleSelection){
+                            $("#"+catalogs[i].id+"_multiple").append(`<option value="${arrAutoCompleteArr[j]}">${arrAutoCompleteArr[j]}</option>`);
+                        }
                     }
 
                 }   
 
+                
+
                 if(catalogs[i].default)
                     $("#"+catalogs[i].id).val(catalogs[i].default);
 
-
+                //*****//******//******//******//******* */
                
                 $.widget( "custom.combobox", {
                     _create: function() {
@@ -127,7 +176,8 @@ filterControls.createDataFiltersControls=function(catalogs){
                     this._createShowAllButton();
                 },
 
-			_createAutocomplete: function() {
+			    _createAutocomplete: function() {
+
 				var selected = this.element.children( ":selected" ),
 					value = selected.val() ? selected.text() : "";
 
@@ -147,6 +197,8 @@ filterControls.createDataFiltersControls=function(catalogs){
 							"ui-tooltip": "ui-state-highlight"
 						}
 					});
+                                     
+                    this._id=catalogs[i].id;
 
 				this._on( this.input, {
 					autocompleteselect: function( event, ui ) {
@@ -154,6 +206,12 @@ filterControls.createDataFiltersControls=function(catalogs){
 						this._trigger( "select", event, {
 							item: ui.item.option
 						});
+                        
+                        if(ui.item.option.value.indexOf("Todos") > -1 || ui.item.option.value=="" ){
+                            if(filterControls[this._id+"_Clean"])
+                                filterControls[this._id+"_Clean"]();
+                        }
+                        
 					},
 
 					autocompletechange: "_removeIfInvalid"
@@ -232,13 +290,17 @@ filterControls.createDataFiltersControls=function(catalogs){
                     // Remove invalid value
                     this.input
                         .val( "" )
-                        .attr( "title", value + " didn't match any item" )
+                        .attr( "title", value + " No coincide lo escrito " )
                         .tooltip( "open" );
                     this.element.val( "" );
                     this._delay(function() {
                         this.input.tooltip( "close" ).attr( "title", "" );
                     }, 2500 );
                     this.input.autocomplete( "instance" ).term = "";
+
+                    filterControls.estadoSelection={};
+                    if(filterControls[this._id+"_Clean"])
+                        filterControls[this._id+"_Clean"]();
 			},
 
 			_destroy: function() {
@@ -249,8 +311,28 @@ filterControls.createDataFiltersControls=function(catalogs){
 
 		    $( "#"+catalogs[i].id ).combobox();
 
+            //*****//******//******//******//******* */
 
-                 
+            if(catalogs[i].multipleSelection){
+
+                    $("#"+catalogs[i].id+"_multiple").multiSelect({
+                        afterSelect: filterControls.handlerEstadoMultipleSelection_Select,
+                        afterDeselect: filterControls.handlerEstadoMultipleSelection_DesSelect
+                    });
+
+                    // $("#"+catalogs[i].id).change(function(element){
+                    $($("#"+catalogs[i].id).siblings().first()[0].firstChild).change(function(element){
+
+                            if($(element.target).val() == "" || $(element.target).val() == undefined || $(element.target).val() == null || $(element.target).val() == "Todos" ){
+                                
+                                if( filterControls[$(element.target).attr("id")+"_Clean"])
+                                 filterControls[$(element.target).attr("id")+"_Clean"]();
+                            
+                            }                       
+                        
+                    });
+
+            }                
 
                 
             }
@@ -405,6 +487,15 @@ filterControls.CleanFields=function(filtra){
 
     for(var e in createdControls){
 
+            if(e.indexOf("multiple") >-1){
+                createdControls[e].Clean();
+            }           
+
+    }
+    
+
+    for(var e in createdControls){
+
         if(e == "nivel_cb"){
 
             $("#nivel_cb").val(config.nivelInicial);
@@ -417,24 +508,18 @@ filterControls.CleanFields=function(filtra){
 
 
         }else{
-           
-            $("#"+e).val("");
-            $($("#"+e).siblings().first()[0].firstChild).val("")
+        
+            if(e.indexOf("multiple") < 0){
+               
+                $("#"+e).val("");
+                $($("#"+e).siblings().first()[0].firstChild).val("");
+            }
+
 
         }
        
     }
 
-    if(filtra){
-        setTimeout(()=>{ 
-
-            //filterControls.FilterData();
-        
-        }, 100);
-    
-    }
-
-   
 }
 
 // SE CREAN CATALOGOS A PARTIR DE UNA UNICA CONSULTA 

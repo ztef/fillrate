@@ -134,16 +134,18 @@ Stage.initStage=function(resolve, reject){
 								if( ultimosEstadosDibujados[e][j]._id == pickedObject.id._id ){
 
 									if(ultimosEstadosDibujados[e][j].seleccionado){
+										
 										ultimosEstadosDibujados[e][j].seleccionado=false;
 										ultimosEstadosDibujados[e][j]._polygon.material=ultimosEstadosDibujados[e][j].originalMaterial;
 										delete Stage.selectedItems[e];
+
 									}else{	
+
 										ultimosEstadosDibujados[e][j].seleccionado=true;
 										ultimosEstadosDibujados[e][j]._polygon.material=Cesium.Color.fromCssColorString("#ffffff").withAlpha(.7);
 										Stage.selectedItems[e]=true;
-									}
-									
-									console.log("Stage.selectedItems",Stage.selectedItems);
+
+									}								
 
 								}	
 								

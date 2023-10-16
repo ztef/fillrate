@@ -74,6 +74,7 @@ var entities;
     loadsCount=1; 
     loadsTarget=0;    
 
+
     calculateKpiExpert_FR.calculateKPI().then(()=>{
 
         loadsCount=0; 
@@ -205,6 +206,7 @@ dataManager.ProcessEntities= function(){
 
         dataManager.CalculateKPIs();
         $('#Controls').css("visibility","hidden");
+        $('#Controls2').css('visibility','hidden');
 
         //en casod e que exista un campo para busqueda de entidades lo llena
         if( $("#inputEnfoqueCamara") ){
