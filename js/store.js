@@ -57,6 +57,7 @@ var store={
             {data:"cat_estado",placeholder:"Estado",fieldInCatlog:"Nombre",id:"cat_estado",type:"autoComplete",nameOnFR:"EstadoZTDem",nameOnPendientes:"Estado", color:"#12FF00",storeProcedureField:"EstadoZTDem",multipleSelection:true},
             {data:"cat_zt",placeholder:"Zona Transporte",fieldInCatlog:"Nombre",id:"cat_zt",type:"autoComplete",nameOnFR:"ZonaTransporte",nameOnPendientes:"Zona_de_Entrega", color:"#12FF00",storeProcedureField:"Zona_de_Entrega"},
             {data:"cat_cliente",placeholder:"Holding",fieldInCatlog:"Nombre",id:"cat_cliente",type:"autoComplete",nameOnFR:"Cliente",nameOnPendientes:"HoldingNum", color:"#12FF00",storeProcedureField:"Cliente"},
+            {data:"cat_cliente_estado",placeholder:"Holding_Estado",fieldInCatlog:"Nombre",id:"cat_cliente_estado",type:"",nameOnFR:"Cliente",nameOnPendientes:"HoldingNum", color:"#12FF00",storeProcedureField:"Cliente"},
             //{data:"fillRate",placeholder:"Segmento",fieldInCatlog:"Segmento",id:"cat_segmento",type:"autoComplete",nameOnFR:"Segmento",nameOnPendientes:"Segmento", color:"#12FF00",storeProcedureField:"Segmento"},
             
             {data:"cat_sucursal",placeholder:"Sucursal",fieldInCatlog:"Nombre",id:"cat_sucursal",type:"autoComplete",nameOnFR:"",nameOnPendientes:"", color:"#12FF00",storeProcedureField:"Obra"},

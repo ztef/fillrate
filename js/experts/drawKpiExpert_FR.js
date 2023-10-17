@@ -589,7 +589,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                         .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.8)+1  )+","+String( (svgTooltipHeight*.78)-marginBottom+70 )+")  rotate("+(-90)+") ")
                         .text(function(){
                         
-                                return  "FR: "+arr[i].por1+"%";
+                                return  arr[i].por1+"%";
         
                         })
                         .transition().delay(0).duration(i*50)

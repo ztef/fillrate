@@ -188,9 +188,7 @@ Stage.initStage=function(resolve, reject){
 					if(  windowWidth-mouse_x < 500 )
 					$("#toolTip").css("left",mouse_x-600);
 
-					var text=dataManager.getTooltipText(mapElements[pickedObject.id._id]);
-
-					
+					var text=dataManager.getTooltipText(mapElements[pickedObject.id._id]);					
 
 					$("#toolTip").html(text );
 

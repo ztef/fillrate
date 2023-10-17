@@ -42,7 +42,7 @@ filterControls.createDataFiltersControls=function(catalogs){
 
                     <div id="ControlsFields"></div>  
                     
-                    <div style="width:90%;position:absolute;bottom:25px;display: flex;">
+                    <div style="width:90%;position:absolute;bottom:15px;display: flex;">
                                 <button class="filters" onclick="$('#Controls2').css('visibility','visible');" style="margin: 3px;color:black">Selección Multiple</button>
                                 <button class="filters" onclick="filterControls.CleanFields();" style="margin: 3px;color:black">Limpiar</button> 
                                 <button class="filters" onclick="forzarFiltrado=true;filterControls.FilterData();  $('#Controls2').css('visibility','hidden');" style="margin: 3px;color:black">Filtrar</button>  
@@ -63,8 +63,7 @@ filterControls.createDataFiltersControls=function(catalogs){
         
     }
 
-    filterControls.creaCatalogosDerivadorDeClientes();   
-    
+    filterControls.creaCatalogosDerivadorDeClientes();  
     
     for(var i=0;  i < catalogs.length; i++){
 
@@ -76,6 +75,9 @@ filterControls.createDataFiltersControls=function(catalogs){
         }         
         
         if(!createdControls[catalogs[i].id]){
+
+            if(catalogs[i].type=="" || !catalogs[i].type)
+                continue;
 
             if(catalogs[i].type=="autoComplete"){
 
@@ -583,8 +585,7 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             }          
 
-            store.cat_sucursal=arrTemp;    
-
+            store.cat_sucursal=arrTemp;  
 
             // CLIENTES  HOLDINGS            
 
@@ -603,7 +604,33 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             }            
 
-            store.cat_cliente=arrTemp_;    
+            store.cat_cliente=arrTemp_; 
+            
+            // CLIENTES  HOLDINGS  CON ESTADO          
+
+            var arrTemp_=[]; 
+            
+            var idCreados_={};    
+
+            var caso=0;
+            
+            for(var i=0; i < store.cat_cliente_ref.length; i++){               
+
+                    if( !idCreados_[store.cat_cliente_ref[i].HoldingNum+"_"+store.cat_cliente_ref[i].EstadoDem] ){
+                       
+                        arrTemp_[caso]={...store.cat_cliente_ref[i]};
+                        arrTemp_[caso].ID=store.cat_cliente_ref[i].HoldingNum+"_"+store.cat_cliente_ref[i].EstadoDem;
+                        arrTemp_[caso].Nombre=store.cat_cliente_ref[i].Holding+"_"+store.cat_cliente_ref[i].EstadoDem;
+                        arrTemp_[caso].Lat=store.cat_cliente_ref[i].Lat_HoldingEstado;
+                        arrTemp_[caso].Long=store.cat_cliente_ref[i].Lon_HoldingEstado;                
+                        idCreados_[store.cat_cliente_ref[i].HoldingNum+"_"+store.cat_cliente_ref[i].EstadoDem]=true;
+                        caso++;                      
+
+                    }               
+
+            }            
+
+            store.cat_cliente_estado=arrTemp_; 
                   
 
     }  

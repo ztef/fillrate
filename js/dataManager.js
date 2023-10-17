@@ -77,28 +77,27 @@ var entities;
 
     calculateKpiExpert_FR.calculateKPI().then(()=>{
 
-        loadsCount=0; 
-        loadsTarget=0;    
+            loadsCount=0; 
+            loadsTarget=0;    
 
-        filterControls.createDataFiltersControls(store.catlogsForFilters);
+            filterControls.createDataFiltersControls(store.catlogsForFilters);
 
-        dataLoader.DeleteLoadingTitle("Fillrate"); 
+            dataLoader.DeleteLoadingTitle("Fillrate");
 
-        dataLoader.HideLoadings();
+            dataLoader.HideLoadings();
 
-        if( lastDateInit!=$('#datepicker').val() || lastDateEnd!=$('#datepicker2').val()  ) {
+            if( lastDateInit!=$('#datepicker').val() || lastDateEnd!=$('#datepicker2').val()  ) {
 
-            lastDateInit=$('#datepicker').val();
-            lastDateEnd=$('#datepicker2').val();
+                lastDateInit=$('#datepicker').val();
+                lastDateEnd=$('#datepicker2').val();
 
-            dataManager.UpdateCatlogs();         
+                dataManager.UpdateCatlogs();         
 
-        }else{
+            }else{
 
-            dataManager.ProcessEntities();
+                dataManager.ProcessEntities();
 
-        }
-       
+            }       
         
     }); 
 
