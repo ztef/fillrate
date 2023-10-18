@@ -366,6 +366,7 @@ radar.DrawEntities=function(){
                     }
 
                     if(caso%columnasRadar==0){
+                        
                         radar.rows++;                   
                         
                     }
@@ -405,8 +406,8 @@ radar.AddNewRadar=function(entity){
 
         entity.radarData.posX=0;
 
-        entity.radarData.posY=radio*(radar.rows) +offSetTop+(paddingTop*(radar.lastRadarEntities.length+1) )+radio ;
-
+        entity.radarData.posY=radio*(radar.rows) +offSetTop+(paddingTop*(radar.rows) ) ;
+        
         entity.radarData.kpis={};
 
         radar.DrawBaseRadar(entity);                 
@@ -415,7 +416,7 @@ radar.AddNewRadar=function(entity){
 
         radar.rows++;   
 
-        console.log("radar.lastRadarEntities",radar.lastRadarEntities.length,entity.radarData.posY);
+        
 
 }
 

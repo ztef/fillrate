@@ -180,6 +180,9 @@ radarMosaic.DrawRadars=function(){
 
                 var puntosLinea=[];
 
+                if(!entities[i].radarData)
+                    continue;
+
                 entities[i].radarData.mosaic={labels:[]};
 
                 for(var j=0; j < radar.config.length; j++){
