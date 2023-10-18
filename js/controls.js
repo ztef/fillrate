@@ -559,7 +559,7 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             store.cat_frente=arrTemp;
 
-            // SUCURSALES         
+            // SUCURSALES  PARA FILTROS       
 
             var arrTemp=[]; 
             
@@ -567,25 +567,63 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
 
             var caso=0;
             
-            for(var i=0; i < store.cat_cliente_ref.length; i++){
+            for(var i=0; i < store.cat_cliente_ref.length; i++){                
 
-                //if(store.cat_cliente_ref[i].Destino == store.cat_cliente_ref[i].Frente){
+                if(!idCreados[store.cat_cliente_ref[i].DestinoNum]){
 
-                    if(!idCreados[store.cat_cliente_ref[i].DestinoNum+"_"+store.cat_cliente_ref[i].Destino]){
+                    arrTemp[caso]={...store.cat_cliente_ref[i]};
+                    arrTemp[caso].ID=arrTemp[caso].DestinoNum;
+                    arrTemp[caso].Nombre=arrTemp[caso].Destino;                  
+                    idCreados[store.cat_cliente_ref[i].DestinoNum]=true;
+                    caso++;
 
-                        arrTemp[caso]={...store.cat_cliente_ref[i]};
-                        arrTemp[caso].ID=arrTemp[caso].DestinoNum;
-                        arrTemp[caso].Nombre=arrTemp[caso].Destino;                  
-                        idCreados[arrTemp[caso].DestinoNum+"_"+arrTemp[caso].Destino]=true;
-                        caso++;
-
-                    }
-
-                //}
+                }               
 
             }          
 
-            store.cat_sucursal=arrTemp;  
+            store.cat_sucursal=arrTemp;
+
+            // SUCURSALES  PARA GEOLOCALIZACION       
+
+            var arrTemp=[]; 
+            
+            var idCreados={};
+
+            var caso=0;
+
+            var registroDeNombres;
+            for(var i=0;  i < store.catlogsForFilters.length; i++){
+
+                if(store.catlogsForFilters[i].data=="cat_sucursal_estado"){
+
+                    store.catlogsForFilters[i].diccNames={};
+                    registroDeNombres=store.catlogsForFilters[i];
+
+                    break;
+                }                
+
+            }
+            
+            for(var i=0; i < store.cat_cliente_ref.length; i++){                
+
+                if(!idCreados[store.cat_cliente_ref[i].DestinoNum+"_"+store.cat_cliente_ref[i].EstadoDem]){
+
+                    arrTemp[caso]={...store.cat_cliente_ref[i]};
+                    arrTemp[caso].ID=arrTemp[caso].DestinoNum+"_"+arrTemp[caso].EstadoDem;
+                    arrTemp[caso].Nombre=arrTemp[caso].Destino+"_"+arrTemp[caso].EstadoDem;
+                    arrTemp[caso].Lat=arrTemp[caso].Lat_DestinoEstado;
+                    arrTemp[caso].Long=arrTemp[caso].Lon_DestinoEstado;            
+                    idCreados[store.cat_cliente_ref[i].DestinoNum+"_"+store.cat_cliente_ref[i].EstadoDem]=true;
+
+                    registroDeNombres.diccNames[arrTemp[caso].ID]=arrTemp[caso].ID;
+
+                    caso++;
+
+                }               
+
+            }          
+
+            store.cat_sucursal_estado=arrTemp;
 
             // CLIENTES  HOLDINGS            
 

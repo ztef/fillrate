@@ -57,9 +57,11 @@ var store={
             {data:"cat_estado",placeholder:"Estado",fieldInCatlog:"Nombre",id:"cat_estado",type:"autoComplete",nameOnFR:"EstadoZTDem",nameOnPendientes:"Estado", color:"#12FF00",storeProcedureField:"EstadoZTDem",multipleSelection:true},
             {data:"cat_zt",placeholder:"Zona Transporte",fieldInCatlog:"Nombre",id:"cat_zt",type:"autoComplete",nameOnFR:"ZonaTransporte",nameOnPendientes:"Zona_de_Entrega", color:"#12FF00",storeProcedureField:"Zona_de_Entrega"},
             {data:"cat_cliente",placeholder:"Holding",fieldInCatlog:"Nombre",id:"cat_cliente",type:"autoComplete",nameOnFR:"Cliente",nameOnPendientes:"HoldingNum", color:"#12FF00",storeProcedureField:"Cliente"},
-            {data:"cat_cliente_estado",placeholder:"Holding_Estado",fieldInCatlog:"Nombre",id:"cat_cliente_estado",type:"",nameOnFR:"Cliente",nameOnPendientes:"HoldingNum", color:"#12FF00",storeProcedureField:"Cliente"},
-            //{data:"fillRate",placeholder:"Segmento",fieldInCatlog:"Segmento",id:"cat_segmento",type:"autoComplete",nameOnFR:"Segmento",nameOnPendientes:"Segmento", color:"#12FF00",storeProcedureField:"Segmento"},
-            
+
+            // CATALOGOS QUE NO SE MUESTRAN EN FILTROS NO TIENEN EL  "type" solo se utilizan para el dibujado de cilindros
+            {data:"cat_cliente_estado",placeholder:"Holding_Estado",fieldInCatlog:"Nombre",id:"cat_cliente_estado",type:"",nameOnFR:"",nameOnPendientes:"", color:"",storeProcedureField:"Cliente"},
+            {data:"cat_sucursal_estado",placeholder:"Sucursal_Estado",fieldInCatlog:"Nombre",id:"cat_sucursal_estado",type:"",nameOnFR:"",nameOnPendientes:"", color:"",storeProcedureField:"Obra"},
+
             {data:"cat_sucursal",placeholder:"Sucursal",fieldInCatlog:"Nombre",id:"cat_sucursal",type:"autoComplete",nameOnFR:"",nameOnPendientes:"", color:"#12FF00",storeProcedureField:"Obra"},
             {data:"cat_frente",placeholder:"Frente",fieldInCatlog:"Nombre",id:"cat_frente",type:"autoComplete",nameOnFR:"Frente",nameOnPendientes:"Frente", color:"#12FF00",storeProcedureField:"Frente"},
 
@@ -79,7 +81,7 @@ var store={
         {id:5,label:"Unidad de Negocio",field:"vc50_UN_Tact",coordinatesSource:"cat_un",storeProcedureField:"UnidadNegocio"},
         {id:6,label:"Holding",field:"vc50_UN_Tact",coordinatesSource:"cat_cliente_estado",storeProcedureField:"Holding"},
         {id:7,label:"Zona de transporte",field:"ZonaTransporte",coordinatesSource:"cat_zt",storeProcedureField:"ZT"},            
-        {id:8,label:"Sucursal",field:"Obra",coordinatesSource:"cat_sucursal",storeProcedureField:"Obra"},
+        {id:8,label:"Sucursal",field:"Obra",coordinatesSource:"cat_sucursal_estado",storeProcedureField:"Obra"},
         {id:9,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},       
 
     ]
