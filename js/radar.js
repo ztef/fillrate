@@ -398,26 +398,30 @@ radar.DrawEntities=function(){
 }
 
 radar.AddNewRadar=function(entity){ 
-    
-    svgRadar.attr("height", ( radio*(radar.lastRadarEntities.length+1) )+offSetTop+(paddingTop*(radar.lastRadarEntities.length+1) ) );
+        
+        svgRadar.attr("height", ( radio*(radar.lastRadarEntities.length+1) )+offSetTop+(paddingTop*(radar.lastRadarEntities.length+1) ) );
 
-    entity.radarData={};
+        entity.radarData={};
 
-    entity.radarData.posX=0;
+        entity.radarData.posX=0;
 
-    entity.radarData.posY=radio*(radar.rows) +offSetTop+(paddingTop*(radar.lastRadarEntities.length) );
+        entity.radarData.posY=radio*(radar.rows) +offSetTop+(paddingTop*(radar.lastRadarEntities.length+1) )+radio ;
 
-    entity.radarData.kpis={};
+        entity.radarData.kpis={};
 
-    radar.DrawBaseRadar(entity);                 
+        radar.DrawBaseRadar(entity);                 
 
-    radar.lastRadarEntities.push(entity);
+        radar.lastRadarEntities.push(entity);
+
+        radar.rows++;   
+
+        console.log("radar.lastRadarEntities",radar.lastRadarEntities.length,entity.radarData.posY);
 
 }
 
 radar.DrawBaseRadar=function(entity){
 
-    var tamanioTexto=20;
+    var tamanioTexto=18;
     var alturaBarra=tamanioTexto*.6;
 
     svgRadar.append("text")							
@@ -478,7 +482,7 @@ radar.DrawBaseRadar=function(entity){
                         .style("font-family","Cabin")
                         .style("font-weight","bold")
                         .attr("filter","url(#dropshadowText)")
-                        .style("font-size", (tamanioTexto*radar.escalado)*.6 )							
+                        .style("font-size", (tamanioTexto*radar.escalado)*.5 )							
                         .style("text-anchor","start")
                         .attr("transform"," translate("+String(10+entity.radarData.posX)+","+String(entity.radarData.posY-(tamanioTexto*.7) )+")  rotate("+(0)+") ")
                         .text(function(){

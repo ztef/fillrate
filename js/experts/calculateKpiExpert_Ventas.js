@@ -22,7 +22,9 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
         }
         
         for(var i=0; i < store.catlogsForFilters.length; i++){    
+           
             if(store.catlogsForFilters[i].data==nombreCatalogoParaDiccionario){
+                
                 diccionarioNombres=store.catlogsForFilters[i].diccNames;
                 
             }

@@ -719,6 +719,11 @@ Stage.DrawFRLabels=function(){
       
 	svgLines.selectAll(".entityLabel").style("opacity",0) ;
 
+	 var distanceAllowed=10;
+
+	if($("#nivel_cb").val()  > 5)
+		distanceAllowed=1;
+
 	 for(var i=0;  i < entities.length; i++){
 
 			 var newPoint = new Point (Number( entities[i].lat ),Number( entities[i].lng ));
@@ -726,8 +731,10 @@ Stage.DrawFRLabels=function(){
 			 var nextPoint = new Point (Cesium.Math.toDegrees(viewer.camera.positionCartographic.latitude),Cesium.Math.toDegrees(viewer.camera.positionCartographic.longitude));
 
 			 var distance = newPoint.distanceTo(nextPoint); 
+
+			 //console.log(distance);
 		   
-			 if( distance < 18 ){  
+			 if( distance < distanceAllowed ){  
 					 
 					 var position = Cesium.Cartesian3.fromDegrees(Number( entities[i].lng ),Number( entities[i].lat ), 0 );
 					 
@@ -736,6 +743,7 @@ Stage.DrawFRLabels=function(){
 					 if(coord){
 							
 							 if(coord.x > 400 && coord.x < $(document).width()-50 && coord.y > 40 && coord.y < ($(document).height())){
+
 									if( entities[i].labelSVG){
 										entities[i].labelSVG.attr("x",coord.x+7 )
 											.attr("y", coord.y+3  ).style("opacity",opacidadCesium/100); 
@@ -744,6 +752,6 @@ Stage.DrawFRLabels=function(){
 							 }
 					 }
 
-			 }
+			}
 	 }
 }   

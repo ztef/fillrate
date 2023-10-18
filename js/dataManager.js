@@ -244,7 +244,7 @@ dataManager.CalculateKPIs=function(){
 
     loadsTarget=0;     
     
-    
+
      // 2   
      if(calculateKpiExpert_OOS){
 
@@ -263,28 +263,25 @@ dataManager.CalculateKPIs=function(){
     }   
     
     
-
     // 3
    if(store.map_var==kpiExpert_OOS_Filiales || store.map_var==drawKpiExpert_VENTAS){
 
-        if(calculateKpiExpert_OOSFiliales){
-            loadsTarget++;
-            dataLoader.AddLoadingTitle("SP OOS Filiales");
-            setTimeout(()=>{
-                calculateKpiExpert_OOSFiliales.calculateKPI().then(()=>{
-                    loadsCount++;
-                    dataLoader.DeleteLoadingTitle("SP OOS Filiales"); 
-                    dataManager.checkAllLoads();
-                });
-            }, 500);
-       
+    if(calculateKpiExpert_OOSFiliales){
+        loadsTarget++;
+        dataLoader.AddLoadingTitle("SP OOS Filiales");
+        setTimeout(()=>{
+            calculateKpiExpert_OOSFiliales.calculateKPI().then(()=>{
+                loadsCount++;
+                dataLoader.DeleteLoadingTitle("SP OOS Filiales"); 
+                dataManager.checkAllLoads();
+            });
+        }, 500);
+   
 
-        } 
-   }    
+    } 
+    }  
+     
     
-
-   
-   
     // 4
     if(calculateKpiExpert_Ventas){
         loadsTarget++;
@@ -297,9 +294,9 @@ dataManager.CalculateKPIs=function(){
                                                              });
         }, 500);
     }  
+   
+   
 
-    
-    
     
     // 5
     if(calculateKpiExpert_Abasto  ){
@@ -372,8 +369,9 @@ dataManager.CalculateKPIs=function(){
                                                              });
         }, 500);
     } 
-    
-    
+
+
+
 }
 
 dataManager.checkAllLoads=function(){ 
@@ -456,7 +454,7 @@ dataManager.getTooltipText=function(entity){
                 
                     if(dataCatlog[j].ID==entity.key){
                         if(dataCatlog[j].Nombre!=nombre)
-                            nombre+=" "+dataCatlog[j].Nombre;
+                            nombre=" "+dataCatlog[j].Nombre;
                     }
                         
                 }

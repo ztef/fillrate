@@ -613,6 +613,19 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
             var idCreados_={};    
 
             var caso=0;
+
+            var registroDeNombres;
+            for(var i=0;  i < store.catlogsForFilters.length; i++){
+
+                if(store.catlogsForFilters[i].data=="cat_cliente_estado"){
+
+                    store.catlogsForFilters[i].diccNames={};
+                    registroDeNombres=store.catlogsForFilters[i];
+
+                    break;
+                }                
+
+            }
             
             for(var i=0; i < store.cat_cliente_ref.length; i++){               
 
@@ -624,6 +637,9 @@ filterControls.creaCatalogosDerivadorDeClientes=function(){
                         arrTemp_[caso].Lat=store.cat_cliente_ref[i].Lat_HoldingEstado;
                         arrTemp_[caso].Long=store.cat_cliente_ref[i].Lon_HoldingEstado;                
                         idCreados_[store.cat_cliente_ref[i].HoldingNum+"_"+store.cat_cliente_ref[i].EstadoDem]=true;
+
+                        registroDeNombres.diccNames[store.cat_cliente_ref[i].HoldingNum+"_"+store.cat_cliente_ref[i].EstadoDem]=store.cat_cliente_ref[i].HoldingNum+"_"+store.cat_cliente_ref[i].EstadoDem;
+
                         caso++;                      
 
                     }               
@@ -979,10 +995,11 @@ filterControls.createHardCodedControls=function(){
             if($("#nivel_cb").val() > 5){
                 if($("#cat_cliente").val() == "" && $("#cat_region").val() == "" && $("#cat_region_origen").val() == "" &&  $("#cat_estado").val() == "" && $("#cat_gerencia").val() == ""  && $("#cat_un").val() == ""){
 
-                    if(posAnterior)
+                    if(posAnterior || posAnterior.toString() == "0")
                         $("#nivel_cb").val(posAnterior);
 
                     alert("Seleccione algun filtro para continuar con niveles de detalle altos");
+
 
                     return;
                 }

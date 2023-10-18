@@ -77,9 +77,10 @@ var store={
         {id:3,label:"Estado",field:"EstadoZTDem",coordinatesSource:"cat_estado",storeProcedureField:"Estado",oosFlilialesField:"EstadoDem"},
         {id:4,label:"Gerencia",field:"GerenciaUN",coordinatesSource:"cat_gerencia",storeProcedureField:"Gerencia",oosFlilialesField:"Gerencia"},
         {id:5,label:"Unidad de Negocio",field:"vc50_UN_Tact",coordinatesSource:"cat_un",storeProcedureField:"UnidadNegocio"},
-        {id:6,label:"Zona de transporte",field:"ZonaTransporte",coordinatesSource:"cat_zt",storeProcedureField:"ZT"},               
-        {id:7,label:"Sucursal",field:"Obra",coordinatesSource:"cat_sucursal",storeProcedureField:"Obra"},
-        {id:8,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},       
+        {id:6,label:"Holding",field:"vc50_UN_Tact",coordinatesSource:"cat_cliente_estado",storeProcedureField:"Holding"},
+        {id:7,label:"Zona de transporte",field:"ZonaTransporte",coordinatesSource:"cat_zt",storeProcedureField:"ZT"},            
+        {id:8,label:"Sucursal",field:"Obra",coordinatesSource:"cat_sucursal",storeProcedureField:"Obra"},
+        {id:9,label:"Frente",field:"Frente",coordinatesSource:"cat_frente",storeProcedureField:"Frente"},       
 
     ]
 

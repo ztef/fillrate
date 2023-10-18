@@ -88,7 +88,7 @@ kpiExpert_FR.DrawElement=function(entity,i){
 
         }  
         
-        if(i < 100){
+        if(i < 500){
 
                 entity.labelSVG=svgLines.append("text")                            
                         .attr("x",0 )

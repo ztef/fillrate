@@ -23,11 +23,11 @@ var config={
 
     //DIMENSIONES DE ELEMENTOS GRAFICOS
 
-    radiosMinimos:[110,110,110,110,110,110,110,110,110],
-    radiosMaximos:[50000,50000,50000,30000,18000,9500,4000,4000,4000],
-    alturas:[300000,300000,300000,110000,90000,50000,5000,6000,6000],
-    offSetCamaraParaEnfocar:[-3,-3,-3,-3,-2,-1,-.5,-.5,-.5], //es offset de la altitud que se agrega a la cordenada del cilindro y q deterina la posicion de l camara
-    offSetAlturaParaEnfocar:[3,3,3,5,4,5,20,20,20], //es la cantidad de veces q se multiplica la altura del cilindro  segun cada nivel para colocar la camara 
+    radiosMinimos:[110,110,110,110,110,110,110,110,110,110],
+    radiosMaximos:[50000,50000,50000,30000,18000,9500,4000,4000,4000,4000],
+    alturas:[300000,300000,300000,110000,90000,50000,5000,6000,6000,6000],
+    offSetCamaraParaEnfocar:[-3,-3,-3,-3,-2,-1,-.5,-.5,-.5,-.5], //es offset de la altitud que se agrega a la cordenada del cilindro y q deterina la posicion de l camara
+    offSetAlturaParaEnfocar:[3,3,3,5,4,5,20,20,20,20], //es la cantidad de veces q se multiplica la altura del cilindro  segun cada nivel para colocar la camara 
     
     labels:{
         "Libre_RecAutf":"Libre Recogido"
