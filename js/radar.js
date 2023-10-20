@@ -267,8 +267,8 @@ radar.DrawEntities=function(){
 
         $("#ordenVol").attr("src","images/order1.png");
         $("#ordenFR").attr("src","images/order2.png");
-        $("#ordenOOS").attr("src","images/order3.png");
-        $("#ordenOOSF").attr("src","images/order5.png");
+        $("#ordenOOS").attr("src","images/order5.png");
+        $("#ordenOOSF").attr("src","images/order3.png");
         $("#ordenVen").attr("src","images/order4.png");
 
         //ORDEN DE RADARES
