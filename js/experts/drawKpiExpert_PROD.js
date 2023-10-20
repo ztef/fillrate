@@ -138,7 +138,7 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
     
       var columnVisitors = {
         key: function(value) {
-            return `<div class="key-selector" onclick="backInfoNav.push({entity:'${entity.key}' , catlog:'${dataManager.getCurrentCatlog()}'});filterControls.arrowUpdate();filterControls.lookForEntity('${value}','cat_un')">${value}
+            return `<div class="key-selector" onclick="backInfoNav.push({entity:'${entity.key}' , catlog:'${dataManager.getCurrentCatlog()}'});filterControls.arrowUpdate();filterControls.lookForEntity('${value}','cat_un','${entity.key}')">${value}
             </div>
             `;
           },

@@ -135,10 +135,11 @@ filterControls.createDataFiltersControls=function(catalogs){
                     
                     
                 }
-
+              
                 if(catalogs[i].hardcodedData){
 
-                    for(var j=0;  j < catalogs[i].hardcodedData.length; j++){                             
+                    for(var j=0;  j < catalogs[i].hardcodedData.length; j++){     
+                                              
                         $("#"+catalogs[i].id).append(`<option value="${catalogs[i].hardcodedData[j]}">${catalogs[i].hardcodedData[j]}</option>`);
                     }
 
@@ -148,9 +149,13 @@ filterControls.createDataFiltersControls=function(catalogs){
 
                 }else{
 
-                    $("#"+catalogs[i].id).append(`<option value="Todos">${catalogs[i].placeholder}: Todos</option>`);                  
+                    $("#"+catalogs[i].id).append(`<option value="Todos">${catalogs[i].placeholder}: Todos</option>`);              
 
-                    for(var j=0;  j < arrAutoCompleteArr.length; j++){   
+                    
+
+                    for(var j=0;  j < arrAutoCompleteArr.length; j++){  
+                        
+                     
                                              
                         $("#"+catalogs[i].id).append(`<option value="${arrAutoCompleteArr[j]}">${arrAutoCompleteArr[j]}</option>`);
 
@@ -1269,6 +1274,11 @@ filterControls.back=function(){
 
     if(backInfoNav.length > 0){
 
+        if(backInfoNav[backInfoNav.length-1].entity.toLowerCase()=="sacos" || backInfoNav[backInfoNav.length-1].entity.toLowerCase()=="granel" ){
+            $("#cat_presentacion").val("");
+            $($("#cat_presentacion").siblings().first()[0].firstChild).val("");
+        }
+
         filterControls.lookForEntity(backInfoNav[backInfoNav.length-1].entity,backInfoNav[backInfoNav.length-1].catlog);
 
     }
@@ -1311,11 +1321,13 @@ filterControls.arrowUpdate=function(){
 
                 $("#toolTip").html("");
 
+               
+
                 $("#toolTip").html(
                     
                     `
-                        <span style='color:#fff600;font-size:${15*escalaTextos}px;margin:13px;'>Regresa a: <span style='color:#00EAFF;margin:5px;'>${toTitleCase(backInfoNav[backInfoNav.length-1   ].entity)}<br>
-                        <span style='color:#fff600;font-size:${15*escalaTextos}px;margin:13px;'>En: <span style='color:#00EAFF;margin:5px;'>${backInfoNav[backInfoNav.length-1].catlog}
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;margin:13px;'>Regresa a: <span style='color:#00EAFF;margin:5px;padding-right:30px;'>${toTitleCase(backInfoNav[backInfoNav.length-1   ].entity)}</span> </span>   <br>
+                        <span style='color:#fff600;font-size:${15*escalaTextos}px;margin:13px;'>En: <span style='color:#00EAFF;margin:5px;'>${backInfoNav[backInfoNav.length-1].catlog}</span></span>
                 
                     `
                 );
@@ -1339,11 +1351,11 @@ filterControls.arrowUpdate=function(){
 
 }
 
-filterControls.lookForEntity=function(name, catlog){
+filterControls.lookForEntity=function(name, catlog, parent){        
 
         name=String(name).toLocaleLowerCase();
 
-        console.log("buscando nombre ",name);
+        console.log("lookForEntity ",name, catlog,parent);
 
         waitingToFocus=undefined;
         
@@ -1364,6 +1376,18 @@ filterControls.lookForEntity=function(name, catlog){
                                     if( String($("#nivel_cb").val()) != String(store.niveles[j].id) ){                                        
 
                                         $("#nivel_cb").val(store.niveles[j].id);
+
+                                        if(parent){
+
+                                            if(parent.toLowerCase()=="sacos" ){
+                                                $("#cat_presentacion").val("Sacos");
+                                                $($("#cat_presentacion").siblings().first()[0].firstChild).val("Sacos");
+                                            } if( parent.toLowerCase()=="granel"){
+                                                $("#cat_presentacion").val("Sacos");
+                                                $($("#cat_presentacion").siblings().first()[0].firstChild).val("Granel");
+                                            }
+                                            
+                                        }
                                         
                                         waitingToFocus=name;
                                         filterControls.FilterData();
@@ -1384,6 +1408,12 @@ filterControls.lookForEntity=function(name, catlog){
 
             }
 
+        }
+
+        if(name.toLowerCase()=="nacional" || name.toLowerCase()=="sacos" || name.toLowerCase()=="granel"){
+            $("#nivel_cb").val(0);
+            filterControls.FilterData();
+            return;
         }
 
         alert("No encontró una entidad con el nombre: "+name);

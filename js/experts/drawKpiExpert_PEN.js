@@ -175,7 +175,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     if(svgTooltipHeight>windowHeight*.7)
                                         svgTooltipHeight=windowHeight*.7;
 
-                                    var svgTooltipWidth=400;
+                                    var svgTooltipWidth=430;
                                     var marginLeft=svgTooltipWidth*.2;
                                     var tamanioFuente=altura*.4;
                                     var marginTop=35;                                    
@@ -212,7 +212,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     // DEFINE VISITORS PARA CADA COLUMNA   
                                     var columnVisitors = {
                                         key: function(value) {
-                                            return `<div class="key-selector" onclick="backInfoNav.push({entity:'${entity.key}' , catlog:'${dataManager.getCurrentCatlog()}'});filterControls.arrowUpdate();filterControls.lookForEntity('${value}','cat_estado')">${value}
+                                            return `<div class="key-selector" onclick="backInfoNav.push({entity:'${entity.key}' , catlog:'${dataManager.getCurrentCatlog()}'});filterControls.arrowUpdate();filterControls.lookForEntity('${value}','cat_estado','${entity.key}')">${value}
                                             </div>`;
                                         },                                   
                                        
@@ -239,7 +239,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     };
 
                                     // FORMATEA DIV :
-                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+dataManager.getNameFromId(entity.key)+" (TM)",460,svgTooltipHeight+110);
+                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+dataManager.getNameFromId(entity.key)+" (TM)",480,svgTooltipHeight+110);
 
                                     // COLUMNAS CON TOTALES :
                                     var columnsWithTotals = ['Libre_Pendiente_Hoy','Libre_Retrasado']; 
