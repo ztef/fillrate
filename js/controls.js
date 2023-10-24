@@ -529,6 +529,20 @@ filterControls.CleanFields=function(filtra){
 
 }
 
+filterControls.SetDefaultValues=function(){
+
+    for(var i=0;  i < store.catlogsForFilters.length; i++){
+        console.log(store.catlogsForFilters[i].default);
+            if(store.catlogsForFilters[i].default){
+                console.log("encuentra default");
+                $("#"+store.catlogsForFilters[i].id).val(store.catlogsForFilters[i].default);
+                $($("#"+store.catlogsForFilters[i].id).siblings().first()[0].firstChild).val(store.catlogsForFilters[i].default) 
+            }                   
+
+    }        
+
+}
+
 // SE CREAN CATALOGOS A PARTIR DE UNA UNICA CONSULTA 
 filterControls.creaCatalogosDerivadorDeClientes=function(){
 

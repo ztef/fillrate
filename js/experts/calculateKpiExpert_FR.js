@@ -64,13 +64,6 @@ calculateKpiExpert_FR.calculateKPI=function(){
 
         // FILTROS****
         var params="";       
-        
-        /*
-        for(var j=0; j < store.catlogsForFilters.length; j++){
-
-            
-        }
-        */
                         
         for(var j=0; j < store.catlogsForFilters.length; j++){
 
@@ -80,7 +73,7 @@ calculateKpiExpert_FR.calculateKPI=function(){
                     
                     if($($("#"+store.catlogsForFilters[j].id).siblings().first()[0].firstChild).val().includes(",")){
                         params+="&"+store.catlogsForFilters[j].storeProcedureField+"="+ $($("#"+store.catlogsForFilters[j].id).siblings().first()[0].firstChild).val()  ;
-                    }else{
+                    }else if(!$($("#"+store.catlogsForFilters[j].id).siblings().first()[0].firstChild).val().includes("Todos")){                        
                         params+="&"+store.catlogsForFilters[j].storeProcedureField+"="+store.catlogsForFilters[j].diccNames[ $($("#"+store.catlogsForFilters[j].id).siblings().first()[0].firstChild).val()  ];
                     }            
 
@@ -99,6 +92,7 @@ calculateKpiExpert_FR.calculateKPI=function(){
             }
 
         }
+        console.log(params);
 
 
         if(serviceName && apiURL){

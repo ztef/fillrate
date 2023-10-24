@@ -104,7 +104,6 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                         }  
 
                                         var maxDate=0;
-
                                        
                                         for(var j=0;  j < data.recordset.length; j++){
 
@@ -178,8 +177,8 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                         
                                         for(var i=0;  i < entities.length; i++){ 
 
-                                                if(entities[i].oos.Numerador>0){                                                      
-
+                                                if(entities[i].oos.Numerador>0 && entities[i].oos.Denominador >0 ){                                                      
+                                                      
                                                         entities[i].oos.oos=Math.round(  (entities[i].oos.Numerador/entities[i].oos.Denominador)    *10000)/100;
                                                 }else{
                                                         entities[i].oos.oos=0;

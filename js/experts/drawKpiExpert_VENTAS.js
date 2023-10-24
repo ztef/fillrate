@@ -467,7 +467,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                     return "";
                                                   }
 
-                                                return  "Real: "+formatNumber(arr[i].VolumenReal)+" -  "+ porDif +"%";
+                                                return  "R: "+formatNumber(arr[i].VolumenReal)+" -  "+ porDif +"%";
                         
                                                 })
                                                 .transition().delay(0).duration(i*50)
