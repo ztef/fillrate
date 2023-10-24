@@ -213,7 +213,7 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
                      };     
          
     
-                     vix_tt_formatToolTip("#toolTip2","Producción Molienda por Planta de "+dataManager.getNameFromId(entity.key)+" (TM)",840,svgTooltipHeight+130);
+                     vix_tt_formatToolTip("#toolTip2","Producción Molienda por Planta de "+dataManager.getNameFromId(entity.key)+" (TM)",840,svgTooltipHeight+130,dataManager.GetTooltipInfoData("toolTip2","Prod"));
 
 
       

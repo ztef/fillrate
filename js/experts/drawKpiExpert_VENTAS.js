@@ -363,7 +363,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                           var tamanioFuente=ancho*.8;   
                                                  
 
-                          vix_tt_formatToolTip("#toolTip4","Ventas por Día "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+7,svgTooltipHeight+100,dataManager.GetTooltipInfoData("toolTip2","ventas"));               
+                          vix_tt_formatToolTip("#toolTip4","Ventas por Día "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+7,svgTooltipHeight+100,dataManager.GetTooltipInfoData("toolTip4","Venta"));               
                 
                           var svgElement =
                           
@@ -733,7 +733,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Producto_Presentacion=function(entity){
 
   // FORMATEA DIV :
 
-  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación (TM)",svgTooltipWidth,svgTooltipHeight);
+  vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación (TM)",svgTooltipWidth,svgTooltipHeight,dataManager.GetTooltipInfoData("toolTip3","Venta"));
 
   
         // COLUMNAS CON TOTALES :
@@ -959,7 +959,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_Estado=function(entity){
 
       // FORMATEA DIV :
    
-      vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado (TM)",svgTooltipWidth,svgTooltipHeight);
+      vix_tt_formatToolTip("#toolTip2","Detalle de Ventas por Estado (TM)",svgTooltipWidth,svgTooltipHeight,dataManager.GetTooltipInfoData("toolTip2","Venta"));
   
     
       // CREA TABLA USANDO DATOS

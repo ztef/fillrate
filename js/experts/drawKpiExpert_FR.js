@@ -310,7 +310,7 @@ kpiExpert_FR.DrawTooltipDetail_Estado=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado (TM)",500,svgTooltipHeight+100);
+      vix_tt_formatToolTip("#toolTip3","Fill Rate por Estado (TM)",500,svgTooltipHeight+100,dataManager.GetTooltipInfoData("toolTip3","FillRate"));
 
      // CREA TABLA USANDO DATOS
       
@@ -463,7 +463,7 @@ kpiExpert_FR.DrawTooltipDetail_ByDay=function(entity){
                        
                 }  
                 
-                vix_tt_formatToolTip("#toolTip2","Cantidad entregada por Día de Fill Rate de "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+7,svgTooltipHeight*.95);               
+                vix_tt_formatToolTip("#toolTip2","Cantidad entregada por Día de Fill Rate de "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+7,svgTooltipHeight*.95,dataManager.GetTooltipInfoData("toolTip2","FillRate"));
                 
                 var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
 

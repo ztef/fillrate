@@ -251,7 +251,7 @@ kpiExpert_Flota.DrawTooltipDetail_PorDia=function(entity){
                            
                           }                         
 
-                          vix_tt_formatToolTip("#toolTip4","Déficit por Día "+dataManager.getNameFromId(entity.key),svgTooltipWidth+7,svgTooltipHeight);               
+                          vix_tt_formatToolTip("#toolTip4","Déficit por Día "+dataManager.getNameFromId(entity.key),svgTooltipWidth+7,svgTooltipHeight,dataManager.GetTooltipInfoData("toolTip4","Flota"));               
                           
                           var svgElement =  `<svg id='svgTooltip4' style='pointer-events:none;'></svg>`;
                           
@@ -422,7 +422,7 @@ kpiExpert_Flota.DrawTooltipDetail_Presentacion=function(entity){
 
         // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip3","Déficit de Flota por Presentación "+dataManager.getNameFromId(entity.key),svgTooltipWidth);
+      vix_tt_formatToolTip("#toolTip3","Déficit de Flota por Presentación "+dataManager.getNameFromId(entity.key),svgTooltipWidth,dataManager.GetTooltipInfoData("toolTip3","Flota"));
       
       // COLUMNAS CON TOTALES :
 
@@ -551,7 +551,7 @@ kpiExpert_Flota.DrawTooltipDetail_Origen=function(entity){
 
       // FORMATEA DIV :
       
-      vix_tt_formatToolTip("#toolTip2","Déficit de Flota por Origen "+dataManager.getNameFromId(entity.key),svgTooltipWidth,svgTooltipHeight+130);
+      vix_tt_formatToolTip("#toolTip2","Déficit de Flota por Origen "+dataManager.getNameFromId(entity.key),svgTooltipWidth,svgTooltipHeight+130,dataManager.GetTooltipInfoData("toolTip2","Flota"));
       
             // COLUMNAS CON TOTALES :
     

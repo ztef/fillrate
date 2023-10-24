@@ -239,7 +239,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Estado=function(entity){
                                     };
 
                                     // FORMATEA DIV :
-                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+dataManager.getNameFromId(entity.key)+" (TM)",480,svgTooltipHeight+110);
+                                    vix_tt_formatToolTip("#toolTip4","Pendientes por Estado de "+dataManager.getNameFromId(entity.key)+" (TM)",480,svgTooltipHeight+110,dataManager.GetTooltipInfoData("toolTip4","Retrasados"));
 
                                     // COLUMNAS CON TOTALES :
                                     var columnsWithTotals = ['Libre_Pendiente_Hoy','Libre_Retrasado']; 
@@ -411,7 +411,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
     // FORMATEA TOOL TIP :
     
-    vix_tt_formatToolTip("#toolTip3","Pedidos Pendientes por Día de "+dataManager.getNameFromId(entity.key),svgTooltipWidth+30,svgTooltipHeight);
+    vix_tt_formatToolTip("#toolTip3","Pedidos Pendientes por Día de "+dataManager.getNameFromId(entity.key),svgTooltipWidth+30,svgTooltipHeight,dataManager.GetTooltipInfoData("toolTip3","Retrasados"));
 
     // Agrega un div con un elemento svg :
 
@@ -568,7 +568,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Tipo=function(entity){
        
     } 
 
-    vix_tt_formatToolTip("#toolTip2","Pedidos Pendientes por Tipo de "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+10,svgTooltipHeight+40);
+    vix_tt_formatToolTip("#toolTip2","Pedidos Pendientes por Tipo de "+dataManager.getNameFromId(entity.key)+" (TM)",svgTooltipWidth+10,svgTooltipHeight+40,dataManager.GetTooltipInfoData("toolTip2","Retrasados"));
 
     var svgElement = "<svg id='svgTooltip' style='pointer-events:none;'></svg>";
     d3.select("#toolTip2").append("div").html(svgElement);
