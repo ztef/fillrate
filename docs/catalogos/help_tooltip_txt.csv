@@ -1,0 +1,9 @@
+kpi,tooltip_num,tolltip_name,tooltip_help
+ventas,tooltip2,"Detalle de Ventas por ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
+ventas,tooltip3,Detalle de VEntas por Producto y Presentación,Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
+ventas,tooltip4,"Ventas por Día ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
+fillrate,tooltip2,"Cantidad entregada por día de Fill Rate de ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
+fillrate,tooltip3,"Fillrate por ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
+pendientes,tooltip2,"Pedidos Pendientes por Tipo de ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
+pendientes,tooltip3,"Pedidos Pendientes por Día ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
+pendientes,tooltip4,"Pendientes por ""Entidad"" de ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle

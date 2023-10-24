@@ -325,7 +325,18 @@ Stage.EraseMapObjects=function(){
 
 }
 
+Stage.ShowInfoData=function(data){
 
+	if($("#toolTipLoader").css("visibility")!="visible"){
+		$("#toolTipLoader").css("visibility","visible");
+		$("#toolTipLoader").css("left",mouse_x+20);
+		$("#toolTipLoader").css("top",mouse_y);
+		$("#toolTipLoader").html(`<span style='color:#ffffff;font-size:${13*escalaTextos}px;color:#58DEFF'> ${data }</span>` );
+	}else{
+		$("#toolTipLoader").css("visibility","hidden");
+	}
+
+}
 
 Stage.DrawMapObjects=function(entities){
 	console.log(entities);

@@ -71,9 +71,7 @@ calculateKpiExpert_Ventas.calculateKPI=function(entities){
 
                     params+="&masivos=Solo Masivos"; 
                     
-            } 
-
-            
+            }             
 
              
             if(store.map_var==kpiExpert_FR){
@@ -258,6 +256,9 @@ calculateKpiExpert_Ventas.getTooltipDetail=function(entityId){
 
                 if(entities[i].ventas.ventas!=undefined)
                     prodPer=entities[i].ventas.ventas+"%";
+
+                if(entities[i].ventas.ventas > 130)
+                    prodPer=">130%";
 
                 var text=`<div class="tooltipDetailElement"><img id="" src="images/ventas.png" style=""></img>
                     <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento Ventas: </span><br>

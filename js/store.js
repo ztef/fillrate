@@ -23,9 +23,9 @@ var store={
             {apiURL:_bkserver ,serviceName:"getTable",tableName:"Vis_CatUN_Cemento" ,varName:"cat_un",onInitLoad:true,useDateFilters:false},
             //{sourceName:"ztSource",varName:"cat_zt",onInitLoad:true},
             {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetZT_FillRate",varName:"cat_zt",idFieldInCatlog:"ID" ,onInitLoad:false,useDateFilters:true},            
-            //{sourceName:"clienteSource",varName:"cat_cliente",onInitLoad:true}, 
+            
             {apiURL:_bkserver ,serviceName:"getSP/Generico?spname=VIS_GetFrentes_FillRate",varName:"cat_cliente_ref",idFieldInCatlog:"HoldingNum" ,nameInCatlog:"Holding",onInitLoad:false,useDateFilters:true},            
-  
+            {sourceName:"infoSource",varName:"cat_info",onInitLoad:true}, 
     ],
 
     apiDataSources:[

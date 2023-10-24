@@ -327,8 +327,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
     }); 
 
-    console.log("arr",arr);
-    
+
 
     arr=arr.reverse();
 
@@ -389,10 +388,10 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
     var svgTooltipWidth=arr.length*ancho;
 
-    if(svgTooltipWidth < 150)
-        svgTooltipWidth=150;
+    if(svgTooltipWidth < 320)
+        svgTooltipWidth=320;
 
-    var svgTooltipHeight=320;
+    var svgTooltipHeight=350;
     var tamanioFuente=ancho*.7;   
 
     var marginBottom=svgTooltipHeight*.28;
@@ -416,7 +415,7 @@ kpiExpert_PENDIENTES.DrawTooltipDetail_Dia=function(entity){
 
     // Agrega un div con un elemento svg :
 
-    var svgElement = `<img id="simbologia" src="images/simb FR libre.png" style="width:290px;position:absolute;float:left;right:7px;top:45px;"></img><svg id='svgTooltip3' style='pointer-events:none;'></svg>`;
+    var svgElement = `<img id="simbologia" src="images/simb FR libre.png" style="width:290px;position:absolute;float:left;right:7px;top:67px;"></img><svg id='svgTooltip3' style='pointer-events:none;'></svg>`;
     d3.select("#toolTip3").append("div").html(svgElement);
 
     d3.select("#svgTooltip3")                     

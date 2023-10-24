@@ -931,10 +931,18 @@ radar.DrawEntityValues=function(entity){
                                         
                                     }else if(radar.config[i].unidad=="1dec"){
 
-                                        label =  (Math.round(Number(label)*10)/10 ) ;
-                                      
+                                        label =  (Math.round(Number(label)*10)/10 ) ;                                      
                                         
-                                    }                               
+                                    }
+                                    
+                                    if(radar.config[i].unidad=="%"){
+                                        if(Number(entity[radar.config[i].var][radar.config[i].var]) > 130){
+                                            label =">130%"
+                                        }
+                                        if(Number(entity[radar.config[i].var][radar.config[i].var]) < -130){
+                                            label ="<130%"
+                                        }
+                                    }
 
                                     return label;
 

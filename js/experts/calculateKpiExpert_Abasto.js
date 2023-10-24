@@ -171,6 +171,9 @@ calculateKpiExpert_Abasto.getTooltipDetail=function(entityId){
                 if(entities[i].abasto.abasto!=undefined)
                 abastoPer=entities[i].abasto.abasto+"%";
                 
+                if(entities[i].abasto.abasto > 130)
+                    abastoPer=">130%";
+                
                 var text=`<div class="tooltipDetailElement"><img id="" src="images/cump_abasto.png" style=""></img>
                 <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento de Abasto: </span><br>
                 <span style='color:#fff600;font-size:${15*escalaTextos}px;'></span> <span style='color:#ffffff'>${abastoPer} <span style='color:#ffffff;font-size:${12*escalaTextos}px;'> (Plan: ${formatNumber(entities[i].abasto.VolumenPlan)} TM , Real:${formatNumber(entities[i].abasto.VolumenReal)} TM)</span>

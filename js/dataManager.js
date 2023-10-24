@@ -187,6 +187,24 @@ dataManager.getNameFromId=function(id){
 
 }
 
+dataManager.GetTooltipInfoData=function(id,kpi){
+
+        if(store.cat_info && id && kpi){
+
+            for(var i=0; i < store.cat_info.length; i++ ){
+                if(store.cat_info[i].kpi.toLowerCase() == kpi.toLowerCase() && store.cat_info[i].tooltip_num.toLowerCase() == id.toLowerCase()){
+                    return store.cat_info[i].tooltip_help;
+                }
+            }
+
+            return "";
+
+        }else{
+            return "";
+        }
+
+}
+
 dataManager.ProcessEntities= function(){    
 
     console.log("entities",entities);

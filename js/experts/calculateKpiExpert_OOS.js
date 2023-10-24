@@ -99,8 +99,8 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
 
                                         for(var i=0;  i < entities.length; i++){ 
             
-                                            entities[i].oos={oos:0,Numerador:0,Denominador:0,oos_lastDate:{Numerador:0,Denominador:0,oos:undefined},values:[]};
-                                            entities_coll[entities[i].key]=entities[i];                                 
+                                            entities[i].oos={oos:0,Numerador:0,Denominador:0,oos_lastDate:{Numerador:0,Denominador:0,oos:0},values:[]};
+                                            entities_coll[entities[i].key]=entities[i];                                
                                         }  
 
                                         var maxDate=0;
@@ -164,6 +164,8 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                                                 if( data.recordset[j].fecha.getTime() == maxDate ){
                                                                         entidad.oos.oos_lastDate.Numerador+=Number(data.recordset[j].Numerador); 
                                                                         entidad.oos.oos_lastDate.Denominador+=Number(data.recordset[j].Denominador); 
+                                                                        entidad.oos.oos_lastDate.oos=0;
+                                                                        if(entidad.oos.oos_lastDate.Denominador > 0)
                                                                         entidad.oos.oos_lastDate.oos=Math.round(  (entidad.oos.oos_lastDate.Numerador/entidad.oos.oos_lastDate.Denominador)    *10000)/100;
 
                                                                 }                                              
@@ -178,7 +180,7 @@ calculateKpiExpert_OOS.calculateKPI=function(entities,cb){
                                         for(var i=0;  i < entities.length; i++){ 
 
                                                 if(entities[i].oos.Numerador>0 && entities[i].oos.Denominador >0 ){                                                      
-                                                      
+                                                     
                                                         entities[i].oos.oos=Math.round(  (entities[i].oos.Numerador/entities[i].oos.Denominador)    *10000)/100;
                                                 }else{
                                                         entities[i].oos.oos=0;

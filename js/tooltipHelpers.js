@@ -306,7 +306,7 @@ function vix_tt_transitionRectWidth(containerID) {
 */
 
 
-function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
+function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight,infoData) {
 
 
     $(divElement).html("");
@@ -439,6 +439,14 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
         "align-items": "flex-start", // Align items to the top
       },
     });
+
+    if(infoData){
+      var infoButton = $(`<button onclick="Stage.ShowInfoData('${infoData}');" style=" background-color: rgb(80, 125, 140);border-style: none;">`, {
+        class: "info-button",
+        
+      }).append(' <img  src="images/info_windows.png" style="width: 19px;height: 20px;"></img>');
+      iconsColumn.append(infoButton);
+    }   
   
     
     var collapseButton = $("<button>", {
@@ -458,31 +466,18 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
     topBarContainer.append(titleColumn);
     topBarContainer.append(iconsColumn);
     topBar.append(topBarContainer);
-  
-
-    
-
    
 
     // Agrega la barra superior al div
     $(divElement).prepend(topBar);
 
-  
-    
-    
-
-   
 
     // Asocia evento de cerrado : OJO , Usa el CSS, no el visible del DOM
     closeButton.on("click", function () {
       $(divElement).css("visibility","hidden");
     });
 
-    
 
-    
-    
-  
     // Crea el evento para colapsar o expander la ventana
     collapseButton.on("click", function () {
       if (isCollapsed) {
@@ -549,9 +544,6 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight) {
 
 
     var currentTop = parseInt($(divElement).css("top"));
-
-   
-    
 
 
     $(divElement).html("");

@@ -14,6 +14,7 @@ var config={
     agrupadorInicial:"Nacional",
 
     //CATALOGOS
+    infoSource:"docs/catalogos/help_tooltip_txt.csv",
     regionSource:"docs/catalogos/RegionZT.csv",
     estadoSource:"docs/catalogos/EstadoZTDem.csv",
     unSource:"docs/catalogos/Unidad_de_Negocio_.csv",

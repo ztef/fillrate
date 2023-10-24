@@ -155,6 +155,9 @@ calculateKpiExpert_Produccion.getTooltipDetail=function(entityId){
 
                 if(entities[i].produccion.produccion!=undefined)
                     prodPer=entities[i].produccion.produccion+"%";
+
+                if(entities[i].produccion.produccion > 130)
+                    prodPer=">130%";
                 
                 var text=`<div class="tooltipDetailElement"><img id="" src="images/cump_prod.png" style=""></img>
                 <span style='color:#ffffff;font-size:${15*escalaTextos}px;'>Cumplimiento de Producción: </span><br>
