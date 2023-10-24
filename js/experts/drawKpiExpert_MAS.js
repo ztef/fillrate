@@ -174,7 +174,7 @@ kpiExpert_MAS.DrawTooltipDetail=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+dataManager.getNameFromId(entity.key)+" (TM)", 600, svgTooltipHeight+100);
+      vix_tt_formatToolTip("#toolTip2","Masivos por estado de "+dataManager.getNameFromId(entity.key)+" (TM)", 600, svgTooltipHeight+100,dataManager.GetTooltipInfoData("toolTip2","Masivos"));
     
      // CREA TABLA USANDO DATOS
       

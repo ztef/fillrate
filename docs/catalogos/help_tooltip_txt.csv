@@ -1,9 +1,23 @@
 kpi,tooltip_num,tolltip_name,tooltip_help
-ventas,tooltip2,"Detalle de Ventas por ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
-ventas,tooltip3,Detalle de VEntas por Producto y Presentación,Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
-ventas,tooltip4,"Ventas por Día ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
-fillrate,tooltip2,"Cantidad entregada por día de Fill Rate de ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
-fillrate,tooltip3,"Fillrate por ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
-pendientes,tooltip2,"Pedidos Pendientes por Tipo de ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
-pendientes,tooltip3,"Pedidos Pendientes por Día ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
-pendientes,tooltip4,"Pendientes por ""Entidad"" de ""Entidad""",Aquí podrás una explicación de lo que se puede observar en esta ventana de detalle
+Venta,toolTip2,"Detalle de Ventas por ""Entidad""",En Construcción: Detalle de Ventas por Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Venta,toolTip3,Detalle de Ventas por Producto y Presentación,En Construcción: Detalle de Ventas por Producto y Presentación. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Venta,toolTip4,"Ventas por Día ""Entidad""",En Construcción: Ventas por Día Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+FillRate,toolTip2,"Cantidad entregada por día de Fill Rate de ""Entidad""",En Construcción: Cantidad entregada por día de Fill Rate de Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+FillRate,toolTip3,"Fillrate por ""Entidad""",En Construcción: Fillrate por Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Retrasados,toolTip2,"Pedidos Pendientes por Tipo de ""Entidad""",En Construcción: Pedidos Pendientes por Tipo de Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Retrasados,toolTip3,"Pedidos Pendientes por Día ""Entidad""",En Construcción: Pedidos Pendientes por Día Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Retrasados,toolTip4,"Pendientes por Estado de ""Entidad""",En Construcción: Pendientes por Estado de Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Masivos,toolTip2,"Masivos por Estado de ""Entidad""",En Construcción: Masivos por Estado de Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+OOS Cedis,toolTip2,"Out of Stock de ""Entidad""",En Construcción: Out of Stock de Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+OOS Cedis,toolTip3,"Out of Stock por Día de ""Entidad""",En Construcción: Out of Stock por Día de Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Abasto,toolTip2,Abasto por Tipo de Transporte,En Construcción: Abasto por Tipo de Transporte. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Abasto,toolTip3,"Abasto recibido en UN que atienden ""Entidad"" (TM)",En Construcción: Abasto recibido en UN que atienden Entidad (TM). Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Abasto,toolTip4,"Orígenes de Abasto hacia ""Entidad""",En Construcción: Orígenes de Abasto hacia Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Abasto,toolTip5,"Abasto desde ""Entidad""",En Construcción: Abasto desde Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Prod,tooltip2,"Producción Molienda por Planta de ""Entidad"" (TM)",En Construcción: Producción Molienda por Planta de Entidad (TM). Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Prod,toolTip3,"Abasto recibido en UN que atienden ""Entidad"" (TM)",En Construcción: Abasto recibido en UN que atienden Entidad (TM). Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Flota,toolTip2,"Déficit de Flota por Origen ""Entidad""",En Construcción: Déficit de Flota por Origen Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Flota,toolTip3,"Déficit de Flota por Presentación ""Entidad""",En Construcción: Déficit de Flota por Presentación Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+Flota,toolTip4,"Déficit por Día ""Entidad""",En Construcción: Déficit por Día Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+OOS Filiales,toolTip2,"OOS Filiales por Origen y Producto de ""Entidad""",En Construcción: Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+OOS Filiales,toolTip3,"OOS Filiales por Día de ""Entidad""",En Construcción: OOS Filiales por Día de Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
