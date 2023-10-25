@@ -221,13 +221,17 @@ kpiExpert_Flota.DrawTooltipDetail_PorDia=function(entity){
 
                         }
 
+                        console.log("arr",arr);
+
                         arr = arr.sort((a, b) => {   
 
-                          return b.fecha - a.fecha;                                    
+                          return b.key - a.key;                                    
           
                         });
 
-                        var ancho=18;
+                        arr.reverse();
+
+                          var ancho=18;
                           var caso=0;    
 
                           var svgTooltipWidth=arr.length*(ancho*1.05) ;
@@ -261,6 +265,10 @@ kpiExpert_Flota.DrawTooltipDetail_PorDia=function(entity){
 
                                 var altura=(svgTooltipHeight*.35);
                                 var altura1=Math.abs(GetValorRangos( arr[i].Deficit*100,1, maximo ,1,altura));
+
+                                if(Math.abs(maximo)<1 && Math.abs(arr[i].Deficit)<1){
+                                  altura1=0;
+                                }
 
                                 console.log(arr[i].Deficit,altura1,maximo);
 
