@@ -253,7 +253,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip5","Abasto desde "+dataManager.getNameFromId(entity.key)+" hacia otras UN (TM)",820,svgTooltipHeight+80);
+      vix_tt_formatToolTip("#toolTip5","Abasto desde "+dataManager.getNameFromId(entity.key)+" hacia otras UN (TM)",820,svgTooltipHeight+80,dataManager.GetTooltipInfoData("toolTip5","Abasto"));
 
       // COLUMNAS CON TOTALES :
 
@@ -468,7 +468,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte (TM)",840,svgTooltipHeight+120);
+      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte (TM)",840,svgTooltipHeight+120,dataManager.GetTooltipInfoData("toolTip2","Abasto"));
 
 
       $("#toolTip2").mousedown();
@@ -718,7 +718,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
  
 
 
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+dataManager.getNameFromId(entity.key)+" (TM)" ,840,svgTooltipHeight+130);
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+dataManager.getNameFromId(entity.key)+" (TM)" ,840,svgTooltipHeight+130,dataManager.GetTooltipInfoData("toolTip3","Abasto"));
 
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );  
 
@@ -952,14 +952,14 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
            
           }
 
-          vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",820,svgTooltipHeight+80);
+          vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",820,svgTooltipHeight+80,dataManager.GetTooltipInfoData("toolTip4","Abasto"));
       
         }else{
 
           $("#toolTip4").css("bottom","1%");
           $("#toolTip4").css("right","1%");                   
 
-          vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden (TM) "+toTitleCase(entity.key)+"",820,svgTooltipHeight+80);
+          vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden (TM) "+toTitleCase(entity.key)+"",820,svgTooltipHeight+80,dataManager.GetTooltipInfoData("toolTip4","Abasto"));
       } 
    
      
