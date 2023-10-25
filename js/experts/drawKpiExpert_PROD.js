@@ -211,9 +211,14 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
                        return vix_tt_formatNumber(value) ; 
                      }
                      };     
-         
+
+              var titulo="Producción Molienda por Planta";
+
+              if($("#nivel_cb").val().toString() != "0" )
+                  titulo="Producción Molienda por Planta de "+dataManager.getNameFromId(entity.key)+" (TM)";
+
     
-                     vix_tt_formatToolTip("#toolTip2","Producción Molienda por Planta de "+dataManager.getNameFromId(entity.key)+" (TM)",840,svgTooltipHeight+130);
+              vix_tt_formatToolTip("#toolTip2",titulo,840,svgTooltipHeight+130);
 
 
       
