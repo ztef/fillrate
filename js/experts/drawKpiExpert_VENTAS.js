@@ -130,7 +130,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
   
   console.log(entity, dateInit, dateEnd);
 
-    
+  d3.select("#svgTooltip4").selectAll(".ventasDetail").data([]).exit().remove();
 
       $("#cargando").css("visibility","visible");
 
@@ -548,7 +548,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                                 d3.select("#svgTooltip4")
                                                 .append("text")						
-                                                .attr("class","frDetail")
+                                                .attr("class","ventasDetail")
                                                 .style("fill","#ffffff")		
                                                 .style("font-family","Cabin")
                                                 .style("font-weight","bold")
@@ -579,7 +579,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                                 d3.select("#svgTooltip4")
                                                 .append("text")						
-                                                .attr("class","frDetail")
+                                                .attr("class","ventasDetail")
                                                 .style("fill","#ffffff")		
                                                 .style("font-family","Cabin")
                                                 .style("font-weight","bold")
