@@ -1,105 +1,4 @@
 
-/*
-
-
-    Visual Interaction Systems Corp.
-
-    Funciones auxiliares para el manejo de Tool Tips (jquery, d3.js)
-
-    vix_tt (vix tool tip)
-
-
-*/
-
-
-
-/*
-
-    EJEMPLO DE USO :
-
-
-    // PREPARA DATOS 
-
-    var data = arr.map(function(item) {
-        return {
-          key: item.key,
-          "VolumenPlan": item.VolumenPlan,
-          "VolumenReal": item.VolumenReal,
-          "DifK": item.VolumenReal - item.VolumenPlan,
-          "DifP": 100 + ((item.VolumenReal - item.VolumenPlan) / item.VolumenPlan) * 100,
-          Peso: item.difPer
-        };
-        });
-    
-    
-        // DEFINE COLUMNAS
-      
-      var columns = [
-        { key: "key", header: "Estado", sortable: false, width: "500px" },
-        { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "150px" },
-        { key: "VolumenReal", header: "Vol Real", sortable: true, width: "150px" },
-        { key: "DifK", header: "Dif (k)", sortable: true, width: "150px" },
-        { key: "DifP", header: "Diferencia (%)", sortable: true,  width: "1500px" },
-        { key: "Peso", header: "Peso", sortable: true,  width: "1500px" }
-      ];
-    
-       // DEFINE VISITORS PARA CADA COLUMNA
-    
-    
-      var columnVisitors = {
-        key: function(value) {
-            return value;
-          },
-    
-        VolumenPlan: function(value) {
-          return vix_tt_formatNumber(value) + " Tons";
-        },
-        VolumenReal: function(value) {
-            return vix_tt_formatNumber(value) + " Tons";
-        },
-        DifK: function(value) {
-            return vix_tt_formatNumber(value) + " Tons";
-        },
-        DifP: function(value){
-      
-            var barWidth = value + '%';
-            var barValue = vix_tt_formatNumber(value)+'%';
-            return '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: white;"></rect></svg>' + barValue;
-       
-        },
-        Peso: function(value){
-      
-            var barWidth = value + '%';
-            var barValue = tt_formatNumber(value)+'%';
-            return '<svg width="100%" height="10"><rect class="bar-rect" width="' + barWidth + '" height="10" style="fill: yellow;"></rect></svg>' + barValue;
-      
-        }
-      };
-    
-    
-      // FORMATEA DIV :
-    
-      vix_tt_formatToolTip("#toolTip3","Detalle de Ventas por Producto y Presentación",350);
-    
-    
-      // CREA TABLA USANDO DATOS
-    
-      vix_tt_table(data, columns, columnVisitors, "toolTip3");
-      
-      
-      // APLICA TRANSICIONES 
-      
-      vix_tt_transitionRectWidth("toolTip3");
-      
-      
-
-
-
-
-*/
-
-
-
 // Crea contador global para z-order de los tooltips :
 
 
@@ -161,9 +60,7 @@ function vix_tt_transitionRectWidth(containerID) {
     let y = in_y;
 
     const innerWidth = window.innerWidth;  
-    const innerHeight = window.innerHeight;
-
-     
+    const innerHeight = window.innerHeight;     
 
     const positions = [{ x, y }]; // Arreglo que guarda posiciones disponibles
                                   // Al principio solo hay una.
@@ -289,11 +186,6 @@ function vix_tt_transitionRectWidth(containerID) {
 
 
 
-
-
-
-
-
 /*
 
   Formatea cualquier elemento DIV del DOM :
@@ -306,7 +198,7 @@ function vix_tt_transitionRectWidth(containerID) {
 */
 
 
-function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight,infoData) {
+function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight,infoData, extraData) {
 
 
     $(divElement).html("");
@@ -439,13 +331,22 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight,infoData
         "align-items": "flex-start", // Align items to the top
       },
     });
-
+    
+  
+    if(extraData){
+        var plusButton = $(`<button onclick="${extraData}" style=" background-color: rgb(80, 125, 140);border-style: none;">`, {
+          class: "plus-button",
+          
+        }).append(' <img  src="images/plus_icon.png" style="width: 16px;height: 16px;margin-top: 2px;"></img></button>');
+        iconsColumn.append(plusButton);
+    }
+console.log("infoData",infoData);
     if(infoData){
-      var infoButton = $(`<button onclick="Stage.ShowInfoData('${infoData}');" style=" background-color: rgb(80, 125, 140);border-style: none;">`, {
-        class: "info-button",
-        
-      }).append(' <img  src="images/info_windows.png" style="width: 19px;height: 20px;"></img>');
-      iconsColumn.append(infoButton);
+        var infoButton = $(`<button onclick="Stage.ShowInfoData('${infoData}');" style=" background-color: rgb(80, 125, 140);border-style: none;margin-right: 15px;">`, {
+          class: "info-button",
+          
+        }).append(' <img  src="images/info_windows.png" style="width: 19px;height: 19px;"></img></button>');
+        iconsColumn.append(infoButton);
     }   
   
     
@@ -852,7 +753,7 @@ function s2ab(s) {
     var table = containerDiv.append("table")
       .classed("tooltip-table", true)
       .style("border-collapse", "collapse")
-      .style("border", "0px solid white");
+      .style("border", "0px solid #41576b");
     
 
      
@@ -965,9 +866,7 @@ function s2ab(s) {
       var table = containerDiv.append("table")
           .classed("tooltip-table", true)
           .style("border-collapse", "collapse")
-          .style("border", "0px solid white");
-
-
+          .style("border", "0px solid #41576b");
             
 
 
@@ -1067,7 +966,7 @@ function s2ab(s) {
                 var totalsTable = containerDiv.append("table")
                 .classed("tooltip-table", true)
                 .style("border-collapse", "collapse")
-                .style("border", "1px solid white");  
+                .style("border", "1px solid #41576b");  
 
             var totalsTbody = totalsTable.append("tbody");  
 
@@ -1086,7 +985,8 @@ function s2ab(s) {
 
             // Crea fila de totales
             var totalsRow = totalsTbody.append("tr")
-                .attr("class", "totals-row");
+                .attr("class", "totals-row")
+                .style("border", "0px solid #81A8B7") ;
 
             // Crea celdas
             var totalsCells = totalsRow.selectAll("td")
@@ -1103,7 +1003,7 @@ function s2ab(s) {
                 .enter()
                 .append("td")
                 .attr("class", "body-cell")
-                .style("border", "0px solid white") 
+                .style("border", "0px solid #81A8B7") 
                 .style("width", function(d) {
                   return d.width; // Usa los mismos anchos que las columnas de la tabla de datos
                 })

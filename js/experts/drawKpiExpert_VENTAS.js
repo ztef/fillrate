@@ -414,14 +414,14 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                           for(var i=0; i < arr.length; i++ ){                            
 
-                                var altura=(svgTooltipHeight*.25);
+                                var altura=(svgTooltipHeight*.22);
 
                                 if(arr[i].VolumenPlan==0 && arr[i].VolumenPlan==0){
                                   var altura1=1;
                                   var altura2=1;
                                 }else{
-                                  var altura1=GetValorRangos( arr[i].VolumenPlan,1, maximo ,1,altura);
-                                  var altura2=GetValorRangos( arr[i].VolumenReal,1, maximo ,1,altura);
+                                  var altura1=GetValorRangos( arr[i].VolumenReal,1, maximo ,1,altura);
+                                  var altura2=GetValorRangos( arr[i].VolumenPlan,1, maximo ,1,altura);
                                 }                               
                                
 

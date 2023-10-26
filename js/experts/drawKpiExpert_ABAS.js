@@ -14,7 +14,11 @@ kpiExpert_ABAS.eraseChart=function(){
 
 }
 
-kpiExpert_ABAS.DrawTooltipDetail=function(entity){   
+kpiExpert_ABAS.lastEntity;
+
+kpiExpert_ABAS.DrawTooltipDetail=function(entity,extraData){   
+
+  kpiExpert_ABAS.lastEntity=entity;
 
     $("#toolTip").css("visibility","hidden");        
     
@@ -27,15 +31,15 @@ kpiExpert_ABAS.DrawTooltipDetail=function(entity){
    
    
     if( 5 == $("#nivel_cb").val() ){
-       kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen(entity); 
-       kpiExpert_ABAS.DrawTooltipDetail_Origen(entity);  
+       kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen(entity,extraData); 
+       kpiExpert_ABAS.DrawTooltipDetail_Origen(entity,extraData);  
     }else{
-        kpiExpert_ABAS.DrawTooltipDetail_UN(entity);
+        kpiExpert_ABAS.DrawTooltipDetail_UN(entity,extraData);
     }    
 
     //kpiExpert_ABAS.DrawTooltipDetail_Origen(entity);    
     
-    kpiExpert_ABAS.DrawTooltipDetail_Transporte(entity);
+    kpiExpert_ABAS.DrawTooltipDetail_Transporte(entity,extraData);
       
 
     opacidadCesium=30;
@@ -48,13 +52,12 @@ kpiExpert_ABAS.DrawTooltipDetail=function(entity){
          vix_tt_distributeDivs(["#toolTip3","#toolTip2"]);
     }
 
-
 }
 
 
  //********************************************************************************************************************** */
 
-kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){    
+kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity,extraData){    
 
     var maximo=0;
     var maximoVolumen=0;
@@ -186,16 +189,37 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
         // DEFINE COLUMNAS
       
-      var columns = [
-        { key: "key", header: "Destino", sortable: true, width: "110px" },
-        { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif", sortable: true, width: "100px" },
-        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
-        { key: "PesoReal", header: "Peso Real", sortable: true,  width: "100px" },
-        { key: "DifPesos", header: "Dif", sortable: true,  width: "100px" }
-      ];
+     
+      if(extraData){
+
+        var svgTooltipWidth=840;
+
+        var columns = [
+          { key: "key", header: "Destino", sortable: true, width: "110px" },
+          { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
+          { key: "PesoReal", header: "Peso Real", sortable: true,  width: "100px" },
+          { key: "DifPesos", header: "Dif", sortable: true,  width: "100px" },
+          { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
+          { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
+          { key: "DifK", header: "Dif", sortable: true, width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
+         
+        ];
+  
+
+      }else{
+
+        var svgTooltipWidth=400;
+        
+        var columns = [
+          { key: "key", header: "Destino", sortable: true, width: "110px" },         
+          { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
+          { key: "PesoReal", header: "Peso Real", sortable: true,  width: "100px" },
+          { key: "DifPesos", header: "Dif", sortable: true,  width: "100px" }
+        ];
+
+        
+      }
     
     
        // DEFINE VISITORS PARA CADA COLUMNA
@@ -253,7 +277,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
     
       // FORMATEA DIV :
 
-      vix_tt_formatToolTip("#toolTip5","Abasto desde "+dataManager.getNameFromId(entity.key)+" hacia otras UN (TM)",820,svgTooltipHeight+80,dataManager.GetTooltipInfoData("toolTip5","Abasto"));
+      vix_tt_formatToolTip("#toolTip5","Abasto desde "+dataManager.getNameFromId(entity.key)+" hacia otras UN (TM)",svgTooltipWidth,svgTooltipHeight+80,dataManager.GetTooltipInfoData("toolTip5","Abasto"),"kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen(kpiExpert_ABAS.lastEntity,true)");
 
       // COLUMNAS CON TOTALES :
 
@@ -301,7 +325,7 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity){
 
  //********************************************************************************************************************** */
     
-kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){    
+kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity,extraData){    
    
     var maximo=0;
     var maximoVolumen=0;   
@@ -401,17 +425,35 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
       
     
       // DEFINE COLUMNAS
-      
-      var columns = [
-        { key: "key", header: "Transporte", sortable: true, width: "110px" },
-        { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real ", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
-        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
-        { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
-        { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
-      ];
+      if(extraData){
+
+        var svgTooltipWidth=840;
+
+        var columns = [
+
+          { key: "key", header: "Transporte", sortable: true, width: "110px" },
+          { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
+          { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },          
+          { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
+          { key: "VolumenReal", header: "Vol Real ", sortable: true, width: "100px" },
+          { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" }
+
+        ];
+
+      }else{
+
+        var svgTooltipWidth=400;
+        
+        var columns = [
+          { key: "key", header: "Transporte", sortable: true, width: "110px" },
+          { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
+          { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
+         
+        ];
+      }
     
     
        // DEFINE VISITORS PARA CADA COLUMNA
@@ -468,7 +510,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
     
       // FORMATEA DIV :
     
-      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte (TM)",840,svgTooltipHeight+120,dataManager.GetTooltipInfoData("toolTip2","Abasto"));
+      vix_tt_formatToolTip("#toolTip2","Abasto por Tipo de Transporte (TM)",svgTooltipWidth,svgTooltipHeight+120,dataManager.GetTooltipInfoData("toolTip2","Abasto"),"kpiExpert_ABAS.DrawTooltipDetail_Transporte(kpiExpert_ABAS.lastEntity,true)");
 
 
       $("#toolTip2").mousedown();
@@ -522,7 +564,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
 
  //********************************************************************************************************************** */
 
-  kpiExpert_ABAS.DrawTooltipDetail_UN=function(entity){  
+  kpiExpert_ABAS.DrawTooltipDetail_UN=function(entity,extraData){  
 
         var maximo=0;    
         var maximoVolumen=0;   
@@ -622,22 +664,43 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
           "PesoReal": item.PesoReal,
           "DifPesos": item.DifPesos,
         };
-        });   
-    
-      
+        });  
+         
+
     
         // DEFINE COLUMNAS
       
-      var columns = [
-        { key: "key", header: "Unidad de Neogcio", sortable: true, width: "110px" },
-        { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
-        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
-        { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
-        { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
-      ];
+     
+
+      if(extraData){
+
+        var svgTooltipWidth=840;
+
+        var columns = [
+          { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },
+          { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
+          { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },
+          { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
+          { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
+          { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" }
+          
+        ];
+
+      }else{
+
+        var svgTooltipWidth=400;
+        
+        var columns = [
+          { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },          
+          { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
+          { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
+        ];
+
+      }
+    
     
     
       // DEFINE VISITORS PARA CADA COLUMNA   
@@ -718,7 +781,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
  
 
 
-      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+dataManager.getNameFromId(entity.key)+" (TM)" ,840,svgTooltipHeight+130,dataManager.GetTooltipInfoData("toolTip3","Abasto"));
+      vix_tt_formatToolTip("#toolTip3","Abasto recibido en UN que atienden "+dataManager.getNameFromId(entity.key)+" (TM)" ,svgTooltipWidth,svgTooltipHeight+130,dataManager.GetTooltipInfoData("toolTip3","Abasto"),"kpiExpert_ABAS.DrawTooltipDetail_UN(kpiExpert_ABAS.lastEntity,true)");
 
       vix_tt_table_extended(data, columns, columnVisitors, totalsColumnVisitors, "toolTip3", columnsWithTotals );  
 
@@ -737,7 +800,7 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity){
 
  //********************************************************************************************************************** */
 
-kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){  
+kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity,extraData){  
 
         var maximo=0;    
         var maximoVolumen=0;  
@@ -850,16 +913,36 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
     
         // DEFINE COLUMNAS
       
-      var columns = [
-        { key: "key", header: "Origen", sortable: true, width: "110px" },
-        { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
-        { key: "VolumenReal", header: "Vol Real ", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
-        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
-        { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
-        { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
-      ];
+      
+
+      if(extraData){
+
+        var svgTooltipWidth=840;
+
+        var columns = [
+          { key: "key", header: "Origen", sortable: true, width: "110px" },
+          { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
+          { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },
+          { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
+          { key: "VolumenReal", header: "Vol Real ", sortable: true, width: "100px" },
+          { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" }
+        
+        ];
+
+      }else{
+
+        var svgTooltipWidth=400;
+        
+        var columns = [
+          { key: "key", header: "Origen", sortable: true, width: "110px" },        
+          { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
+          { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
+        ];
+
+      }
     
     
         // DEFINE VISITORS PARA CADA COLUMNA
@@ -952,16 +1035,15 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity){
            
           }
 
-          vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",820,svgTooltipHeight+80,dataManager.GetTooltipInfoData("toolTip4","Abasto"));
+          vix_tt_formatToolTip("#toolTip4","Orígenes de Abasto hacia "+toTitleCase(entity.key)+"",svgTooltipWidth,svgTooltipHeight+80,dataManager.GetTooltipInfoData("toolTip4","Abasto"),"kpiExpert_ABAS.DrawTooltipDetail_Origen(kpiExpert_ABAS.lastEntity,true)");
       
         }else{
 
           $("#toolTip4").css("bottom","1%");
           $("#toolTip4").css("right","1%");                   
 
-          vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden (TM) "+toTitleCase(entity.key)+"",820,svgTooltipHeight+80,dataManager.GetTooltipInfoData("toolTip4","Abasto"));
-      } 
-   
+          vix_tt_formatToolTip("#toolTip4","Origenes de abasto hacia UN que atienden (TM) "+toTitleCase(entity.key)+"",svgTooltipWidth,svgTooltipHeight+80,dataManager.GetTooltipInfoData("toolTip4","Abasto"),"kpiExpert_ABAS.DrawTooltipDetail_Origen(kpiExpert_ABAS.lastEntity,true)");
+      }   
      
 
       // COLUMNAS CON TOTALES :

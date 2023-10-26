@@ -1,4 +1,5 @@
 var kpiExpert_PROD={};
+kpiExpert_PROD.lastEntity;
 
 kpiExpert_PROD.eraseChart=function(){ 
 
@@ -10,16 +11,19 @@ kpiExpert_PROD.eraseChart=function(){
 
 kpiExpert_PROD.DrawTooltipDetail=function(entity){   
     
-    d3.select("#svgTooltip").selectAll(".prodDetail").data([]).exit().remove();
-    kpiExpert_PROD.DrawTooltipDetail_Planta(entity);   
+      d3.select("#svgTooltip").selectAll(".prodDetail").data([]).exit().remove();
+      kpiExpert_PROD.DrawTooltipDetail_Planta(entity);
+      
+      kpiExpert_PROD.lastEntity=entity;
 
-    opacidadCesium=30;
-    $("#cesiumContainer").css("opacity",opacidadCesium/100); 
+      opacidadCesium=30;
+      $("#cesiumContainer").css("opacity",opacidadCesium/100);
 
 }
 
-kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){    
-       
+
+kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity,extraData){    
+
         var maximo=0; 
         var maximo2=0; 
        
@@ -79,14 +83,13 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
         var altura=30;
         var caso=0;
        
-        var svgTooltipHeight=arr.length*(altura*.55);
-
+        var svgTooltipHeight=arr.length*(altura*.85);
 
         if(svgTooltipHeight<80)
-        svgTooltipHeight=80;
+            svgTooltipHeight=80;
 
-        var svgTooltipWidth=650;
-        var marginLeft=svgTooltipWidth*.2;
+        
+      
         var tamanioFuente=altura*.4;
         var marginTop=svgTooltipHeight*.15;
 
@@ -116,24 +119,40 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
         };
         });
     
-
-
       
         // DEFINE COLUMNAS
-      
-      var columns = [
-        { key: "key", header: "Estado", sortable: true, width: "100px" },
-        { key: "VolVenta_Plan", header: "Vol Plan ", sortable: true, width: "100px" },
-        { key: "VolVenta_Real", header: "Vol Real ", sortable: true, width: "100px" },
-        { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
-        { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
-        { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
-        { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
-        { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
-      ];
+      if(extraData){
+
+        var svgTooltipWidth=840;
+
+        var columns = [
+          { key: "key", header: "Estado", sortable: true, width: "100px" },
+          { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
+          { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },        
+          { key: "VolVenta_Plan", header: "Vol Plan ", sortable: true, width: "100px" },
+          { key: "VolVenta_Real", header: "Vol Real ", sortable: true, width: "100px" },
+          { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
+          
+        ];
+      }else{
+
+        var svgTooltipWidth=400;
+        
+        var columns = [
+          { key: "key", header: "Estado", sortable: true, width: "100px" },
+          { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
+          { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }     
+         
+          
+        ];
+      }
+     
+      var marginLeft=svgTooltipWidth*.2;
     
-    
-       // DEFINE VISITORS PARA CADA COLUMNA
+      // DEFINE VISITORS PARA CADA COLUMNA
     
     
       var columnVisitors = {
@@ -217,10 +236,9 @@ kpiExpert_PROD.DrawTooltipDetail_Planta=function(entity){
               if($("#nivel_cb").val().toString() != "0" )
                   titulo="Producción Molienda por Planta de "+dataManager.getNameFromId(entity.key)+" (TM)";
 
-              vix_tt_formatToolTip("#toolTip2",titulo,840,svgTooltipHeight+130);
+              vix_tt_formatToolTip("#toolTip2",titulo,svgTooltipWidth,svgTooltipHeight+130,dataManager.GetTooltipInfoData("toolTip2","produccion"),"kpiExpert_PROD.DrawTooltipDetail_Planta(kpiExpert_PROD.lastEntity,true)");
 
 
-      
       // APLICA TRANSICIONES 
     
       vix_tt_transitionRectWidth("toolTip2");

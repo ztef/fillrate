@@ -14,8 +14,8 @@ Abasto,toolTip2,Abasto por Tipo de Transporte,En Construcción: Abasto por Tipo 
 Abasto,toolTip3,"Abasto recibido en UN que atienden ""Entidad"" (TM)",En Construcción: Abasto recibido en UN que atienden Entidad (TM). Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
 Abasto,toolTip4,"Orígenes de Abasto hacia ""Entidad""",En Construcción: Orígenes de Abasto hacia Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
 Abasto,toolTip5,"Abasto desde ""Entidad""",En Construcción: Abasto desde Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
-Prod,tooltip2,"Producción Molienda por Planta de ""Entidad"" (TM)",En Construcción: Producción Molienda por Planta de Entidad (TM). Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
-Prod,toolTip3,"Abasto recibido en UN que atienden ""Entidad"" (TM)",En Construcción: Abasto recibido en UN que atienden Entidad (TM). Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+produccion,toolTip2,"Producción Molienda por Planta de ""Entidad"" (TM)",En Construcción: Producción Molienda por Planta de Entidad (TM). Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
+produccion,toolTip3,"Abasto recibido en UN que atienden ""Entidad"" (TM)",En Construcción: Abasto recibido en UN que atienden Entidad (TM). Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
 Flota,toolTip2,"Déficit de Flota por Origen ""Entidad""",En Construcción: Déficit de Flota por Origen Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
 Flota,toolTip3,"Déficit de Flota por Presentación ""Entidad""",En Construcción: Déficit de Flota por Presentación Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle
 Flota,toolTip4,"Déficit por Día ""Entidad""",En Construcción: Déficit por Día Entidad. Aquí podrás ver una breve explicación de lo que se observa en esta ventana de detalle

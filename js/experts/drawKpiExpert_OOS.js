@@ -26,7 +26,7 @@ kpiExpert_OOS.DrawTooltipDetail=function(entity){
     $("#cesiumContainer").css("opacity",opacidadCesium/100); 
 
     // DISTRIBUYE 
-    vix_tt_distributeDivs(["#toolTip2","#toolTip3"]);  
+    //vix_tt_distributeDivs(["#toolTip2","#toolTip3"]);  
 
 }
 
