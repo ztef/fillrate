@@ -315,9 +315,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                           for(var i=0; i < data.recordset.length; i++ ){
 
-                            var fechaDelMes = new Date(data.recordset[i].fecha.getFullYear(), data.recordset[i].fecha.getMonth());
-                            
-                            data.recordset[i].mes=fechaDelMes;
+                                var fechaDelMes = new Date(data.recordset[i].fecha.getFullYear(), data.recordset[i].fecha.getMonth());
+                                
+                                data.recordset[i].mes=fechaDelMes;
+
+                                data.recordset[i].semana=data.recordset[i].fecha.getWeek();
 
                           }                          
 
@@ -334,6 +336,21 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                   
                                           })
                                           .entries(data.recordset);
+
+                          }else if(drawKpiExpert_VENTAS.detalleDeTiempo=="semana"){
+
+                            var arr=d3.nest()
+                                  .key(function(d) { 
+
+                                          if(d.mes){
+                                            console.log(d);
+                                                  return d.semana; 
+                                          }else{                       
+                                                  return 0;
+                                          }                        
+                          
+                                  })
+                                  .entries(data.recordset);
 
                           }else if(drawKpiExpert_VENTAS.detalleDeTiempo=="mes"){
 
@@ -365,6 +382,10 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                   if(drawKpiExpert_VENTAS.detalleDeTiempo=="dia"){
 
                                       arr[i].Fecha=arr[i].values[0].fecha.getDate()+" "+getMes(arr[i].values[0].fecha.getMonth());
+
+                                  }else if(drawKpiExpert_VENTAS.detalleDeTiempo=="semana"){
+
+                                    arr[i].Fecha=arr[i].values[0].semana+" "+getMes(arr[i].values[0].mes.getMonth());
 
                                   }else if(drawKpiExpert_VENTAS.detalleDeTiempo=="mes"){
 
@@ -438,7 +459,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                             <div class="dateContainer " style="margin-right: 9px;
                                                 display: grid;align-content: flex-start">
                                                 <button id="" style="font-size: 10px;margin-top: 2px;" class="loginBtn" onclick="drawKpiExpert_VENTAS.detalleDeTiempo='mes';drawKpiExpert_VENTAS.DrawTooltipDetail_porDia(drawKpiExpert_VENTAS.lastEntity,new Date($('#datepicker_').val()),new Date($('#datepicker2_').val()))">Mes</button> 
-                                                <button id="" style="font-size: 10px; margin-top: 2px;opacity:.5;" class="loginBtn" onclick="">Semana</button> 
+                                                <button id="" style="font-size: 10px; margin-top: 2px;" class="loginBtn" onclick="drawKpiExpert_VENTAS.detalleDeTiempo='semana';drawKpiExpert_VENTAS.DrawTooltipDetail_porDia(drawKpiExpert_VENTAS.lastEntity,new Date($('#datepicker_').val()),new Date($('#datepicker2_').val()))">Semana</button> 
                                                 <button id="" style="font-size: 10px; margin-top: 2px;" class="loginBtn" onclick="drawKpiExpert_VENTAS.detalleDeTiempo='dia';drawKpiExpert_VENTAS.DrawTooltipDetail_porDia(drawKpiExpert_VENTAS.lastEntity,new Date($('#datepicker_').val()),new Date($('#datepicker2_').val()))">Día</button> 
                                             </div>
                                             <div class="dateContainer " style="    padding-top: 14px;">
