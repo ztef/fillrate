@@ -199,23 +199,26 @@ kpiExpert_ABAS.DrawTooltipDetail_UNComoOrigen=function(entity,extraData){
           { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
           { key: "PesoReal", header: "Peso Real", sortable: true,  width: "100px" },
           { key: "DifPesos", header: "Dif", sortable: true,  width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
           { key: "VolumenPlan", header: "Vol Plan", sortable: true, width: "100px" },
           { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
           { key: "DifK", header: "Dif", sortable: true, width: "100px" },
-          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
+          
          
         ];
   
 
       }else{
 
-        var svgTooltipWidth=400;
+        var svgTooltipWidth=500;
         
         var columns = [
           { key: "key", header: "Destino", sortable: true, width: "110px" },         
           { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
           { key: "PesoReal", header: "Peso Real", sortable: true,  width: "100px" },
-          { key: "DifPesos", header: "Dif", sortable: true,  width: "100px" }
+          { key: "DifPesos", header: "Dif", sortable: true,  width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" }
+
         ];
 
         
@@ -434,24 +437,25 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity,extraData){
           { key: "key", header: "Transporte", sortable: true, width: "110px" },
           { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
           { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
-          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },          
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },        
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },  
           { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
           { key: "VolumenReal", header: "Vol Real ", sortable: true, width: "100px" },
           { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
-          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" }
+         
 
         ];
 
       }else{
 
-        var svgTooltipWidth=400;
+        var svgTooltipWidth=500;
         
         var columns = [
           { key: "key", header: "Transporte", sortable: true, width: "110px" },
           { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
           { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
-          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
-         
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" }
         ];
       }
     
@@ -681,22 +685,24 @@ kpiExpert_ABAS.DrawTooltipDetail_Transporte=function(entity,extraData){
           { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
           { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
           { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
           { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
           { key: "VolumenReal", header: "Vol Real", sortable: true, width: "100px" },
           { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
-          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" }
+          
           
         ];
 
       }else{
 
-        var svgTooltipWidth=400;
+        var svgTooltipWidth=500;
         
         var columns = [
           { key: "key", header: "Unidad de Negocio", sortable: true, width: "110px" },          
           { key: "PesoPlan", header: "Peso Plan ", sortable: true,  width: "100px" },
           { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
-          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" }
         ];
 
       }
@@ -924,10 +930,11 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity,extraData){
           { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
           { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
           { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" },
           { key: "VolumenPlan", header: "Vol Plan ", sortable: true, width: "100px" },
           { key: "VolumenReal", header: "Vol Real ", sortable: true, width: "100px" },
           { key: "DifK", header: "Dif ", sortable: true, width: "100px" },
-          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" }
+         
         
         ];
 
@@ -939,7 +946,8 @@ kpiExpert_ABAS.DrawTooltipDetail_Origen=function(entity,extraData){
           { key: "key", header: "Origen", sortable: true, width: "110px" },        
           { key: "PesoPlan", header: "Peso Plan", sortable: true,  width: "100px" },
           { key: "PesoReal", header: "Peso Real ", sortable: true,  width: "100px" },
-          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" }
+          { key: "DifPesos", header: "Dif ", sortable: true,  width: "100px" },
+          { key: "DifP", header: "Cumplimiento (%)", sortable: true,  width: "120px" }
         ];
 
       }

@@ -1,7 +1,11 @@
 var drawKpiExpert_VENTAS={};
+drawKpiExpert_VENTAS.detalleDeTiempo="dia";
+drawKpiExpert_VENTAS.lastEntity;
 
 
-drawKpiExpert_VENTAS.DrawElement=function(entity,i){      
+drawKpiExpert_VENTAS.DrawElement=function(entity,i){   
+  
+  
       
   var altura1=GetValorRangos(entity.ventas.ventas,1 ,100 ,1 ,entity.altura );
 
@@ -100,7 +104,8 @@ drawKpiExpert_VENTAS.eraseChart=function(){
 
 drawKpiExpert_VENTAS.DrawTooltipDetail=function(entity){  
   
-    
+    drawKpiExpert_VENTAS.lastEntity=entity;
+
     d3.select("#svgTooltip").selectAll(".ventasDetail").data([]).exit().remove();
     d3.select("#svgTooltip3").selectAll(".ventasDetail").data([]).exit().remove();
     d3.select("#svgTooltip4").selectAll(".ventasDetail").data([]).exit().remove();
@@ -121,7 +126,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail=function(entity){
 
 }  
 
-drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd){  
+drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd){ 
+  
+  console.log(entity, dateInit, dateEnd);
+
+    
 
       $("#cargando").css("visibility","visible");
 
@@ -271,59 +280,97 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                           for(var i=init; i < end+1000; i+=((1000*60)*60)*24 ){
                         
-                            if(!diasDelPeriodo[new Date(i).getTime()]){
-                                    
-                                    var obj={};
-                                    obj.VolumenPlan=0;
-                                    obj.VolumenReal=0;
-                                    obj.VolPlan_Acum=0;
-                                    obj.VolReal_Acum=0;
-                                    obj.CantEntFinal=0;
-                                    obj.CantEntFinal_Suma=0;
-                                    obj.PctPlan=0;
-                                    obj.PctReal=0;
-                                    obj.PctPlan_FR=0;
-                                    obj.PctReal_FR=0;
-                                    obj.VolPlan_FR=0;
-                                    obj.VolReal_FR=0;
-                                    obj.Dif_FR=0;
-                                    obj.VolPlan_FR_NP=0;
-                                    obj.VolReal_FR_NP=0;
-                                    obj.Dif_FR_NP=0;
-                                    obj.VolPlan_FR_Total=0;
-                                    obj.VolReal_FR_Total=0;
-                                    obj.VolumenPlan_Total=0;
-                                    obj.VolumenReal_Total=0;
-                                    obj.Peso=0;
-                                    obj.Fecha=String(new Date(i)),
-                                    obj.fecha=new Date(i);
-                                    data_.push(obj);
-                            }
-    
+                              if(!diasDelPeriodo[new Date(i).getTime()]){
+                                      
+                                      var obj={};
+                                      obj.VolumenPlan=0;
+                                      obj.VolumenReal=0;
+                                      obj.VolPlan_Acum=0;
+                                      obj.VolReal_Acum=0;
+                                      obj.CantEntFinal=0;
+                                      obj.CantEntFinal_Suma=0;
+                                      obj.PctPlan=0;
+                                      obj.PctReal=0;
+                                      obj.PctPlan_FR=0;
+                                      obj.PctReal_FR=0;
+                                      obj.VolPlan_FR=0;
+                                      obj.VolReal_FR=0;
+                                      obj.Dif_FR=0;
+                                      obj.VolPlan_FR_NP=0;
+                                      obj.VolReal_FR_NP=0;
+                                      obj.Dif_FR_NP=0;
+                                      obj.VolPlan_FR_Total=0;
+                                      obj.VolReal_FR_Total=0;
+                                      obj.VolumenPlan_Total=0;
+                                      obj.VolumenReal_Total=0;
+                                      obj.Peso=0;
+                                      obj.Fecha=String(new Date(i)),
+                                      obj.fecha=new Date(i);
+                                      data_.push(obj);
+                              }
+      
                           }
 
                           data.recordset=data_;
 
+                          for(var i=0; i < data.recordset.length; i++ ){
+
+                            var fechaDelMes = new Date(data.recordset[i].fecha.getFullYear(), data.recordset[i].fecha.getMonth());
+                            
+                            data.recordset[i].mes=fechaDelMes;
+
+                          }                          
+
+                          if(drawKpiExpert_VENTAS.detalleDeTiempo=="dia"){
+
+                                  var arr=d3.nest()
+                                          .key(function(d) { 
+
+                                                  if(d.fecha){
+                                                          return d.fecha.getTime(); 
+                                                  }else{                       
+                                                          return 0;
+                                                  }                        
+                                  
+                                          })
+                                          .entries(data.recordset);
+
+                          }else if(drawKpiExpert_VENTAS.detalleDeTiempo=="mes"){
+
+                                    var arr=d3.nest()
+                                          .key(function(d) { 
+
+                                                  if(d.mes){
+                                                    console.log(d);
+                                                          return d.mes.getTime(); 
+                                                  }else{                       
+                                                          return 0;
+                                                  }                        
+                                  
+                                          })
+                                          .entries(data.recordset);
+
+                          }
+
+                          console.log("arr",arr);
+
+                         
                           var maximo=0;
-
-                          var arr=d3.nest()
-                                  .key(function(d) { 
-
-                                          if(d.fecha){
-                                                  return d.fecha.getTime(); 
-                                          }else{                       
-                                                  return 0;
-                                          }                        
-                          
-                                  })
-                                  .entries(data.recordset);
-
                                 
                           for(var i=0; i < arr.length; i++ ){
 
                                   arr[i].VolumenPlan=0;
                                   arr[i].VolumenReal=0;
-                                  arr[i].Fecha=arr[i].values[0].Fecha;
+
+                                  if(drawKpiExpert_VENTAS.detalleDeTiempo=="dia"){
+
+                                      arr[i].Fecha=arr[i].values[0].fecha.getDate()+" "+getMes(arr[i].values[0].fecha.getMonth());
+
+                                  }else if(drawKpiExpert_VENTAS.detalleDeTiempo=="mes"){
+
+                                      arr[i].Fecha=getMes(arr[i].values[0].mes.getMonth())+" "+arr[i].values[0].mes.getFullYear();
+
+                                  }
 
                                   for(var j=0; j < arr[i].values.length; j++ ){
 
@@ -339,12 +386,21 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                           }
 
-                          arr = arr.sort((a, b) => {                
-                            return b.fecha - a.fecha;                                    
+                          arr = arr.sort((a, b) => {  
+
+                            if(drawKpiExpert_VENTAS.detalleDeTiempo=="dia"){
+                                          
+                                return b.fecha - a.fecha;   
+                            
+                            }else if(drawKpiExpert_VENTAS.detalleDeTiempo=="mes"){
+
+                                return b.mes - a.mes;   
+
+                            }
             
                           });
 
-                          console.log("dias",arr);
+                          console.log("fechas",arr);
 
                           drawKpiExpert_VENTAS.lastDataByDay=arr;
 
@@ -355,8 +411,8 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                           var svgTooltipWidth=arr.length*(ancho*1.05) ;
 
-                          if(svgTooltipWidth < 250)
-                                svgTooltipWidth=250;
+                          if(svgTooltipWidth < 300)
+                                svgTooltipWidth=300;
                   
                           var svgTooltipHeight=480;
 
@@ -368,13 +424,29 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                           var svgElement =
                           
                           `<svg id='svgTooltip4' style='pointer-events:none;'></svg>
-                          <div class="item2 loginContainer login-page form " style="position:relative;padding:10px;top: 0px;margin-top:0px;margin:0px;width: 170px;left:0px;background:#000000;">
+                          <div class="item2 loginContainer login-page form " style="
+                          position: relative;
+                          padding: 10px;
+                          top: 0px;
+                          margin: 0px;
+                          width: 263px;
+                          left: 0px;
+                          background: #000000;">
 
                                 <div class="dateContainer " style="padding-top: 0px;">
-                            
-                                    <input id="datepicker_" width="100%" placeholder="Desde"/>
-                                    <input id="datepicker2_" width="100%" placeholder="A"/>   
-    
+                                    <div class="dateContainer " style="display: flex;">
+                                            <div class="dateContainer " style="margin-right: 9px;
+                                                display: grid;align-content: flex-start">
+                                                <button id="" style="font-size: 10px;margin-top: 2px;" class="loginBtn" onclick="drawKpiExpert_VENTAS.detalleDeTiempo='mes';drawKpiExpert_VENTAS.DrawTooltipDetail_porDia(drawKpiExpert_VENTAS.lastEntity,new Date($('#datepicker_').val()),new Date($('#datepicker2_').val()))">Mes</button> 
+                                                <button id="" style="font-size: 10px; margin-top: 2px;opacity:.5;" class="loginBtn" onclick="">Semana</button> 
+                                                <button id="" style="font-size: 10px; margin-top: 2px;" class="loginBtn" onclick="drawKpiExpert_VENTAS.detalleDeTiempo='dia';drawKpiExpert_VENTAS.DrawTooltipDetail_porDia(drawKpiExpert_VENTAS.lastEntity,new Date($('#datepicker_').val()),new Date($('#datepicker2_').val()))">Día</button> 
+                                            </div>
+                                            <div class="dateContainer " style="    padding-top: 14px;">
+                                                <input id="datepicker_" width="100%" placeholder="Desde"/>
+                                                <input id="datepicker2_" width="100%" placeholder="A"/>   
+                                            </div>  
+                                            
+                                    </div>
                                     <button id="updateVentasDates" class="loginBtn" onclick="">Cambia Período</button> 
 
                                 </div>    
@@ -429,7 +501,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .attr("width",ancho*.9 )
                                                 .attr("class","ventasDetail")
                                                 .attr("x",(ancho*caso)  )
-                                                .attr("y", ((svgTooltipHeight*.65))-altura1-70  )
+                                                .attr("y", ((svgTooltipHeight*.65))-altura1-80  )
                                                 .attr("height",1)
                                                 .attr("fill","#00A8FF")
                                                 .transition().delay(0).duration(i*50)
@@ -443,14 +515,14 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .attr("x1",lastPosY.x+(ancho/2) )
                                                 .attr("y1", lastPosY.y   )
                                                 .attr("x2",ancho*caso+(ancho/2) )
-                                                .attr("y2", ((svgTooltipHeight*.65))-altura2-70  )
+                                                .attr("y2", ((svgTooltipHeight*.65))-altura2-80  )
                                                 .style("stroke","#ffffff")
                                                 .style("stroke-width",2)
                                                 .style("stroke-opacity",1);
 
                                 }
 
-                                lastPosY={x:(ancho*caso) ,y:((svgTooltipHeight*.65))-altura2-70 };
+                                lastPosY={x:(ancho*caso) ,y:((svgTooltipHeight*.65))-altura2-80 };
                                 
 
                                 d3.select("#svgTooltip4")
@@ -462,7 +534,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .style("font-size",tamanioFuente*.7)						
                                                 .style("text-anchor","start")
                                                 .style("opacity",0 )
-                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.2)) )+")  rotate("+(-90)+") ")
+                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)+1  )+","+String( ((svgTooltipHeight*.2))-10 )+")  rotate("+(-90)+") ")
                                                 .text(function(){
                                                   
                                                   var porDif="0";
@@ -492,12 +564,10 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .style("font-weight","bold")
                                                 .style("font-size",tamanioFuente*.8)	
                                                 .style("text-anchor","end")
-                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight*.65)-64  )+")  rotate("+(-90)+") ")
+                                                .attr("transform"," translate("+String( ancho*caso+(tamanioFuente*.7)  )+","+String( (svgTooltipHeight*.65)-74  )+")  rotate("+(-90)+") ")
                                                 .text(function(){
                                                         
-                                                var date=new Date( Number(arr[i].key) );
-        
-                                                return  date.getDate()+" "+getMes(date.getMonth());
+                                                  return  arr[i].Fecha;
                         
                                                 });
 

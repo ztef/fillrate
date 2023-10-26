@@ -543,6 +543,8 @@ color: yellow;
             $("#iconVenta_").hide();
         }
 
+        
+
         function setDates(sel)
         {
 
@@ -577,6 +579,7 @@ color: yellow;
                     $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-2023");
 
                 }
+
             }else{
                     
                     $('#datepicker').val((ayer.getMonth()+1)+"-01-2023");
@@ -584,6 +587,8 @@ color: yellow;
             }
 
         }
+
+        var fechaActual=new Date();
 
         $(function() {
 
@@ -600,7 +605,7 @@ color: yellow;
         
             });
 
-            var fechaActual=new Date();
+            
 
             if(fechaActual.getDate() > 5){
 
@@ -651,9 +656,7 @@ color: yellow;
                     DibujaEstados();                                       
 
                     filterControls.createDataFiltersControls(store.catlogsForFilters);
-                    filterControls.createHardCodedControls();
-
-                  
+                    filterControls.createHardCodedControls();                  
                    
 
                     radar.radarInitStage();
@@ -708,6 +711,70 @@ color: yellow;
                 }
         
             });
+
+            $('#datepicker2').change((e)=>{
+
+                    if( $('#datepicker').val() && $('#datepicker2').val() ){
+
+                            dateInit=new Date($('#datepicker').val());
+                            dateEnd=new Date($('#datepicker2').val());
+
+                            if(dateInit.getTime() > dateEnd.getTime()){
+
+                                if(fechaActual.getDate() > 5){
+
+                                    var ayer=new Date(fechaActual.getTime()-((1000*60)*60)*24);                    
+                                   
+                                    $('#datepicker2').val((ayer.getMonth()+1)+"-"+(ayer.getDate())+"-"+fechaActual.getFullYear());
+                    
+                                }else{
+                    
+                                    var endDate_=LastDayOfMonth(fechaActual.getFullYear(),fechaActual.getMonth()+1 );                    
+                                    
+                                    $('#datepicker2').val((fechaActual.getMonth())+"-"+(endDate_.getDate())+"-"+fechaActual.getFullYear());
+                    
+                                }
+
+                                alert("La fecha de inicio no puede rebasar fecha de fin");
+                                return;
+
+                            }                                                       
+
+                    }
+    
+            });
+
+            $('#datepicker').change((e)=>{
+
+                if( $('#datepicker').val() && $('#datepicker2').val() ){
+
+                        dateInit=new Date($('#datepicker').val());
+                        dateEnd=new Date($('#datepicker2').val());
+
+                        if(dateInit.getTime() > dateEnd.getTime()){
+
+                            if(fechaActual.getDate() > 5){
+
+                                var ayer=new Date(fechaActual.getTime()-((1000*60)*60)*24);
+                
+                                $('#datepicker').val((ayer.getMonth()+1)+"-01-"+fechaActual.getFullYear());                               
+                
+                            }else{
+                
+                                var endDate_=LastDayOfMonth(fechaActual.getFullYear(),fechaActual.getMonth()+1 );
+                
+                                $('#datepicker').val((fechaActual.getMonth())+"-01-"+fechaActual.getFullYear());                               
+                
+                            } 
+
+                            alert("La fecha de inicio no puede rebasar fecha de fin");
+                            return;
+
+                        }                                                       
+
+                }
+
+        });
 
 
             new Promise(Stage.initStage).then(
