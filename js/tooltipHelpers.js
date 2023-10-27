@@ -184,8 +184,6 @@ function vix_tt_transitionRectWidth(containerID) {
 
 }
 
-
-
 /*
 
   Formatea cualquier elemento DIV del DOM :
@@ -199,7 +197,6 @@ function vix_tt_transitionRectWidth(containerID) {
 
 
 function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight,infoData, extraData) {
-
 
     $(divElement).html("");
 
@@ -331,6 +328,9 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight,infoData
         "align-items": "flex-start", // Align items to the top
       },
     });
+
+
+  
     
   
     if(extraData){
@@ -340,7 +340,7 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight,infoData
         }).append(' <img  src="images/plus_icon.png" style="width: 16px;height: 16px;margin-top: 2px;"></img></button>');
         iconsColumn.append(plusButton);
     }
-console.log("infoData",infoData);
+
     if(infoData){
         var infoButton = $(`<button onclick="Stage.ShowInfoData('${infoData}');" style=" background-color: rgb(80, 125, 140);border-style: none;margin-right: 15px;">`, {
           class: "info-button",
@@ -348,8 +348,14 @@ console.log("infoData",infoData);
         }).append(' <img  src="images/info_windows.png" style="width: 19px;height: 19px;"></img></button>');
         iconsColumn.append(infoButton);
     }   
-  
+
+    var pinButton = $(`<button onclick="Stage.CloneWindow('${divElement}');" style=" background-color: rgb(80, 125, 140);border-style: none;">`, {
+      class: "pin-button",
+      
+    }).append(' <img  src="images/pin_icon.png" style="width: 16px;height: 16px;margin-top: 2px;"></img></button>');
+    iconsColumn.append(pinButton);   
     
+
     var collapseButton = $("<button>", {
       class: "collapse-button",
       
@@ -404,7 +410,7 @@ console.log("infoData",infoData);
   // Asigna evento mousedown solo al topBAR
   topBar.on("mousedown", function (e) {
     isDragging = true;
-
+console.log("arrastrando");
     // Calcula el offset del mouse a la parte superior izquierda del tooltip como referencia
     var tooltipOffset = $(divElement).offset();
     offsetX = e.pageX - tooltipOffset.left;
@@ -426,8 +432,6 @@ console.log("infoData",infoData);
       if(newTop < 0){
         newTop = 0;
       }
-
-
 
       $(divElement).css({
         left: e.pageX - offsetX,

@@ -405,8 +405,6 @@ Stage.DrawMapObjects=function(entities){
 	Stage.blockScreen.style("visibility","hidden");
 	//$("#Controls").css("visibility","visible");
 
-
-
 	setTimeout(()=>{
 
         filterControls.CheckIfFocus();       
@@ -416,6 +414,90 @@ Stage.DrawMapObjects=function(entities){
 	Stage.GetCammeraPos(entitiesCoords);
 
 }
+
+Stage.RemovePinned=function(){
+
+	for(var i=0; i < pinWindows.length; i++){    
+		pinWindows[i].remove();
+	}
+
+	pinWindows=[];
+}
+
+var pinWindows=[];
+var pinWindowsObj={};
+
+Stage.CloneWindow=function(id_){
+
+	var id=id_+"_"+getRandomInt(1,100);
+
+	pinWindowsObj[id] = document.createElement('div');   
+    pinWindowsObj[id].innerHTML = $(id_).html();
+	document.body.appendChild(pinWindowsObj[id]);
+	
+	pinWindows.push(pinWindowsObj[id]);
+
+	$(pinWindowsObj[id]).prop("style", $(id_).attr("style"))
+	$(pinWindowsObj[id]).addClass($(id_).attr("class"));
+
+	$(pinWindowsObj[id]).on("mousedown", function () {
+		// Incrementa el contador global z-index 
+		zIndexCounter++;	
+		// Setea el z-index 
+		$(pinWindowsObj[id]).css({		  
+		  zIndex: zIndexCounter,
+		});
+  
+	  });
+
+	$(pinWindowsObj[id]).attr("id",id.replaceAll("#",""));
+	$(pinWindowsObj[id]).css("background-color","white");
+	setTimeout(()=>{$(pinWindowsObj[id]).css("background-color","black");}, 100);
+	
+	$(pinWindowsObj[id]).attr("class",$(id_).attr('class'));
+
+	$(pinWindowsObj[id]).find(".icons-column").css("visibility","hidden");
+
+	$(pinWindowsObj[id]).find('.top-bar').on("mousedown", function (e) {
+		isDragging = true;
+		console.log("arrastrando");
+		// Calcula el offset del mouse a la parte superior izquierda del tooltip como referencia
+		var tooltipOffset = $(id).offset();
+		console.log(tooltipOffset);
+		offsetX = e.pageX - tooltipOffset.left;
+		offsetY = e.pageY - tooltipOffset.top;
+		currentdragId=id;
+	  });
+
+	  $(document).on("mouseup", function () {
+		isDragging = false;
+		currentdragId=undefined;
+	  });	  
+
+	$(document).on("mousemove", function (e) {
+		if (isDragging) {
+		  // Calcula la posicion y realiza el drag	
+		  var newTop = e.pageY - offsetY;
+	
+		  if(newTop < 0){
+			newTop = 0;
+		  }
+		 console.log("arrastrando  ",currentdragId);
+		 if(currentdragId){
+			$(currentdragId).css({
+				left: e.pageX - offsetX,
+				top:  newTop,
+			  });
+		 }
+		 
+		}
+	  });  
+
+	  $(id_).css("visibility","hidden");
+
+}
+
+var currentdragId;
 
 var calendarVisible=true;
 
