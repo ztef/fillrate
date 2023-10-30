@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Zip HTML, JavaScript, and CSS files
         run: zip -r release.zip .
@@ -37,8 +38,8 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip -o release.zip
-        
+
       - name: Deploy to Azure Web App
-          id: deploy-to-webapp
-          run: |
-            az webapp deployment source config-zip --resource-group e2v3drgd01 --name 'uscldv3dwad01' --src ./ --slot 'preprod' --subscription ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_132CA41D46EF4A83BBB0F0B6A85CC881 }}
+        id: deploy-to-webapp
+        run: |
+          az webapp deployment source config-zip --resource-group e2v3drgd01 --name 'uscldv3dwad01' --src ./ --slot 'preprod' --subscription ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_132CA41D46EF4A83BBB0F0B6A85CC881 }}
