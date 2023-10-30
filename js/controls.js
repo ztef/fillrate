@@ -101,7 +101,34 @@ filterControls.createDataFiltersControls=function(catalogs){
                 
                     arrAutoCompleteArr.push(arr[j].key);
 
-                }                
+                }  
+                
+                arrAutoCompleteArr.sort();
+
+                /*
+                arrAutoCompleteArr.sort(); = arrAutoCompleteArr.sort((a, b) => {
+
+                    if(String(Number(a.key))!="NaN"){
+                        
+                        return b.key - a.key;
+
+                    }else{
+
+                        if (a.key < b.key) {
+                            return -1;
+                        }
+                        if (a.key > b.key) {
+                            return 1;
+                        }
+                        return 0;
+                        }
+
+                    }
+                            
+                 );
+                 */
+                
+                arrAutoCompleteArr
 
                 // crea control de select  
                 $("#ControlsFields").append(
@@ -1181,6 +1208,78 @@ filterControls.createHardCodedControls=function(){
                     filterControls.showActiveFilters();
                     store.dataToDraw=[];
                     filterControls.FilterData();
+    
+        });
+
+         // CAPAS DE CLIMA
+         $("#ControlsFieldsCustom").append(
+            `
+            <div id="" class=""  style="font-family:Cabin;font-size:11px;color:#cccccc;z-index:9999999;opacity:1;font-weight: normal;margin-top:20px;">
+                Capas de clima en mapa: <br> <br>                 
+                <select id="weather_cb" style="font-size:12px;background-color:black;border-color: gray;border-width:1px;color:white;width:100%;opacity:.8;margin:2px;">
+                <option value=""></option>
+                <option value="clouds_new">Nubes</option>
+                <option value="precipitation_new">Precipitación</option>
+                <option value="temp_new">Temperatura</option>
+                <option value="wind_new">Velocidad de Viento</option>
+             
+                </select>
+
+            </div>                            
+            `
+        );
+
+        createdControls["weather_cb"]=true;
+
+        d3.select("#weather_cb").on("change",function(){            
+                
+                //elimina los estados
+                EliminaEstadosDibujados();
+
+                if($("#weather_cb").val()!=""){      
+                    
+                    viewer.imageryLayers.removeAll();
+
+                    var imageryLayers=viewer.imageryLayers;
+                    var url='https://api.mapbox.com/styles/v1/dcontreras1979/clodg9bi4000x01qseqsma88k/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGNvbnRyZXJhczE5NzkiLCJhIjoiY2l3Z3dpY2gxMDFhbzJvbW40cWRqNmZ0OCJ9.KIrZ8JiXWYgjLBb-nL3kYg';
+                    layer=new Cesium.UrlTemplateImageryProvider(
+                        {
+                            url:url
+                        }
+                    );
+                    imageryLayers.addImageryProvider(layer);  
+                    
+                    var imageryLayers=viewer.imageryLayers;
+                    var url='https://tile.openweathermap.org/map/'+$("#weather_cb").val()+'/{z}/{x}/{y}.png?appid=497190b8b2c9ba28013a941c3172a3fc';
+                    layer=new Cesium.UrlTemplateImageryProvider(
+                        {
+                            url:url,
+                            alpha: 1,
+                        }
+                    );
+                    imageryLayers.addImageryProvider(layer)
+
+                }else{
+
+                    viewer.imageryLayers.removeAll();
+
+                    var imageryLayers=viewer.imageryLayers;
+                    var url='https://api.mapbox.com/styles/v1/dcontreras1979/ciwiilbs100022qnvp3m3vnsh/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGNvbnRyZXJhczE5NzkiLCJhIjoiY2l3Z3dpY2gxMDFhbzJvbW40cWRqNmZ0OCJ9.KIrZ8JiXWYgjLBb-nL3kYg';
+                    layer=new Cesium.UrlTemplateImageryProvider(
+                        {
+                            url:url
+                        }
+                    );
+                    imageryLayers.addImageryProvider(layer); 
+                    
+                    //crea nuevamente los estados
+                    var estados  = d3.nest()
+                        .key(function(d) { return  d["EstadoZTDem"]; })                           
+                        .entries(store.dataToDraw);
+    
+                    calculateKpiExpert_FR.calculateFRPorEstado(estados);
+                }
+                   
     
         });
 

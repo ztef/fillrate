@@ -134,7 +134,7 @@ kpi_date_status.ShowWindows = function( ){
           
           };
 
-        vix_tt_formatToolTip("#toolTip3","Últimas fechas disponibles por KPI ",250,350);
+        vix_tt_formatToolTip("#toolTip3","Últimas fechas disponibles por KPI ",270,370);
       
         // CREA TABLA USANDO DATOS
       

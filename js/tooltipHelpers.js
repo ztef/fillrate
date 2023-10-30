@@ -401,7 +401,6 @@ function vix_tt_formatToolTip(divElement, titulo, width,  initialHeight,infoData
     });
 
 
-
     // Manejo de DRAG de forma manual para permitir scroll
 
   var isDragging = false;

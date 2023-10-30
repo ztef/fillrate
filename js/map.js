@@ -18,20 +18,22 @@ Stage.labelsInterval;
 
 Stage.allowMultipleSelection=false;
 Stage.selectedItems={};
+var layer;
 
 Stage.initStage=function(resolve, reject){
 
 		viewer = new Cesium.Viewer('cesiumContainer', {
 			imageryProvider : new Cesium.UrlTemplateImageryProvider({
 				//url : 'https://api.mapbox.com/styles/v1/dcontreras1979/ciwiilbs100022qnvp3m3vnsh/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGNvbnRyZXJhczE5NzkiLCJhIjoiY2l3Z3dpY2gxMDFhbzJvbW40cWRqNmZ0OCJ9.KIrZ8JiXWYgjLBb-nL3kYg',
-				url : 'https://api.mapbox.com/styles/v1/dcontreras1979/clkbl3i2z000d01p57y20fkss/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGNvbnRyZXJhczE5NzkiLCJhIjoiY2l3Z3dpY2gxMDFhbzJvbW40cWRqNmZ0OCJ9.KIrZ8JiXWYgjLBb-nL3kYg',
-				credit : '',
+				url : 'https://api.mapbox.com/styles/v1/dcontreras1979/ciwiilbs100022qnvp3m3vnsh/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGNvbnRyZXJhczE5NzkiLCJhIjoiY2l3Z3dpY2gxMDFhbzJvbW40cWRqNmZ0OCJ9.KIrZ8JiXWYgjLBb-nL3kYg',
 				
+				credit : '',
+				/*
 				terrainProvider: new Cesium.CesiumTerrainProvider({
 					url: `https://api.maptiler.com/tiles/terrain-quantized-mesh-v2/?key=6mKJJJYS8B7DcCpfaQSV`,
 					credit: new Cesium.Credit("\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy;MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e", true),
 					requestVertexNormals: true
-		})
+				})*/
 	 
 			
 		}),
@@ -43,10 +45,13 @@ Stage.initStage=function(resolve, reject){
 		baseLayerPicker : false
 		});
 
+		
+
+		/*
 		var terrainProvider = new Cesium.CesiumTerrainProvider({
 		url: `https://api.maptiler.com/tiles/terrain-quantized-mesh-v2/?key=6mKJJJYS8B7DcCpfaQSV`,
 		});
-
+		*/
 
 		viewer.camera.flyTo({
 			destination : Cesium.Cartesian3.fromDegrees(-101.777344, 8.121772, 2500000.0),
