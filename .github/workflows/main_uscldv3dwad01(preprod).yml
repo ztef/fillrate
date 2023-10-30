@@ -42,5 +42,5 @@ jobs:
           app-name: 'uscldv3dwad01'
           slot-name: 'preprod'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_132CA41D46EF4A83BBB0F0B6A85CC881 }}
-          platform: 'html'
+          platform: 'staticsite'
           package: .
