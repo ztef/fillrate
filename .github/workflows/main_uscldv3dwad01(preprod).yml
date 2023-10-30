@@ -34,4 +34,7 @@ jobs:
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         run: |
-          az webapp deployment source config-zip --resource-group e2v3drgd01 --name 'uscldv3dwad01' --src ./ --slot 'preprod' --subscription ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_132CA41D46EF4A83BBB0F0B6A85CC881 }}
+          az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+          az webapp deployment source config-zip --resource-group e2v3drgd01 --name 'uscldv3dwad01' --src ./ --slot 'preprod'
+
+          
