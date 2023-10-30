@@ -41,4 +41,4 @@ jobs:
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         run: |
-          az webapp deployment source config-zip --resource-group <resource-group-name> --name 'uscldv3dwad01' --src ./ --slot 'preprod'
+          az webapp deployment source config-zip --resource-group e2v3drgd01 --name 'uscldv3dwad01' --src ./ --slot 'preprod'
