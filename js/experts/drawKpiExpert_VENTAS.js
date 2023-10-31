@@ -288,6 +288,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                       obj.VolPlan_Acum=0;
                                       obj.VolReal_Acum=0;
                                       obj.CantEntFinal=0;
+
+                                      obj.AutofleteReal=0;
+                                      obj.RecogidoReal=0;
+                                      obj.EntregadoReal=0;
+
                                       obj.CantEntFinal_Suma=0;
                                       obj.PctPlan=0;
                                       obj.PctReal=0;
@@ -319,8 +324,13 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                 
                                 data.recordset[i].mes=fechaDelMes;
 
-                                data.recordset[i].semana=data.recordset[i].fecha.getWeek();
-
+                                if(!data.recordset[i].Vc20descr_sem){
+                                  data.recordset[i].semanaDate=data.recordset[i].fecha.getWeekDate();
+                                  data.recordset[i].Vc20descr_sem=data.recordset[i].semanaDate.getFullYear()+"-"+(data.recordset[i].semanaDate.getMonth()+1)+"-"+data.recordset[i].semanaDate.getDate();
+                                  console.log("crea semamna ",data.recordset[i].Vc20descr_sem);
+                                }                             
+                                
+                              
                           }                          
 
                           if(drawKpiExpert_VENTAS.detalleDeTiempo=="dia"){
@@ -379,6 +389,11 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                   arr[i].VolumenPlan=0;
                                   arr[i].VolumenReal=0;
 
+                                  arr[i].AutofleteReal=0;
+                                  arr[i].RecogidoReal=0;
+                                  arr[i].EntregadoReal=0;
+
+
                                   if(drawKpiExpert_VENTAS.detalleDeTiempo=="dia"){
 
                                       arr[i].Fecha=arr[i].values[0].fecha.getDate()+" "+getMes(arr[i].values[0].fecha.getMonth());
@@ -397,6 +412,10 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
 
                                         arr[i].VolumenPlan+=Number(arr[i].values[j].VolumenPlan);
                                         arr[i].VolumenReal+=Number(arr[i].values[j].VolumenReal);
+
+                                        arr[i].AutofleteReal+=Number(arr[i].values[j].AutofleteReal);
+                                        arr[i].RecogidoReal+=Number(arr[i].values[j].RecogidoReal);
+                                        arr[i].EntregadoReal+=Number(arr[i].values[j].EntregadoReal);
 
                                   }
 
@@ -444,7 +463,7 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                 
                           var svgElement =
                           
-                          `<svg id='svgTooltip4' style='pointer-events:none;'></svg>
+                          `<img id="simbologia" src="images/ventasdetalle.jpg" style="width:290px;position:absolute;float:left;right:20px;bottom:${10}px;"></img><svg id='svgTooltip4' style='pointer-events:none;'></svg>
                           <div class="item2 loginContainer login-page form " style="
                           position: relative;
                           padding: 10px;
@@ -515,6 +534,12 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                 }else{
                                   var altura1=GetValorRangos( arr[i].VolumenReal,1, maximo ,1,altura);
                                   var altura2=GetValorRangos( arr[i].VolumenPlan,1, maximo ,1,altura);
+
+                                  //Por tipo de entrega
+                                  var altura_AutofleteReal=GetValorRangos( arr[i].AutofleteReal,1, maximo ,1,altura);
+                                  var altura_RecogidoReal=GetValorRangos( arr[i].RecogidoReal,1, maximo ,1,altura);
+                                  var altura_EntregadoReal=GetValorRangos( arr[i].EntregadoReal,1, maximo ,1,altura);
+                                
                                 }                               
                                
 
@@ -528,6 +553,42 @@ drawKpiExpert_VENTAS.DrawTooltipDetail_porDia=function(entity, dateInit, dateEnd
                                                 .transition().delay(0).duration(i*50)
                                                 .style("height",altura1 )	
                                                 ;
+
+                                d3.select("#svgTooltip4").append("rect")		    		
+                                                .attr("width",ancho*.7 )
+                                                .attr("class","ventasDetail")
+                                                .attr("x",(ancho*caso)  )
+                                                .attr("y", ((svgTooltipHeight*.65))-altura_AutofleteReal-80  )
+                                                .attr("height",1)
+                                                .attr("fill","#19E0E0")
+                                                .transition().delay(0).duration(i*50)
+                                                .style("height",altura_AutofleteReal )	
+                                                ;
+
+                                d3.select("#svgTooltip4").append("rect")		    		
+                                                .attr("width",ancho*.7 )
+                                                .attr("class","ventasDetail")
+                                                .attr("x",(ancho*caso)  )
+                                                .attr("y", ((svgTooltipHeight*.65))-altura_AutofleteReal-80-(altura_RecogidoReal)  )
+                                                .attr("height",1)
+                                                .attr("fill","#FCA36D")
+                                                .transition().delay(0).duration(i*50)
+                                                .style("height",altura_RecogidoReal )	
+                                                ;
+
+                                d3.select("#svgTooltip4").append("rect")		    		
+                                                .attr("width",ancho*.7 )
+                                                .attr("class","ventasDetail")
+                                                .attr("x",(ancho*caso)  )
+                                                .attr("y", ((svgTooltipHeight*.65))-altura_AutofleteReal-80 -(altura_RecogidoReal+altura_EntregadoReal) )
+                                                .attr("height",1)
+                                                .attr("fill","#9BFF65")
+                                                .transition().delay(0).duration(i*50)
+                                                .style("height",altura_EntregadoReal )	
+                                                ;
+                                
+                                //Por tipo de entrega
+
 
                                 if(lastPosY){
 
